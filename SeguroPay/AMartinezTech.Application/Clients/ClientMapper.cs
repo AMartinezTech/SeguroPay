@@ -1,5 +1,4 @@
-﻿using AMartinezTech.Application.Clients.DTOs;
-using AMartinezTech.Domain.Clients.Entitties;
+﻿using AMartinezTech.Domain.Clients.Entitties;
 
 namespace AMartinezTech.Application.Clients;
 

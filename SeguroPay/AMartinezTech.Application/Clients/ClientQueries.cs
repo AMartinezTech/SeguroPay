@@ -1,6 +1,4 @@
-﻿using AMartinezTech.Application.Clients.DTOs;
-using AMartinezTech.Application.Clients.Repositories;
-using AMartinezTech.Core.Utils;
+﻿using AMartinezTech.Core.Utils;
 
 namespace AMartinezTech.Application.Clients;
 
