@@ -1,5 +1,5 @@
 ﻿using AMartinezTech.Application.Bank.Account.Interfaces;
-using AMartinezTech.Core.Utils;
+using AMartinezTech.Domain.Utils;
 
 namespace AMartinezTech.Application.Bank.Account.UseCases.Read;
 

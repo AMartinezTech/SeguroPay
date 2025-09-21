@@ -1,6 +1,6 @@
 ﻿using AMartinezTech.Application.Client.Types;
-using AMartinezTech.Core.Utils;
-using AMartinezTech.Domain.Client.Entitties; 
+using AMartinezTech.Domain.Client.Entitties;
+using AMartinezTech.Domain.Utils;
 using AMartinezTech.Infrastructure.Utils.Persistence;
 using Microsoft.Data.SqlClient;
 

@@ -1,7 +1,9 @@
-﻿namespace AMartinezTech.Domain.Utils.Interfaces;
+﻿using AMartinezTech.Core.Utils;
+
+namespace AMartinezTech.Domain.Utils.Interfaces;
 
 public interface IGetByDate<T> where T : class, IAggregateRoot
 {
-    Task<IReadOnlyList<T>> PaginationAsync(DateTime initialDate, DateTime endDate, bool? isActived);
+    Task<ByDateResult<T>> GetByDateAsync(DateTime initialDate, DateTime endDate, bool? isActived);
 
 }

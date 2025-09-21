@@ -1,15 +1,8 @@
-﻿namespace AMartinezTech.Core.Utils;
+﻿namespace AMartinezTech.Domain.Utils;
 
-public class PageResult<T>
-{ 
-    public int TotalRecords { get; set; }
-    public int TotalPages { get; set; }
-    public IReadOnlyList<T> Data { get; set; }
-
-    public PageResult(int totalRecords, int pageSize, IReadOnlyList<T> data)
-    {
-        TotalRecords = totalRecords;
-        TotalPages = (int)Math.Ceiling(totalRecords / (double)pageSize); ;
-        Data = data;
-    }
+public class PageResult<T>(int totalRecords, int pageSize, IReadOnlyList<T> data)
+{
+    public int TotalRecords { get; set; } = totalRecords;
+    public int TotalPages { get; set; } = (int)Math.Ceiling(totalRecords / (double)pageSize);
+    public IReadOnlyList<T> Data { get; set; } = data;
 }

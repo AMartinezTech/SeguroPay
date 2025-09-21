@@ -1,5 +1,5 @@
 ﻿using AMartinezTech.Application.Cash.Expense.Category.Interfaces;
-using AMartinezTech.Core.Utils;
+using AMartinezTech.Domain.Utils;
 
 namespace AMartinezTech.Application.Cash.Expense.Category.UseCases.Read;
 

@@ -1,4 +1,4 @@
-﻿using AMartinezTech.Core.Utils; 
+﻿using AMartinezTech.Domain.Utils;
 
 namespace AMartinezTech.Application.Setting.DocIdentity;
 

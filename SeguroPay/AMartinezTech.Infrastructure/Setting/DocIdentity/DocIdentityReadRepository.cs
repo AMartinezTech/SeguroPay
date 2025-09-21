@@ -1,6 +1,6 @@
 ﻿using AMartinezTech.Application.Setting.DocIdentity;
-using AMartinezTech.Core.Utils; 
-using AMartinezTech.Domain.Setting.DocIndentity; 
+using AMartinezTech.Domain.Setting.DocIndentity;
+using AMartinezTech.Domain.Utils;
 using AMartinezTech.Infrastructure.Utils.Persistence;
 using Microsoft.Data.SqlClient;
 
