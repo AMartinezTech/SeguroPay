@@ -1,6 +1,6 @@
-﻿using AMartinezTech.Application.Clients;
-using AMartinezTech.Application.Clients.Categories;
-using AMartinezTech.Application.Clients.Types;
+﻿using AMartinezTech.Application.Client;
+using AMartinezTech.Application.Client.Categories;
+using AMartinezTech.Application.Client.Types;
 using AMartinezTech.Infrastructure.Clients;
 using AMartinezTech.Infrastructure.Clients.Categories;
 using AMartinezTech.Infrastructure.Clients.Type;

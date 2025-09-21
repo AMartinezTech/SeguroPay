@@ -19,5 +19,7 @@ public class ClientDto
     public string? Observation { get; set; }
     public string? LocationNo { get; set; }
     public string? AddressRef { get; set; }
+    public string? ContactName { get; set; }
+    public string? ContactPhone { get; set; }
     public bool IsActived { get; set; }
 }

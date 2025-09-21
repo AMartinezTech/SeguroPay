@@ -1,6 +1,6 @@
 ﻿using AMartinezTech.Application.Setting.DocIdentity;
 using AMartinezTech.Core.Utils; 
-using AMartinezTech.Domain.Settings.DocIndentity; 
+using AMartinezTech.Domain.Setting.DocIndentity; 
 using AMartinezTech.Infrastructure.Utils.Persistence;
 using Microsoft.Data.SqlClient;
 
@@ -8,7 +8,7 @@ namespace AMartinezTech.Infrastructure.Setting.DocIdentity;
 
 public class DocIdentityReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IDocIdentityReadRepository
 {
-    public async Task<PagedResult<DocIdentityEntity>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
+    public async Task<PageResult<DocIdentityEntity>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
     {
         var result = new List<DocIdentityEntity>();
         int totalRecords = 0;
@@ -56,6 +56,6 @@ public class DocIdentityReadRepository(string connectionString) : AdoRepositoryB
                 result.Add(MapToDocIdentity.ToEntity(reader));
         }
 
-        return new PagedResult<DocIdentityEntity>(totalRecords, pageSize, result);
+        return new PageResult<DocIdentityEntity>(totalRecords, pageSize, result);
     }
 }

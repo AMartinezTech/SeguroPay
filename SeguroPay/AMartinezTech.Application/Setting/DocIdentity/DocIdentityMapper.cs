@@ -1,5 +1,5 @@
 ﻿ 
-using AMartinezTech.Domain.Settings.DocIndentity;
+using AMartinezTech.Domain.Setting.DocIndentity;
 
 namespace AMartinezTech.Application.Setting.DocIdentity;
 

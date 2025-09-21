@@ -5,7 +5,7 @@ namespace AMartinezTech.Domain.Utils.ValueObjects;
 
 public class ValueGuid
 {
-    public Guid Value { get; }
+    public Guid Value { get; init; }
 
     private ValueGuid(Guid value)
     {

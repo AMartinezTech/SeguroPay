@@ -1,6 +1,6 @@
 ﻿
 using AMartinezTech.Domain.Utils.Enums;
-using AMartinezTech.Core.Interfaces;
+using AMartinezTech.Domain.Utils.Interfaces;
 using AMartinezTech.Domain.Utils.ValueObjects;
 using AMartinezTech.Domain.Client.ValueObjects;
 using AMartinezTech.Domain.Utils;

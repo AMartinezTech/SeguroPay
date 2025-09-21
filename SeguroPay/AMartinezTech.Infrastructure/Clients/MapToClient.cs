@@ -1,10 +1,10 @@
-﻿using AMartinezTech.Domain.Clients.Entitties;
+﻿using AMartinezTech.Domain.Client.Entitties;
 using AMartinezTech.Domain.Utils.ValueObjects;
 using Microsoft.Data.SqlClient;
 
-namespace AMartinezTech.Infrastructure.Clients.Mappers;
+namespace AMartinezTech.Infrastructure.Clients;
 
-public class MapToClient
+internal class MapToClient
 {
     public static ClientEntity ToEntity(SqlDataReader reader)
     {
@@ -28,7 +28,10 @@ public class MapToClient
             reader.GetOrdinal("observation").ToString(),
             reader.GetOrdinal("location_no").ToString(),
             reader.GetOrdinal("address_ref").ToString(),
-            bool.Parse(reader.GetOrdinal("is_actived").ToString())
+            bool.Parse(reader.GetOrdinal("is_actived").ToString()),
+            reader.GetOrdinal("contact_name").ToString(),
+            reader.GetOrdinal("contact_phone").ToString()
+
             );
     }
 }

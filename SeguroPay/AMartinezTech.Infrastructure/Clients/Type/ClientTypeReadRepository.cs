@@ -1,6 +1,6 @@
-﻿using AMartinezTech.Application.Clients.Types;
+﻿using AMartinezTech.Application.Client.Types;
 using AMartinezTech.Core.Utils;
-using AMartinezTech.Domain.Clients.Entitties; 
+using AMartinezTech.Domain.Client.Entitties; 
 using AMartinezTech.Infrastructure.Utils.Persistence;
 using Microsoft.Data.SqlClient;
 
@@ -8,7 +8,7 @@ namespace AMartinezTech.Infrastructure.Clients.Type;
 
 public class ClientTypeReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IClientTypeReadRepository
 {
-    public async Task<PagedResult<ClientTypeEntity>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
+    public async Task<PageResult<ClientTypeEntity>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
     {
         var result = new List<ClientTypeEntity>();
         int totalRecords = 0;
@@ -56,6 +56,6 @@ public class ClientTypeReadRepository(string connectionString) : AdoRepositoryBa
                 result.Add(MapToClientType.ToEntity(reader));
         }
 
-        return new PagedResult<ClientTypeEntity>(totalRecords, pageSize, result);
+        return new PageResult<ClientTypeEntity>(totalRecords, pageSize, result);
     }
 }

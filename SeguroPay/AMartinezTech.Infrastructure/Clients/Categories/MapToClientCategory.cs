@@ -1,4 +1,4 @@
-﻿using AMartinezTech.Domain.Clients.Entitties;
+﻿using AMartinezTech.Domain.Client.Entitties;
 using Microsoft.Data.SqlClient;
 
 namespace AMartinezTech.Infrastructure.Clients.Categories;

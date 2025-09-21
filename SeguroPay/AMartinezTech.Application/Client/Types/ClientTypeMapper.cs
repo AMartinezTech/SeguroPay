@@ -2,7 +2,7 @@
 
 namespace AMartinezTech.Application.Client.Types;
 
-public class ClientTypeMapper
+internal class ClientTypeMapper
 {
     public static ClientTypeDto ToDto(ClientTypeEntity clientType)
     {

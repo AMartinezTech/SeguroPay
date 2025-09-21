@@ -6,11 +6,11 @@ public class DocIdentityQueries(IDocIdentityReadRepository repository)
 {
     private readonly IDocIdentityReadRepository _repository = repository;
 
-    public async Task<PagedResult<DocIdentityDto>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
+    public async Task<PageResult<DocIdentityDto>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
     {
         var result = await _repository.PaginationAsync(pageNumber, pageSize, isActived);
         var dtoList = DocIdentityMapper.ToDtoList(result.Data);
 
-        return new PagedResult<DocIdentityDto>(result.TotalRecords, pageSize, dtoList);
+        return new PageResult<DocIdentityDto>(result.TotalRecords, pageSize, dtoList);
     }
 }

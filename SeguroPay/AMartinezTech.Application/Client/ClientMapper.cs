@@ -2,16 +2,16 @@
 
 namespace AMartinezTech.Application.Client;
 
-public class ClientMapper
+internal class ClientMapper
 {
     public static ClientDto ToDto(ClientEntity client)
     {
         return new ClientDto
         {
             Id = client.Id,
-            CategoryId = client.CategoryId,
-            DocIdentityTypeId = client.DocIdentityTypeId,
-            TypeId = client.TypeId,
+            CategoryId = client.CategoryId.Value,
+            DocIdentityTypeId = client.DocIdentityTypeId.Value,
+            TypeId = client.TypeId.Value,
             DocIdentity = client.DocIdentity.Value,
             FirstName = client.FirstName.Value,
             LastName = client.LastName.Value,
@@ -25,6 +25,8 @@ public class ClientMapper
             Observation = client.Observation,
             LocationNo = client.LocationNo,
             AddressRef = client.AddressRef,
+            ContactName = client.ContactName,
+            ContactPhone = client.ContactPhone,
             IsActived = client.IsActived
         };
     }

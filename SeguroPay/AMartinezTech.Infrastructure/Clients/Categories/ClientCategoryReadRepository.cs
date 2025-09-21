@@ -1,6 +1,6 @@
-﻿using AMartinezTech.Application.Clients.Categories;
+﻿using AMartinezTech.Application.Client.Categories;
 using AMartinezTech.Core.Utils;
-using AMartinezTech.Domain.Clients.Entitties;
+using AMartinezTech.Domain.Client.Entitties;
 using AMartinezTech.Infrastructure.Utils.Persistence;
 using Microsoft.Data.SqlClient;
 
@@ -9,7 +9,7 @@ namespace AMartinezTech.Infrastructure.Clients.Categories;
 public class ClientCategoryReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IClientCategoryReadRepository
 {
    
-    public async Task<PagedResult<ClientCategoryEntity>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
+    public async Task<PageResult<ClientCategoryEntity>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
     {
         var result = new List<ClientCategoryEntity>();
         int totalRecords = 0;
@@ -57,6 +57,6 @@ public class ClientCategoryReadRepository(string connectionString) : AdoReposito
                 result.Add(MapToClientCategory.ToEntity(reader));
         }
 
-        return new PagedResult<ClientCategoryEntity>(totalRecords, pageSize, result);
+        return new PageResult<ClientCategoryEntity>(totalRecords, pageSize, result);
     }
 }

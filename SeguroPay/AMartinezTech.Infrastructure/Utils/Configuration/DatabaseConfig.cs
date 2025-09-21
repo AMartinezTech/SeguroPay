@@ -4,10 +4,10 @@ namespace AMartinezTech.Infrastructure.Utils.Configuration;
 
 public class DatabaseConfig
 {
-    public string Server { get; private set; }
-    public string Database { get; private set; }
-    private string User { get; set; }
-    private string Password { get; set; }
+    public string Server { get; private set; } = string.Empty;
+    public string Database { get; private set; } = string.Empty;
+    private string User { get; set; } = string.Empty;
+    private string Password { get; set; } = string.Empty;
 
     public string GetConnectionString()
     {
@@ -30,8 +30,8 @@ public class DatabaseConfig
 
         return new DatabaseConfig
         {
-            Server = dbElement.GetProperty("Server")!.GetString()!,
-            Database = dbElement.GetProperty("Database")!.GetString()!,
+            Server = dbElement.GetProperty(nameof(Server))!.GetString()!,
+            Database = dbElement.GetProperty(nameof(Database))!.GetString()!,
             User = "sa",
             Password = "A36m21c722414"
         };

@@ -1,4 +1,4 @@
-﻿namespace AMartinezTech.Core.Interfaces;
+﻿namespace AMartinezTech.Domain.Utils.Interfaces;
 
 public interface ICreate<T> where T : class, IAggregateRoot
 {

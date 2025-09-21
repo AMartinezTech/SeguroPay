@@ -1,9 +1,9 @@
-﻿using AMartinezTech.Domain.Settings.DocIndentity;
+﻿using AMartinezTech.Domain.Setting.DocIndentity;
 using Microsoft.Data.SqlClient;
 
 namespace AMartinezTech.Infrastructure.Setting.DocIdentity;
 
-public class MapToDocIdentity
+internal class MapToDocIdentity
 {
     public static DocIdentityEntity ToEntity(SqlDataReader reader)
     {

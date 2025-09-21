@@ -1,6 +1,6 @@
 ﻿
 
-using AMartinezTech.Core.Interfaces;
+using AMartinezTech.Domain.Utils.Interfaces;
 using AMartinezTech.Domain.Utils.ValueObjects;
 using AMartinezTech.Domain.Utils.Exception;
 using System.ComponentModel.DataAnnotations;

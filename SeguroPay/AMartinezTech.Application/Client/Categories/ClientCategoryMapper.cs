@@ -2,7 +2,7 @@
 
 namespace AMartinezTech.Application.Client.Categories;
 
-public class ClientCategoryMapper
+internal class ClientCategoryMapper
 {
     public static ClientCategoryDto ToDto(ClientCategoryEntity clientCategory)
     {

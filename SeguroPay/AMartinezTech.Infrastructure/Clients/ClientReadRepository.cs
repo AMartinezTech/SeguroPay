@@ -1,7 +1,6 @@
-﻿using AMartinezTech.Application.Clients;
+﻿using AMartinezTech.Application.Client;
 using AMartinezTech.Core.Utils;
-using AMartinezTech.Domain.Clients.Entitties;
-using AMartinezTech.Infrastructure.Clients.Mappers;
+using AMartinezTech.Domain.Client.Entitties;
 using AMartinezTech.Infrastructure.Utils.Persistence;
 using Microsoft.Data.SqlClient;
 
@@ -45,7 +44,7 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
         throw new NotImplementedException();
     }
 
-    public async Task<PagedResult<ClientEntity>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
+    public async Task<PageResult<ClientEntity>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
     {
         var result = new List<ClientEntity>();
         int totalRecords = 0;
@@ -93,6 +92,6 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
                 result.Add(MapToClient.ToEntity(reader));
         }
 
-        return new PagedResult<ClientEntity>(totalRecords, pageSize, result);
+        return new PageResult<ClientEntity>(totalRecords, pageSize, result);
     }
 }
