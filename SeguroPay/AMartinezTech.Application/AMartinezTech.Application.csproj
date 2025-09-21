@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Location\Dtos\" />
+    <Folder Include="Location\Mappers\" />
+    <Folder Include="Location\Commands\" />
+    <Folder Include="Location\Queries\" />
     <Folder Include="Setting\Company\" />
   </ItemGroup>
 

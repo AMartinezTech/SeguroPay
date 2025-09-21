@@ -1,4 +1,5 @@
 ﻿using AMartinezTech.Domain.Clients.Entitties;
+using AMartinezTech.Domain.Utils.ValueObjects;
 using Microsoft.Data.SqlClient;
 
 namespace AMartinezTech.Infrastructure.Clients.Mappers;
@@ -7,6 +8,12 @@ public class MapToClient
 {
     public static ClientEntity ToEntity(SqlDataReader reader)
     {
+        var address = ValueAddress.Create(
+            reader.GetGuid(reader.GetOrdinal("country_id")), reader.GetGuid(reader.GetOrdinal("region_id")),
+            reader.GetGuid(reader.GetOrdinal("city_id")),
+            reader.GetGuid(reader.GetOrdinal("postal_code_id")),
+            reader.GetGuid(reader.GetOrdinal("street_id")));
+
         return ClientEntity.Create(
             reader.GetGuid(reader.GetOrdinal("id")),
             reader.GetGuid(reader.GetOrdinal("category_id")),
@@ -15,11 +22,7 @@ public class MapToClient
             reader.GetOrdinal("doc_identity").ToString(),
             reader.GetOrdinal("first_name").ToString(),
             reader.GetOrdinal("last_name").ToString(),
-            reader.GetGuid(reader.GetOrdinal("street_id")),
-            reader.GetGuid(reader.GetOrdinal("city_id")),
-            reader.GetGuid(reader.GetOrdinal("region_id")),
-            reader.GetGuid(reader.GetOrdinal("postal_code_id")),
-            reader.GetGuid(reader.GetOrdinal("country_id")),
+            address,
             reader.GetOrdinal("phone").ToString(),
             reader.GetOrdinal("email").ToString(),
             reader.GetOrdinal("observation").ToString(),
