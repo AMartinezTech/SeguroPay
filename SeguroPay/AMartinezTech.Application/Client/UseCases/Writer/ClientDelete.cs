@@ -1,4 +1,6 @@
-﻿namespace AMartinezTech.Application.Client.UseCases.Writer;
+﻿using AMartinezTech.Application.Client.Interfaces;
+
+namespace AMartinezTech.Application.Client.UseCases.Writer;
 
 public class ClientDelete(IClientWriteRepository repository)
 {

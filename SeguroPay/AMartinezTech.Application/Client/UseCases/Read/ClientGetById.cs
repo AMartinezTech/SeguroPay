@@ -1,4 +1,6 @@
-﻿namespace AMartinezTech.Application.Client.UseCases.Read;
+﻿using AMartinezTech.Application.Client.Interfaces;
+
+namespace AMartinezTech.Application.Client.UseCases.Read;
 
 public class ClientGetById(IClientReadRepository repository)
 {

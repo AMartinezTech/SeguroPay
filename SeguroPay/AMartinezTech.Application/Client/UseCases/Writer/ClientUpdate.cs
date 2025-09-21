@@ -1,4 +1,5 @@
-﻿using AMartinezTech.Domain.Client.Entitties;
+﻿using AMartinezTech.Application.Client.Interfaces;
+using AMartinezTech.Domain.Client.Entitties;
 using AMartinezTech.Domain.Utils.ValueObjects;
 
 namespace AMartinezTech.Application.Client.UseCases.Writer;

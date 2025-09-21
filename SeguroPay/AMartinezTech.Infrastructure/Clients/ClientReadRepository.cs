@@ -1,4 +1,4 @@
-﻿using AMartinezTech.Application.Client;
+﻿using AMartinezTech.Application.Client.Interfaces;
 using AMartinezTech.Core.Utils;
 using AMartinezTech.Domain.Client.Entitties;
 using AMartinezTech.Infrastructure.Utils.Persistence;

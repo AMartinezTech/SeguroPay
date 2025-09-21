@@ -1,4 +1,5 @@
-﻿using AMartinezTech.Core.Utils;
+﻿using AMartinezTech.Application.Client.Interfaces;
+using AMartinezTech.Core.Utils;
 
 namespace AMartinezTech.Application.Client.UseCases.Read;
 

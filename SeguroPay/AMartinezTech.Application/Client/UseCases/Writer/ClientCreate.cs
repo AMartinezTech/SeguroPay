@@ -1,4 +1,5 @@
-﻿using AMartinezTech.Domain.Client.Entitties;
+﻿using AMartinezTech.Application.Client.Interfaces;
+using AMartinezTech.Domain.Client.Entitties;
 using AMartinezTech.Domain.Utils.ValueObjects;
 
 namespace AMartinezTech.Application.Client.UseCases.Writer;
@@ -10,7 +11,7 @@ public class ClientCreate(IClientWriteRepository repository)
     public async Task<Guid> CreateAsync(ClientDto dto)
     {
         var address = ValueAddress.Create(dto.CountryId, dto.RegionId, dto.CityId, dto.PostalCodeId, dto.StreetId);
-        var client = ClientEntity.Create(
+        var entity = ClientEntity.Create(
             Guid.Empty,
             dto.CategoryId,
             dto.DocIdentityTypeId,
@@ -28,8 +29,8 @@ public class ClientCreate(IClientWriteRepository repository)
             dto.ContactName ?? string.Empty,
             dto.ContactPhone ?? string.Empty
         );
-        await _repository.CreateAsync(client);
-        return client.Id;
+        await _repository.CreateAsync(entity);
+        return entity.Id;
 
     }
 }

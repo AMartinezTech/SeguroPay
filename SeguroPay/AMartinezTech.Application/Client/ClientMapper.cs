@@ -4,35 +4,35 @@ namespace AMartinezTech.Application.Client;
 
 internal class ClientMapper
 {
-    public static ClientDto ToDto(ClientEntity client)
+    public static ClientDto ToDto(ClientEntity entity)
     {
         return new ClientDto
         {
-            Id = client.Id,
-            CategoryId = client.CategoryId.Value,
-            DocIdentityTypeId = client.DocIdentityTypeId.Value,
-            TypeId = client.TypeId.Value,
-            DocIdentity = client.DocIdentity.Value,
-            FirstName = client.FirstName.Value,
-            LastName = client.LastName.Value,
-            StreetId = client.Address.StreetId,
-            CityId = client.Address.CityId,
-            RegionId = client.Address.RegionId,
-            PostalCodeId = client.Address.PostalCodeId,
-            CountryId = client.Address.CountryId,
-            Phone = client.Phone.Value,
-            Email = client.Email.Value,
-            Observation = client.Observation,
-            LocationNo = client.LocationNo,
-            AddressRef = client.AddressRef,
-            ContactName = client.ContactName,
-            ContactPhone = client.ContactPhone,
-            IsActived = client.IsActived
+            Id = entity.Id,
+            CategoryId = entity.CategoryId.Value,
+            DocIdentityTypeId = entity.DocIdentityTypeId.Value,
+            TypeId = entity.TypeId.Value,
+            DocIdentity = entity.DocIdentity.Value,
+            FirstName = entity.FirstName.Value,
+            LastName = entity.LastName.Value,
+            StreetId = entity.Address.StreetId,
+            CityId = entity.Address.CityId,
+            RegionId = entity.Address.RegionId,
+            PostalCodeId = entity.Address.PostalCodeId,
+            CountryId = entity.Address.CountryId,
+            Phone = entity.Phone.Value,
+            Email = entity.Email.Value,
+            Observation = entity.Observation,
+            LocationNo = entity.LocationNo,
+            AddressRef = entity.AddressRef,
+            ContactName = entity.ContactName,
+            ContactPhone = entity.ContactPhone,
+            IsActived = entity.IsActived
         };
     }
 
-    public static List<ClientDto> ToDtoList(IEnumerable<ClientEntity> clients)
+    public static List<ClientDto> ToDtoList(IEnumerable<ClientEntity> entities)
     {
-        return [.. clients.Select(ToDto)];
+        return [.. entities.Select(ToDto)];
     }
 }
