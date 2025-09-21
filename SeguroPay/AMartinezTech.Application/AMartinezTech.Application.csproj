@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Bank\Deposit\UseCases\Read\" />
     <Folder Include="Location\Dtos\" />
     <Folder Include="Location\Mappers\" />
     <Folder Include="Location\Commands\" />

@@ -1,6 +1,6 @@
 ﻿using AMartinezTech.Application.Client.Interfaces;
 
-namespace AMartinezTech.Application.Client.UseCases.Writer;
+namespace AMartinezTech.Application.Client.UseCases.Write;
 
 public class ClientDelete(IClientWriteRepository repository)
 {

@@ -1,6 +1,6 @@
 ﻿using AMartinezTech.Application.Bank.Account.Interfaces;
 
-namespace AMartinezTech.Application.Bank.Account.UseCases.Writer;
+namespace AMartinezTech.Application.Bank.Account.UseCases.Write;
 
 public class BankAccountDelete(IBankAccountWriterRepository repository)
 {

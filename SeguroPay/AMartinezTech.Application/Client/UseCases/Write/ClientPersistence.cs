@@ -2,16 +2,16 @@
 using AMartinezTech.Domain.Client.Entitties;
 using AMartinezTech.Domain.Utils.ValueObjects;
 
-namespace AMartinezTech.Application.Client.UseCases.Writer;
+namespace AMartinezTech.Application.Client.UseCases.Write;
 
-public class ClientUpdate(IClientWriteRepository repository)
+public class ClientPersistence(IClientWriteRepository repository)
 {
     private readonly IClientWriteRepository _repository = repository;
-    public async Task UpdateAsync(ClientDto dto)
+
+    public async Task<Guid> PersistenceAsync(ClientDto dto)
     {
         var address = ValueAddress.Create(dto.CountryId, dto.RegionId, dto.CityId, dto.PostalCodeId, dto.StreetId);
-
-        var client = ClientEntity.Create(
+        var entity = ClientEntity.Create(
             dto.Id,
             dto.CategoryId,
             dto.DocIdentityTypeId,
@@ -29,7 +29,8 @@ public class ClientUpdate(IClientWriteRepository repository)
             dto.ContactName ?? string.Empty,
             dto.ContactPhone ?? string.Empty
         );
-        await _repository.UpdateAsync(client);
+        if (dto.Id == Guid.Empty) { await _repository.CreateAsync(entity); } else { await _repository.UpdateAsync(entity); }
+        return entity.Id;
 
     }
 }
