@@ -1,26 +1,24 @@
-﻿
-
-using AMartinezTech.Domain.Utils.Interfaces;
+﻿using AMartinezTech.Domain.Utils.Interfaces;
 using AMartinezTech.Domain.Utils;
 using AMartinezTech.Domain.Utils.Exception;
 using System.ComponentModel.DataAnnotations;
 
 namespace AMartinezTech.Domain.Cash.Expense;
 
-public class ExpenceCategoryEntity : IAggregateRoot
+public class ExpenseCategoryEntity : IAggregateRoot
 {
     public Guid Id { get; private set; }
     public string Name { get; private set; }
     public bool IsActived { get; private set; }
 
-    private ExpenceCategoryEntity(Guid id, string name, bool isActived)
+    private ExpenseCategoryEntity(Guid id, string name, bool isActived)
     { 
         Id = id;
         Name = name;
         IsActived = isActived;
     }
 
-    public static ExpenceCategoryEntity Create(Guid id, string name, bool isActived)
+    public static ExpenseCategoryEntity Create(Guid id, string name, bool isActived)
     {
         if (string.IsNullOrWhiteSpace(name.Trim()))
             throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - Nombre! ");
@@ -32,6 +30,6 @@ public class ExpenceCategoryEntity : IAggregateRoot
             throw new ValidationException($" {ErrorMessages.Get(ErrorType.MinLength)} (4) - Nombre! ");
 
         id = CreateGuid.EnsureId(id);
-        return new ExpenceCategoryEntity(id, name, isActived);
+        return new ExpenseCategoryEntity(id, name, isActived);
     }
 }

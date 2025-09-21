@@ -4,7 +4,7 @@ using AMartinezTech.Domain.Utils.ValueObjects;
 
 namespace AMartinezTech.Domain.Cash.Expense;
 
-public class ExpenceEntity : IAggregateRoot
+public class ExpenseEntity : IAggregateRoot
 {
     public Guid Id { get; private set; }
     public ValueGuid CategoryId { get; private set; }
@@ -12,7 +12,7 @@ public class ExpenceEntity : IAggregateRoot
     public string Note { get; private set; }
     public bool IsActived { get; private set; }
 
-    private ExpenceEntity(Guid id, ValueGuid categoryId, ValuePositiveNum amount, string note, bool isActived)
+    private ExpenseEntity(Guid id, ValueGuid categoryId, ValuePositiveNum amount, string note, bool isActived)
     {
         Id = id;
         CategoryId = categoryId;
@@ -21,9 +21,9 @@ public class ExpenceEntity : IAggregateRoot
         IsActived = isActived;
     }
 
-    public static ExpenceEntity Create(Guid id, Guid categoryId, decimal amount, string note, bool isActived)
+    public static ExpenseEntity Create(Guid id, Guid categoryId, decimal amount, string note, bool isActived)
     {
         id = CreateGuid.EnsureId(id);
-        return new ExpenceEntity(id, ValueGuid.Create(categoryId,"categoría"), ValuePositiveNum.Create(amount,"monto"), note, isActived);
+        return new ExpenseEntity(id, ValueGuid.Create(categoryId,"categoría"), ValuePositiveNum.Create(amount,"monto"), note, isActived);
     }
 }

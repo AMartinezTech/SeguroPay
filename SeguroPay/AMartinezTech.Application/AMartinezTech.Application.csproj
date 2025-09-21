@@ -16,6 +16,8 @@
     <Folder Include="Location\Mappers\" />
     <Folder Include="Location\Commands\" />
     <Folder Include="Location\Queries\" />
+    <Folder Include="Insurance\" />
+    <Folder Include="Policy\" />
     <Folder Include="Setting\Company\" />
   </ItemGroup>
 
