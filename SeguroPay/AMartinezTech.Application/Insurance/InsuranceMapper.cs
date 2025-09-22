@@ -26,6 +26,6 @@ internal class InsuranceMapper
 
     internal static List<InsuranceDto> ToDtoList(IEnumerable<InsuranceEntity> entities)
     {
-        return [.. entities.Select(ToDto)];
+        return [.. entities.Select(ToDto).ToList()];
     }
 }

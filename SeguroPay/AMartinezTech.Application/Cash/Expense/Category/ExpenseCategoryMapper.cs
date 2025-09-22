@@ -16,7 +16,7 @@ internal class ExpenseCategoryMapper
 
     internal static List<ExpenseCategoryDto> ToDtoList(IEnumerable<ExpenseCategoryEntity> entities) 
     {
-        return [.. entities.Select(ToDto)];
+        return [.. entities.Select(ToDto).ToList()];
     
     }
 }

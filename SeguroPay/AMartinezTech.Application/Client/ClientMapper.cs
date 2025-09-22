@@ -17,8 +17,7 @@ internal class ClientMapper
             LastName = entity.LastName.Value,
             StreetId = entity.Address.StreetId,
             CityId = entity.Address.CityId,
-            RegionId = entity.Address.RegionId,
-            PostalCodeId = entity.Address.PostalCodeId,
+            RegionId = entity.Address.RegionId, 
             CountryId = entity.Address.CountryId,
             Phone = entity.Phone.Value,
             Email = entity.Email.Value,
@@ -33,6 +32,6 @@ internal class ClientMapper
 
     public static List<ClientDto> ToDtoList(IEnumerable<ClientEntity> entities)
     {
-        return [.. entities.Select(ToDto)];
+        return [.. entities.Select(ToDto).ToList()];
     }
 }

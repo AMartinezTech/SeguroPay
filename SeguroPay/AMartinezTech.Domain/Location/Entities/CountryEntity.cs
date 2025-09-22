@@ -1,6 +1,4 @@
-﻿
-
-using AMartinezTech.Domain.Utils.Interfaces;
+﻿using AMartinezTech.Domain.Utils.Interfaces;
 using AMartinezTech.Domain.Utils;
 using AMartinezTech.Domain.Utils.Exception;
 using System.ComponentModel.DataAnnotations;
@@ -15,12 +13,7 @@ public class CountryEntity : IAggregateRoot
     public DateTime CreatedAt { get; private set; }
 
     private CountryEntity(Guid id, string name, DateTime createdAt)
-    {
-
-
-        if (string.IsNullOrWhiteSpace(name))
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - nombre! ");
-
+    { 
         Id = id;
         Name = name;
 
@@ -29,6 +22,9 @@ public class CountryEntity : IAggregateRoot
 
     public static CountryEntity Create(Guid id, string name, DateTime createdAt)
     {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - nombre! ");
+
         id = CreateGuid.EnsureId(id);
         return new CountryEntity(id, name, createdAt);
     }

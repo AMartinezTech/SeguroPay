@@ -22,6 +22,6 @@ internal class BankDepositMapper
 
     internal static List<BankDepositDto> ToDtoList(IEnumerable<BankDepositEntity> entities)
     {
-        return [.. entities.Select(ToDto)];
+        return [.. entities.Select(ToDto).ToList()];
     }
 }

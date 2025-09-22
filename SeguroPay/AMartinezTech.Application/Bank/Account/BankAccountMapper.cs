@@ -21,6 +21,6 @@ internal class BankAccountMapper
 
     internal static List<BankAccountDto> ToDtoList(IEnumerable<BankAccountEntity> entities) 
     {
-        return [.. entities.Select(ToDto)];
+        return [.. entities.Select(ToDto).ToList()];
     }
 }

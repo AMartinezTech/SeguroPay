@@ -17,6 +17,6 @@ internal class CityMapper
 
     internal static List<CityDto> ToDtoList(IEnumerable<CityEntity> entities) 
     {
-        return [.. entities.Select(ToDto)];
+        return [.. entities.Select(ToDto).ToList()];
     }
 }

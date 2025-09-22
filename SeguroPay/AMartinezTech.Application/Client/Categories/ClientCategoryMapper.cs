@@ -16,6 +16,6 @@ internal class ClientCategoryMapper
 
     public static List<ClientCategoryDto> ToDtoList(IEnumerable<ClientCategoryEntity> clientCategories)
     {
-        return [.. clientCategories.Select(ToDto)];
+        return [.. clientCategories.Select(ToDto).ToList()];
     }
 }
