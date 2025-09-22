@@ -7,7 +7,7 @@ public class BankDepositPagination(IBankDepositReadRepository repository)
 {
     private readonly IBankDepositReadRepository _repository = repository;
 
-    public async Task<PageResult<BankDepositDto>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
+    public async Task<PageResult<BankDepositDto>> ExecuteAsync(int pageNumber, int pageSize, bool? isActived)
     {
         var result = await _repository.PaginationAsync(pageNumber, pageSize, isActived);
         var dtoList = BankDepositMapper.ToDtoList(result.Data);

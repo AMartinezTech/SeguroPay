@@ -7,7 +7,7 @@ public class CityPagination(ICityReadRepository repository)
 {
     private readonly ICityReadRepository _repository = repository;
 
-    public async Task<PageResult<CityDto>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
+    public async Task<PageResult<CityDto>> ExecuteAsync(int pageNumber, int pageSize, bool? isActived)
     {
         var result = await _repository.PaginationAsync(pageNumber, pageSize, isActived);
         var dtoList = CityMapper.ToDtoList(result.Data);

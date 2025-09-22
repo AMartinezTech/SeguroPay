@@ -6,7 +6,7 @@ public class ExpenseCategoryDelete(IExpenseCategoryWriteRepository repository)
 {
     private readonly IExpenseCategoryWriteRepository _repository = repository;
 
-    public async Task DeleteAsync(Guid id)
+    public async Task ExecuteAsync(Guid id)
     {
         await _repository.DeleteAsync(id);
     }

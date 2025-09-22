@@ -7,7 +7,7 @@ public class ExpenseCategoryPersistence(IExpenseCategoryWriteRepository reposito
 {
     private readonly IExpenseCategoryWriteRepository _repository = repository;
 
-    public async Task<Guid> PersistenceAsync(ExpenseCategoryDto dto)
+    public async Task<Guid> ExecuteAsync(ExpenseCategoryDto dto)
     {
         var entity = ExpenseCategoryEntity.Create(
             dto.Id,

@@ -8,7 +8,7 @@ public class InsurancePersistence(IInsuranceWriteRepository repository)
 {
     private readonly IInsuranceWriteRepository _repository = repository;
 
-    public async Task<Guid> PersistenceAsync(InsuranceDto dto)
+    public async Task<Guid> ExecuteAsync(InsuranceDto dto)
     {
 
         var address = ValueAddress.Create(dto.CountryId, dto.RegionId, dto.CityId, dto.StreetId);

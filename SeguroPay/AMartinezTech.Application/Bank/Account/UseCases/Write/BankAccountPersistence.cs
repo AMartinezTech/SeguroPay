@@ -7,7 +7,7 @@ public class BankAccountPersistence(IBankAccountWriterRepository repository)
 {
     private readonly IBankAccountWriterRepository _repository = repository;
 
-    public async Task<Guid> PersistenceAsync(BankAccountDto dto)
+    public async Task<Guid> ExecuteAsync(BankAccountDto dto)
     {
         var entity = BankAccountEntity.Create(
            dto.Id,
