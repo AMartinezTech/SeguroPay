@@ -1,0 +1,6 @@
+﻿using AMartinezTech.Domain.Location.Entities;
+using AMartinezTech.Domain.Utils.Interfaces;
+
+namespace AMartinezTech.Application.Location.Street.Interfaces;
+
+public interface IStreetWriteRepository : ICreate<StreetEntity>, IUpdate<StreetEntity>, IDelete<Guid>;

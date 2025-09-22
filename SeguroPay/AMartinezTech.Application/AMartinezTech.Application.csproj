@@ -11,9 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Location\Street\Interfaces\" />
-    <Folder Include="Location\Street\UseCases\Read\" />
-    <Folder Include="Location\Street\UseCases\Write\" />
     <Folder Include="Policy\" />
     <Folder Include="Setting\Company\" />
   </ItemGroup>
