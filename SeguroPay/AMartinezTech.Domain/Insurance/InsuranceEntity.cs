@@ -1,5 +1,5 @@
-﻿using AMartinezTech.Domain.Utils.Interfaces;
-using AMartinezTech.Domain.Utils;
+﻿using AMartinezTech.Domain.Utils;
+using AMartinezTech.Domain.Utils.Interfaces;
 using AMartinezTech.Domain.Utils.ValueObjects;
 
 namespace AMartinezTech.Domain.Insurance;

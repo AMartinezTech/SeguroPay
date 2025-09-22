@@ -1,4 +1,4 @@
-﻿using AMartinezTech.Application.Client.Categories;
+﻿using AMartinezTech.Application.Client.Categories.Interfaces;
 using AMartinezTech.Application.Client.Interfaces;
 using AMartinezTech.Application.Client.Types;
 using AMartinezTech.Infrastructure.Clients;
