@@ -11,9 +11,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Location\Country\" />
-    <Folder Include="Location\Street\" />
-    <Folder Include="Location\Region\" />
+    <Folder Include="Location\Country\Interfaces\" />
+    <Folder Include="Location\Country\UseCases\Write\" />
+    <Folder Include="Location\Country\UseCases\Read\" />
+    <Folder Include="Location\Region\Interfaces\" />
+    <Folder Include="Location\Region\UseCases\Read\" />
+    <Folder Include="Location\Region\UseCases\Write\" />
+    <Folder Include="Location\Street\Interfaces\" />
+    <Folder Include="Location\Street\UseCases\Read\" />
+    <Folder Include="Location\Street\UseCases\Write\" />
     <Folder Include="Policy\" />
     <Folder Include="Setting\Company\" />
   </ItemGroup>

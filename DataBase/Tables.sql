@@ -198,6 +198,18 @@ CREATE TABLE policies (
     CONSTRAINT FK_Policy_CancelBy FOREIGN KEY (cancel_by) REFERENCES users(id)
 );
 
+CREATE TABLE policy_payments (
+    id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    policy_id UNIQUEIDENTIFIER NOT NULL,
+    date DATE NOT NULL,          -- Fecha en que el cliente pagó
+    amount DECIMAL(18,2) NOT NULL,      -- Monto pagado
+    created_at DATETIME2 NOT NULL DEFAULT GETDATE(),
+    created_by UNIQUEIDENTIFIER NULL,    -- Usuario que registró el pago
+    note NVARCHAR(500) NULL,
+    
+    CONSTRAINT FK_PolicyPayments_Policy FOREIGN KEY (policy_id) REFERENCES Policies(Id)
+);
+
 
 CREATE TABLE client_conversations
 (
