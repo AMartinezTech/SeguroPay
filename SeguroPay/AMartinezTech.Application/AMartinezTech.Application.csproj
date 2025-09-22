@@ -11,10 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Location\Dtos\" />
-    <Folder Include="Location\Mappers\" />
-    <Folder Include="Location\Commands\" />
-    <Folder Include="Location\Queries\" />
+    <Folder Include="Location\Country\" />
+    <Folder Include="Location\Street\" />
+    <Folder Include="Location\Region\" />
     <Folder Include="Policy\" />
     <Folder Include="Setting\Company\" />
   </ItemGroup>

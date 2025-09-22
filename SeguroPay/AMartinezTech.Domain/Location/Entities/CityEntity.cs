@@ -1,6 +1,4 @@
-﻿
-
-using AMartinezTech.Domain.Utils.Interfaces;
+﻿using AMartinezTech.Domain.Utils.Interfaces;
 using AMartinezTech.Domain.Utils;
 using AMartinezTech.Domain.Utils.Exception;
 using System.ComponentModel.DataAnnotations;
@@ -17,12 +15,6 @@ public class CityEntity : IAggregateRoot
 
     private CityEntity(Guid id, string name, Guid regionId, DateTime createdAt)
     {
-        if (regionId == Guid.Empty)
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - provincia! ");
-
-        if (string.IsNullOrWhiteSpace(name))
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - nombre! ");
-
         Id = id;
         Name = name;
         RegionId = regionId;
@@ -31,6 +23,12 @@ public class CityEntity : IAggregateRoot
 
     public static CityEntity Create(Guid id, string name, Guid regionId, DateTime createdAt)
     {
+        if (regionId == Guid.Empty)
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - provincia! ");
+
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - nombre! ");
+
         id = CreateGuid.EnsureId(id);
         return new CityEntity(id, name, regionId, createdAt);
     }
