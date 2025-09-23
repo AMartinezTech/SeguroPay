@@ -183,7 +183,7 @@
             MinimumSize = new Size(1200, 800);
             Name = "FrmMainView";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "© 2025 AMartínezTech [ SeguroPay v.1.0.0 ]";
+            Text = "AMartínezTech Copyright © 2025 ( SeguroPay v.1.0.0 )";
             WindowState = FormWindowState.Maximized;
             Load += FrmMainView_Load;
             PanelTopMenu.ResumeLayout(false);
