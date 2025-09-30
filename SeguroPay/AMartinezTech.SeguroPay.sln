@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMartinezTech.Domain", "AMa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMartinezTech.Application", "AMartinezTech.Application\AMartinezTech.Application.csproj", "{EA2BD036-C54F-4F66-8D4D-919C28FF1D00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMartinezTech.Core", "AMartinezTech.Core\AMartinezTech.Core.csproj", "{39984CD7-5F81-43F6-874E-12688956FACA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMartinezTech.Infrastructure", "AMartinezTech.Infrastructure\AMartinezTech.Infrastructure.csproj", "{265CFA14-A1FC-481B-A60D-59DA608B9AB5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMartinezTech.WinForms", "AMartinezTech.WinForms\AMartinezTech.WinForms.csproj", "{EB0B1C9B-E079-4290-B992-42D04D77CDB8}"
@@ -27,10 +25,6 @@ Global
 		{EA2BD036-C54F-4F66-8D4D-919C28FF1D00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA2BD036-C54F-4F66-8D4D-919C28FF1D00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA2BD036-C54F-4F66-8D4D-919C28FF1D00}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39984CD7-5F81-43F6-874E-12688956FACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39984CD7-5F81-43F6-874E-12688956FACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39984CD7-5F81-43F6-874E-12688956FACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39984CD7-5F81-43F6-874E-12688956FACA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{265CFA14-A1FC-481B-A60D-59DA608B9AB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{265CFA14-A1FC-481B-A60D-59DA608B9AB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{265CFA14-A1FC-481B-A60D-59DA608B9AB5}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -6,12 +6,11 @@ namespace AMartinezTech.Infrastructure.Clients;
 
 internal class MapToClient
 {
-    public static ClientEntity ToEntity(SqlDataReader reader)
+    internal static ClientEntity ToEntity(SqlDataReader reader)
     {
         var address = ValueAddress.Create(
             reader.GetGuid(reader.GetOrdinal("country_id")), reader.GetGuid(reader.GetOrdinal("region_id")),
             reader.GetGuid(reader.GetOrdinal("city_id")),
-            reader.GetGuid(reader.GetOrdinal("postal_code_id")),
             reader.GetGuid(reader.GetOrdinal("street_id")));
 
         return ClientEntity.Create(

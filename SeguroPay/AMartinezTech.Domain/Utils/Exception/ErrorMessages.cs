@@ -12,9 +12,16 @@ public class ErrorMessages
             ErrorType.MaxLength => "Longitud máxima de caractéres.",
             ErrorType.MinLength => "Longitud mínima de caractéres.",
             ErrorType.NoNegativeNum => "El valor númerico no puede cero o ser negativo.",
-            ErrorType.PostiveNum => "El valor númerico debe ser mayor a 0.00.",
+            ErrorType.PostiveNum => "El valor númerico debe ser mayor a cero.",
             ErrorType.RangeValid => "El rango permitdo es",
             ErrorType.NullDetails => "El detalle es obligatorio",
+            ErrorType.RecordDoesDotExist => "El registro no existe.!",
+            ErrorType.RecordCreateError => "Error creando el registro.!",
+            ErrorType.RecordUpdateError => "Error actualizando el registro.!",
+            ErrorType.RecordDeleteError => "Error borrando el registro.!",
+            ErrorType.DataBaseUnknownError => "Error desconocido de base de datos.!",
+            ErrorType.PasswordNotMatch => "Las claves NO coinciden.!",
+            ErrorType.InvalidCredentials => "La credenciales no son válidas.!",
             _ => "Error no definido",
         };
     }

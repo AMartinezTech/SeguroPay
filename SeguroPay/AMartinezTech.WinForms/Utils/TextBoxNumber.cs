@@ -1,4 +1,4 @@
-﻿namespace MotoStock.Utils;
+﻿namespace AMartinezTech.WinForms.Utils;
 
 public static class TextBoxNumber
 {

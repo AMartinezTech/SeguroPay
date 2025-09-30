@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace MotoStock.Utils;
+namespace AMartinezTech.WinForms.Utils;
 
 public static class DecimalExtensions
 {

@@ -1,4 +1,4 @@
-﻿namespace MotoStock.Utils.Factories;
+﻿namespace AMartinezTech.WinForms.Utils.Factories;
 
 public interface IFormFactory
 {

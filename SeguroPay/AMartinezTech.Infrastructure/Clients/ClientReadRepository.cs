@@ -39,7 +39,7 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
         return result;
     }
 
-    public Task<ClientEntity> GetById(Guid id)
+    public Task<ClientEntity> GetByIdAsync(Guid id)
     {
         throw new NotImplementedException();
     }

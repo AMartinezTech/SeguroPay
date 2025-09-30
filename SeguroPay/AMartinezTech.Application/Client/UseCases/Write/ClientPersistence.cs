@@ -10,7 +10,7 @@ public class ClientPersistence(IClientWriteRepository repository)
 
     public async Task<Guid> PersistenceAsync(ClientDto dto)
     {
-        var address = ValueAddress.Create(dto.CountryId, dto.RegionId, dto.CityId, dto.PostalCodeId, dto.StreetId);
+        var address = ValueAddress.Create(dto.CountryId, dto.RegionId, dto.CityId,  dto.StreetId);
         var entity = ClientEntity.Create(
             dto.Id,
             dto.CategoryId,

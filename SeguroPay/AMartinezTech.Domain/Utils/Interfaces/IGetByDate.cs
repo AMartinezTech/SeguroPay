@@ -1,6 +1,4 @@
-﻿using AMartinezTech.Core.Utils;
-
-namespace AMartinezTech.Domain.Utils.Interfaces;
+﻿namespace AMartinezTech.Domain.Utils.Interfaces;
 
 public interface IGetByDate<T> where T : class, IAggregateRoot
 {

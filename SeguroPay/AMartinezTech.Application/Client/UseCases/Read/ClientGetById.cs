@@ -8,7 +8,7 @@ public class ClientGetById(IClientReadRepository repository)
 
     public async Task<ClientDto> ExecuteAsync(Guid id)
     {
-        var result = await _repository.GetById(id);
+        var result = await _repository.GetByIdAsync(id);
         return ClientMapper.ToDto(result);
     }
 }

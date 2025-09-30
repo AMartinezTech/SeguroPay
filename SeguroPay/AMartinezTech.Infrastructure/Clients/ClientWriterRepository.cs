@@ -15,8 +15,8 @@ public class ClientWriterRepository(string connectionString) : AdoRepositoryBase
             using var conn = GetConnection();
             await conn.OpenAsync();
 
-            using var cmd = new SqlCommand("INSERT INTO clients (id, category_id, doc_identity_type_id, type_id, doc_identity, first_name, last_name, street_id, city_id, postal_code_id, region_id, country_id, phone, email, observation, location_no, address_ref, contact_name, contact_phone) " +
-                "VALUES (@id, @category_id, @doc_identity_type_id, @type_id, @doc_identity ,@first_name, @last_name, @street_id, @city_id, @postal_code_id, @region_id, @country_id, @phone, @email, @observation, @location_no, @address_ref, @contact_name, @contact_phone)", conn);
+            using var cmd = new SqlCommand("INSERT INTO clients (id, category_id, doc_identity_type_id, type_id, doc_identity, first_name, last_name, street_id, city_id, region_id, country_id, phone, email, observation, location_no, address_ref, contact_name, contact_phone) " +
+                "VALUES (@id, @category_id, @doc_identity_type_id, @type_id, @doc_identity ,@first_name, @last_name, @street_id, @city_id, @region_id, @country_id, @phone, @email, @observation, @location_no, @address_ref, @contact_name, @contact_phone)", conn);
             cmd.Parameters.AddWithValue("@id", entity.Id);
             cmd.Parameters.AddWithValue("@category_id", entity.CategoryId);
             cmd.Parameters.AddWithValue("@doc_identity_type_id", entity.DocIdentityTypeId);
@@ -25,7 +25,6 @@ public class ClientWriterRepository(string connectionString) : AdoRepositoryBase
             cmd.Parameters.AddWithValue("@first_name", entity.FirstName);
             cmd.Parameters.AddWithValue("@last_name", entity.LastName);
             cmd.Parameters.AddWithValue("@street_id", entity.Address.StreetId);
-            cmd.Parameters.AddWithValue("@postal_code_id", entity.Address.PostalCodeId);
             cmd.Parameters.AddWithValue("@region_id", entity.Address.RegionId);
             cmd.Parameters.AddWithValue("@country_id", entity.Address.CountryId);
             cmd.Parameters.AddWithValue("@phone", entity.Phone);
@@ -77,7 +76,7 @@ public class ClientWriterRepository(string connectionString) : AdoRepositoryBase
             using var conn = GetConnection();
             await conn.OpenAsync();
 
-            using var cmd = new SqlCommand("UPDATE clients  SET category_id=@category_id, doc_identity_type_id=@doc_identity_type_id, type_id=@type_id, doc_identity=@doc_identity, first_name=@first_name, last_name=@last_name, street_id=@street_id, city_id=@city_id, postal_code_id=@postal_code_id, region_id=@region_id, country_id=@country_id, phone=@phone, email=@email, observation=@observation, location_no=@location_no, address_ref=@address_ref, is_actived=@is_actived, contact_name=@contact_name, contact_phone=@contact_phone WHERE id=@id ", conn);
+            using var cmd = new SqlCommand("UPDATE clients  SET category_id=@category_id, doc_identity_type_id=@doc_identity_type_id, type_id=@type_id, doc_identity=@doc_identity, first_name=@first_name, last_name=@last_name, street_id=@street_id, city_id=@city_id, region_id=@region_id, country_id=@country_id, phone=@phone, email=@email, observation=@observation, location_no=@location_no, address_ref=@address_ref, is_actived=@is_actived, contact_name=@contact_name, contact_phone=@contact_phone WHERE id=@id ", conn);
             cmd.Parameters.AddWithValue("@id", entity.Id);
             cmd.Parameters.AddWithValue("@category_id", entity.CategoryId);
             cmd.Parameters.AddWithValue("@doc_identity_type_id", entity.DocIdentityTypeId);
@@ -85,8 +84,7 @@ public class ClientWriterRepository(string connectionString) : AdoRepositoryBase
             cmd.Parameters.AddWithValue("@doc_identity", entity.DocIdentity);
             cmd.Parameters.AddWithValue("@first_name", entity.FirstName);
             cmd.Parameters.AddWithValue("@last_name", entity.LastName);
-            cmd.Parameters.AddWithValue("@street_id", entity.Address.StreetId);
-            cmd.Parameters.AddWithValue("@postal_code_id", entity.Address.PostalCodeId);
+            cmd.Parameters.AddWithValue("@street_id", entity.Address.StreetId); 
             cmd.Parameters.AddWithValue("@region_id", entity.Address.RegionId);
             cmd.Parameters.AddWithValue("@country_id", entity.Address.CountryId);
             cmd.Parameters.AddWithValue("@phone", entity.Phone);

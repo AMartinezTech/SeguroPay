@@ -8,7 +8,7 @@ public class PolicyGetById(IPolicyReadRepository repository)
 
     public async Task<PolicyDto> ExecuteAsync(Guid id)
     {
-        var result = await _repository.GetById(id);
+        var result = await _repository.GetByIdAsync(id);
         return PolicyMapper.ToDto(result);
     }
 }

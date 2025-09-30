@@ -8,7 +8,7 @@ public class InsuranceGetById(IInsuranceReadRepository repository)
 
     public async Task<InsuranceDto> ExecuteAsync(Guid id)
     {
-        var result = await _repository.GetById(id);
+        var result = await _repository.GetByIdAsync(id);
         return  InsuranceMapper.ToDto(result);
     }
 }

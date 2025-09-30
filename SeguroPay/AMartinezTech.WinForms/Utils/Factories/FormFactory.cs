@@ -1,14 +1,13 @@
-﻿
-//using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace MotoStock.Utils.Factories;
+namespace AMartinezTech.WinForms.Utils.Factories;
 
-public class FormFactory(IServiceProvider serviceProvider)  
+public class FormFactory(IServiceProvider serviceProvider) : IFormFactory
 {
     private readonly IServiceProvider _serviceProvider = serviceProvider;
 
-    //public T CreateFormFactory<T>() where T : Form
-    //{
-    //    return _serviceProvider.GetRequiredService<T>();    
-    //}
+    public T CreateFormFactory<T>() where T : Form
+    {
+        return _serviceProvider.GetRequiredService<T>();
+    }
 }

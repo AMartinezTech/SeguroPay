@@ -10,5 +10,12 @@ public enum ErrorType
     NoNegativeNum,
     PostiveNum,
     RangeValid,
-    NullDetails
+    NullDetails,
+    RecordDoesDotExist,
+    RecordCreateError,
+    RecordUpdateError,
+    RecordDeleteError,
+    DataBaseUnknownError,
+    PasswordNotMatch,
+    InvalidCredentials
 }

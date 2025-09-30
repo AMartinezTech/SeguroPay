@@ -1,4 +1,4 @@
-﻿using MotoStock.Utils;
+﻿using AMartinezTech.WinForms.Utils;
 
 namespace AMartinezTech.WinForms;
 

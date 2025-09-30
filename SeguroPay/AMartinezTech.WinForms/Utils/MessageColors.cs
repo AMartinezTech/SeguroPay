@@ -1,5 +1,4 @@
-﻿
-namespace MotoStock.Utils;
+﻿namespace AMartinezTech.WinForms.Utils;
 
 public class MessageColors
 {
