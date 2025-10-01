@@ -1,5 +1,6 @@
 ﻿namespace AMartinezTech.WinForms.DependecyInjection;
 
+using AMartinezTech.WinForms.Settings;
 using AMartinezTech.WinForms.Utils.Factories;
 using Microsoft.Extensions.DependencyInjection;
 public class DIPresentationServices
@@ -8,6 +9,7 @@ public class DIPresentationServices
     {
         services.AddTransient<IFormFactory, FormFactory>();
         services.AddTransient<FrmMainView>();
+        services.AddTransient<FrmSettingDashboardView>();
 
         DIUserServices.AddServices(services);
     }

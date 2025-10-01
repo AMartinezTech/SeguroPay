@@ -15,10 +15,10 @@ public class ValueEmail
     {
 
         if (string.IsNullOrEmpty(value))
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - correo! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - Email! ");
 
         if (!ValidationRegex.IsMatch(value))
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.InvalidFormat)} - correo! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.InvalidFormat)} - Email! ");
         Value = value;
     }
 

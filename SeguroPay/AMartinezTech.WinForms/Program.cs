@@ -45,7 +45,7 @@ internal static class Program
                  if (string.IsNullOrEmpty(connectionString))
                      throw new InvalidOperationException("No se encontró la cadena de conexión 'DefaultConnection' en AppSettings.json");
 
-                 // Registrar infraestructura con tu cadena construida
+                 // Registrar servicios de infraestructura con tu cadena construida
                  services.AddInfrastructureServices(connectionString);
              });
     }

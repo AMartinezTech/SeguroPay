@@ -17,10 +17,10 @@ public class ValueUserFullName
     public static ValueUserFullName Create(string value, int minLength = 6)
     {
         if (string.IsNullOrWhiteSpace(value))
-            throw new ValidationException($"{ErrorMessages.Get(ErrorType.RequiredField)} - nombre");
+            throw new ValidationException($"{ErrorMessages.Get(ErrorType.RequiredField)} - FullName");
 
         if (value.Length < minLength )
-            throw new ValidationException($"{ErrorMessages.Get(ErrorType.MinLength)} - nombre");
+            throw new ValidationException($"{ErrorMessages.Get(ErrorType.MinLength)} - FullName");
         return new ValueUserFullName(value);
     }
 }

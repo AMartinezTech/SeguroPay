@@ -17,23 +17,23 @@ public class UserEntity : IAggregateRoot
     public bool IsActived { get; private set; }
     public DateTime CreatedAt { get; private set; }
 
-    private UserEntity(Guid id, ValueUserName userName, DateTime createdAt, ValueEmail email, ValuePassword password, ValueUserFullName fullName, ValuePhone phone, ValueEnum<RolType> rol, bool isActived)
+    private UserEntity(Guid id, ValueUserFullName fullName, ValueEmail email, ValuePhone phone, ValueUserName userName, ValuePassword password, ValueEnum<RolType> rol, bool isActived, DateTime createdAt)
     {
         Id = id;
-        UserName = userName;
-        CreatedAt = createdAt;
-        Email = email;
-        Password = password;
         FullName = fullName;
+        Email = email;
         Phone = phone;
+        UserName = userName;
+        Password = password;
         Rol = rol;
         IsActived = isActived;
+        CreatedAt = createdAt;
     }
 
-    public static UserEntity Create(Guid id, string userName, DateTime createdAt, string email, ValuePassword password, string fullName, string phone, string rol, bool isActived)
+    public static UserEntity Create(Guid id, string fullName, string email, string phone, string userName, ValuePassword password, string rol, bool isActived, DateTime createdAt)
     {
         id = CreateGuid.EnsureId(id);
-        return new UserEntity(id, ValueUserName.Create(userName), createdAt, ValueEmail.Create(email), password, ValueUserFullName.Create(fullName), ValuePhone.Create(phone, "Teléfono"), ValueEnum<RolType>.Create(rol), isActived);
+        return new UserEntity(id, ValueUserFullName.Create(fullName), ValueEmail.Create(email), ValuePhone.Create(phone, "Phone"), ValueUserName.Create(userName), password, ValueEnum<RolType>.Create(rol), isActived, createdAt);
     }
 
 }

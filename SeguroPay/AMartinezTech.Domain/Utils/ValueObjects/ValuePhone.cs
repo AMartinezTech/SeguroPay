@@ -16,7 +16,7 @@ public class ValuePhone
         if (!string.IsNullOrEmpty(value))
         {
             if (!regexRD.IsMatch(value))
-                throw new ValidationException($" {ErrorMessages.Get(ErrorType.InvalidFormat)}  - {nameOfFeld}! ");
+                throw new ValidationException($" {ErrorMessages.Get(ErrorType.InvalidFormat)}  - {nameOfFeld} ");
         }
 
         Value = value;
@@ -24,6 +24,9 @@ public class ValuePhone
 
     public static ValuePhone Create(string value, string nameOfFeld)
     {
+        if (string.IsNullOrWhiteSpace(value))
+            throw new ValidationException($"{ErrorMessages.Get(ErrorType.RequiredField)} - Phone");
+
         return new ValuePhone(value, nameOfFeld);
     }
 }

@@ -1,20 +1,24 @@
-﻿using AMartinezTech.WinForms.Utils;
+﻿using AMartinezTech.WinForms.Settings;
+using AMartinezTech.WinForms.Utils;
+using AMartinezTech.WinForms.Utils.Factories;
 
 namespace AMartinezTech.WinForms;
 
 public partial class FrmMainView : Form
 {
-
-    #region "Constructor"
-
-    public FrmMainView()
+    #region "Fields"
+    private readonly IFormFactory _formFactory;
+    private Form _childForm;
+    #endregion
+    #region "Constructor" 
+    public FrmMainView(IFormFactory formFactory)
     {
         InitializeComponent();
+        _formFactory = formFactory;
         SetColorUI();
     }
     #endregion
     #region "Form evens"
-
     private void FrmMainView_Load(object sender, EventArgs e)
     {
 
@@ -47,6 +51,53 @@ public partial class FrmMainView : Form
         BtnCash.ForeColor = AppColors.OnSurface;
         BtnBank.ForeColor = AppColors.OnSurface;
         BtnSetting.ForeColor = AppColors.OnSurface;
+    }
+    private void OpenChildForm(Form childForm)
+    {
+        //Main form
+        _childForm?.Close();
+        _childForm = childForm;
+        childForm.TopLevel = false;
+        childForm.FormBorderStyle = FormBorderStyle.None;
+        childForm.Dock = DockStyle.Fill;
+        PanelContainer.Controls.Add(childForm);
+        PanelContainer.Tag = childForm;
+        childForm.BringToFront();
+        childForm.Show();
+
+    }
+    #endregion
+
+    #region "Btn Events"
+    private void BtnClient_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void BtnInsurance_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void BtnPolicy_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void BtnCash_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void BtnBank_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    private void BtnSetting_Click(object sender, EventArgs e)
+    {
+        var frmSettingDashboardView = _formFactory.CreateFormFactory<FrmSettingDashboardView>();    
+        OpenChildForm(frmSettingDashboardView);
     }
     #endregion
 }

@@ -39,7 +39,6 @@
             PanelContainer = new Panel();
             PanelButtomMenu = new Panel();
             PanelTopMenu.SuspendLayout();
-            PanelContainer.SuspendLayout();
             SuspendLayout();
             // 
             // PanelTopMenu
@@ -71,6 +70,7 @@
             BtnSetting.Text = "Config.";
             BtnSetting.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnSetting.UseVisualStyleBackColor = true;
+            BtnSetting.Click += BtnSetting_Click;
             // 
             // BtnBank
             // 
@@ -86,6 +86,7 @@
             BtnBank.Text = "Banco";
             BtnBank.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnBank.UseVisualStyleBackColor = true;
+            BtnBank.Click += BtnBank_Click;
             // 
             // BtnCash
             // 
@@ -101,6 +102,7 @@
             BtnCash.Text = "Caja";
             BtnCash.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnCash.UseVisualStyleBackColor = true;
+            BtnCash.Click += BtnCash_Click;
             // 
             // BtnPolicy
             // 
@@ -116,6 +118,7 @@
             BtnPolicy.Text = "Polizas";
             BtnPolicy.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnPolicy.UseVisualStyleBackColor = true;
+            BtnPolicy.Click += BtnPolicy_Click;
             // 
             // BtnInsurance
             // 
@@ -131,6 +134,7 @@
             BtnInsurance.Text = "Seguros";
             BtnInsurance.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnInsurance.UseVisualStyleBackColor = true;
+            BtnInsurance.Click += BtnInsurance_Click;
             // 
             // BtnClient
             // 
@@ -146,6 +150,7 @@
             BtnClient.Text = "Clientes";
             BtnClient.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnClient.UseVisualStyleBackColor = true;
+            BtnClient.Click += BtnClient_Click;
             // 
             // PanelLineHorizontal
             // 
@@ -157,17 +162,16 @@
             // 
             // PanelContainer
             // 
-            PanelContainer.Controls.Add(PanelButtomMenu);
-            PanelContainer.Dock = DockStyle.Fill;
+            PanelContainer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             PanelContainer.Location = new Point(0, 102);
             PanelContainer.Name = "PanelContainer";
-            PanelContainer.Size = new Size(1184, 659);
+            PanelContainer.Size = new Size(1184, 618);
             PanelContainer.TabIndex = 2;
             // 
             // PanelButtomMenu
             // 
             PanelButtomMenu.Dock = DockStyle.Bottom;
-            PanelButtomMenu.Location = new Point(0, 624);
+            PanelButtomMenu.Location = new Point(0, 726);
             PanelButtomMenu.Name = "PanelButtomMenu";
             PanelButtomMenu.Size = new Size(1184, 35);
             PanelButtomMenu.TabIndex = 0;
@@ -177,6 +181,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1184, 761);
+            Controls.Add(PanelButtomMenu);
             Controls.Add(PanelContainer);
             Controls.Add(PanelLineHorizontal);
             Controls.Add(PanelTopMenu);
@@ -187,7 +192,6 @@
             WindowState = FormWindowState.Maximized;
             Load += FrmMainView_Load;
             PanelTopMenu.ResumeLayout(false);
-            PanelContainer.ResumeLayout(false);
             ResumeLayout(false);
         }
 

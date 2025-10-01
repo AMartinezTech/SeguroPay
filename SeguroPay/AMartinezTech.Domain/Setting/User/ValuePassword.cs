@@ -1,4 +1,5 @@
 ﻿
+using AMartinezTech.Domain.Utils.Exception;
 using System.Security.Cryptography;
 namespace AMartinezTech.Domain.Setting.User;
 
@@ -14,9 +15,12 @@ public class ValuePassword
     // Crear desde texto plano
     public static ValuePassword Create(string plainPassword, string confirmPassword)
     {
-        if (plainPassword != confirmPassword)
-            throw new ArgumentException("Las contraseñas no coinciden.");
+        if (string.IsNullOrWhiteSpace(plainPassword))
+            throw new Exception($"{ErrorMessages.Get(ErrorType.RequiredField)} - Password");
 
+        if (plainPassword != confirmPassword)
+            throw new Exception($"{ErrorMessages.Get(ErrorType.PasswordNotMatch)} - Confirm");
+        
         var hash = HashPassword(plainPassword);
         return new ValuePassword(hash);
     }
