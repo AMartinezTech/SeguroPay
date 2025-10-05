@@ -9,7 +9,7 @@ namespace AMartinezTech.Infrastructure.Setting.User;
 
 public class UserReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IUserReadRepository
 {
-    public async Task<IReadOnlyList<UserEntity>> FilterAsync(string? filterStr, bool? isActived)
+    public async Task<IReadOnlyList<UserEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActived = null)
     {
         var result = new List<UserEntity>();
         using (var conn = GetConnection())
@@ -18,22 +18,30 @@ public class UserReadRepository(string connectionString) : AdoRepositoryBase(con
 
             // Base query
             var sql = @"SELECT TOP 100 id, user_name, email, password, full_name, phone, rol, is_actived, created_at FROM users WHERE 1=1";
+            var cmd = new SqlCommand { Connection = conn };
 
             if (isActived.HasValue)
+            {
                 sql += " AND is_actived=@is_actived";
+                cmd.Parameters.AddWithValue("@is_actived", isActived.Value);
+            }
+             
+            int paramIndex = 0;
+            if (filters != null)
+            {
+                foreach (var filter in filters)
+                {
+                    if (filter.Value is null) continue;
 
-            if (!string.IsNullOrWhiteSpace(filterStr))
-                sql += " AND (user_name LIKE @filter OR name LIKE @filter)";
+                    string paramName = $"@p{paramIndex++}";
+                    sql += $" AND {filter.Key} LIKE {paramName}";
+                    cmd.Parameters.AddWithValue(paramName, $"%{filter.Value}%");
+                }
+            }
 
-            using var cmd = new SqlCommand(sql, conn);
+            cmd.CommandText = sql;
 
-            if (isActived.HasValue)
-                cmd.Parameters.AddWithValue("@is_actived", isActived);
-
-            if (!string.IsNullOrWhiteSpace(filterStr))
-                cmd.Parameters.AddWithValue("@filter", $"%{filterStr}%");
-
-            using var reader = cmd.ExecuteReader();
+            using var reader = await cmd.ExecuteReaderAsync();
             while (await reader.ReadAsync())
                 result.Add(MapToUser.ToEntity(reader));
         }
@@ -103,7 +111,7 @@ public class UserReadRepository(string connectionString) : AdoRepositoryBase(con
 
             if (!entity.IsActived) throw new Exception($"{ErrorMessages.Get(ErrorType.InvalidCredentials)} - NoActivedUse");
 
-            if (!entity.Password.Verify(password)) throw new Exception($"{ErrorMessages.Get(ErrorType.InvalidCredentials)} - PassNotMach");
+            if (!entity.Password!.Verify(password)) throw new Exception($"{ErrorMessages.Get(ErrorType.InvalidCredentials)} - PassNotMach");
 
             return entity;
 

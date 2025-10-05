@@ -11,13 +11,13 @@ public class ValueClientName
     private ValueClientName(string value)
     {
         if (string.IsNullOrWhiteSpace(value.Trim()))
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - nombre! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - FirstName! ");
 
         if (value.Length > 15)
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.MaxLength)} (15) - nombre! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.MaxLength)} (15) - FirstName! ");
 
-        if (value.Length < 4)
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.MinLength)} (4) - nombre! ");
+        if (value.Length < 2)
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.MinLength)} (2) - FirstName! ");
 
         Value = value;
     }

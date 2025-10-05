@@ -1,4 +1,6 @@
-﻿using AMartinezTech.WinForms.Settings;
+﻿using AMartinezTech.Application.Setting.User.Interfaces;
+using AMartinezTech.WinForms.Client;
+using AMartinezTech.WinForms.Settings;
 using AMartinezTech.WinForms.Utils;
 using AMartinezTech.WinForms.Utils.Factories;
 
@@ -9,19 +11,22 @@ public partial class FrmMainView : Form
     #region "Fields"
     private readonly IFormFactory _formFactory;
     private Form _childForm;
+    private readonly ICurrectUser _currectUser;
+
     #endregion
     #region "Constructor" 
-    public FrmMainView(IFormFactory formFactory)
+    public FrmMainView(IFormFactory formFactory, ICurrectUser currectUser)
     {
         InitializeComponent();
         _formFactory = formFactory;
+        _currectUser = currectUser;
         SetColorUI();
     }
     #endregion
     #region "Form evens"
     private void FrmMainView_Load(object sender, EventArgs e)
     {
-
+        LabelWelcome.Text = $"Bienvenido {_currectUser.User!.FullName.Value} ({_currectUser.User.Rol.Type})";
     }
 
     #endregion
@@ -51,6 +56,9 @@ public partial class FrmMainView : Form
         BtnCash.ForeColor = AppColors.OnSurface;
         BtnBank.ForeColor = AppColors.OnSurface;
         BtnSetting.ForeColor = AppColors.OnSurface;
+
+        //Label text color
+        LabelWelcome.ForeColor = AppColors.OnPrimary;
     }
     private void OpenChildForm(Form childForm)
     {
@@ -71,7 +79,8 @@ public partial class FrmMainView : Form
     #region "Btn Events"
     private void BtnClient_Click(object sender, EventArgs e)
     {
-
+        var frmClientDashboardView = _formFactory.CreateFormFactory<FrmClientDashboardView>();
+        OpenChildForm(frmClientDashboardView);
     }
 
     private void BtnInsurance_Click(object sender, EventArgs e)

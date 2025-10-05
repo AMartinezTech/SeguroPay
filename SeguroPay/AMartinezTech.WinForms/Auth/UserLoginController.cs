@@ -1,5 +1,13 @@
-﻿namespace AMartinezTech.WinForms.Auth;
+﻿using AMartinezTech.Application.Setting.User;
 
-public class UserLoginController
+namespace AMartinezTech.WinForms.Auth;
+
+public class UserLoginController(UserApplicationService service)
 {
+    private readonly UserApplicationService _service = service;
+    public async Task<bool> LoginUserAsync(string username, string password)
+    {
+        return await _service.LoginUserAsync(username, password);
+    }
+
 }

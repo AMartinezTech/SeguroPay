@@ -1,5 +1,4 @@
-﻿using AMartinezTech.Domain.Client.Entitties;
-using AMartinezTech.Domain.Utils.ValueObjects;
+﻿using AMartinezTech.Domain.Client.Entitties; 
 using Microsoft.Data.SqlClient;
 
 namespace AMartinezTech.Infrastructure.Clients;
@@ -8,29 +7,23 @@ internal class MapToClient
 {
     internal static ClientEntity ToEntity(SqlDataReader reader)
     {
-        var address = ValueAddress.Create(
-            reader.GetGuid(reader.GetOrdinal("country_id")), reader.GetGuid(reader.GetOrdinal("region_id")),
-            reader.GetGuid(reader.GetOrdinal("city_id")),
-            reader.GetGuid(reader.GetOrdinal("street_id")));
-
         return ClientEntity.Create(
             reader.GetGuid(reader.GetOrdinal("id")),
-            reader.GetGuid(reader.GetOrdinal("category_id")),
-            reader.GetGuid(reader.GetOrdinal("doc_identity_type_id")),
-            reader.GetGuid(reader.GetOrdinal("type_id")),
-            reader.GetOrdinal("doc_identity").ToString(),
-            reader.GetOrdinal("first_name").ToString(),
-            reader.GetOrdinal("last_name").ToString(),
-            address,
-            reader.GetOrdinal("phone").ToString(),
-            reader.GetOrdinal("email").ToString(),
-            reader.GetOrdinal("observation").ToString(),
-            reader.GetOrdinal("location_no").ToString(),
-            reader.GetOrdinal("address_ref").ToString(),
-            bool.Parse(reader.GetOrdinal("is_actived").ToString()),
-            reader.GetOrdinal("contact_name").ToString(),
-            reader.GetOrdinal("contact_phone").ToString()
-
+            reader.GetString(reader.GetOrdinal("doc_identity_type")),
+            reader.GetString(reader.GetOrdinal("client_type")),
+            reader.GetString(reader.GetOrdinal("doc_identity")),
+            reader.GetString(reader.GetOrdinal("first_name")),
+            reader.GetString(reader.GetOrdinal("last_name")),
+            reader.GetString(reader.GetOrdinal("phone")),
+            reader.GetString(reader.GetOrdinal("email")),
+            reader.GetString(reader.GetOrdinal("observation")),
+            reader.GetString(reader.GetOrdinal("location_no")),
+            reader.GetString(reader.GetOrdinal("address_ref")),
+            reader.GetBoolean(reader.GetOrdinal("is_actived")),
+            reader.GetString(reader.GetOrdinal("contact_name")),
+            reader.GetString(reader.GetOrdinal("contact_phone")),
+            reader.GetGuid(reader.GetOrdinal("city_id")),
+            reader.GetGuid(reader.GetOrdinal("street_id")) 
             );
     }
 }

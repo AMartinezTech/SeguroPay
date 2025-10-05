@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             PanelAlertMessage = new Panel();
+            LabelAlertMessage = new Label();
             PanelLineTop = new Panel();
             PanelButtom = new Panel();
             PanelLineButtom = new Panel();
@@ -38,16 +40,30 @@
             label2 = new Label();
             BtnLogin = new FontAwesome.Sharp.IconButton();
             IconPictureBoxLogin = new FontAwesome.Sharp.IconPictureBox();
+            errorProvider1 = new ErrorProvider(components);
+            PanelAlertMessage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)IconPictureBoxLogin).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // PanelAlertMessage
             // 
+            PanelAlertMessage.Controls.Add(LabelAlertMessage);
             PanelAlertMessage.Dock = DockStyle.Top;
             PanelAlertMessage.Location = new Point(0, 0);
             PanelAlertMessage.Name = "PanelAlertMessage";
             PanelAlertMessage.Size = new Size(329, 35);
             PanelAlertMessage.TabIndex = 0;
+            // 
+            // LabelAlertMessage
+            // 
+            LabelAlertMessage.AutoSize = true;
+            LabelAlertMessage.Font = new Font("Segoe UI", 10F);
+            LabelAlertMessage.Location = new Point(11, 9);
+            LabelAlertMessage.Name = "LabelAlertMessage";
+            LabelAlertMessage.Size = new Size(45, 19);
+            LabelAlertMessage.TabIndex = 0;
+            LabelAlertMessage.Text = "label3";
             // 
             // PanelLineTop
             // 
@@ -88,6 +104,8 @@
             TextBoxUser.Name = "TextBoxUser";
             TextBoxUser.Size = new Size(193, 23);
             TextBoxUser.TabIndex = 5;
+            TextBoxUser.Text = "AMartinez";
+            TextBoxUser.TextChanged += TextBoxUser_TextChanged;
             // 
             // TextBoxPassword
             // 
@@ -96,7 +114,9 @@
             TextBoxPassword.PasswordChar = '*';
             TextBoxPassword.Size = new Size(193, 23);
             TextBoxPassword.TabIndex = 7;
+            TextBoxPassword.Text = "123";
             TextBoxPassword.UseSystemPasswordChar = true;
+            TextBoxPassword.TextChanged += TextBoxPassword_TextChanged;
             // 
             // label2
             // 
@@ -136,6 +156,10 @@
             IconPictureBoxLogin.TabIndex = 9;
             IconPictureBoxLogin.TabStop = false;
             // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
+            // 
             // FrmLoginView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -158,7 +182,10 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
             Load += FrmLoginView_Load;
+            PanelAlertMessage.ResumeLayout(false);
+            PanelAlertMessage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)IconPictureBoxLogin).EndInit();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -175,5 +202,7 @@
         private Label label2;
         private FontAwesome.Sharp.IconButton BtnLogin;
         private FontAwesome.Sharp.IconPictureBox IconPictureBoxLogin;
+        private Label LabelAlertMessage;
+        private ErrorProvider errorProvider1;
     }
 }

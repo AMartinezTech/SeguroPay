@@ -27,7 +27,7 @@ public class DocIdentityReadRepository(string connectionString) : AdoRepositoryB
                 if (isActived.HasValue)
                     countCmd.Parameters.AddWithValue("@is_actived", isActived.Value);
 
-                totalRecords = (int)await countCmd.ExecuteScalarAsync();
+                totalRecords = Convert.ToInt32(await countCmd.ExecuteScalarAsync());
             }
 
             // 2️⃣ Traer página

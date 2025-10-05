@@ -3,4 +3,4 @@ using AMartinezTech.Domain.Utils.Interfaces;
 
 namespace AMartinezTech.Application.Client.Interfaces;
 
-public interface IClientWriteRepository : ICreate<ClientEntity>, IUpdate<ClientEntity>, IDelete<Guid>;
+public interface IClientWriteRepository : ICreate<ClientEntity>, IUpdate<ClientEntity>;

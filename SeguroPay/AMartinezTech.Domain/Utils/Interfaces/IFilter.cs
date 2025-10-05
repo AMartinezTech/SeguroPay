@@ -2,5 +2,5 @@
 
 public interface IFilter<T> where T : class, IAggregateRoot
 {
-    Task<IReadOnlyList<T>> FilterAsync(string? filterStr, bool? isActived);
+    Task<IReadOnlyList<T>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActived = null);
 }

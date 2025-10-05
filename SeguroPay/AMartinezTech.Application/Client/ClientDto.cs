@@ -2,18 +2,14 @@
 
 public class ClientDto
 {
-    public Guid Id { get; set; }
-    public Guid CategoryId { get; set; }
-    public Guid DocIdentityTypeId { get; set; }
-    public Guid TypeId { get; set; }
+    public Guid Id { get; set; } 
+    public string DocIdentityType { get; set; } = string.Empty;
+    public string ClientType { get; set; } = string.Empty;
     public string DocIdentity { get; set; } = string.Empty;
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public Guid StreetId { get; set; }
     public Guid CityId { get; set; }
-    public Guid RegionId { get; set; }
-    public Guid PostalCodeId { get; set; }
-    public Guid CountryId { get; set; }
     public string Phone { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string? Observation { get; set; }

@@ -38,7 +38,9 @@
             PanelLineHorizontal = new Panel();
             PanelContainer = new Panel();
             PanelButtomMenu = new Panel();
+            LabelWelcome = new Label();
             PanelTopMenu.SuspendLayout();
+            PanelButtomMenu.SuspendLayout();
             SuspendLayout();
             // 
             // PanelTopMenu
@@ -170,11 +172,22 @@
             // 
             // PanelButtomMenu
             // 
+            PanelButtomMenu.Controls.Add(LabelWelcome);
             PanelButtomMenu.Dock = DockStyle.Bottom;
             PanelButtomMenu.Location = new Point(0, 726);
             PanelButtomMenu.Name = "PanelButtomMenu";
             PanelButtomMenu.Size = new Size(1184, 35);
             PanelButtomMenu.TabIndex = 0;
+            // 
+            // LabelWelcome
+            // 
+            LabelWelcome.AutoSize = true;
+            LabelWelcome.Font = new Font("Segoe UI", 11F, FontStyle.Italic);
+            LabelWelcome.Location = new Point(12, 6);
+            LabelWelcome.Name = "LabelWelcome";
+            LabelWelcome.Size = new Size(48, 20);
+            LabelWelcome.TabIndex = 0;
+            LabelWelcome.Text = "label1";
             // 
             // FrmMainView
             // 
@@ -192,6 +205,8 @@
             WindowState = FormWindowState.Maximized;
             Load += FrmMainView_Load;
             PanelTopMenu.ResumeLayout(false);
+            PanelButtomMenu.ResumeLayout(false);
+            PanelButtomMenu.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -207,5 +222,6 @@
         private FontAwesome.Sharp.IconButton BtnPolicy;
         private FontAwesome.Sharp.IconButton BtnInsurance;
         private FontAwesome.Sharp.IconButton BtnSetting;
+        private Label LabelWelcome;
     }
 }

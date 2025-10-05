@@ -12,10 +12,10 @@ public class ValueClientLastName
     private ValueClientLastName(string value)
     {
         if (string.IsNullOrWhiteSpace(value.Trim()))
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - apellidos! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - Lastname");
 
-        if (value.Length < 8 || value.Length > 50)
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RangeValid)} 8 a 50 - apellidos! ");
+        if (value.Length < 3 || value.Length > 20)
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RangeValid)} 3 a 20 - LastName");
 
         Value = value;
     }

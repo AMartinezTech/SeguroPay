@@ -12,7 +12,7 @@ public class ValueDocIdentity
     {
         if (!IsValidRncOrCedula(value))
         {
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - identidad! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - DocIdentity");
         }
 
         Value = value;

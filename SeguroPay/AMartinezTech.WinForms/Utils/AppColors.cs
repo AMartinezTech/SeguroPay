@@ -26,9 +26,11 @@ public static class AppColors
     public static Color OnSecondary => ColorTranslator.FromHtml("#FFFFFF"); // Texto en elementos secundarios 
     public static Color Outline => ColorTranslator.FromHtml("#C7D3DD"); // Bordes y separadores grises azulados 
     public static Color Error => ColorTranslator.FromHtml("#E57373"); // Rojo suave para errores
-    public static Color Warning => ColorTranslator.FromHtml("#F2B179"); // Naranja suave para advertencias
+    //public static Color Warning => ColorTranslator.FromHtml("#F2B179"); // Naranja suave para advertencias
+    public static Color Warning => ColorTranslator.FromHtml("#FF7F00"); // Naranja intenso para advertencias
+
     public static Color Success => ColorTranslator.FromHtml("#5FA782"); // Verde suave para éxito
-    public static Color Info => ColorTranslator.FromHtml("#4BA3C3"); // Azul (igual al Primary para coherencia)
+    public static Color Info => ColorTranslator.FromHtml("#4BA3C3"); // Azul (igual al Primary para coherencia) 
 
 
 }

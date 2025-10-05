@@ -46,7 +46,7 @@ CREATE TABLE doc_identity_types (
     is_actived BIT NOT NULL DEFAULT 1 
 );
 
-CREATE TABLE client_categories (
+CREATE TABLE clients_categories (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
     name NVARCHAR(200) NOT NULL,
     is_actived BIT NOT NULL DEFAULT 1 
@@ -58,11 +58,11 @@ CREATE TABLE client_types (
     is_actived BIT NOT NULL DEFAULT 1 
 );
 
-CREATE TABLE clients (
+CREATE TABLE clientss (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    category_id UNIQUEIDENTIFIER NOT NULL,
-    doc_identity_type_id UNIQUEIDENTIFIER NOT NULL,
-    type_id UNIQUEIDENTIFIER NOT NULL,
+    category NVARCHAR(100) NOT NULL,
+    doc_identity_type NVARCHAR(100) NOT NULL,
+    client_type NVARCHAR(100) NOT NULL,
     doc_identity NVARCHAR(50) NOT NULL,
     first_name NVARCHAR(100) NOT NULL,
     last_name NVARCHAR(100) NOT NULL,
@@ -81,19 +81,19 @@ CREATE TABLE clients (
     is_actived BIT NOT NULL DEFAULT 1,   
     created_at DATETIME2 NOT NULL DEFAULT SYSDATETIME(),
 
-	CONSTRAINT FK_Clients_Streets FOREIGN KEY (street_id)
+	CONSTRAINT FK_clientss_Streets FOREIGN KEY (street_id)
         REFERENCES streets(id)
         ON DELETE NO ACTION,
  
-    CONSTRAINT FK_Clients_City FOREIGN KEY (city_id)
+    CONSTRAINT FK_clientss_City FOREIGN KEY (city_id)
         REFERENCES cities(id)
         ON DELETE NO ACTION,
 
-    CONSTRAINT FK_Clients_Region FOREIGN KEY (region_id)
+    CONSTRAINT FK_clientss_Region FOREIGN KEY (region_id)
         REFERENCES regions(id)
         ON DELETE NO ACTION,
 
-    CONSTRAINT FK_Clients_Country FOREIGN KEY (country_id)
+    CONSTRAINT FK_clientss_Country FOREIGN KEY (country_id)
         REFERENCES countries(id)
         ON DELETE NO ACTION
 );
@@ -175,7 +175,7 @@ CREATE TABLE policies (
     policy_no NVARCHAR(50) NOT NULL,
     created_at DATETIME2 NOT NULL DEFAULT GETDATE(),
     updated_at DATETIME2 NOT NULL DEFAULT GETDATE(),
-    client_id UNIQUEIDENTIFIER NOT NULL,
+    clients_id UNIQUEIDENTIFIER NOT NULL,
     insurance_id UNIQUEIDENTIFIER NOT NULL,
     type_id UNIQUEIDENTIFIER NOT NULL,
     pay_day INT NOT NULL,
@@ -188,8 +188,8 @@ CREATE TABLE policies (
     suspend_by UNIQUEIDENTIFIER NULL,
     cancel_by UNIQUEIDENTIFIER NULL,
 
-    -- Foreign keys (asumiendo que existen las tablas clients, ensurances, types y users)
-    CONSTRAINT FK_Policy_Client FOREIGN KEY (client_id) REFERENCES clients(id),
+    -- Foreign keys (asumiendo que existen las tablas clientss, ensurances, types y users)
+    CONSTRAINT FK_Policy_clients FOREIGN KEY (clients_id) REFERENCES clientss(id),
     CONSTRAINT FK_Policy_Ensurance FOREIGN KEY (insurance_id) REFERENCES insurances(id),
     CONSTRAINT FK_Policy_Type FOREIGN KEY (type_id) REFERENCES policy_types(id),
     CONSTRAINT FK_Policy_CreatedBy FOREIGN KEY (created_by) REFERENCES users(id),
@@ -201,7 +201,7 @@ CREATE TABLE policies (
 CREATE TABLE policy_payments (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
     policy_id UNIQUEIDENTIFIER NOT NULL,
-    date DATE NOT NULL,          -- Fecha en que el cliente pagó
+    date DATE NOT NULL,          -- Fecha en que el clientse pagó
     amount DECIMAL(18,2) NOT NULL,      -- Monto pagado
     created_at DATETIME2 NOT NULL DEFAULT GETDATE(),
     created_by UNIQUEIDENTIFIER NULL,    -- Usuario que registró el pago
@@ -211,10 +211,10 @@ CREATE TABLE policy_payments (
 );
 
 
-CREATE TABLE client_conversations
+CREATE TABLE clients_conversations
 (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,   -- Identificador único
-    client_id UNIQUEIDENTIFIER NOT NULL,        -- Cliente relacionado
+    clients_id UNIQUEIDENTIFIER NOT NULL,        -- clientse relacionado
     channel NVARCHAR(20) NOT NULL,              -- "Telefono" o "WhatsApp"
     contact_number NVARCHAR(20) NOT NULL,       -- Número desde el cual o hacia el cual se realizó la conversación
     created_at DATETIME2 NOT NULL DEFAULT GETDATE(), -- Fecha/hora de la conversación
@@ -223,7 +223,7 @@ CREATE TABLE client_conversations
     created_by UNIQUEIDENTIFIER NOT NULL,       -- Usuario interno que registró la conversación
   
     -- Relaciones
-    CONSTRAINT FK_Conversation_Client FOREIGN KEY (client_id) REFERENCES clients(id),
+    CONSTRAINT FK_Conversation_clients FOREIGN KEY (clients_id) REFERENCES clientss(id),
     CONSTRAINT FK_Conversation_User FOREIGN KEY (created_by) REFERENCES users(id),
 
     -- Restricciones para asegurar la integridad

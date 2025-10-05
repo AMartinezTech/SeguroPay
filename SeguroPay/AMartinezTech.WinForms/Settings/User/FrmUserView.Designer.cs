@@ -51,10 +51,13 @@
             LabelAlertMessage = new Label();
             PanelLineTop = new Panel();
             PanelButtom = new Panel();
+            LabelTitle = new Label();
             PanelLineButtom = new Panel();
             errorProvider1 = new ErrorProvider(components);
+            CheckBoxFilterByIsActived = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             PanelAlertMessage.SuspendLayout();
+            PanelButtom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
@@ -185,6 +188,8 @@
             // CheckBoxIsActived
             // 
             CheckBoxIsActived.AutoSize = true;
+            CheckBoxIsActived.Checked = true;
+            CheckBoxIsActived.CheckState = CheckState.Checked;
             CheckBoxIsActived.Location = new Point(178, 198);
             CheckBoxIsActived.Name = "CheckBoxIsActived";
             CheckBoxIsActived.Size = new Size(60, 19);
@@ -260,11 +265,22 @@
             // 
             // PanelButtom
             // 
+            PanelButtom.Controls.Add(LabelTitle);
             PanelButtom.Dock = DockStyle.Bottom;
             PanelButtom.Location = new Point(0, 426);
             PanelButtom.Name = "PanelButtom";
             PanelButtom.Size = new Size(800, 35);
             PanelButtom.TabIndex = 20;
+            // 
+            // LabelTitle
+            // 
+            LabelTitle.AutoSize = true;
+            LabelTitle.Font = new Font("Segoe UI", 12F, FontStyle.Italic);
+            LabelTitle.Location = new Point(13, 5);
+            LabelTitle.Name = "LabelTitle";
+            LabelTitle.Size = new Size(149, 21);
+            LabelTitle.TabIndex = 1;
+            LabelTitle.Text = "Maestro de usuarios";
             // 
             // PanelLineButtom
             // 
@@ -278,11 +294,25 @@
             // 
             errorProvider1.ContainerControl = this;
             // 
+            // CheckBoxFilterByIsActived
+            // 
+            CheckBoxFilterByIsActived.AutoSize = true;
+            CheckBoxFilterByIsActived.Checked = true;
+            CheckBoxFilterByIsActived.CheckState = CheckState.Checked;
+            CheckBoxFilterByIsActived.Location = new Point(683, 43);
+            CheckBoxFilterByIsActived.Name = "CheckBoxFilterByIsActived";
+            CheckBoxFilterByIsActived.Size = new Size(96, 19);
+            CheckBoxFilterByIsActived.TabIndex = 22;
+            CheckBoxFilterByIsActived.Text = "Filtrar activos";
+            CheckBoxFilterByIsActived.UseVisualStyleBackColor = true;
+            CheckBoxFilterByIsActived.CheckedChanged += CheckBoxFilterByIsActived_CheckedChanged;
+            // 
             // FrmUserView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 461);
+            Controls.Add(CheckBoxFilterByIsActived);
             Controls.Add(PanelLineButtom);
             Controls.Add(PanelButtom);
             Controls.Add(PanelLineTop);
@@ -316,6 +346,8 @@
             ((System.ComponentModel.ISupportInitialize)DataGridView).EndInit();
             PanelAlertMessage.ResumeLayout(false);
             PanelAlertMessage.PerformLayout();
+            PanelButtom.ResumeLayout(false);
+            PanelButtom.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -347,5 +379,7 @@
         private Panel PanelButtom;
         private Panel PanelLineButtom;
         private ErrorProvider errorProvider1;
+        private CheckBox CheckBoxFilterByIsActived;
+        private Label LabelTitle;
     }
 }

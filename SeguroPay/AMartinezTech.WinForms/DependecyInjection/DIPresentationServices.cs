@@ -12,5 +12,6 @@ public class DIPresentationServices
         services.AddTransient<FrmSettingDashboardView>();
 
         DIUserServices.AddServices(services);
+        DIClientService.AddServices(services);
     }
 }

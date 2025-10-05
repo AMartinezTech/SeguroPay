@@ -1,27 +1,23 @@
 ﻿using AMartinezTech.Application.Setting.User;
-using AMartinezTech.Application.Setting.User.UseCases.Read;
-using AMartinezTech.Application.Setting.User.UseCases.Write;
 using System.ComponentModel;
 
 namespace AMartinezTech.WinForms.Settings.User;
 
-public class UserController(UserPersistence persistence, UserGetById getById, UserFilter filter)
+public class UserController(UserApplicationService service)
 {
-    private readonly UserPersistence _persistence = persistence;
-    private readonly UserGetById _getById = getById;
-    private readonly UserFilter _filter = filter;
+    private readonly UserApplicationService _service = service;
 
     internal async Task<Guid> PersistenceAsync(UserDto dto)
     {
-        return await _persistence.ExecuteAsync(dto);
+        return await _service.PersistenceAsync(dto);
     }
     internal async Task<UserDto> GetByIdAsync(Guid id)
     {
-        return await _getById.ExecuteAsync(id);
+        return await _service.GetByIdUserAsync(id);
     }
-    internal async Task<BindingList<UserViewModel>> FilterAsync(string? filterStr = null, bool? isActived = null)
+    internal async Task<BindingList<UserViewModel>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActived = null)
     {
-        var result = await _filter.ExecuteAsync(filterStr, isActived);
+        var result = await _service.FilterUsersAsync(filters, globalSearch, isActived);
         return new BindingList<UserViewModel>(UserViewModel.ToModelList(result));
     }
 }

@@ -26,7 +26,7 @@ public partial class FrmUserView : Form
     {
         SetMessage("Formulario preparado para recibir datos.", MessageType.Information);
         InvokeDataViewSetting();
-        InvokeFilterAsync();
+        InvokeFilterAsync(true);
     }
     #endregion
     #region "Methods"
@@ -104,14 +104,14 @@ public partial class FrmUserView : Form
         PanelLineTop.BackColor = AppColors.Outline;
         PanelLineButtom.BackColor = AppColors.Outline;
         PanelAlertMessage.BackColor = AppColors.SurfaceMessage;
-
-
+         
 
         // Btn
         BtnPersistence.IconColor = AppColors.Primary;
         BtnClear.IconColor = AppColors.Primary;
 
-
+        // Label
+        LabelTitle.ForeColor = AppColors.OnPrimary;
     }
     private void ValidationFields(string fieldName)
     {
@@ -164,7 +164,7 @@ public partial class FrmUserView : Form
         TextBoxUserName.Text = string.Empty;
         TextBoxPassword.Text = string.Empty;
         TextBoxConfirmPassword.Text = string.Empty;
-        ComboBoxRol.Text = "Admin";
+        ComboBoxRol.Text = "Administrador";
         BtnPersistence.Enabled = true;
         CheckBoxIsActived.Checked = false;
         DataGridView.Refresh();
@@ -181,9 +181,9 @@ public partial class FrmUserView : Form
         ComboBoxRol.Text = data.Rol;
         CheckBoxIsActived.Checked = data.IsActived;
     }
-    private async void InvokeFilterAsync()
+    private async void InvokeFilterAsync(bool isActived)
     {
-        _userList = await _userController.FilterAsync(null, null);
+        _userList = await _userController.FilterAsync(null, null, isActived);
         if (_userList.Count > 0)
         {
             DataGridView.DataSource = _userList;
@@ -193,6 +193,10 @@ public partial class FrmUserView : Form
 
     #endregion
     #region "Field Events"
+    private void CheckBoxFilterByIsActived_CheckedChanged(object sender, EventArgs e)
+    {
+        InvokeFilterAsync(CheckBoxFilterByIsActived.Checked);
+    }
     private void TextBoxFullName_TextChanged(object sender, EventArgs e)
     {
         ClearMessageErr();
@@ -230,7 +234,7 @@ public partial class FrmUserView : Form
 
     private void ComboBoxRol_KeyPress(object sender, KeyPressEventArgs e)
     {
-       e.Handled = true;
+        e.Handled = true;
     }
     #endregion
     #region "Btn Events"
@@ -304,4 +308,6 @@ public partial class FrmUserView : Form
         }
     }
     #endregion
+
+   
 }

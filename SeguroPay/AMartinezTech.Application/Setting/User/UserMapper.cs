@@ -9,14 +9,13 @@ internal class UserMapper
         return new UserDto
         {
             Id = entity.Id,
-            UserName = entity.UserName.Value,
-            Email = entity.Email.Value,
-            Password = entity.Password.Hash,
+            UserName = entity.UserName!.Value,
+            Email = entity.Email!.Value,
             FullName = entity.FullName.Value,
             Phone = entity.Phone.Value,
             Rol = entity.Rol.Type.ToString(),
             IsActived = entity.IsActived,
-            CreatedAt = entity.CreatedAt
+            CreatedAt = entity.CreatedAt!.Value
         };
     }
 

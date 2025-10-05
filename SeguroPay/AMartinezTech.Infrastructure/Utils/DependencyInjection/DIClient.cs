@@ -1,9 +1,5 @@
-﻿using AMartinezTech.Application.Client.Categories.Interfaces;
-using AMartinezTech.Application.Client.Interfaces;
-using AMartinezTech.Application.Client.Types;
+﻿using AMartinezTech.Application.Client.Interfaces;
 using AMartinezTech.Infrastructure.Clients;
-using AMartinezTech.Infrastructure.Clients.Categories;
-using AMartinezTech.Infrastructure.Clients.Type;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AMartinezTech.Infrastructure.Utils.DependencyInjection;
@@ -14,9 +10,7 @@ public static class DIClient
     {
         services.AddScoped<IClientWriteRepository>(sp => new ClientWriterRepository(connectionString));
         services.AddScoped<IClientReadRepository>(sp => new ClientReadRepository(connectionString));
-        services.AddScoped<IClientCategoryReadRepository>(sp => new ClientCategoryReadRepository(connectionString));
-        services.AddScoped<IClientTypeReadRepository>(sp => new ClientTypeReadRepository(connectionString));
-        
+
 
         return services;
     }

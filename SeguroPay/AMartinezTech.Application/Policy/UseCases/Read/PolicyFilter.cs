@@ -6,9 +6,9 @@ public class PolicyFilter(IPolicyReadRepository repository)
 {
     private readonly IPolicyReadRepository _repository = repository;
 
-    public async Task<List<PolicyDto>> ExecuteAsync(string? filterStr, bool? isActived)
+    public async Task<List<PolicyDto>> ExecuteAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActived = null)
     {
-        var result = await _repository.FilterAsync(filterStr, isActived);
+        var result = await _repository.FilterAsync(filters, globalSearch, isActived);
         return PolicyMapper.ToDtoList(result);
     }
 }
