@@ -9,8 +9,8 @@ internal class StreetMapper
         return new StreetDto
         {
             Id = entity.Id,
-            Name = entity.Name,
-            CityId = entity.CityId.Value,
+            Name = entity.StreetName,
+            CityId = entity.CityId,
             CreatedAt = entity.CreatedAt,
         };
     }

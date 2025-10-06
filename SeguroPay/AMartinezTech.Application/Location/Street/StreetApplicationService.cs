@@ -15,11 +15,6 @@ public class StreetApplicationService(IStreetReadRepository readRepository, IStr
         return StreetMapper.ToDtoList(result);
     }
     
-    public async Task<List<StreetDto>> StreetGetByCityIdAsync(Guid cityId)
-    {
-        var result = await _readRepository.GetByCityId(cityId);
-        return StreetMapper.ToDtoList(result);
-    }
     public async Task<StreetDto> StreetGetByIdAsync(Guid id)
     {
         var result = await _readRepository.GetByIdAsync(id);

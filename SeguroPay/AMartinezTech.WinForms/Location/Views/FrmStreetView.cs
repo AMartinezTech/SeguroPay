@@ -1,8 +1,8 @@
-﻿using AMartinezTech.Application.Location.Street; 
+﻿using AMartinezTech.Application.Location.Street;
 using AMartinezTech.WinForms.Location.Controllers;
 using AMartinezTech.WinForms.Location.Utils;
 using AMartinezTech.WinForms.Utils;
-using System.ComponentModel; 
+using System.ComponentModel;
 
 namespace AMartinezTech.WinForms.Location.Views;
 
@@ -11,9 +11,10 @@ public partial class FrmStreetView : Form
     #region "Fields"
     private CancellationTokenSource? _cts;
     private Guid StreetId { get; set; } = Guid.Empty;
-    private Guid CityId { get; set; } = Guid.Empty;
+    //private Guid CityId { get; set; } = Guid.Empty;
     private readonly StreetController _streetController;
     private BindingList<StreetDto> _streetList = [];
+    public Guid CityId = Guid.Empty;
     #endregion
     #region "Constructor"
     public FrmStreetView(StreetController streetController)
@@ -26,7 +27,9 @@ public partial class FrmStreetView : Form
     #region "Form Events"
     private void FrmStreetView_Load(object sender, EventArgs e)
     {
-
+        SetMessage("Formulario preparado para recibir datos.", MessageType.Information);
+        InvokeDataViewSetting();
+        InvokeFilterAsync();
     }
     #endregion
     #region "Methods"
@@ -121,16 +124,20 @@ public partial class FrmStreetView : Form
             TextBoxName.Focus();
             errorProvider1.SetError(TextBoxName, "Aquí!");
         }
+        else if (fieldName.Contains("City"))
+        {
+            errorProvider1.SetError(LabelCityName, "Aquí!");
+        }
 
-         
+
     }
     private void ClearFields()
     {
         ClearMessageErr();
         StreetId = Guid.Empty;
         TextBoxName.Text = string.Empty;
-        
-        BtnPersistence.Enabled = true; 
+
+        BtnPersistence.Enabled = true;
         DataGridView.Refresh();
     }
     private async void InvokeGetByIdAsync()
@@ -139,12 +146,21 @@ public partial class FrmStreetView : Form
 
         StreetId = data.Id;
         TextBoxName.Text = data.Name;
-     
+
     }
-    private async void InvokeFilterAsync(bool isActived)
+    private async void InvokeFilterAsync()
     {
-     
-        _streetList = await _streetController.FilterAsync(null, null, isActived);
+        var filters = new Dictionary<string, object?>
+        {
+            ["city_id"] = CityId,
+
+        };
+
+        var globalSearch = new Dictionary<string, object?>
+        {
+            ["street"] = TextBoxSearch.Text.Trim()
+        };
+        _streetList = await _streetController.FilterAsync(filters, globalSearch, null);
         if (_streetList.Count > 0)
         {
             DataGridView.DataSource = _streetList;
@@ -174,8 +190,8 @@ public partial class FrmStreetView : Form
             var newDto = new StreetDto
             {
                 Id = StreetId,
-               Name = TextBoxName.Text.Trim(),
-               CityId = CityId,
+                Name = TextBoxName.Text.Trim(),
+                CityId = CityId,
             };
             StreetId = await _streetController.PersistenceAsync(newDto);
             newDto.Id = StreetId;

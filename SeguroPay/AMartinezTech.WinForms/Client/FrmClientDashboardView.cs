@@ -28,6 +28,8 @@ public partial class FrmClientDashboardView : Form
         FillComboBox();
         InvokeDataViewSetting();
         InvokeFilterAsync();
+        DataGridView.EnableDoubleBuffering();
+
 
     }
     #endregion
@@ -56,21 +58,46 @@ public partial class FrmClientDashboardView : Form
     }
     private async void InvokeFilterAsync()
     {
-        var filters = new Dictionary<string, object?>
+        try
         {
-            ["client_type"] = string.IsNullOrWhiteSpace(ComboBoxClientType.Text) ? null : ComboBoxClientType.Text.Trim()
 
-        };
 
-        var globalSearch = new Dictionary<string, object?>
+            // Detiene el repintado del DataGridView temporalmente
+            DataGridView.SuspendLayout();
+            DataGridView.DataSource = null;
+
+            var filters = new Dictionary<string, object?>
+            {
+                ["client_type"] = string.IsNullOrWhiteSpace(ComboBoxClientType.Text) ? null : ComboBoxClientType.Text.Trim()
+
+            };
+
+            var globalSearch = new Dictionary<string, object?>
+            {
+                ["first_name"] = TextBoxSearch.Text.Trim(),
+                ["last_name"] = TextBoxSearch.Text.Trim(),
+                ["doc_identity"] = TextBoxSearch.Text.Trim()
+            };
+
+
+            // Ejecuta el filtro en un hilo separado para no bloquear la UI
+            var result = await Task.Run(() => _controller.FilterAsync(filters, globalSearch, CheckBoxIsActived.Checked));
+
+            // Reactiva el repintado y asigna el resultado
+            DataGridView.DataSource = result;
+            _clientList = result;
+            //_clientList = await _controller.FilterAsync(filters, globalSearch, CheckBoxIsActived.Checked);
+            //DataGridView.DataSource = _clientList;
+        }
+        catch (Exception ex)
         {
-            ["first_name"] = TextBoxSearch.Text.Trim(),
-            ["last_name"] = TextBoxSearch.Text.Trim(),
-            ["doc_identity"] = TextBoxSearch.Text.Trim()
-        };
-
-        _clientList = await _controller.FilterAsync(filters, globalSearch, CheckBoxIsActived.Checked);
-        DataGridView.DataSource = _clientList;
+            MessageBox.Show($"Error al filtrar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        finally
+        {
+            // Reanuda el pintado del DataGridView
+            DataGridView.ResumeLayout();
+        }
     }
     private void SetColorUI()
     {
@@ -88,7 +115,7 @@ public partial class FrmClientDashboardView : Form
     private void BtnNuevo_Click(object sender, EventArgs e)
     {
         var frmClientView = _formFactory.CreateFormFactory<FrmClientView>();
-               
+
         if (frmClientView.ShowDialog() == DialogResult.OK)
         {
             //MessageBox.Show(frmClientView.Client.FirstName);

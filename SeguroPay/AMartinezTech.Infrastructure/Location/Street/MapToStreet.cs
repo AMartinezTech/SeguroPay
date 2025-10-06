@@ -10,7 +10,7 @@ internal class MapToStreet
         return StreetEntity.Create(
             reader.GetGuid(reader.GetOrdinal("id")),
             reader.GetGuid(reader.GetOrdinal("city_id")),
-            reader.GetString(reader.GetOrdinal("name")),
+            reader.GetString(reader.GetOrdinal("street")),
             reader.GetDateTime(reader.GetOrdinal("created_at")));
     }
 }

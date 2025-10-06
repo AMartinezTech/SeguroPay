@@ -42,6 +42,8 @@
             PanelButtom = new Panel();
             LabelTitle = new Label();
             errorProvider1 = new ErrorProvider(components);
+            TextBoxSearch = new TextBox();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             PanelAlertMessage.SuspendLayout();
             PanelButtom.SuspendLayout();
@@ -68,9 +70,9 @@
             // DataGridView
             // 
             DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DataGridView.Location = new Point(309, 70);
+            DataGridView.Location = new Point(309, 97);
             DataGridView.Name = "DataGridView";
-            DataGridView.Size = new Size(330, 264);
+            DataGridView.Size = new Size(330, 237);
             DataGridView.TabIndex = 4;
             DataGridView.CellContentClick += DataGridView_CellContentClick;
             // 
@@ -171,11 +173,29 @@
             // 
             errorProvider1.ContainerControl = this;
             // 
+            // TextBoxSearch
+            // 
+            TextBoxSearch.Location = new Point(310, 68);
+            TextBoxSearch.Name = "TextBoxSearch";
+            TextBoxSearch.Size = new Size(329, 23);
+            TextBoxSearch.TabIndex = 10;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(311, 48);
+            label2.Name = "label2";
+            label2.Size = new Size(42, 15);
+            label2.TabIndex = 11;
+            label2.Text = "Buscar";
+            // 
             // FrmStreetView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(654, 390);
+            Controls.Add(label2);
+            Controls.Add(TextBoxSearch);
             Controls.Add(PanelLineButtom);
             Controls.Add(PanelButtom);
             Controls.Add(PanelLineTop);
@@ -210,7 +230,6 @@
         private DataGridView DataGridView;
         private FontAwesome.Sharp.IconButton BtnPersistence;
         private FontAwesome.Sharp.IconButton BtnClear;
-        private Label LabelCityName;
         private Panel PanelLineTop;
         private Panel PanelAlertMessage;
         private Label LabelAlertMessage;
@@ -218,5 +237,8 @@
         private Panel PanelButtom;
         private Label LabelTitle;
         private ErrorProvider errorProvider1;
+        public Label LabelCityName;
+        private Label label2;
+        private TextBox TextBoxSearch;
     }
 }

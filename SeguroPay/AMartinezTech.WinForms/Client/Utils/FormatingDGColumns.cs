@@ -6,6 +6,8 @@ internal class FormatingDGColumns
     {
         //Desable aut generate columns
         dataGridView.AutoGenerateColumns = false;
+       
+
 
         // Add columns
         var colId = new DataGridViewTextBoxColumn

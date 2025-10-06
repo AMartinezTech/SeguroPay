@@ -21,7 +21,7 @@ public class StreetWriteRepository(string connectionString) : AdoRepositoryBase(
             cmd.CommandText = sql;
 
             cmd.Parameters.AddWithValue("@id",entity.Id);
-            cmd.Parameters.AddWithValue("@street",entity.Name);
+            cmd.Parameters.AddWithValue("@street",entity.StreetName);
             cmd.Parameters.AddWithValue("@city_id",entity.CityId);
 
             await cmd.ExecuteNonQueryAsync();
@@ -65,11 +65,11 @@ public class StreetWriteRepository(string connectionString) : AdoRepositoryBase(
             await conn.OpenAsync();
             using var cmd = new SqlCommand { Connection = conn };
 
-            var sql = @"UPDATE street SET street=@street, city_id=@city_id WHERE id=@id";
+            var sql = @"UPDATE streets SET street=@street, city_id=@city_id WHERE id=@id";
 
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@id", entity.Id);
-            cmd.Parameters.AddWithValue("@street", entity.Name);
+            cmd.Parameters.AddWithValue("@street", entity.StreetName);
             cmd.Parameters.AddWithValue("@city_id", entity.CityId);
             await cmd.ExecuteNonQueryAsync();
         }

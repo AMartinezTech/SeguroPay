@@ -357,9 +357,21 @@ public partial class FrmClientView : Form
 
         }
     }
-    private void BtnStreet_Click(object sender, EventArgs e)
+    private async void BtnStreet_Click(object sender, EventArgs e)
     {
+        if (ComboBoxCity.SelectedValue == null)
+        {
+            SetMessage("Cerrar - " + "Debe seleccionar una ciudad ", MessageType.Warning);
+            errorProvider1.SetError(ComboBoxCity, "Aquí");
+            // Set to 3 secons for alert
+            await SetInitialMessage(4, LabelAlertMessage);
+            BtnPersistence.Enabled = true;
+
+            return;
+        }
         var frmStreetView = _formFactory.CreateFormFactory<FrmStreetView>();
+        frmStreetView.CityId = Guid.Parse(ComboBoxCity.SelectedValue!.ToString()!);
+        frmStreetView.LabelCityName.Text = $"Ciudad: {ComboBoxCity.Text}";
         frmStreetView.ShowDialog();
     }
 

@@ -1,6 +1,7 @@
 ﻿using AMartinezTech.Application.Location.Street.Interfaces; 
 using AMartinezTech.Domain.Location.Entities; 
-using AMartinezTech.Domain.Utils.Exception; 
+using AMartinezTech.Domain.Utils.Exception;
+using AMartinezTech.Infrastructure.Data.Specifications;
 using AMartinezTech.Infrastructure.Utils.Exceptions;
 using AMartinezTech.Infrastructure.Utils.Persistence;
 using Microsoft.Data.SqlClient;
@@ -16,10 +17,12 @@ public class StreetReadRepository(string connectionString) : AdoRepositoryBase(c
         {
             await conn.OpenAsync();
 
-
             using var cmd = new SqlCommand { Connection = conn };
+
+            var spec = new SqlFilterSpecification(filters, globalSearch, isActived);
+            var whereClause = spec.BuildCondition(cmd);
                       
-            var sql = $"SELECT TOP 100 * FROM streets ORDER BY city_id,street";
+            var sql = $"SELECT TOP 100 * FROM streets {whereClause} ORDER BY city_id,street";
             cmd.CommandText = sql;
 
             using var reader = await cmd.ExecuteReaderAsync();
@@ -27,39 +30,6 @@ public class StreetReadRepository(string connectionString) : AdoRepositoryBase(c
                 result.Add(MapToStreet.ToEntity(reader));
         }
         return result;
-    }
-
-    public async Task<IReadOnlyList<StreetEntity>> GetByCityId(Guid cityId)
-    {
-        try
-        {
-            List<StreetEntity>? entityList = null;
-            using var conn = GetConnection();
-            await conn.OpenAsync();
-
-            var sql = @"SELECT *
-                      FROM streets WHERE city_id=@city_id ORDER BY street";
-
-            using var cmd = new SqlCommand(sql, conn);
-
-            cmd.Parameters.AddWithValue("@city_id", cityId);
-
-            using var reader = await cmd.ExecuteReaderAsync();
-            if (await reader.ReadAsync())
-            {
-                entityList!.Add(MapToStreet.ToEntity(reader));
-            }
-
-            if (entityList == null) throw new DatabaseException($"{ErrorMessages.Get(ErrorType.RecordDoesDotExist)}"); 
-
-            return entityList;
-        }
-        catch (SqlException ex)
-        {
-            var messaje = SqlErrorMapper.Map(ex);
-            throw new DatabaseException(messaje);
-        }
-        catch (Exception) { throw; }
     }
 
     public async Task<StreetEntity> GetByIdAsync(Guid id)

@@ -18,7 +18,6 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
         {
             await conn.OpenAsync();
 
-
             using var cmd = new SqlCommand { Connection = conn };
 
             var spec = new SqlFilterSpecification(filters, globalSearch, isActived);
