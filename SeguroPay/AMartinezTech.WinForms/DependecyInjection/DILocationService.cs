@@ -1,5 +1,6 @@
 ﻿using AMartinezTech.Application.Location.City.UseCases.Read;
 using AMartinezTech.Application.Location.Street;
+using AMartinezTech.WinForms.Location.Controllers;
 using AMartinezTech.WinForms.Location.Views;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,5 +16,6 @@ public class DILocationService
         // Street
         services.AddTransient<StreetApplicationService>();
         services.AddTransient<FrmStreetView>();
+        services.AddTransient<StreetController>();
     }
 }

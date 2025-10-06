@@ -67,6 +67,7 @@
             PanelButtom = new Panel();
             LabelTitle = new Label();
             errorProvider1 = new ErrorProvider(components);
+            BtnStreet = new FontAwesome.Sharp.IconButton();
             PanelAlertMessage.SuspendLayout();
             PanelButtom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
@@ -412,11 +413,26 @@
             // 
             errorProvider1.ContainerControl = this;
             // 
+            // BtnStreet
+            // 
+            BtnStreet.Cursor = Cursors.Hand;
+            BtnStreet.IconChar = FontAwesome.Sharp.IconChar.PlusSquare;
+            BtnStreet.IconColor = Color.Black;
+            BtnStreet.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            BtnStreet.IconSize = 25;
+            BtnStreet.Location = new Point(377, 286);
+            BtnStreet.Name = "BtnStreet";
+            BtnStreet.Size = new Size(32, 29);
+            BtnStreet.TabIndex = 35;
+            BtnStreet.UseVisualStyleBackColor = true;
+            BtnStreet.Click += BtnStreet_Click;
+            // 
             // FrmClientView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(744, 503);
+            Controls.Add(BtnStreet);
             Controls.Add(PanelLineButtom);
             Controls.Add(PanelButtom);
             Controls.Add(PanelLineTop);
@@ -508,5 +524,6 @@
         private Panel PanelButtom;
         private Label LabelTitle;
         private ErrorProvider errorProvider1;
+        private FontAwesome.Sharp.IconButton BtnStreet;
     }
 }

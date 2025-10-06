@@ -190,6 +190,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmStreetView";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Calles";
             Load += FrmStreetView_Load;
             ((System.ComponentModel.ISupportInitialize)DataGridView).EndInit();

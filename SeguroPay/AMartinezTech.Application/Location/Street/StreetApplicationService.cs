@@ -1,6 +1,5 @@
 ﻿using AMartinezTech.Application.Location.Street.Interfaces;
-using AMartinezTech.Domain.Location.Entities;
-using AMartinezTech.Domain.Utils;
+using AMartinezTech.Domain.Location.Entities; 
 
 namespace AMartinezTech.Application.Location.Street;
 
@@ -15,12 +14,7 @@ public class StreetApplicationService(IStreetReadRepository readRepository, IStr
         var result = await _readRepository.FilterAsync(filters, globalSearch, isActived);
         return StreetMapper.ToDtoList(result);
     }
-    public async Task<PageResult<StreetDto>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
-    {
-        var result = await _readRepository.PaginationAsync(pageNumber, pageSize, isActived);
-        var dtoList = StreetMapper.ToDtoList(result.Data);
-        return new PageResult<StreetDto>(result.TotalRecords, pageSize, dtoList);
-    }
+    
     public async Task<List<StreetDto>> StreetGetByCityIdAsync(Guid cityId)
     {
         var result = await _readRepository.GetByCityId(cityId);

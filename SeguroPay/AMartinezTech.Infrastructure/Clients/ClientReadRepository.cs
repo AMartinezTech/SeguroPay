@@ -1,8 +1,8 @@
 ﻿using AMartinezTech.Application.Client.Interfaces;
-using AMartinezTech.Domain.Client.Entitties; 
+using AMartinezTech.Domain.Client.Entitties;
 using AMartinezTech.Domain.Utils;
 using AMartinezTech.Domain.Utils.Exception;
-using AMartinezTech.Infrastructure.Data.Specifications; 
+using AMartinezTech.Infrastructure.Data.Specifications;
 using AMartinezTech.Infrastructure.Utils.Exceptions;
 using AMartinezTech.Infrastructure.Utils.Persistence;
 using Microsoft.Data.SqlClient;
@@ -19,7 +19,7 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
             await conn.OpenAsync();
 
 
-            var cmd = new SqlCommand { Connection = conn };
+            using var cmd = new SqlCommand { Connection = conn };
 
             var spec = new SqlFilterSpecification(filters, globalSearch, isActived);
             var whereClause = spec.BuildCondition(cmd);

@@ -1,22 +1,26 @@
-﻿using AMartinezTech.Application.Client; 
+﻿using AMartinezTech.Application.Client;
 using AMartinezTech.Domain.Utils.Enums;
+using AMartinezTech.WinForms.Location.Views;
 using AMartinezTech.WinForms.Utils;
+using AMartinezTech.WinForms.Utils.Factories;
 
 namespace AMartinezTech.WinForms.Client;
 
 public partial class FrmClientView : Form
 {
     #region "Fields"
+    private readonly IFormFactory _formFactory;
     private CancellationTokenSource? _cts;
     private readonly ClientController _clientController;
     private Guid ClientId { get; set; } = Guid.Empty;
-  
+
     #endregion
     #region "Constructor"
-    public FrmClientView(ClientController clientController)
+    public FrmClientView(ClientController clientController, IFormFactory formFactory)
     {
         InitializeComponent();
         _clientController = clientController;
+        _formFactory = formFactory;
         SetColorUI();
     }
     #endregion
@@ -41,8 +45,8 @@ public partial class FrmClientView : Form
         }
 
         ComboBoxCity.DataSource = cities.Data;
-        ComboBoxCity.DisplayMember = "name";  
-        ComboBoxCity.ValueMember = "id";     
+        ComboBoxCity.DisplayMember = "name";
+        ComboBoxCity.ValueMember = "id";
     }
 
     private void ClearFields()
@@ -146,6 +150,7 @@ public partial class FrmClientView : Form
         // Btn
         BtnPersistence.IconColor = AppColors.Primary;
         BtnClear.IconColor = AppColors.Primary;
+        BtnStreet.IconColor = AppColors.Primary;
 
         // Label
         LabelTitle.ForeColor = AppColors.OnPrimary;
@@ -278,17 +283,17 @@ public partial class FrmClientView : Form
         try
         {
             BtnPersistence.Enabled = false;
-            if (ComboBoxCity.SelectedValue == null )
+            if (ComboBoxCity.SelectedValue == null)
             {
                 SetMessage("Cerrar - " + "Debe seleccionar una ciudad ", MessageType.Warning);
                 errorProvider1.SetError(ComboBoxCity, "Aquí");
                 // Set to 3 secons for alert
                 await SetInitialMessage(4, LabelAlertMessage);
                 BtnPersistence.Enabled = true;
-               
+
                 return;
             }
-            if (   ComboBoxStreet.SelectedValue == null)
+            if (ComboBoxStreet.SelectedValue == null)
             {
                 SetMessage("Cerrar - " + "Debe seleccionar una calle antes de continuar.", MessageType.Warning);
                 errorProvider1.SetError(ComboBoxStreet, "Aquí");
@@ -306,7 +311,7 @@ public partial class FrmClientView : Form
                 DocIdentity = TextBoxDocIdentity.Text.Trim(),
                 ClientType = ComboBoxClientType.Text,
                 FirstName = TextBoxFirstName.Text,
-                LastName = TextBoxLastName.Text, 
+                LastName = TextBoxLastName.Text,
                 Email = TextBoxEmail.Text.Trim(),
                 Phone = TextBoxPhone.Text.Trim(),
                 CityId = Guid.Parse(ComboBoxCity.SelectedValue!.ToString()!),
@@ -349,9 +354,16 @@ public partial class FrmClientView : Form
                 _cts.Dispose();
                 _cts = null;
             }
-            
+
         }
     }
+    private void BtnStreet_Click(object sender, EventArgs e)
+    {
+        var frmStreetView = _formFactory.CreateFormFactory<FrmStreetView>();
+        frmStreetView.ShowDialog();
+    }
+
     #endregion
+
 
 }
