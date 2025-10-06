@@ -11,7 +11,6 @@ public static class DIClient
         services.AddScoped<IClientWriteRepository>(sp => new ClientWriterRepository(connectionString));
         services.AddScoped<IClientReadRepository>(sp => new ClientReadRepository(connectionString));
 
-
         return services;
     }
 }

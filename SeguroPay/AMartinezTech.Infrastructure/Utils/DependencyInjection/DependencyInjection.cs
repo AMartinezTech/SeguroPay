@@ -8,6 +8,7 @@ public static class DependencyInjection
     {
         services.AddClientModule(connectionString);
         services.AddSettingModule(connectionString);
+        services.AddLocationModule(connectionString);
         return services;
     }
 }

@@ -1,12 +1,15 @@
 ﻿using AMartinezTech.Application.Client;
+using AMartinezTech.Application.Location.City;
+using AMartinezTech.Application.Location.City.UseCases.Read;
 using AMartinezTech.Domain.Utils;
 using System.ComponentModel;
 
 namespace AMartinezTech.WinForms.Client;
 
-public class ClientController(ClientApplicationService service)
+public class ClientController(ClientApplicationService service, CityPagination cityPagination)
 {
     private readonly ClientApplicationService _service = service;
+    private readonly CityPagination _cityPagination = cityPagination;
 
     internal async Task<Guid> PersistenceAsync(ClientDto dto)
     {
@@ -27,5 +30,10 @@ public class ClientController(ClientApplicationService service)
         var result = await _service.FilterAsync(filters,globalSearch,isActived);
         var modelList = result.Select(ClientViewModel.ToModel).ToList();
         return new BindingList<ClientViewModel>(modelList);
+    }
+
+    internal async Task<PageResult<CityDto>> CityPaginationAsync()
+    {
+        return await _cityPagination.ExecuteAsync(1,250,true);
     }
 }

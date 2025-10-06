@@ -1,7 +1,9 @@
 ﻿using AMartinezTech.Application.Client.Interfaces;
-using AMartinezTech.Domain.Client.Entitties;
+using AMartinezTech.Domain.Client.Entitties; 
 using AMartinezTech.Domain.Utils;
-using AMartinezTech.Infrastructure.Data.Specifications;
+using AMartinezTech.Domain.Utils.Exception;
+using AMartinezTech.Infrastructure.Data.Specifications; 
+using AMartinezTech.Infrastructure.Utils.Exceptions;
 using AMartinezTech.Infrastructure.Utils.Persistence;
 using Microsoft.Data.SqlClient;
 
@@ -34,9 +36,41 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
 
 
 
-    public Task<ClientEntity> GetByIdAsync(Guid id)
+    public async Task<ClientEntity> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            ClientEntity? entity = null;
+            using var conn = GetConnection();
+            await conn.OpenAsync();
+
+            var sql = @"SELECT *
+                      FROM clients WHERE id=@id";
+
+
+            using var cmd = new SqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue("@id", id);
+
+            using var reader = await cmd.ExecuteReaderAsync();
+            if (await reader.ReadAsync())
+            {
+                entity = MapToClient.ToEntity(reader);
+            }
+
+            if (entity == null) throw new DatabaseException($"{ErrorMessages.Get(ErrorType.RecordDoesDotExist)}"); ;
+
+
+            return entity;
+
+
+        }
+        catch (SqlException ex)
+        {
+            var messaje = SqlErrorMapper.Map(ex);
+            throw new DatabaseException(messaje);
+        }
+        catch (Exception) { throw; }
     }
 
     public async Task<PageResult<ClientEntity>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)

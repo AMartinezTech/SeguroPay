@@ -24,10 +24,10 @@ public class CityEntity : IAggregateRoot
     public static CityEntity Create(Guid id, string name, Guid regionId, DateTime createdAt)
     {
         if (regionId == Guid.Empty)
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - provincia! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - Region ");
 
         if (string.IsNullOrWhiteSpace(name))
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - nombre! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - City ");
 
         id = CreateGuid.EnsureId(id);
         return new CityEntity(id, name, regionId, createdAt);

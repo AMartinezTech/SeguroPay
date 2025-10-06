@@ -13,5 +13,6 @@ public class DIPresentationServices
 
         DIUserServices.AddServices(services);
         DIClientService.AddServices(services);
+        DILocationService.AddService(services);
     }
 }

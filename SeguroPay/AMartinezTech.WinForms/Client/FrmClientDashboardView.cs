@@ -27,7 +27,7 @@ public partial class FrmClientDashboardView : Form
     {
         FillComboBox();
         InvokeDataViewSetting();
-        GetFilterData();
+        InvokeFilterAsync();
 
     }
     #endregion
@@ -54,7 +54,7 @@ public partial class FrmClientDashboardView : Form
             MessageBox.Show(ex.Message);
         }
     }
-    private async void GetFilterData()
+    private async void InvokeFilterAsync()
     {
         var filters = new Dictionary<string, object?>
         {
@@ -88,8 +88,7 @@ public partial class FrmClientDashboardView : Form
     private void BtnNuevo_Click(object sender, EventArgs e)
     {
         var frmClientView = _formFactory.CreateFormFactory<FrmClientView>();
-
-        frmClientView.ShowDialog();
+               
         if (frmClientView.ShowDialog() == DialogResult.OK)
         {
             //MessageBox.Show(frmClientView.Client.FirstName);
@@ -99,7 +98,7 @@ public partial class FrmClientDashboardView : Form
     private void TextBoxSearch_KeyDown(object sender, KeyEventArgs e)
     {
         if (e.KeyCode == Keys.Enter)
-            GetFilterData();
+            InvokeFilterAsync();
 
     }
 

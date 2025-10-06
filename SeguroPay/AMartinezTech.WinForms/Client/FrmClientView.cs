@@ -25,9 +25,26 @@ public partial class FrmClientView : Form
     {
         SetMessage("Formulario preparado para recibir datos.", MessageType.Information);
         FillComboBox();
+        FillComboBoxCity();
     }
     #endregion
     #region "Methods"
+    private async void FillComboBoxCity()
+    {
+        var cities = await _clientController.CityPaginationAsync();
+
+        if (cities == null || cities.TotalRecords == 0)
+        {
+            ComboBoxCity.DataSource = null;
+            ComboBoxCity.Items.Clear();
+            return;
+        }
+
+        ComboBoxCity.DataSource = cities.Data;
+        ComboBoxCity.DisplayMember = "name";  
+        ComboBoxCity.ValueMember = "id";     
+    }
+
     private void ClearFields()
     {
         ClientId = Guid.Empty;
@@ -261,6 +278,27 @@ public partial class FrmClientView : Form
         try
         {
             BtnPersistence.Enabled = false;
+            if (ComboBoxCity.SelectedValue == null )
+            {
+                SetMessage("Cerrar - " + "Debe seleccionar una ciudad ", MessageType.Warning);
+                errorProvider1.SetError(ComboBoxCity, "Aquí");
+                // Set to 3 secons for alert
+                await SetInitialMessage(4, LabelAlertMessage);
+                BtnPersistence.Enabled = true;
+               
+                return;
+            }
+            if (   ComboBoxStreet.SelectedValue == null)
+            {
+                SetMessage("Cerrar - " + "Debe seleccionar una calle antes de continuar.", MessageType.Warning);
+                errorProvider1.SetError(ComboBoxStreet, "Aquí");
+                // Set to 3 secons for alert
+                await SetInitialMessage(4, LabelAlertMessage);
+                BtnPersistence.Enabled = true;
+
+                return;
+            }
+
             var newClient = new ClientDto
             {
                 Id = ClientId,
@@ -282,8 +320,9 @@ public partial class FrmClientView : Form
             };
             ClientId = await _clientController.PersistenceAsync(newClient);
             newClient.Id = ClientId;
-             
 
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
         catch (OperationCanceledException ex)
         {
@@ -310,8 +349,7 @@ public partial class FrmClientView : Form
                 _cts.Dispose();
                 _cts = null;
             }
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            
         }
     }
     #endregion
