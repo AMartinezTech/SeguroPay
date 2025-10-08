@@ -420,7 +420,7 @@
             BtnStreet.IconColor = Color.Black;
             BtnStreet.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnStreet.IconSize = 25;
-            BtnStreet.Location = new Point(377, 286);
+            BtnStreet.Location = new Point(386, 286);
             BtnStreet.Name = "BtnStreet";
             BtnStreet.Size = new Size(32, 29);
             BtnStreet.TabIndex = 35;

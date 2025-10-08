@@ -2,5 +2,5 @@
 
 public enum ClientType
 {
-    Accesoría, Asegurados
+    Asegurados, Accesoría
 }

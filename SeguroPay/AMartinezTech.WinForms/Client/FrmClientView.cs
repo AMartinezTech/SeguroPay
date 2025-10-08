@@ -1,5 +1,6 @@
 ﻿using AMartinezTech.Application.Client;
 using AMartinezTech.Domain.Utils.Enums;
+using AMartinezTech.WinForms.Location.Controllers;
 using AMartinezTech.WinForms.Location.Views;
 using AMartinezTech.WinForms.Utils;
 using AMartinezTech.WinForms.Utils.Factories;
@@ -12,15 +13,18 @@ public partial class FrmClientView : Form
     private readonly IFormFactory _formFactory;
     private CancellationTokenSource? _cts;
     private readonly ClientController _clientController;
-    private Guid ClientId { get; set; } = Guid.Empty;
-
+    private readonly StreetController _streetController;
+    public Guid ClientId  = Guid.Empty;
+    private bool _isLoadingClient = false;
+    public ClientDto? Client { get; private set; }
     #endregion
     #region "Constructor"
-    public FrmClientView(ClientController clientController, IFormFactory formFactory)
+    public FrmClientView(ClientController clientController, IFormFactory formFactory, StreetController streetController)
     {
         InitializeComponent();
         _clientController = clientController;
         _formFactory = formFactory;
+        _streetController = streetController;
         SetColorUI();
     }
     #endregion
@@ -30,9 +34,31 @@ public partial class FrmClientView : Form
         SetMessage("Formulario preparado para recibir datos.", MessageType.Information);
         FillComboBox();
         FillComboBoxCity();
+
+        if (ClientId != Guid.Empty)
+            InvokeGetByIdAsync(ClientId);
+
+
     }
     #endregion
     #region "Methods"
+    private async void FillComboBoxStreetAsync(Guid cityId)
+    {
+        var filters = new Dictionary<string, object?>
+        {
+            ["city_id"] = cityId,
+
+        };
+
+       
+        var streetList = await _streetController.FilterAsync(filters, null, null);
+        if (streetList.Count > 0)
+        {
+            ComboBoxStreet.DataSource = streetList;
+            ComboBoxStreet.DisplayMember = "name";
+            ComboBoxStreet.ValueMember = "id";
+        }
+    }
     private async void FillComboBoxCity()
     {
         var cities = await _clientController.CityPaginationAsync();
@@ -48,7 +74,6 @@ public partial class FrmClientView : Form
         ComboBoxCity.DisplayMember = "name";
         ComboBoxCity.ValueMember = "id";
     }
-
     private void ClearFields()
     {
         ClientId = Guid.Empty;
@@ -97,6 +122,11 @@ public partial class FrmClientView : Form
             ComboBoxCity.Focus();
             errorProvider1.SetError(ComboBoxCity, "Aquí");
         }
+        else if (fieldName.Contains("Street"))
+        {
+            ComboBoxStreet.Focus();
+            errorProvider1.SetError(ComboBoxStreet, "Aquí");
+        }
 
         else if (fieldName.Contains("DocIdentityType"))
         {
@@ -112,8 +142,19 @@ public partial class FrmClientView : Form
     }
     private async void InvokeGetByIdAsync(Guid clientId)
     {
+        _isLoadingClient = true;
         var data = await _clientController.GetByIdAsync(clientId);
 
+        // 1️⃣ Asigna primero la ciudad
+        ComboBoxCity.SelectedValue = data.CityId;
+
+        // 2️⃣ Carga las calles correspondientes (esperando el método async)
+        FillComboBoxStreetAsync(data.CityId);
+
+        // 3️⃣ Luego asigna la calle
+        ComboBoxStreet.SelectedValue = data.StreetId;
+
+        // 4️⃣ Asigna los demás campos
         ClientId = data.Id;
         ComboBoxDocIdentityType.Text = data.DocIdentityType;
         TextBoxDocIdentity.Text = data.DocIdentity;
@@ -122,14 +163,14 @@ public partial class FrmClientView : Form
         TextBoxLastName.Text = data.LastName;
         TextBoxPhone.Text = data.Phone;
         TextBoxEmail.Text = data.Email;
-        ComboBoxCity.SelectedValue = data.CityId;
-        ComboBoxStreet.SelectedValue = data.StreetId;
         TextBoxLocationNo.Text = data.LocationNo;
         TextBoxAddressRef.Text = data.AddressRef;
         TextBoxContactName.Text = data.ContactName;
         TextBoxContactPhone.Text = data.ContactPhone;
         TextBoxObservation.Text = data.Observation;
         CheckBoxIsActived.Checked = data.IsActived;
+
+        _isLoadingClient = false;
     }
     private void FillComboBox()
     {
@@ -244,6 +285,17 @@ public partial class FrmClientView : Form
     private void ComboBoxCity_SelectedIndexChanged(object sender, EventArgs e)
     {
         ClearMessageErr();
+        if (_isLoadingClient) return; // Evita ejecución mientras cargas datos del cliente
+
+        if (ComboBoxCity.SelectedValue == null || ComboBoxCity.SelectedValue == DBNull.Value)
+            return;
+
+        // Convertir el valor a Guid
+        if (Guid.TryParse(ComboBoxCity.SelectedValue.ToString(), out Guid cityId))
+        {
+            FillComboBoxStreetAsync(cityId);
+        }
+
     }
 
     private void ComboBoxStreet_SelectedIndexChanged(object sender, EventArgs e)
@@ -283,28 +335,8 @@ public partial class FrmClientView : Form
         try
         {
             BtnPersistence.Enabled = false;
-            if (ComboBoxCity.SelectedValue == null)
-            {
-                SetMessage("Cerrar - " + "Debe seleccionar una ciudad ", MessageType.Warning);
-                errorProvider1.SetError(ComboBoxCity, "Aquí");
-                // Set to 3 secons for alert
-                await SetInitialMessage(4, LabelAlertMessage);
-                BtnPersistence.Enabled = true;
 
-                return;
-            }
-            if (ComboBoxStreet.SelectedValue == null)
-            {
-                SetMessage("Cerrar - " + "Debe seleccionar una calle antes de continuar.", MessageType.Warning);
-                errorProvider1.SetError(ComboBoxStreet, "Aquí");
-                // Set to 3 secons for alert
-                await SetInitialMessage(4, LabelAlertMessage);
-                BtnPersistence.Enabled = true;
-
-                return;
-            }
-
-            var newClient = new ClientDto
+            Client = new ClientDto
             {
                 Id = ClientId,
                 DocIdentityType = ComboBoxDocIdentityType.Text,
@@ -314,8 +346,8 @@ public partial class FrmClientView : Form
                 LastName = TextBoxLastName.Text,
                 Email = TextBoxEmail.Text.Trim(),
                 Phone = TextBoxPhone.Text.Trim(),
-                CityId = Guid.Parse(ComboBoxCity.SelectedValue!.ToString()!),
-                StreetId = Guid.Parse(ComboBoxStreet.SelectedValue!.ToString()!),
+                CityId = ComboBoxCity.SelectedValue == null ? Guid.Empty : Guid.Parse(ComboBoxCity.SelectedValue!.ToString()!),
+                StreetId = ComboBoxStreet.SelectedValue == null ? Guid.Empty : Guid.Parse(ComboBoxStreet.SelectedValue.ToString()!),
                 LocationNo = TextBoxLocationNo.Text.Trim(),
                 AddressRef = TextBoxAddressRef.Text.Trim(),
                 ContactName = TextBoxContactName.Text.Trim(),
@@ -323,8 +355,14 @@ public partial class FrmClientView : Form
                 Observation = TextBoxObservation.Text.Trim(),
                 IsActived = CheckBoxIsActived.Checked
             };
-            ClientId = await _clientController.PersistenceAsync(newClient);
-            newClient.Id = ClientId;
+            ClientId = await _clientController.PersistenceAsync(Client);
+            Client.Id = ClientId;
+
+
+            SetMessage("Cerrar - Registro guardado con exito.!", MessageType.Success);
+
+            // Set to 2 secons for alert
+            await SetInitialMessage(2, LabelAlertMessage);
 
             this.DialogResult = DialogResult.OK;
             this.Close();

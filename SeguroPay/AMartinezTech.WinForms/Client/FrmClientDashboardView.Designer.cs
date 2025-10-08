@@ -36,12 +36,11 @@
             ComboBoxClientType = new ComboBox();
             label3 = new Label();
             DataGridView = new DataGridView();
-            label4 = new Label();
-            dataGridView2 = new DataGridView();
             CheckBoxIsActived = new CheckBox();
+            BtnPrintList = new FontAwesome.Sharp.IconButton();
+            PanelLeyenda = new Panel();
             ((System.ComponentModel.ISupportInitialize)IconPictureBoxSearch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
             // 
             // BtnNuevo
@@ -125,27 +124,9 @@
             DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DataGridView.Location = new Point(12, 109);
             DataGridView.Name = "DataGridView";
-            DataGridView.Size = new Size(934, 484);
+            DataGridView.Size = new Size(934, 394);
             DataGridView.TabIndex = 8;
-            // 
-            // label4
-            // 
-            label4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            label4.AutoSize = true;
-            label4.Location = new Point(12, 605);
-            label4.Name = "label4";
-            label4.Size = new Size(146, 15);
-            label4.TabIndex = 9;
-            label4.Text = "Historial de comunicación";
-            // 
-            // dataGridView2
-            // 
-            dataGridView2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(12, 623);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.Size = new Size(511, 126);
-            dataGridView2.TabIndex = 10;
+            DataGridView.CellContentClick += DataGridView_CellContentClick;
             // 
             // CheckBoxIsActived
             // 
@@ -161,14 +142,36 @@
             CheckBoxIsActived.UseVisualStyleBackColor = true;
             CheckBoxIsActived.CheckedChanged += CheckBoxIsActived_CheckedChanged;
             // 
+            // BtnPrintList
+            // 
+            BtnPrintList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            BtnPrintList.IconChar = FontAwesome.Sharp.IconChar.Print;
+            BtnPrintList.IconColor = Color.Black;
+            BtnPrintList.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            BtnPrintList.Location = new Point(861, 513);
+            BtnPrintList.Name = "BtnPrintList";
+            BtnPrintList.Size = new Size(85, 85);
+            BtnPrintList.TabIndex = 12;
+            BtnPrintList.Text = "&Imprimir listado";
+            BtnPrintList.TextImageRelation = TextImageRelation.ImageAboveText;
+            BtnPrintList.UseVisualStyleBackColor = true;
+            // 
+            // PanelLeyenda
+            // 
+            PanelLeyenda.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            PanelLeyenda.Location = new Point(12, 513);
+            PanelLeyenda.Name = "PanelLeyenda";
+            PanelLeyenda.Size = new Size(383, 236);
+            PanelLeyenda.TabIndex = 15;
+            // 
             // FrmClientDashboardView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(958, 761);
+            Controls.Add(PanelLeyenda);
+            Controls.Add(BtnPrintList);
             Controls.Add(CheckBoxIsActived);
-            Controls.Add(dataGridView2);
-            Controls.Add(label4);
             Controls.Add(DataGridView);
             Controls.Add(label3);
             Controls.Add(ComboBoxClientType);
@@ -182,7 +185,6 @@
             Load += FrmClientDashboardView_Load;
             ((System.ComponentModel.ISupportInitialize)IconPictureBoxSearch).EndInit();
             ((System.ComponentModel.ISupportInitialize)DataGridView).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -197,8 +199,8 @@
         private ComboBox ComboBoxClientType;
         private Label label3;
         private DataGridView DataGridView;
-        private Label label4;
-        private DataGridView dataGridView2;
         private CheckBox CheckBoxIsActived;
+        private FontAwesome.Sharp.IconButton BtnPrintList;
+        private Panel PanelLeyenda;
     }
 }

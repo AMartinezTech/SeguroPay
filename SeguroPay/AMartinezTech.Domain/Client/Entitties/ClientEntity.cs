@@ -21,10 +21,10 @@ public class ClientEntity : IAggregateRoot
     public string? AddressRef { get; private set; }
     public string? ContactName {  get; private set; }
     public string? ContactPhone { get; private set; }
-    public Guid CityId { get; private set; }
-    public Guid StreetId { get; private set; }
+    public ValueGuid CityId { get; private set; }
+    public ValueGuid StreetId { get; private set; }
     public bool IsActived { get; private set; }
-    private ClientEntity(Guid id, ValueEnum<DocIdentityType> docIdentityType, ValueEnum<ClientType> clientType, string docIdentity, ValueClientName firstName, ValueClientLastName lastName,   string phone, ValueEmail email, string observation, string locationNo, string addressRef, bool isActived, string? contactName, string? contactPhone, Guid cityId, Guid streetId)
+    private ClientEntity(Guid id, ValueEnum<DocIdentityType> docIdentityType, ValueEnum<ClientType> clientType, string docIdentity, ValueClientName firstName, ValueClientLastName lastName,   string phone, ValueEmail email, string observation, string locationNo, string addressRef, bool isActived, string? contactName, string? contactPhone, ValueGuid cityId, ValueGuid streetId)
     {
         Id = id; 
         DocIdentityType = docIdentityType;
@@ -47,7 +47,7 @@ public class ClientEntity : IAggregateRoot
     public static ClientEntity Create(Guid id,   string docIdentityType, string clientType, string docIdentity, string firstName, string lastName,   string phone, string email, string observation, string locationNo, string addressRef, bool isActived, string? contactName, string? contactPhone, Guid cityId, Guid streetId)
     {
        
-        return new ClientEntity(CreateGuid.EnsureId(id), ValueEnum<DocIdentityType>.Create(docIdentityType), ValueEnum<ClientType>.Create(clientType), docIdentity, ValueClientName.Create(firstName), ValueClientLastName.Create(lastName), phone, ValueEmail.Create(email), observation, addressRef, locationNo, isActived, contactName, contactPhone, cityId, cityId);
+        return new ClientEntity(CreateGuid.EnsureId(id), ValueEnum<DocIdentityType>.Create(docIdentityType), ValueEnum<ClientType>.Create(clientType), docIdentity, ValueClientName.Create(firstName), ValueClientLastName.Create(lastName), phone, ValueEmail.Create(email), observation, addressRef, locationNo, isActived, contactName, contactPhone, ValueGuid.Create(cityId,"City"), ValueGuid.Create(streetId,"Street"));
     }
     public void Activate() => IsActived = true;
     public void Deactivate() => IsActived = false;

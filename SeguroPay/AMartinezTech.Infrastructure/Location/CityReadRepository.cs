@@ -19,7 +19,7 @@ public class CityReadRepository(string connectionString) : AdoRepositoryBase(con
             await conn.OpenAsync();
 
             var sql = @"SELECT *
-                      FROM cities WHERE region_id=@id";
+                      FROM cities WHERE region_id=@id ORDER BY order_position";
 
 
             using var cmd = new SqlCommand(sql, conn);
@@ -73,7 +73,7 @@ public class CityReadRepository(string connectionString) : AdoRepositoryBase(con
                     WHERE 1=1";
 
             
-            sql += @" ORDER BY name
+            sql += @" ORDER BY order_position, name
                   OFFSET @offset ROWS 
                   FETCH NEXT @pageSize ROWS ONLY;";
 

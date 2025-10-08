@@ -1,4 +1,5 @@
 ﻿using AMartinezTech.Application.Client.Interfaces;
+using AMartinezTech.Application.Reports.Clients;
 using AMartinezTech.Infrastructure.Clients;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,7 @@ public static class DIClient
     {
         services.AddScoped<IClientWriteRepository>(sp => new ClientWriterRepository(connectionString));
         services.AddScoped<IClientReadRepository>(sp => new ClientReadRepository(connectionString));
+        services.AddScoped<IClientReportService>(sp => new ClientReportRepository(connectionString));
 
         return services;
     }

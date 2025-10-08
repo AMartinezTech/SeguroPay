@@ -12,7 +12,7 @@ public class ValueClientLastName
     private ValueClientLastName(string value)
     {
         if (string.IsNullOrWhiteSpace(value.Trim()))
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - Lastname");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - LastName");
 
         if (value.Length < 3 || value.Length > 20)
             throw new ValidationException($" {ErrorMessages.Get(ErrorType.RangeValid)} 3 a 20 - LastName");
