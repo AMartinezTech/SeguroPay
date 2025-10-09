@@ -1,5 +1,6 @@
 ﻿using AMartinezTech.Application.Reports.Clients;
 using AMartinezTech.Domain.Utils.Enums;
+using AMartinezTech.WinForms.Client.Conversations;
 using AMartinezTech.WinForms.Client.Utils;
 using AMartinezTech.WinForms.Utils;
 using AMartinezTech.WinForms.Utils.Factories;
@@ -48,9 +49,10 @@ public partial class FrmClientDashboardView : Form
         int cardWidth = 300;
         int cardHeight = 80; // ajusta según necesidad
         int spacing = 10; // espacio entre cards
-
+        int totalClients = 0;
         foreach (var summary in summaries)
         {
+            totalClients += summary.ActiveCount + summary.InactiveCount;
             // Crear la tarjeta (Panel)
             Panel card = new Panel
             {
@@ -95,20 +97,9 @@ public partial class FrmClientDashboardView : Form
             // Actualizar el offset para la siguiente card
             yOffset += cardHeight + spacing;
         }
+        LabelTotalClients.Text = $"Total General: {totalClients}";
 
-        //int yOffset = 10; // espacio inicial desde arriba
-        //int labelHeight = 25; // altura de cada label
 
-        //foreach (var summary in report)
-        //{
-        //    Label label = new Label();
-        //    label.Text = $"Tipo: {summary.ClientType} | Activos: {summary.ActiveCount} | Inactivos: {summary.InactiveCount}";
-        //    label.Location = new Point(10, yOffset);
-        //    label.AutoSize = true;
-
-        //    PanelLeyenda.Controls.Add(label);
-        //    yOffset += labelHeight; // mueve la posición para el siguiente label
-        //}
     }
     private void FillComboBox()
     {
@@ -122,6 +113,8 @@ public partial class FrmClientDashboardView : Form
             {
                 EditColumnView = true,
                 EditColumnName = "EDITAR",
+                PhoneColumnView = true,
+                PhoneColumnName = "LLAMADA",
             });
             // Set custom columns
             FormatingDGColumns.Apply(DataGridView); 
@@ -202,6 +195,21 @@ public partial class FrmClientDashboardView : Form
             }
         }
     }
+    private void OpemFrmClientConversation(Guid clientId)
+    {
+        var frmClientConversationView = _formFactory.CreateFormFactory<FrmClientConversationView>();
+        //frmClientConversationView.ClientId = clientId;
+        if (frmClientConversationView.ShowDialog() == DialogResult.OK)
+        {
+            //var newClient = frmClientConversationView.Client;
+
+            //if (newClient != null)
+            //{
+            //    UpdatingMemoryData.Excecute(ClientViewModel.ToModel(newClient), _clientList);
+            //    DataGridView.Refresh();
+            //}
+        }
+    }
     #endregion
     #region "Btn Events"
     private void BtnNuevo_Click(object sender, EventArgs e)
@@ -225,7 +233,7 @@ public partial class FrmClientDashboardView : Form
 
     }
     #endregion
-
+    #region "DataGridView Events"
     private void DataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
     {
         if (e.RowIndex < 0 || e.ColumnIndex < 0) return; // Clic Only on valid cell and column
@@ -234,6 +242,11 @@ public partial class FrmClientDashboardView : Form
         if (DataGridView.Columns[e.ColumnIndex].Name == "editCol")
         {
             OpenFrmClient(clientId);
+        }else if (DataGridView.Columns[e.ColumnIndex].Name == "phoneCol")
+        {
+            OpemFrmClientConversation(clientId);
         }
     }
+    #endregion
+
 }

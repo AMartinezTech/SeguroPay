@@ -12,7 +12,7 @@ public class ClientConversationEntity : IAggregateRoot
 
     public Guid Id { get; private set; }
     public ValueGuid ClientId { get; private set; }
-    public ValueEnum<ChannelConvertationType> Channel { get; private set; } = ValueEnum<ChannelConvertationType>.Create("Teléfono");
+    public ValueEnum<ChannelConvertationType> Channel { get; private set; } 
     public ValuePhone ContactNumber { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public ValueClientConversationSubject Subject { get; private set; }
@@ -34,6 +34,6 @@ public class ClientConversationEntity : IAggregateRoot
     public static ClientConversationEntity Create(Guid id, Guid clientId, string channel, string contactNumber, DateTime createdAt, string subject, string message, Guid createdBy)
     {
         id = CreateGuid.EnsureId(id);
-        return new ClientConversationEntity(id, ValueGuid.Create(clientId,"Client"), ValueEnum<ChannelConvertationType>.Create(channel), ValuePhone.Create(contactNumber, "Teléfono"), createdAt, ValueClientConversationSubject.Create(subject), ValueClientConversationMessage.Create(message), createdBy);
+        return new ClientConversationEntity(id, ValueGuid.Create(clientId,"Client"), ValueEnum<ChannelConvertationType>.Create(channel), ValuePhone.Create(contactNumber, "Phone"), createdAt, ValueClientConversationSubject.Create(subject), ValueClientConversationMessage.Create(message), createdBy);
     }
 }

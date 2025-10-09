@@ -1,9 +1,5 @@
-﻿
-
-using AMartinezTech.WinForms.Properties;
-
+﻿using AMartinezTech.WinForms.Properties;
 namespace AMartinezTech.WinForms.Utils;
-
 
 public static class CustomDataGridView
 {
@@ -93,7 +89,19 @@ public static class CustomDataGridView
             btnPrintCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             datagrid.Columns.Add(btnPrintCol);
         }
-
+        if (paramsSetting.PhoneColumnView)
+        {
+            var btnPrintCol = new DataGridViewImageColumn();
+            using (var ms = new MemoryStream(Resources.phone))
+            {
+                Image resizedImage = new Bitmap(Image.FromStream(ms), new Size(18, 18));
+                btnPrintCol.Image = resizedImage;
+            }
+            btnPrintCol.Name = "phoneCol";
+            btnPrintCol.HeaderText = paramsSetting.PhoneColumnName;
+            btnPrintCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            datagrid.Columns.Add(btnPrintCol);
+        }
         // Suscribir evento después de agregar las columnas
         datagrid.CellMouseEnter += (sender, e) =>
         {
@@ -119,6 +127,11 @@ public static class CustomDataGridView
                 datagrid.Cursor = Cursors.Hand;
                 cursorChanged = true;
             }
+            if (paramsSetting.PhoneColumnView && datagrid.Columns.Contains("phoneCol") && e.ColumnIndex == datagrid.Columns["phoneCol"]!.Index && e.RowIndex >= 0)
+            {
+                datagrid.Cursor = Cursors.Hand;
+                cursorChanged = true;
+            }
 
             // Si el cursor no ha cambiado, establecer el cursor por defecto
             if (!cursorChanged)
@@ -135,11 +148,13 @@ public class CustomDataGridViewParams
     public bool DeleteColumnView { get; set; } = false;
     public bool SettingColumnView { get; set; } = false;
     public bool PrintColumnView { get; set; } = false;
+    public bool PhoneColumnView { get; set; } = false;
 
     public string EditColumnName { get; set; } = "EDITAR";
     public string DeleteColumnName { get; set; } = "BORRAR";
-    public string SettingColumnName { get; set; } = string.Empty;
+    public string SettingColumnName { get; set; } = "CONFIG.";
     public string PrintColumnName { get; set; } = "PRINT";
+    public string PhoneColumnName { get; set; } = "CALL";
 
 
 

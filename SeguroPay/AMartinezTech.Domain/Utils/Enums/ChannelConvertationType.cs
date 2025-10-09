@@ -2,5 +2,5 @@
 
 public enum ChannelConvertationType
 {
-    Telefono, WhatsApp, Email
+    Teléfono, WhatsApp, Email
 }

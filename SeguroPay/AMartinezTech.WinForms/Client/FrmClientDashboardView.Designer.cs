@@ -39,6 +39,7 @@
             CheckBoxIsActived = new CheckBox();
             BtnPrintList = new FontAwesome.Sharp.IconButton();
             PanelLeyenda = new Panel();
+            LabelTotalClients = new Label();
             ((System.ComponentModel.ISupportInitialize)IconPictureBoxSearch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             SuspendLayout();
@@ -155,20 +156,33 @@
             BtnPrintList.Text = "&Imprimir listado";
             BtnPrintList.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnPrintList.UseVisualStyleBackColor = true;
+            BtnPrintList.Visible = false;
             // 
             // PanelLeyenda
             // 
             PanelLeyenda.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            PanelLeyenda.Location = new Point(12, 513);
+            PanelLeyenda.Location = new Point(12, 529);
             PanelLeyenda.Name = "PanelLeyenda";
-            PanelLeyenda.Size = new Size(383, 236);
+            PanelLeyenda.Size = new Size(383, 220);
             PanelLeyenda.TabIndex = 15;
+            // 
+            // LabelTotalClients
+            // 
+            LabelTotalClients.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            LabelTotalClients.AutoSize = true;
+            LabelTotalClients.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            LabelTotalClients.Location = new Point(18, 507);
+            LabelTotalClients.Name = "LabelTotalClients";
+            LabelTotalClients.Size = new Size(50, 19);
+            LabelTotalClients.TabIndex = 16;
+            LabelTotalClients.Text = "label2";
             // 
             // FrmClientDashboardView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(958, 761);
+            Controls.Add(LabelTotalClients);
             Controls.Add(PanelLeyenda);
             Controls.Add(BtnPrintList);
             Controls.Add(CheckBoxIsActived);
@@ -202,5 +216,6 @@
         private CheckBox CheckBoxIsActived;
         private FontAwesome.Sharp.IconButton BtnPrintList;
         private Panel PanelLeyenda;
+        private Label LabelTotalClients;
     }
 }

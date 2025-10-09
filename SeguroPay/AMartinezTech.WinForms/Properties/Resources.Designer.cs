@@ -83,6 +83,16 @@ namespace AMartinezTech.WinForms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] phone {
+            get {
+                object obj = ResourceManager.GetObject("phone", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] print {
             get {
                 object obj = ResourceManager.GetObject("print", resourceCulture);

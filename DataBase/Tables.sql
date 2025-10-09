@@ -58,7 +58,7 @@ CREATE TABLE client_types (
     is_actived BIT NOT NULL DEFAULT 1 
 );
 
-CREATE TABLE clientss (
+CREATE TABLE clients (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
     category NVARCHAR(100) NOT NULL,
     doc_identity_type NVARCHAR(100) NOT NULL,
@@ -219,7 +219,7 @@ CREATE TABLE clients_conversations
     contact_number NVARCHAR(20) NOT NULL,       -- Número desde el cual o hacia el cual se realizó la conversación
     created_at DATETIME2 NOT NULL DEFAULT GETDATE(), -- Fecha/hora de la conversación
     subject NVARCHAR(200) NULL,                 -- Título breve o motivo de la conversación
-    message NVARCHAR(MAX) NOT NULL,             -- Contenido principal de la conversación
+    message TEXT NOT NULL,             -- Contenido principal de la conversación
     created_by UNIQUEIDENTIFIER NOT NULL,       -- Usuario interno que registró la conversación
   
     -- Relaciones

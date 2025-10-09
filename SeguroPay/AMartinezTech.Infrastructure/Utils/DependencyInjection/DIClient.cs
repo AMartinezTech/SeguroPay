@@ -1,6 +1,8 @@
-﻿using AMartinezTech.Application.Client.Interfaces;
+﻿using AMartinezTech.Application.Client.Conversation.Interfaces;
+using AMartinezTech.Application.Client.Interfaces;
 using AMartinezTech.Application.Reports.Clients;
 using AMartinezTech.Infrastructure.Clients;
+using AMartinezTech.Infrastructure.Clients.Conversations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AMartinezTech.Infrastructure.Utils.DependencyInjection;
@@ -12,6 +14,10 @@ public static class DIClient
         services.AddScoped<IClientWriteRepository>(sp => new ClientWriterRepository(connectionString));
         services.AddScoped<IClientReadRepository>(sp => new ClientReadRepository(connectionString));
         services.AddScoped<IClientReportService>(sp => new ClientReportRepository(connectionString));
+
+        // Client Conversatios
+        services.AddScoped<IClientConversationReadRepository>(sp => new ClientConversationReadRepository(connectionString));
+        services.AddScoped<IClientConversationWriteRepository>(sp => new ClientConversationWriteRepository(connectionString));
 
         return services;
     }
