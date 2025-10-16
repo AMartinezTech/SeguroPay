@@ -1,19 +1,20 @@
-﻿using AMartinezTech.Application.Client.Interfaces;
-using AMartinezTech.Domain.Client.Entitties;
+﻿using AMartinezTech.Application.Insurance.Interfaces; 
+using AMartinezTech.Domain.Insurance;
 using AMartinezTech.Domain.Utils;
 using AMartinezTech.Domain.Utils.Exception;
+using AMartinezTech.Infrastructure.Clients;
 using AMartinezTech.Infrastructure.Data.Specifications;
 using AMartinezTech.Infrastructure.Utils.Exceptions;
 using AMartinezTech.Infrastructure.Utils.Persistence;
 using Microsoft.Data.SqlClient;
 
-namespace AMartinezTech.Infrastructure.Clients;
+namespace AMartinezTech.Infrastructure.Insurances;
 
-public class ClientReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IClientReadRepository
+public class InsuranceReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IInsuranceReadRepository
 {
-    public async Task<IReadOnlyList<ClientEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActived = null)
+    public async Task<IReadOnlyList<InsuranceEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActived = null)
     {
-        var result = new List<ClientEntity>();
+        var result = new List<InsuranceEntity>();
         using (var conn = GetConnection())
         {
             await conn.OpenAsync();
@@ -23,28 +24,26 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
             var spec = new SqlFilterSpecification(filters, globalSearch, isActived);
             var whereClause = spec.BuildCondition(cmd);
 
-            var sql = $"SELECT TOP 100 * FROM clients {whereClause} ORDER BY first_name, last_name";
+            var sql = $"SELECT TOP 100 * FROM insurances {whereClause} ORDER BY name";
             cmd.CommandText = sql;
 
             using var reader = await cmd.ExecuteReaderAsync();
             while (await reader.ReadAsync())
-                result.Add(MapToClient.ToEntity(reader));
+                result.Add(MapToInsurance.ToEntity(reader));
         }
         return result;
     }
 
-
-
-    public async Task<ClientEntity?> GetByIdAsync(Guid id)
+    public async Task<InsuranceEntity?> GetByIdAsync(Guid id)
     {
         try
         {
-            ClientEntity? entity = null;
+            InsuranceEntity? entity = null;
             using var conn = GetConnection();
             await conn.OpenAsync();
 
             var sql = @"SELECT *
-                      FROM clients WHERE id=@id";
+                      FROM insurances WHERE id=@id";
 
 
             using var cmd = new SqlCommand(sql, conn);
@@ -54,7 +53,7 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
             using var reader = await cmd.ExecuteReaderAsync();
             if (await reader.ReadAsync())
             {
-                entity = MapToClient.ToEntity(reader);
+                entity = MapToInsurance.ToEntity(reader);
             }
 
             if (entity == null) throw new DatabaseException($"{ErrorMessages.Get(ErrorType.RecordDoesDotExist)}"); ;
@@ -72,9 +71,9 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
         catch (Exception) { throw; }
     }
 
-    public async Task<PageResult<ClientEntity>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
+    public async Task<PageResult<InsuranceEntity>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
     {
-        var result = new List<ClientEntity>();
+        var result = new List<InsuranceEntity>();
         int totalRecords = 0;
 
         using (var conn = GetConnection())
@@ -82,7 +81,7 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
             await conn.OpenAsync();
 
             // 1️⃣ Contar total de registros
-            var countSql = "SELECT COUNT(*) FROM clients WHERE 1=1";
+            var countSql = "SELECT COUNT(*) FROM insurances WHERE 1=1";
             if (isActived.HasValue)
                 countSql += " AND is_actived = @is_actived";
 
@@ -96,13 +95,13 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
 
             // 2️⃣ Traer página
             var sql = @"SELECT * 
-                    FROM clients
+                    FROM insurances
                     WHERE 1=1";
 
             if (isActived.HasValue)
                 sql += " AND is_actived = @is_actived";
 
-            sql += @" ORDER BY first_name, last_name
+            sql += @" ORDER BY name
                   OFFSET @offset ROWS 
                   FETCH NEXT @pageSize ROWS ONLY;";
 
@@ -117,9 +116,9 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
             using var reader = await cmd.ExecuteReaderAsync();
 
             while (await reader.ReadAsync())
-                result.Add(MapToClient.ToEntity(reader));
+                result.Add(MapToInsurance.ToEntity(reader));
         }
 
-        return new PageResult<ClientEntity>(totalRecords, pageSize, result);
+        return new PageResult<InsuranceEntity>(totalRecords, pageSize, result);
     }
 }

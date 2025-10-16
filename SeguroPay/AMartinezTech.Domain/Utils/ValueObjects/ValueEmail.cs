@@ -22,7 +22,7 @@ public class ValueEmail
 
         Value = value;
     }
-
+     
     // Method stactic for create the obj
     public static ValueEmail Create(string value)
     {

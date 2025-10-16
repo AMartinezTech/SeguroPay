@@ -10,14 +10,14 @@ public class InsuranceEntity : IAggregateRoot
     public Guid Id { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public ValueInsuranceName Name { get; private set; }
-    public ValueAddress Address { get; private set; }
+    public string? Address { get; private set; }
     public ValueEmail Email { get; private set; }
     public ValuePhone Phone { get; private set; }
     public string? ContactName { get; private set; }
     public string? ContactPhone { get; private set; }
     public bool IsActived { get; private set; }
 
-    private InsuranceEntity(Guid id, DateTime createdAt, ValueInsuranceName name, ValueAddress address, ValueEmail email, ValuePhone phone, string? contactName, string? contactPhone, bool isActived)
+    private InsuranceEntity(Guid id, DateTime createdAt, ValueInsuranceName name, string? address, ValueEmail email, ValuePhone phone, string? contactName, string? contactPhone, bool isActived)
     {
         Id = id;
         CreatedAt = createdAt;
@@ -30,13 +30,13 @@ public class InsuranceEntity : IAggregateRoot
         IsActived = isActived;
     }
 
-    public static InsuranceEntity Create(Guid id, DateTime createdAt, string name, ValueAddress address, string email, string phone, string? contactName, string? contactPhone, bool isActived)
+    public static InsuranceEntity Create(Guid id, DateTime createdAt, string name, string? address, string email, string phone, string? contactName, string? contactPhone, bool isActived)
     {
         id = CreateGuid.EnsureId(id);
         return new InsuranceEntity(id, createdAt, ValueInsuranceName.Create(name), address, ValueEmail.Create(email), ValuePhone.Create(phone, nameof(Phone)), contactName, contactPhone, isActived);
     }
 
-    public void Update(string name, ValueAddress address, string email, string phone, string? contactName, string? contactPhone)
+    public void Update(string name, string address, string email, string phone, string? contactName, string? contactPhone)
     {
         Name = ValueInsuranceName.Create(name);
         Address = address;

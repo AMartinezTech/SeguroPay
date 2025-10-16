@@ -32,10 +32,9 @@ public partial class FrmInsuranceDashboardView : Form
         PanelLineTop.BackColor = AppColors.Outline;
         LabelTitle.ForeColor = AppColors.OnSurface;
 
-
         //Buttons icon color
-        IconPictureBoxSearch.IconColor = AppColors.Primary;
-        BtnInsurance.IconColor = AppColors.Primary;
+        IconPictureBox.IconColor = AppColors.Primary;
+        IconPictureBoxSearch.IconColor = AppColors.Primary; 
 
     }
     #endregion
