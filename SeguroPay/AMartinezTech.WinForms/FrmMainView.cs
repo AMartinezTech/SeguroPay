@@ -1,5 +1,8 @@
 ﻿using AMartinezTech.Application.Setting.User.Interfaces;
+using AMartinezTech.WinForms.Cash;
 using AMartinezTech.WinForms.Client;
+using AMartinezTech.WinForms.Insurance;
+using AMartinezTech.WinForms.Policy;
 using AMartinezTech.WinForms.Settings;
 using AMartinezTech.WinForms.Utils;
 using AMartinezTech.WinForms.Utils.Factories;
@@ -85,22 +88,26 @@ public partial class FrmMainView : Form
 
     private void BtnInsurance_Click(object sender, EventArgs e)
     {
-
+        var frmInsuranceDashboardView = _formFactory.CreateFormFactory<FrmInsuranceDashboardView>();
+        OpenChildForm(frmInsuranceDashboardView);
     }
 
     private void BtnPolicy_Click(object sender, EventArgs e)
     {
-
+        var frmPolicyDashboardView = _formFactory.CreateFormFactory<FrmPolicyDashboardView>();
+        OpenChildForm(frmPolicyDashboardView);
     }
 
     private void BtnCash_Click(object sender, EventArgs e)
     {
-
+        var frmCashDashboardView = _formFactory.CreateFormFactory<FrmCashDashboardView>();
+        OpenChildForm(frmCashDashboardView);
     }
 
     private void BtnBank_Click(object sender, EventArgs e)
     {
-
+        var frmBankDashboardView = _formFactory.CreateFormFactory<FrmBankDashboardView>();
+        OpenChildForm(frmBankDashboardView);
     }
 
     private void BtnSetting_Click(object sender, EventArgs e)

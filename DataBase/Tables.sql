@@ -214,20 +214,20 @@ CREATE TABLE policy_payments (
 CREATE TABLE clients_conversations
 (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,   -- Identificador único
-    clients_id UNIQUEIDENTIFIER NOT NULL,        -- clientse relacionado
-    channel NVARCHAR(20) NOT NULL,              -- "Telefono" o "WhatsApp"
+    client_id UNIQUEIDENTIFIER NOT NULL,        -- clientse relacionado
+    channel NVARCHAR(20) NOT NULL,              -- "Telefono", "WhatsApp" o "Correo"
     contact_number NVARCHAR(20) NOT NULL,       -- Número desde el cual o hacia el cual se realizó la conversación
     created_at DATETIME2 NOT NULL DEFAULT GETDATE(), -- Fecha/hora de la conversación
-    subject NVARCHAR(200) NULL,                 -- Título breve o motivo de la conversación
+    subject NVARCHAR(200) NOT NULL,                 -- Título breve o motivo de la conversación
     message TEXT NOT NULL,             -- Contenido principal de la conversación
     created_by UNIQUEIDENTIFIER NOT NULL,       -- Usuario interno que registró la conversación
   
     -- Relaciones
-    CONSTRAINT FK_Conversation_clients FOREIGN KEY (clients_id) REFERENCES clientss(id),
+    CONSTRAINT FK_Conversation_clients FOREIGN KEY (clients_id) REFERENCES clients(id),
     CONSTRAINT FK_Conversation_User FOREIGN KEY (created_by) REFERENCES users(id),
 
     -- Restricciones para asegurar la integridad
-    CONSTRAINT CK_Conversation_Channel CHECK (channel IN ('Telefono', 'WhatsApp'))
+    CONSTRAINT CK_Conversation_Channel CHECK (channel IN ('Teléfono', 'WhatsApp', 'Correo'))
 );
 
 CREATE TABLE bank_accounts (

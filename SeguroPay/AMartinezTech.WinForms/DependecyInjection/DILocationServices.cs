@@ -6,9 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AMartinezTech.WinForms.DependecyInjection;
 
-public class DILocationService
+public class DILocationServices
 {
-    public static void AddService(IServiceCollection services)
+    public static void Add(IServiceCollection services)
     {
         // City
         services.AddTransient<CityPagination>();

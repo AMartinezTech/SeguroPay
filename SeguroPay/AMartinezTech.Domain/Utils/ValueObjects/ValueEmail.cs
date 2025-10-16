@@ -13,12 +13,13 @@ public class ValueEmail
     // Private contructor
     private ValueEmail(string value)
     {
+         
+        if (!string.IsNullOrEmpty(value))
+        {
+            if (!ValidationRegex.IsMatch(value))
+                throw new ValidationException($" {ErrorMessages.Get(ErrorType.InvalidFormat)} - Email! "); 
+        }
 
-        if (string.IsNullOrEmpty(value))
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - Email! ");
-
-        if (!ValidationRegex.IsMatch(value))
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.InvalidFormat)} - Email! ");
         Value = value;
     }
 

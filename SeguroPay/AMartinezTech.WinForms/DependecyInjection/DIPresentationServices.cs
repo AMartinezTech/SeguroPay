@@ -11,8 +11,12 @@ public class DIPresentationServices
         services.AddTransient<FrmMainView>();
         services.AddTransient<FrmSettingDashboardView>();
 
-        DIUserServices.AddServices(services);
-        DIClientService.AddServices(services);
-        DILocationService.AddService(services);
+        DIBankServices.Add(services);
+        DICashServices.Add(services);
+        DIClientServices.Add(services);
+        DIInsuranceServices.Add(services);
+        DILocationServices.Add(services);
+        DIPolicyServices.Add(services);
+        DIUserServices.Add(services);
     }
 }

@@ -2,5 +2,5 @@
 
 public interface IGetById<T, Tid> where T : class, IAggregateRoot
 {
-    Task<T> GetByIdAsync(Tid id);
+    Task<T?> GetByIdAsync(Tid id);
 }

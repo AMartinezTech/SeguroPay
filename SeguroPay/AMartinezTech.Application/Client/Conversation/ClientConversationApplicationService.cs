@@ -31,13 +31,20 @@ public class ClientConversationApplicationService(IClientConversationReadReposit
 
     #endregion
 
-
     #region "Read"
     public async Task<List<ClientConversationDto>> FilterAsync(Dictionary<string, object?>? filter = null, Dictionary<string, object?>? globalSearch = null, bool? isActived = null)
     {
         var result = await _readRepository.FilterAsync(filter, globalSearch, isActived);
         return ClientConversationMapper.ToDtoList(result);
     }
+
+    public async Task<ClientConversationDto> GetByIdAsync(Guid id)
+    {
+        var result = await _readRepository.GetByIdAsync(id);    
+        return ClientConversationMapper.ToDto(result);
+    }
+
+     
     #endregion
 }
 

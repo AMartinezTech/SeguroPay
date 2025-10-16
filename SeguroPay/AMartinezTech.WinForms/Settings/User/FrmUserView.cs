@@ -181,7 +181,7 @@ public partial class FrmUserView : Form
         ComboBoxRol.Text = data.Rol;
         CheckBoxIsActived.Checked = data.IsActived;
     }
-    private async void InvokeFilterAsync(bool isActived)
+    private async void InvokeFilterAsync(bool? isActived)
     {
         _userList = await _userController.FilterAsync(null, null, isActived);
         if (_userList.Count > 0)

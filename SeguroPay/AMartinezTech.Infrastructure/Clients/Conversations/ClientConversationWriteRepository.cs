@@ -16,16 +16,15 @@ public class ClientConversationWriteRepository(string connectionString) : AdoRep
             await conn.OpenAsync();
             using var cmd = new SqlCommand { Connection = conn };
 
-            var sql = @"INSERT INTO client_conversations (id, client_id, channel, contact_number, subject,message,created_by,created_at) VALUES(@id, @client_id, @channel, @contact_number, @subject,@message,@created_by,@created_at)";
+            var sql = @"INSERT INTO client_conversations (id, client_id, channel, contact_number, subject,message,created_by) VALUES(@id, @client_id, @channel, @contact_number, @subject,@message,@created_by)";
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@id", entity.Id);   
-            cmd.Parameters.AddWithValue("@client_id",entity.ClientId);
-            cmd.Parameters.AddWithValue("@channel", entity.Channel);
-            cmd.Parameters.AddWithValue("@contact_number", entity.ContactNumber);
-            cmd.Parameters.AddWithValue("@subject", entity.Subject);
-            cmd.Parameters.AddWithValue("@message", entity.Message);
-            cmd.Parameters.AddWithValue("@created_by", entity.CreatedBy);
-            cmd.Parameters.AddWithValue("@created_at", entity.CreatedAt);
+            cmd.Parameters.AddWithValue("@client_id",entity.ClientId.Value);
+            cmd.Parameters.AddWithValue("@channel", entity.Channel.Type.ToString());
+            cmd.Parameters.AddWithValue("@contact_number", entity.ContactNumber.Value);
+            cmd.Parameters.AddWithValue("@subject", entity.Subject.Value);
+            cmd.Parameters.AddWithValue("@message", entity.Message.Value);
+            cmd.Parameters.AddWithValue("@created_by", entity.CreatedBy); 
 
             await cmd.ExecuteNonQueryAsync();
         }
@@ -48,13 +47,13 @@ public class ClientConversationWriteRepository(string connectionString) : AdoRep
             await conn.OpenAsync();
             using var cmd = new SqlCommand { Connection = conn };
 
-            var sql = @"UPDATE client_conversations SET channel=@channel, contact_number=@contact_number, subject=@subject,message=@message WHERE id=@id)";
+            var sql = @"UPDATE client_conversations SET channel=@channel, contact_number=@contact_number, subject=@subject, message=@message WHERE id=@id";
             cmd.CommandText = sql;
-            cmd.Parameters.AddWithValue("@id", entity.Id); 
-            cmd.Parameters.AddWithValue("@channel", entity.Channel);
-            cmd.Parameters.AddWithValue("@contact_number", entity.ContactNumber);
-            cmd.Parameters.AddWithValue("@subject", entity.Subject);
-            cmd.Parameters.AddWithValue("@message", entity.Message); 
+            cmd.Parameters.AddWithValue("@id", entity.Id);
+            cmd.Parameters.AddWithValue("@channel", entity.Channel.Type.ToString());
+            cmd.Parameters.AddWithValue("@contact_number", entity.ContactNumber.Value);
+            cmd.Parameters.AddWithValue("@subject", entity.Subject.Value);
+            cmd.Parameters.AddWithValue("@message", entity.Message.Value);
 
             await cmd.ExecuteNonQueryAsync();
         }

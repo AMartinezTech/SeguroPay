@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            BtnNuevo = new FontAwesome.Sharp.IconButton();
+            BtnClient = new FontAwesome.Sharp.IconButton();
             PanelLineTop = new Panel();
             IconPictureBoxSearch = new FontAwesome.Sharp.IconPictureBox();
             TextBoxSearch = new TextBox();
@@ -40,24 +40,25 @@
             BtnPrintList = new FontAwesome.Sharp.IconButton();
             PanelLeyenda = new Panel();
             LabelTotalClients = new Label();
+            LabelTitle = new Label();
             ((System.ComponentModel.ISupportInitialize)IconPictureBoxSearch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             SuspendLayout();
             // 
-            // BtnNuevo
+            // BtnClient
             // 
-            BtnNuevo.Cursor = Cursors.Hand;
-            BtnNuevo.IconChar = FontAwesome.Sharp.IconChar.UserPlus;
-            BtnNuevo.IconColor = Color.Black;
-            BtnNuevo.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnNuevo.Location = new Point(12, 12);
-            BtnNuevo.Name = "BtnNuevo";
-            BtnNuevo.Size = new Size(85, 85);
-            BtnNuevo.TabIndex = 0;
-            BtnNuevo.Text = "&Nuevo";
-            BtnNuevo.TextImageRelation = TextImageRelation.ImageAboveText;
-            BtnNuevo.UseVisualStyleBackColor = true;
-            BtnNuevo.Click += BtnNuevo_Click;
+            BtnClient.Cursor = Cursors.Hand;
+            BtnClient.IconChar = FontAwesome.Sharp.IconChar.UserPlus;
+            BtnClient.IconColor = Color.Black;
+            BtnClient.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            BtnClient.Location = new Point(12, 12);
+            BtnClient.Name = "BtnClient";
+            BtnClient.Size = new Size(85, 85);
+            BtnClient.TabIndex = 0;
+            BtnClient.Text = "&Nuevo";
+            BtnClient.TextImageRelation = TextImageRelation.ImageAboveText;
+            BtnClient.UseVisualStyleBackColor = true;
+            BtnClient.Click += BtnNuevo_Click;
             // 
             // PanelLineTop
             // 
@@ -88,6 +89,7 @@
             TextBoxSearch.Name = "TextBoxSearch";
             TextBoxSearch.Size = new Size(546, 23);
             TextBoxSearch.TabIndex = 2;
+            TextBoxSearch.Enter += TextBoxSearch_Enter;
             TextBoxSearch.KeyDown += TextBoxSearch_KeyDown;
             // 
             // label1
@@ -177,11 +179,22 @@
             LabelTotalClients.TabIndex = 16;
             LabelTotalClients.Text = "label2";
             // 
+            // LabelTitle
+            // 
+            LabelTitle.AutoSize = true;
+            LabelTitle.Font = new Font("Segoe UI", 15F, FontStyle.Bold | FontStyle.Italic);
+            LabelTitle.Location = new Point(134, 12);
+            LabelTitle.Name = "LabelTitle";
+            LabelTitle.Size = new Size(187, 28);
+            LabelTitle.TabIndex = 17;
+            LabelTitle.Text = "Gestion de clientes";
+            // 
             // FrmClientDashboardView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(958, 761);
+            Controls.Add(LabelTitle);
             Controls.Add(LabelTotalClients);
             Controls.Add(PanelLeyenda);
             Controls.Add(BtnPrintList);
@@ -193,7 +206,7 @@
             Controls.Add(TextBoxSearch);
             Controls.Add(IconPictureBoxSearch);
             Controls.Add(PanelLineTop);
-            Controls.Add(BtnNuevo);
+            Controls.Add(BtnClient);
             Name = "FrmClientDashboardView";
             Text = "FrmClientDashboardView";
             Load += FrmClientDashboardView_Load;
@@ -205,7 +218,7 @@
 
         #endregion
 
-        private FontAwesome.Sharp.IconButton BtnNuevo;
+        private FontAwesome.Sharp.IconButton BtnClient;
         private Panel PanelLineTop;
         private FontAwesome.Sharp.IconPictureBox IconPictureBoxSearch;
         private TextBox TextBoxSearch;
@@ -217,5 +230,6 @@
         private FontAwesome.Sharp.IconButton BtnPrintList;
         private Panel PanelLeyenda;
         private Label LabelTotalClients;
+        private Label LabelTitle;
     }
 }

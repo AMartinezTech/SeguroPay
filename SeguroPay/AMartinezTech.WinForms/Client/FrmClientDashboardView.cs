@@ -4,10 +4,7 @@ using AMartinezTech.WinForms.Client.Conversations;
 using AMartinezTech.WinForms.Client.Utils;
 using AMartinezTech.WinForms.Utils;
 using AMartinezTech.WinForms.Utils.Factories;
-using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
-using System.Windows.Forms.DataVisualization.Charting;
 
 
 namespace AMartinezTech.WinForms.Client;
@@ -19,6 +16,7 @@ public partial class FrmClientDashboardView : Form
     private BindingList<ClientViewModel> _clientList = [];
     private readonly IFormFactory _formFactory;
     private readonly ClientReportService _clientReportService;
+    private bool _isChangeValueControl = false;
     #endregion
     #region "Constructor"
     public FrmClientDashboardView(IFormFactory formFactory, ClientController clientController, ClientReportService clientReportService)
@@ -54,7 +52,7 @@ public partial class FrmClientDashboardView : Form
         {
             totalClients += summary.ActiveCount + summary.InactiveCount;
             // Crear la tarjeta (Panel)
-            Panel card = new Panel
+            Panel card = new()
             {
                 Width = cardWidth,
                 Height = cardHeight,
@@ -64,7 +62,7 @@ public partial class FrmClientDashboardView : Form
             };
 
             // Label para tipo de cliente
-            Label lblType = new Label
+            Label lblType = new()
             {
                 Text = $"Tipo: {summary.ClientType}",
                 Location = new Point(10, 10),
@@ -74,7 +72,7 @@ public partial class FrmClientDashboardView : Form
             card.Controls.Add(lblType);
 
             // Label para activos
-            Label lblActive = new Label
+            Label lblActive = new()
             {
                 Text = $"Activos: {summary.ActiveCount}",
                 Location = new Point(10, 35),
@@ -83,7 +81,7 @@ public partial class FrmClientDashboardView : Form
             card.Controls.Add(lblActive);
 
             // Label para inactivos
-            Label lblInactive = new Label
+            Label lblInactive = new()
             {
                 Text = $"Inactivos: {summary.InactiveCount}",
                 Location = new Point(150, 35),
@@ -117,7 +115,7 @@ public partial class FrmClientDashboardView : Form
                 PhoneColumnName = "LLAMADA",
             });
             // Set custom columns
-            FormatingDGColumns.Apply(DataGridView); 
+            FormatingDGColumns.Apply(DataGridView);
         }
         catch (Exception ex)
         {
@@ -154,8 +152,7 @@ public partial class FrmClientDashboardView : Form
             // Reactiva el repintado y asigna el resultado
             DataGridView.DataSource = result;
             _clientList = result;
-            //_clientList = await _controller.FilterAsync(filters, globalSearch, CheckBoxIsActived.Checked);
-            //DataGridView.DataSource = _clientList;
+
         }
         catch (Exception ex)
         {
@@ -172,11 +169,11 @@ public partial class FrmClientDashboardView : Form
         // Set Backgroud color
         this.BackColor = AppColors.Surface;
         PanelLineTop.BackColor = AppColors.Outline;
-
+        LabelTitle.ForeColor = AppColors.OnSurface;
 
         //Buttons icon color
         IconPictureBoxSearch.IconColor = AppColors.Primary;
-        BtnNuevo.IconColor = AppColors.Primary;
+        BtnClient.IconColor = AppColors.Primary;
 
     }
 
@@ -193,22 +190,16 @@ public partial class FrmClientDashboardView : Form
                 UpdatingMemoryData.Excecute(ClientViewModel.ToModel(newClient), _clientList);
                 DataGridView.Refresh();
             }
+            LoadClientTypeChart();
         }
     }
-    private void OpemFrmClientConversation(Guid clientId)
+    private void OpemFrmClientConversation(Guid clientId, string clientName)
     {
         var frmClientConversationView = _formFactory.CreateFormFactory<FrmClientConversationView>();
-        //frmClientConversationView.ClientId = clientId;
-        if (frmClientConversationView.ShowDialog() == DialogResult.OK)
-        {
-            //var newClient = frmClientConversationView.Client;
+        frmClientConversationView.ClientId = clientId;
 
-            //if (newClient != null)
-            //{
-            //    UpdatingMemoryData.Excecute(ClientViewModel.ToModel(newClient), _clientList);
-            //    DataGridView.Refresh();
-            //}
-        }
+        frmClientConversationView.LabelClientFullName.Text = clientName;
+        frmClientConversationView.ShowDialog();
     }
     #endregion
     #region "Btn Events"
@@ -224,13 +215,23 @@ public partial class FrmClientDashboardView : Form
             InvokeFilterAsync();
 
     }
+    private void TextBoxSearch_Enter(object sender, EventArgs e)
+    {
+        if (_isChangeValueControl)
+        {
+            _isChangeValueControl = false;
+            InvokeFilterAsync();
+        }
+    }
     private void CheckBoxIsActived_CheckedChanged(object sender, EventArgs e)
     {
-
+        _isChangeValueControl = true;
+        TextBoxSearch.Focus();
     }
     private void ComboBoxClientType_SelectedIndexChanged(object sender, EventArgs e)
     {
-
+        _isChangeValueControl = true;
+        TextBoxSearch.Focus();
     }
     #endregion
     #region "DataGridView Events"
@@ -242,11 +243,14 @@ public partial class FrmClientDashboardView : Form
         if (DataGridView.Columns[e.ColumnIndex].Name == "editCol")
         {
             OpenFrmClient(clientId);
-        }else if (DataGridView.Columns[e.ColumnIndex].Name == "phoneCol")
+        }
+        else if (DataGridView.Columns[e.ColumnIndex].Name == "phoneCol")
         {
-            OpemFrmClientConversation(clientId);
+            var clientName = DataGridView.Rows[e.RowIndex].Cells["FullName"].Value!.ToString()!;
+            OpemFrmClientConversation(clientId, clientName);
         }
     }
     #endregion
+
 
 }

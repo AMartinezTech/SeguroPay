@@ -126,14 +126,14 @@
             // 
             BtnInsurance.Cursor = Cursors.Hand;
             BtnInsurance.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            BtnInsurance.IconChar = FontAwesome.Sharp.IconChar.HouseMedical;
+            BtnInsurance.IconChar = FontAwesome.Sharp.IconChar.Hospital;
             BtnInsurance.IconColor = Color.Black;
             BtnInsurance.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnInsurance.Location = new Point(103, 9);
             BtnInsurance.Name = "BtnInsurance";
             BtnInsurance.Size = new Size(85, 85);
             BtnInsurance.TabIndex = 1;
-            BtnInsurance.Text = "Seguros";
+            BtnInsurance.Text = "Compañías de seguros";
             BtnInsurance.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnInsurance.UseVisualStyleBackColor = true;
             BtnInsurance.Click += BtnInsurance_Click;
@@ -165,9 +165,9 @@
             // PanelContainer
             // 
             PanelContainer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            PanelContainer.Location = new Point(0, 102);
+            PanelContainer.Location = new Point(0, 108);
             PanelContainer.Name = "PanelContainer";
-            PanelContainer.Size = new Size(1184, 618);
+            PanelContainer.Size = new Size(1184, 612);
             PanelContainer.TabIndex = 2;
             // 
             // PanelButtomMenu

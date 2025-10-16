@@ -10,4 +10,5 @@ public class ClientConversationDto
     public string Subject { get; set; } = string.Empty;
     public string Message { get; set; } = string.Empty;
     public Guid CreatedBy { get; set; }
+    public string CreatedByName { get; set; } = string.Empty ;
 }

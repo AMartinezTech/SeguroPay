@@ -3,11 +3,11 @@ using Microsoft.Data.SqlClient;
 
 namespace AMartinezTech.Infrastructure.Clients.Conversations;
 
-internal class ClientConversationMapper
+internal class MapToClientConversation
 {
     internal static ClientConversationEntity ToEntity(SqlDataReader reader)
     {
-        return ClientConversationEntity.Create(
+        var entity = ClientConversationEntity.Create(
             reader.GetGuid(reader.GetOrdinal("id")),
             reader.GetGuid(reader.GetOrdinal("client_id")),
             reader.GetString(reader.GetOrdinal("channel")),
@@ -17,5 +17,8 @@ internal class ClientConversationMapper
             reader.GetString(reader.GetOrdinal("message")),
             reader.GetGuid(reader.GetOrdinal("created_by"))
             );
+
+        entity.SetCreatedByName(reader.GetString(reader.GetOrdinal("createdbyname")));
+        return entity;
     }
 }

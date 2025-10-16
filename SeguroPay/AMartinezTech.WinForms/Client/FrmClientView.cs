@@ -14,7 +14,7 @@ public partial class FrmClientView : Form
     private CancellationTokenSource? _cts;
     private readonly ClientController _clientController;
     private readonly StreetController _streetController;
-    public Guid ClientId  = Guid.Empty;
+    public Guid ClientId = Guid.Empty;
     private bool _isLoadingClient = false;
     public ClientDto? Client { get; private set; }
     #endregion
@@ -50,7 +50,7 @@ public partial class FrmClientView : Form
 
         };
 
-       
+
         var streetList = await _streetController.FilterAsync(filters, null, null);
         if (streetList.Count > 0)
         {
@@ -281,7 +281,6 @@ public partial class FrmClientView : Form
     {
         ClearMessageErr();
     }
-
     private void ComboBoxCity_SelectedIndexChanged(object sender, EventArgs e)
     {
         ClearMessageErr();
@@ -295,7 +294,6 @@ public partial class FrmClientView : Form
         {
             FillComboBoxStreetAsync(cityId);
         }
-
     }
 
     private void ComboBoxStreet_SelectedIndexChanged(object sender, EventArgs e)
@@ -359,7 +357,8 @@ public partial class FrmClientView : Form
             Client.Id = ClientId;
 
 
-            SetMessage("Cerrar - Registro guardado con exito.!", MessageType.Success);
+            SetMessage("Cerrar - Registro  con exito.!", MessageType.Success);
+
 
             // Set to 2 secons for alert
             await SetInitialMessage(2, LabelAlertMessage);
@@ -411,9 +410,12 @@ public partial class FrmClientView : Form
         frmStreetView.CityId = Guid.Parse(ComboBoxCity.SelectedValue!.ToString()!);
         frmStreetView.LabelCityName.Text = $"Ciudad: {ComboBoxCity.Text}";
         frmStreetView.ShowDialog();
+        // Convertir el valor a Guid
+        if (Guid.TryParse(ComboBoxCity.SelectedValue.ToString(), out Guid cityId))
+        {
+            FillComboBoxStreetAsync(cityId);
+        }
     }
 
     #endregion
-
-
 }

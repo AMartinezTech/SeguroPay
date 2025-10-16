@@ -11,8 +11,8 @@ public class ValuePhone
 
     private ValuePhone(string value, string nameOfFeld)
     {
-        var regexRD = new Regex(@"^\+1(809|829|849)[0-9]{7}$");
-
+        var regexRD = new Regex(@"^(809|829|849)-\d{3}-\d{4}$");
+         
         if (!string.IsNullOrEmpty(value))
         {
             if (!regexRD.IsMatch(value))
@@ -25,7 +25,7 @@ public class ValuePhone
     public static ValuePhone Create(string value, string nameOfFeld)
     {
         if (string.IsNullOrWhiteSpace(value))
-            throw new ValidationException($"{ErrorMessages.Get(ErrorType.RequiredField)} - Phone");
+            throw new ValidationException($"{ErrorMessages.Get(ErrorType.RequiredField)} - {nameOfFeld}");
 
         return new ValuePhone(value, nameOfFeld);
     }

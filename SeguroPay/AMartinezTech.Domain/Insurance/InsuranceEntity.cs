@@ -33,9 +33,18 @@ public class InsuranceEntity : IAggregateRoot
     public static InsuranceEntity Create(Guid id, DateTime createdAt, string name, ValueAddress address, string email, string phone, string? contactName, string? contactPhone, bool isActived)
     {
         id = CreateGuid.EnsureId(id);
-        return new InsuranceEntity(id, createdAt, ValueInsuranceName.Create(name), address, ValueEmail.Create(email), ValuePhone.Create(phone, "Teléfono"), contactName, contactPhone, isActived);
+        return new InsuranceEntity(id, createdAt, ValueInsuranceName.Create(name), address, ValueEmail.Create(email), ValuePhone.Create(phone, nameof(Phone)), contactName, contactPhone, isActived);
     }
 
-    public void Activate() => IsActived = true;
-    public void Deactivate() => IsActived = false;
+    public void Update(string name, ValueAddress address, string email, string phone, string? contactName, string? contactPhone)
+    {
+        Name = ValueInsuranceName.Create(name);
+        Address = address;
+        Email = ValueEmail.Create(email);
+        Phone = ValuePhone.Create(phone, nameof(Phone));
+        ContactName = contactName;
+        ContactPhone = contactPhone;
+    }
+    public void MarkAsActivate() => IsActived = true;
+    public void MarkAsInactivate() => IsActived = false;
 }

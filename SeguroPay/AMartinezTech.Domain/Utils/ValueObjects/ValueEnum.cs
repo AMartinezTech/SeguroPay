@@ -17,7 +17,7 @@ public class ValueEnum<T> where T : struct, Enum
         var enumType = typeof(T);
 
         if (!Enum.TryParse(enumType, type, true, out object? parsedValue) || parsedValue == null || !Enum.IsDefined(enumType, parsedValue))
-            throw new ValidationException(ErrorMessages.Get(ErrorType.InvalidType) + " - " + enumType.Name);
+            throw new ValidationException(ErrorMessages.Get(ErrorType.InvalidType) + " - " + type);
 
         return new ValueEnum<T>((T)parsedValue);
     }

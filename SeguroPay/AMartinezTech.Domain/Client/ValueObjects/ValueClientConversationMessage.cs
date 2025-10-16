@@ -17,10 +17,10 @@ public class ValueClientConversationMessage
     public static ValueClientConversationMessage Create(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
-            throw new ValidationException($"{ErrorMessages.Get(ErrorType.RequiredField)} - mensage");
+            throw new ValidationException($"{ErrorMessages.Get(ErrorType.RequiredField)} - Message");
 
         if (value.Length < 10)
-            throw new ValidationException($"{ErrorMessages.Get(ErrorType.MinLength)} - mensage");
+            throw new ValidationException($"{ErrorMessages.Get(ErrorType.MinLength)} - Message");
 
         return new ValueClientConversationMessage(value);
     }

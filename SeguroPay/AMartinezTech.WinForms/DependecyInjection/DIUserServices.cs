@@ -9,7 +9,7 @@ namespace AMartinezTech.WinForms.DependecyInjection;
 
 public class DIUserServices
 {
-    public static void AddServices(IServiceCollection services)
+    public static void Add(IServiceCollection services)
     {
         services.AddSingleton<ICurrectUser, CurrentUser>();
         services.AddTransient<UserApplicationService>(); 

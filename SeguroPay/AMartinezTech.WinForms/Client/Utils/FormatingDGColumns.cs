@@ -22,16 +22,7 @@ internal class FormatingDGColumns
         };
         dataGridView.Columns.Add(colId);
 
-        var colClientType = new DataGridViewTextBoxColumn
-        {
-            Name = "ClientType",
-            HeaderText = "TIPO",
-            DataPropertyName = "ClientType", // Vincula con la propiedad del resultado
-            Width = 150,
-            DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft }
-
-        };
-        dataGridView.Columns.Add(colClientType);
+       
 
         var colDocIdentity = new DataGridViewTextBoxColumn
         {
@@ -101,16 +92,6 @@ internal class FormatingDGColumns
         };
         dataGridView.Columns.Add(colContactPhone);
 
-        var colIsActive = new DataGridViewTextBoxColumn
-        {
-            Name = "IsActivedName",
-            HeaderText = "ESTADO",
-            DataPropertyName = "IsActivedName", // Vincula con la propiedad del resultado
-            Width = 75,
-            DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleCenter },
-
-        };
-        colIsActive.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
-        dataGridView.Columns.Add(colIsActive);
+         
     }
 }

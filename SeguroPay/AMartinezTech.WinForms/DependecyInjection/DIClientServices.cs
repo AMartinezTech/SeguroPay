@@ -7,9 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AMartinezTech.WinForms.DependecyInjection;
 
-public class DIClientService
+public class DIClientServices
 {
-    public static void AddServices(IServiceCollection services)
+    public static void Add(IServiceCollection services)
     {
         services.AddTransient<ClientReportService>();
 
@@ -18,8 +18,7 @@ public class DIClientService
         services.AddTransient<ClientController>();
         services.AddTransient<ClientApplicationService>();
 
-        // Client Conversations
-        services.AddTransient<ClientConversationController>();
+        // Client Conversations 
         services.AddTransient<ClientConversationApplicationService>();
         services.AddTransient<FrmClientConversationView>();
 

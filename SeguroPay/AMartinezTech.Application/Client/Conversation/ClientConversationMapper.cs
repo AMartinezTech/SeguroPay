@@ -15,7 +15,9 @@ internal class ClientConversationMapper
             CreatedAt = entity.CreatedAt,
             Subject = entity.Subject.Value,
             Message = entity.Message.Value,
-            CreatedBy = entity.CreatedBy
+            CreatedBy = entity.CreatedBy,
+            CreatedByName = entity.CreatedByName ?? string.Empty,
+        
         };
     }
 

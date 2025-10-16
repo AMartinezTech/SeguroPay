@@ -318,6 +318,8 @@
             // CheckBoxIsActived
             // 
             CheckBoxIsActived.AutoSize = true;
+            CheckBoxIsActived.Checked = true;
+            CheckBoxIsActived.CheckState = CheckState.Checked;
             CheckBoxIsActived.Location = new Point(229, 70);
             CheckBoxIsActived.Name = "CheckBoxIsActived";
             CheckBoxIsActived.Size = new Size(60, 19);
@@ -472,6 +474,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "FrmClientView";
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cliente";
             Load += FrmClientView_Load;
