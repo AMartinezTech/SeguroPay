@@ -7,9 +7,9 @@ public class ExpenseGetByDate(IExpenseReadRepository repository)
 {
     private readonly IExpenseReadRepository _repository = repository;
 
-    public async Task<ByDateResult<ExpenseDto>> ExecuteAsync(DateTime initialDate, DateTime endDate, bool? isActived)
+    public async Task<ByDateResult<ExpenseDto>> ExecuteAsync(DateTime initialDate, DateTime endDate, bool? IsActive)
     {
-        var result = await _repository.GetByDateAsync(initialDate, endDate, isActived);
+        var result = await _repository.GetByDateAsync(initialDate, endDate, IsActive);
         var dtoList = ExpenseMapper.ToDtoList(result.Data);
         return new ByDateResult<ExpenseDto>(initialDate, endDate, dtoList);
     }

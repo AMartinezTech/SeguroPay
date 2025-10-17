@@ -19,7 +19,7 @@ internal class MapToClient
             reader.GetString(reader.GetOrdinal("observation")),
             reader.GetString(reader.GetOrdinal("location_no")),
             reader.GetString(reader.GetOrdinal("address_ref")),
-            reader.GetBoolean(reader.GetOrdinal("is_actived")),
+            reader.GetBoolean(reader.GetOrdinal("is_active")),
             reader.GetString(reader.GetOrdinal("contact_name")),
             reader.GetString(reader.GetOrdinal("contact_phone")),
             reader.GetGuid(reader.GetOrdinal("city_id")),

@@ -42,8 +42,8 @@ public class UserWriteRepository(string connectionString) : AdoRepositoryBase(co
 
             using var conn = GetConnection();
             await conn.OpenAsync();
-            string sql = @"INSERT INTO users (id, user_name, email, password, full_name, phone, rol, is_actived) 
-                        VALUES(@id, @user_name, @email, @password, @full_name, @phone, @rol, @is_actived)";
+            string sql = @"INSERT INTO users (id, user_name, email, password, full_name, phone, rol, is_active) 
+                        VALUES(@id, @user_name, @email, @password, @full_name, @phone, @rol, @is_active)";
             using var cmd = new SqlCommand(sql, conn);
 
             cmd.Parameters.AddWithValue("@id", entity.Id);
@@ -53,7 +53,7 @@ public class UserWriteRepository(string connectionString) : AdoRepositoryBase(co
             cmd.Parameters.AddWithValue("@full_name", entity.FullName.Value);
             cmd.Parameters.AddWithValue("@phone", entity.Phone.Value);
             cmd.Parameters.AddWithValue("@rol", entity.Rol.Type);
-            cmd.Parameters.AddWithValue("@is_actived", entity.IsActived);
+            cmd.Parameters.AddWithValue("@is_active", entity.IsActive);
 
             await cmd.ExecuteNonQueryAsync();
         }
@@ -72,7 +72,7 @@ public class UserWriteRepository(string connectionString) : AdoRepositoryBase(co
 
             using var conn = GetConnection();
             await conn.OpenAsync();
-            string sql = @"UPDATE users SET full_name=@full_name, phone=@phone, rol=@rol, is_actived=@is_actived 
+            string sql = @"UPDATE users SET full_name=@full_name, phone=@phone, rol=@rol, is_active=@is_active 
                           WHERE id=@id";
             using var cmd = new SqlCommand(sql, conn);
 
@@ -80,7 +80,7 @@ public class UserWriteRepository(string connectionString) : AdoRepositoryBase(co
             cmd.Parameters.AddWithValue("@full_name", entity.FullName.Value);
             cmd.Parameters.AddWithValue("@phone", entity.Phone.Value);
             cmd.Parameters.AddWithValue("@rol", entity.Rol.Type);
-            cmd.Parameters.AddWithValue("@is_actived", entity.IsActived);
+            cmd.Parameters.AddWithValue("@is_active", entity.IsActive);
 
             await cmd.ExecuteNonQueryAsync();
         }

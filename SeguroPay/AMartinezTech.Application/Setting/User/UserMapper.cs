@@ -14,7 +14,7 @@ internal class UserMapper
             FullName = entity.FullName.Value,
             Phone = entity.Phone.Value,
             Rol = entity.Rol.Type.ToString(),
-            IsActived = entity.IsActived,
+            IsActive = entity.IsActive,
             CreatedAt = entity.CreatedAt!.Value
         };
     }

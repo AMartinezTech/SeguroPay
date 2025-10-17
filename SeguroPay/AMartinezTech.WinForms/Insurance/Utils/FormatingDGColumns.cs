@@ -1,4 +1,4 @@
-﻿namespace AMartinezTech.WinForms.Settings.User.Utils;
+﻿namespace AMartinezTech.WinForms.Insurance.Utils;
 
 internal class FormatingDGColumns
 {
@@ -19,31 +19,54 @@ internal class FormatingDGColumns
 
         };
         dataGridView.Columns.Add(colId);
-         
+
         var colName = new DataGridViewTextBoxColumn
         {
-            Name = "FullName",
+            Name = "Name",
             HeaderText = "NOMBRE",
-            DataPropertyName = "FullName", // Vincula con la propiedad del resultado
+            DataPropertyName = "Name", // Vincula con la propiedad del resultado
             Width = 150,
             DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft },
             AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
 
         };
         dataGridView.Columns.Add(colName);
-        
+
         var colPhone = new DataGridViewTextBoxColumn
         {
             Name = "Phone",
             HeaderText = "TELÉFONO",
             DataPropertyName = "phone", // Vincula con la propiedad del resultado
             Width = 150,
-            DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft }  
+            DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft }
 
         };
         dataGridView.Columns.Add(colPhone);
 
-       
+        var colContactName = new DataGridViewTextBoxColumn
+        {
+            Name = "ContactName",
+            HeaderText = "CONTACTO",
+            DataPropertyName = "ContactName", // Vincula con la propiedad del resultado
+            Width = 150,
+            DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft }
+
+        };
+        dataGridView.Columns.Add(colContactName);
+
+
+        var colContactPhone = new DataGridViewTextBoxColumn
+        {
+            Name = "ContactPhone",
+            HeaderText = "TEL. CONTACTO",
+            DataPropertyName = "ContactPhone", // Vincula con la propiedad del resultado
+            Width = 150,
+            DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft }
+
+        };
+        dataGridView.Columns.Add(colContactPhone);
+
+
         var colIsActive = new DataGridViewTextBoxColumn
         {
             Name = "IsActiveName",

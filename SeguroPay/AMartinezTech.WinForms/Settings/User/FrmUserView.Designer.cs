@@ -43,7 +43,7 @@
             label6 = new Label();
             TextBoxConfirmPassword = new TextBox();
             label7 = new Label();
-            CheckBoxIsActived = new CheckBox();
+            CheckBoxIsActive = new CheckBox();
             BtnClear = new FontAwesome.Sharp.IconButton();
             BtnPersistence = new FontAwesome.Sharp.IconButton();
             DataGridView = new DataGridView();
@@ -54,7 +54,7 @@
             LabelTitle = new Label();
             PanelLineButtom = new Panel();
             errorProvider1 = new ErrorProvider(components);
-            CheckBoxFilterByIsActived = new CheckBox();
+            CheckBoxFilterByIsActive = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             PanelAlertMessage.SuspendLayout();
             PanelButtom.SuspendLayout();
@@ -185,17 +185,17 @@
             label7.TabIndex = 12;
             label7.Text = "Confirmar Clave";
             // 
-            // CheckBoxIsActived
+            // CheckBoxIsActive
             // 
-            CheckBoxIsActived.AutoSize = true;
-            CheckBoxIsActived.Checked = true;
-            CheckBoxIsActived.CheckState = CheckState.Checked;
-            CheckBoxIsActived.Location = new Point(178, 198);
-            CheckBoxIsActived.Name = "CheckBoxIsActived";
-            CheckBoxIsActived.Size = new Size(60, 19);
-            CheckBoxIsActived.TabIndex = 14;
-            CheckBoxIsActived.Text = "Activo";
-            CheckBoxIsActived.UseVisualStyleBackColor = true;
+            CheckBoxIsActive.AutoSize = true;
+            CheckBoxIsActive.Checked = true;
+            CheckBoxIsActive.CheckState = CheckState.Checked;
+            CheckBoxIsActive.Location = new Point(178, 198);
+            CheckBoxIsActive.Name = "CheckBoxIsActive";
+            CheckBoxIsActive.Size = new Size(60, 19);
+            CheckBoxIsActive.TabIndex = 14;
+            CheckBoxIsActive.Text = "Activo";
+            CheckBoxIsActive.UseVisualStyleBackColor = true;
             // 
             // BtnClear
             // 
@@ -294,25 +294,25 @@
             // 
             errorProvider1.ContainerControl = this;
             // 
-            // CheckBoxFilterByIsActived
+            // CheckBoxFilterByIsActive
             // 
-            CheckBoxFilterByIsActived.AutoSize = true;
-            CheckBoxFilterByIsActived.Checked = true;
-            CheckBoxFilterByIsActived.CheckState = CheckState.Checked;
-            CheckBoxFilterByIsActived.Location = new Point(683, 43);
-            CheckBoxFilterByIsActived.Name = "CheckBoxFilterByIsActived";
-            CheckBoxFilterByIsActived.Size = new Size(96, 19);
-            CheckBoxFilterByIsActived.TabIndex = 22;
-            CheckBoxFilterByIsActived.Text = "Filtrar activos";
-            CheckBoxFilterByIsActived.UseVisualStyleBackColor = true;
-            CheckBoxFilterByIsActived.CheckedChanged += CheckBoxFilterByIsActived_CheckedChanged;
+            CheckBoxFilterByIsActive.AutoSize = true;
+            CheckBoxFilterByIsActive.Checked = true;
+            CheckBoxFilterByIsActive.CheckState = CheckState.Checked;
+            CheckBoxFilterByIsActive.Location = new Point(683, 43);
+            CheckBoxFilterByIsActive.Name = "CheckBoxFilterByIsActive";
+            CheckBoxFilterByIsActive.Size = new Size(96, 19);
+            CheckBoxFilterByIsActive.TabIndex = 22;
+            CheckBoxFilterByIsActive.Text = "Filtrar activos";
+            CheckBoxFilterByIsActive.UseVisualStyleBackColor = true;
+            CheckBoxFilterByIsActive.CheckedChanged += CheckBoxFilterByIsActive_CheckedChanged;
             // 
             // FrmUserView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 461);
-            Controls.Add(CheckBoxFilterByIsActived);
+            Controls.Add(CheckBoxFilterByIsActive);
             Controls.Add(PanelLineButtom);
             Controls.Add(PanelButtom);
             Controls.Add(PanelLineTop);
@@ -320,7 +320,7 @@
             Controls.Add(DataGridView);
             Controls.Add(BtnPersistence);
             Controls.Add(BtnClear);
-            Controls.Add(CheckBoxIsActived);
+            Controls.Add(CheckBoxIsActive);
             Controls.Add(TextBoxConfirmPassword);
             Controls.Add(label7);
             Controls.Add(TextBoxPassword);
@@ -369,7 +369,7 @@
         private Label label6;
         private TextBox TextBoxConfirmPassword;
         private Label label7;
-        private CheckBox CheckBoxIsActived;
+        private CheckBox CheckBoxIsActive;
         private FontAwesome.Sharp.IconButton BtnClear;
         private FontAwesome.Sharp.IconButton BtnPersistence;
         private DataGridView DataGridView;
@@ -379,7 +379,7 @@
         private Panel PanelButtom;
         private Panel PanelLineButtom;
         private ErrorProvider errorProvider1;
-        private CheckBox CheckBoxFilterByIsActived;
+        private CheckBox CheckBoxFilterByIsActive;
         private Label LabelTitle;
     }
 }

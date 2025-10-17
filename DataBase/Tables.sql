@@ -43,19 +43,19 @@ DROP CONSTRAINT FK_Cities_Rigions;
 CREATE TABLE doc_identity_types (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
     name NVARCHAR(200) NOT NULL,
-    is_actived BIT NOT NULL DEFAULT 1 
+    is_active BIT NOT NULL DEFAULT 1 
 );
 
 CREATE TABLE clients_categories (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
     name NVARCHAR(200) NOT NULL,
-    is_actived BIT NOT NULL DEFAULT 1 
+    is_active BIT NOT NULL DEFAULT 1 
 );
 
 CREATE TABLE client_types (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
     name NVARCHAR(200) NOT NULL,
-    is_actived BIT NOT NULL DEFAULT 1 
+    is_active BIT NOT NULL DEFAULT 1 
 );
 
 CREATE TABLE clients (
@@ -78,7 +78,7 @@ CREATE TABLE clients (
     address_ref NVARCHAR(200) NULL, 
 	contact_name NVARCHAR(100) NULL,
 	contact_phone NVARCHAR(50) NULL,
-    is_actived BIT NOT NULL DEFAULT 1,   
+    is_active BIT NOT NULL DEFAULT 1,   
     created_at DATETIME2 NOT NULL DEFAULT SYSDATETIME(),
 
 	CONSTRAINT FK_clientss_Streets FOREIGN KEY (street_id)
@@ -112,7 +112,7 @@ CREATE TABLE companies (
     email NVARCHAR(100) NULL,
     line1 NVARCHAR(300) NULL,    
     line2 NVARCHAR(300) NULL,    
-    is_actived BIT NOT NULL DEFAULT 1,   
+    is_active BIT NOT NULL DEFAULT 1,   
     
 	CONSTRAINT FK_Companies_Streets FOREIGN KEY (street_id)
         REFERENCES streets(id)
@@ -140,7 +140,7 @@ CREATE TABLE users (
 	full_name NVARCHAR(50) NOT NUll,
 	phone NVARCHAR(20) NOT NULL,
 	rol NVARCHAR(15) NOT NULL,
-	is_actived BIT NOT NULL DEFAULT 1
+	is_active BIT NOT NULL DEFAULT 1
 );
 
 -- sin ejecutar de aqui para abajo
@@ -150,21 +150,18 @@ CREATE TABLE insurances (
 	id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
 	created_at DATETIME2 NOT NULL DEFAULT SYSDATETIME(),
     name NVARCHAR(100) NOT NULL,
-    street_id UNIQUEIDENTIFIER NULL,
-    city_id UNIQUEIDENTIFIER NULL,
-    region_id UNIQUEIDENTIFIER NULL,
-    country_id UNIQUEIDENTIFIER NULL,
+    address NVARCHAR(300) NULL,
     phone NVARCHAR(50) NULL,
     email NVARCHAR(100) NULL,
     contact_name NVARCHAR(100) NULL,    
     contact_phone NVARCHAR(100) NULL,    
-    is_actived BIT NOT NULL DEFAULT 1,   
+    is_active BIT NOT NULL DEFAULT 1,   
 );
 
 CREATE TABLE policy_types (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
     name NVARCHAR(200) NOT NULL,
-    is_actived BIT NOT NULL DEFAULT 1,
+    is_active BIT NOT NULL DEFAULT 1,
 	insurance_id UNIQUEIDENTIFIER NOT NULL,
 	CONSTRAINT FK_Policy_Ensurance FOREIGN KEY (insurance_id) REFERENCES insurances(id)
 );
@@ -238,7 +235,7 @@ CREATE TABLE bank_accounts (
     type INT NOT NULL,                       -- BankAccountType (Enum)
     contact_name NVARCHAR(150) NULL,
     contact_phone NVARCHAR(20) NULL,
-    is_actived BIT NOT NULL DEFAULT 1
+    is_active BIT NOT NULL DEFAULT 1
 );
 
 CREATE TABLE bank_deposits (

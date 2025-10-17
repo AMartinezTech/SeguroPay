@@ -84,7 +84,7 @@ public class ClientWriterRepository(string connectionString) : AdoRepositoryBase
             await conn.OpenAsync();
             using var cmd = new SqlCommand { Connection= conn };
 
-            var sql = @"UPDATE clients  SET doc_identity_type=@doc_identity_type, client_type=@client_type, doc_identity=@doc_identity, first_name=@first_name, last_name=@last_name, street_id=@street_id, city_id=@city_id, phone=@phone, email=@email, observation=@observation, location_no=@location_no, address_ref=@address_ref, is_actived=@is_actived, contact_name=@contact_name, contact_phone=@contact_phone WHERE id=@id ";
+            var sql = @"UPDATE clients  SET doc_identity_type=@doc_identity_type, client_type=@client_type, doc_identity=@doc_identity, first_name=@first_name, last_name=@last_name, street_id=@street_id, city_id=@city_id, phone=@phone, email=@email, observation=@observation, location_no=@location_no, address_ref=@address_ref, is_active=@is_active, contact_name=@contact_name, contact_phone=@contact_phone WHERE id=@id ";
             cmd.CommandText= sql;
             cmd.Parameters.AddWithValue("@id", entity.Id);
             cmd.Parameters.AddWithValue("@doc_identity_type", entity.DocIdentityType.ToString());
@@ -101,7 +101,7 @@ public class ClientWriterRepository(string connectionString) : AdoRepositoryBase
             cmd.Parameters.AddWithValue("@address_ref", entity.AddressRef);
             cmd.Parameters.AddWithValue("@contact_name", entity.ContactName);
             cmd.Parameters.AddWithValue("@contact_phone", entity.ContactPhone);
-            cmd.Parameters.AddWithValue("@is_actived", entity.IsActived);
+            cmd.Parameters.AddWithValue("@is_active", entity.IsActive);
 
             await cmd.ExecuteNonQueryAsync();
 

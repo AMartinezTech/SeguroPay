@@ -9,16 +9,16 @@ public class ExpenseCategoryEntity : IAggregateRoot
 {
     public Guid Id { get; private set; }
     public string Name { get; private set; }
-    public bool IsActived { get; private set; }
+    public bool IsActive { get; private set; }
 
-    private ExpenseCategoryEntity(Guid id, string name, bool isActived)
+    private ExpenseCategoryEntity(Guid id, string name, bool isActive)
     { 
         Id = id;
         Name = name;
-        IsActived = isActived;
+        IsActive = isActive;
     }
 
-    public static ExpenseCategoryEntity Create(Guid id, string name, bool isActived)
+    public static ExpenseCategoryEntity Create(Guid id, string name, bool isActive)
     {
         if (string.IsNullOrWhiteSpace(name.Trim()))
             throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - Nombre! ");
@@ -30,6 +30,6 @@ public class ExpenseCategoryEntity : IAggregateRoot
             throw new ValidationException($" {ErrorMessages.Get(ErrorType.MinLength)} (4) - Nombre! ");
 
         id = CreateGuid.EnsureId(id);
-        return new ExpenseCategoryEntity(id, name, isActived);
+        return new ExpenseCategoryEntity(id, name, isActive);
     }
 }

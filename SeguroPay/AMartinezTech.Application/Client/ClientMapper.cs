@@ -23,7 +23,7 @@ internal class ClientMapper
             AddressRef = entity.AddressRef,
             ContactName = entity.ContactName,
             ContactPhone = entity.ContactPhone,
-            IsActived = entity.IsActived
+            IsActive = entity.IsActive
         };
     }
 

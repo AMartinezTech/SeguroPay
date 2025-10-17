@@ -7,9 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AMartinezTech.Infrastructure.Utils.DependencyInjection;
 
-public static class DIClient
+public static class DIClientServices
 {
-    public static IServiceCollection AddClientModule(this IServiceCollection services, string connectionString)
+    public static IServiceCollection Add(this IServiceCollection services, string connectionString)
     {
         services.AddScoped<IClientWriteRepository>(sp => new ClientWriterRepository(connectionString));
         services.AddScoped<IClientReadRepository>(sp => new ClientReadRepository(connectionString));

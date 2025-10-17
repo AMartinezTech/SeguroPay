@@ -15,7 +15,7 @@ internal class MapToUser
              reader.GetString(reader.GetOrdinal("user_name")),
              ValuePassword.FromHash(reader.GetString(reader.GetOrdinal("password"))),
               reader.GetString(reader.GetOrdinal("rol")),
-             reader.GetBoolean(reader.GetOrdinal("is_actived")),
+             reader.GetBoolean(reader.GetOrdinal("is_active")),
              reader.GetDateTime(reader.GetOrdinal("created_at"))
             );
     }

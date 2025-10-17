@@ -47,7 +47,7 @@ public class CityReadRepository(string connectionString) : AdoRepositoryBase(con
         catch (Exception) { throw; }
     }
 
-    public async Task<PageResult<CityEntity>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
+    public async Task<PageResult<CityEntity>> PaginationAsync(int pageNumber, int pageSize, bool? IsActive)
     {
         var result = new List<CityEntity>();
         int totalRecords = 0;

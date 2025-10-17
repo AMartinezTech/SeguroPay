@@ -15,9 +15,9 @@ public class InsuranceEntity : IAggregateRoot
     public ValuePhone Phone { get; private set; }
     public string? ContactName { get; private set; }
     public string? ContactPhone { get; private set; }
-    public bool IsActived { get; private set; }
+    public bool IsActive { get; private set; }
 
-    private InsuranceEntity(Guid id, DateTime createdAt, ValueInsuranceName name, string? address, ValueEmail email, ValuePhone phone, string? contactName, string? contactPhone, bool isActived)
+    private InsuranceEntity(Guid id, DateTime createdAt, ValueInsuranceName name, string? address, ValueEmail email, ValuePhone phone, string? contactName, string? contactPhone, bool isActive )
     {
         Id = id;
         CreatedAt = createdAt;
@@ -27,16 +27,16 @@ public class InsuranceEntity : IAggregateRoot
         Phone = phone;
         ContactName = contactName;
         ContactPhone = contactPhone;
-        IsActived = isActived;
+        IsActive = isActive;
     }
 
-    public static InsuranceEntity Create(Guid id, DateTime createdAt, string name, string? address, string email, string phone, string? contactName, string? contactPhone, bool isActived)
+    public static InsuranceEntity Create(Guid id, DateTime createdAt, string name, string? address, string email, string phone, string? contactName, string? contactPhone, bool isActive = true)
     {
         id = CreateGuid.EnsureId(id);
-        return new InsuranceEntity(id, createdAt, ValueInsuranceName.Create(name), address, ValueEmail.Create(email), ValuePhone.Create(phone, nameof(Phone)), contactName, contactPhone, isActived);
+        return new InsuranceEntity(id, createdAt, ValueInsuranceName.Create(name), address, ValueEmail.Create(email), ValuePhone.Create(phone, nameof(Phone)), contactName, contactPhone, isActive);
     }
 
-    public void Update(string name, string address, string email, string phone, string? contactName, string? contactPhone)
+    public void Update(string name, string address, string email, string phone, string? contactName, string? contactPhone, bool isActive = true)
     {
         Name = ValueInsuranceName.Create(name);
         Address = address;
@@ -44,7 +44,8 @@ public class InsuranceEntity : IAggregateRoot
         Phone = ValuePhone.Create(phone, nameof(Phone));
         ContactName = contactName;
         ContactPhone = contactPhone;
+        IsActive = isActive;
     }
-    public void MarkAsActivate() => IsActived = true;
-    public void MarkAsInactivate() => IsActived = false;
+    public void MarkAsActivate() => IsActive = true;
+    public void MarkAsInactivate() => IsActive = false;
 }

@@ -7,9 +7,9 @@ public class BankAccountPagination(IBankAccountReadRepository repository)
 {
     private readonly IBankAccountReadRepository _repository = repository;
 
-    public async Task<PageResult<BankAccountDto>> ExecuteAsync(int pageNumber, int pageSize, bool? isActived)
+    public async Task<PageResult<BankAccountDto>> ExecuteAsync(int pageNumber, int pageSize, bool? IsActive)
     {
-        var result = await _repository.PaginationAsync(pageNumber, pageSize, isActived);
+        var result = await _repository.PaginationAsync(pageNumber, pageSize, IsActive);
         var dtoList = BankAccountMapper.ToDtoList(result.Data);
 
         return new PageResult<BankAccountDto>(result.TotalRecords,pageSize,dtoList);    

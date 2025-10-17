@@ -45,14 +45,16 @@
             BtnBankAccount = new FontAwesome.Sharp.IconButton();
             comboBox1 = new ComboBox();
             label4 = new Label();
+            IconPictureBox = new FontAwesome.Sharp.IconPictureBox();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)IconPictureBoxSearch).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)IconPictureBox).BeginInit();
             SuspendLayout();
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(627, 52);
+            label3.Location = new Point(589, 48);
             label3.Name = "label3";
             label3.Size = new Size(64, 15);
             label3.TabIndex = 77;
@@ -62,19 +64,19 @@
             // 
             dateTimePicker2.CustomFormat = "dd/MMM/yyyy";
             dateTimePicker2.Format = DateTimePickerFormat.Custom;
-            dateTimePicker2.Location = new Point(627, 70);
+            dateTimePicker2.Location = new Point(589, 66);
             dateTimePicker2.Name = "dateTimePicker2";
             dateTimePicker2.Size = new Size(118, 23);
             dateTimePicker2.TabIndex = 76;
             // 
             // BtnMovement
             // 
-            BtnMovement.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            BtnMovement.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             BtnMovement.Cursor = Cursors.Hand;
             BtnMovement.IconChar = FontAwesome.Sharp.IconChar.MoneyBills;
             BtnMovement.IconColor = Color.Black;
             BtnMovement.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnMovement.Location = new Point(856, 8);
+            BtnMovement.Location = new Point(770, 516);
             BtnMovement.Name = "BtnMovement";
             BtnMovement.Size = new Size(85, 85);
             BtnMovement.TabIndex = 75;
@@ -85,7 +87,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(488, 52);
+            label2.Location = new Point(450, 48);
             label2.Name = "label2";
             label2.Size = new Size(70, 15);
             label2.TabIndex = 73;
@@ -95,7 +97,7 @@
             // 
             dateTimePicker1.CustomFormat = "dd/MMM/yyyy";
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.Location = new Point(488, 70);
+            dateTimePicker1.Location = new Point(450, 66);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(118, 23);
             dateTimePicker1.TabIndex = 72;
@@ -104,7 +106,7 @@
             // 
             LabelTitle.AutoSize = true;
             LabelTitle.Font = new Font("Segoe UI", 15F, FontStyle.Bold | FontStyle.Italic);
-            LabelTitle.Location = new Point(132, 13);
+            LabelTitle.Location = new Point(94, 20);
             LabelTitle.Name = "LabelTitle";
             LabelTitle.Size = new Size(174, 28);
             LabelTitle.TabIndex = 71;
@@ -142,13 +144,12 @@
             BtnPrintList.Text = "&Imprimir listado";
             BtnPrintList.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnPrintList.UseVisualStyleBackColor = true;
-            BtnPrintList.Visible = false;
             // 
             // DataGridView
             // 
             DataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DataGridView.Location = new Point(12, 112);
+            DataGridView.Location = new Point(14, 108);
             DataGridView.Name = "DataGridView";
             DataGridView.Size = new Size(934, 394);
             DataGridView.TabIndex = 67;
@@ -156,7 +157,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(132, 52);
+            label1.Location = new Point(94, 48);
             label1.Name = "label1";
             label1.Size = new Size(42, 15);
             label1.TabIndex = 63;
@@ -164,7 +165,7 @@
             // 
             // TextBoxSearch
             // 
-            TextBoxSearch.Location = new Point(132, 70);
+            TextBoxSearch.Location = new Point(94, 66);
             TextBoxSearch.Name = "TextBoxSearch";
             TextBoxSearch.Size = new Size(350, 23);
             TextBoxSearch.TabIndex = 64;
@@ -177,7 +178,7 @@
             IconPictureBoxSearch.IconColor = SystemColors.ControlText;
             IconPictureBoxSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
             IconPictureBoxSearch.IconSize = 23;
-            IconPictureBoxSearch.Location = new Point(103, 70);
+            IconPictureBoxSearch.Location = new Point(65, 66);
             IconPictureBoxSearch.Name = "IconPictureBoxSearch";
             IconPictureBoxSearch.Size = new Size(25, 23);
             IconPictureBoxSearch.TabIndex = 65;
@@ -186,19 +187,20 @@
             // PanelLineTop
             // 
             PanelLineTop.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            PanelLineTop.Location = new Point(12, 99);
+            PanelLineTop.Location = new Point(12, 95);
             PanelLineTop.Name = "PanelLineTop";
             PanelLineTop.Size = new Size(931, 2);
             PanelLineTop.TabIndex = 66;
             // 
             // BtnBankAccount
             // 
+            BtnBankAccount.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             BtnBankAccount.Cursor = Cursors.Hand;
             BtnBankAccount.Font = new Font("Segoe UI", 9F);
             BtnBankAccount.IconChar = FontAwesome.Sharp.IconChar.Building;
             BtnBankAccount.IconColor = Color.Black;
             BtnBankAccount.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnBankAccount.Location = new Point(12, 8);
+            BtnBankAccount.Location = new Point(679, 516);
             BtnBankAccount.Name = "BtnBankAccount";
             BtnBankAccount.Size = new Size(85, 85);
             BtnBankAccount.TabIndex = 78;
@@ -209,7 +211,7 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(488, 26);
+            comboBox1.Location = new Point(450, 19);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(259, 23);
             comboBox1.TabIndex = 79;
@@ -217,17 +219,32 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(488, 8);
+            label4.Location = new Point(450, 1);
             label4.Name = "label4";
             label4.Size = new Size(93, 15);
             label4.TabIndex = 80;
             label4.Text = "Cuenta bancaria";
+            // 
+            // IconPictureBox
+            // 
+            IconPictureBox.BackColor = SystemColors.Control;
+            IconPictureBox.ForeColor = SystemColors.ControlText;
+            IconPictureBox.IconChar = FontAwesome.Sharp.IconChar.Building;
+            IconPictureBox.IconColor = SystemColors.ControlText;
+            IconPictureBox.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            IconPictureBox.IconSize = 45;
+            IconPictureBox.Location = new Point(14, 44);
+            IconPictureBox.Name = "IconPictureBox";
+            IconPictureBox.Size = new Size(45, 45);
+            IconPictureBox.TabIndex = 81;
+            IconPictureBox.TabStop = false;
             // 
             // FrmBankDashboardView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(958, 761);
+            Controls.Add(IconPictureBox);
             Controls.Add(label4);
             Controls.Add(comboBox1);
             Controls.Add(BtnBankAccount);
@@ -250,6 +267,7 @@
             Load += FrmBankDashboardView_Load;
             ((System.ComponentModel.ISupportInitialize)DataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)IconPictureBoxSearch).EndInit();
+            ((System.ComponentModel.ISupportInitialize)IconPictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -273,5 +291,6 @@
         private FontAwesome.Sharp.IconButton BtnBankAccount;
         private ComboBox comboBox1;
         private Label label4;
+        private FontAwesome.Sharp.IconPictureBox IconPictureBox;
     }
 }

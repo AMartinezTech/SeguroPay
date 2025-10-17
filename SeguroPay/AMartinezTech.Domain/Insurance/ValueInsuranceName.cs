@@ -13,13 +13,13 @@ public class ValueInsuranceName
     {
 
         if (string.IsNullOrWhiteSpace(value))
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - nombre! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - Name ");
 
         if (value.Length > 50)
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.MaxLength)} (50) - nombre! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.MaxLength)} (50) - Name ");
 
         if (value.Length < 6)
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.MinLength)} (6) - nombre! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.MinLength)} (6) - Name ");
 
         Value = value;
 

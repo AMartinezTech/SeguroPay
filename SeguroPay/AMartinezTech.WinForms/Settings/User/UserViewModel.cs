@@ -9,8 +9,8 @@ internal class UserViewModel
     public string FullName { get; set; } = string.Empty;
     public string Phone { get; set; } = string.Empty;
     public string Rol { get; set; } = string.Empty;
-    public bool IsActived { get; set; }
-    public string IsActiveName => IsActived ? "Activo" : "Inactivo"; 
+    public bool IsActive { get; set; }
+    public string IsActiveName => IsActive ? "Activo" : "Inactivo"; 
 
     internal static UserViewModel ToModel(UserDto dto)
     {
@@ -21,7 +21,7 @@ internal class UserViewModel
             FullName = dto.FullName,
             Phone = dto.Phone,
             Rol = dto.Rol,
-            IsActived = dto.IsActived, 
+            IsActive = dto.IsActive, 
         };
     }
     internal static List<UserViewModel> ToModelList(List<UserDto> list)

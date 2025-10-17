@@ -35,8 +35,10 @@ public partial class FrmCashDashboardView : Form
 
         //Buttons icon color
         IconPictureBoxSearch.IconColor = AppColors.Primary;
+        IconPictureBox.IconColor = AppColors.Primary;
         BtnOtherIncome.IconColor = AppColors.Primary;
         BtnExpense.IconColor = AppColors.Primary;
+        BtnPrintList.IconColor = AppColors.Primary;
 
     }
     #endregion

@@ -11,7 +11,7 @@ namespace AMartinezTech.Infrastructure.Clients;
 
 public class ClientReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IClientReadRepository
 {
-    public async Task<IReadOnlyList<ClientEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActived = null)
+    public async Task<IReadOnlyList<ClientEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
     {
         var result = new List<ClientEntity>();
         using (var conn = GetConnection())
@@ -20,7 +20,7 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
 
             using var cmd = new SqlCommand { Connection = conn };
 
-            var spec = new SqlFilterSpecification(filters, globalSearch, isActived);
+            var spec = new SqlFilterSpecification(filters, globalSearch, IsActive);
             var whereClause = spec.BuildCondition(cmd);
 
             var sql = $"SELECT TOP 100 * FROM clients {whereClause} ORDER BY first_name, last_name";
@@ -72,7 +72,7 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
         catch (Exception) { throw; }
     }
 
-    public async Task<PageResult<ClientEntity>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
+    public async Task<PageResult<ClientEntity>> PaginationAsync(int pageNumber, int pageSize, bool? IsActive)
     {
         var result = new List<ClientEntity>();
         int totalRecords = 0;
@@ -83,13 +83,13 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
 
             // 1️⃣ Contar total de registros
             var countSql = "SELECT COUNT(*) FROM clients WHERE 1=1";
-            if (isActived.HasValue)
-                countSql += " AND is_actived = @is_actived";
+            if (IsActive.HasValue)
+                countSql += " AND is_active = @is_active";
 
             using (var countCmd = new SqlCommand(countSql, conn))
             {
-                if (isActived.HasValue)
-                    countCmd.Parameters.AddWithValue("@is_actived", isActived.Value);
+                if (IsActive.HasValue)
+                    countCmd.Parameters.AddWithValue("@is_active", IsActive.Value);
 
                 totalRecords = Convert.ToInt32(await countCmd.ExecuteScalarAsync());
             }
@@ -99,8 +99,8 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
                     FROM clients
                     WHERE 1=1";
 
-            if (isActived.HasValue)
-                sql += " AND is_actived = @is_actived";
+            if (IsActive.HasValue)
+                sql += " AND is_active = @is_active";
 
             sql += @" ORDER BY first_name, last_name
                   OFFSET @offset ROWS 
@@ -108,8 +108,8 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
 
             using var cmd = new SqlCommand(sql, conn);
 
-            if (isActived.HasValue)
-                cmd.Parameters.AddWithValue("@is_actived", isActived.Value);
+            if (IsActive.HasValue)
+                cmd.Parameters.AddWithValue("@is_active", IsActive.Value);
 
             cmd.Parameters.AddWithValue("@offset", (pageNumber - 1) * pageSize);
             cmd.Parameters.AddWithValue("@pageSize", pageSize);

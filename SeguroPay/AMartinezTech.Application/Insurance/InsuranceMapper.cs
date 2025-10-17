@@ -16,7 +16,7 @@ internal class InsuranceMapper
             Phone = entity.Phone.Value,
             ContactName = entity.ContactName ?? string.Empty,
             ContactPhone = entity.ContactPhone ?? string.Empty,
-            IsActived = entity.IsActived,
+            IsActive = entity.IsActive,
 
         };
     }

@@ -8,7 +8,7 @@ namespace AMartinezTech.Infrastructure.Clients;
 
 public class ClientReportRepository(string connectionString) : AdoRepositoryBase(connectionString), IClientReportService
 {
-    public async Task<IReadOnlyList<ClientEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActived = null)
+    public async Task<IReadOnlyList<ClientEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
     {
         var result = new List<ClientEntity>();
         using (var conn = GetConnection())
@@ -17,7 +17,7 @@ public class ClientReportRepository(string connectionString) : AdoRepositoryBase
 
             using var cmd = new SqlCommand { Connection = conn };
 
-            var spec = new SqlFilterSpecification(filters, globalSearch, isActived);
+            var spec = new SqlFilterSpecification(filters, globalSearch, IsActive);
             var whereClause = spec.BuildCondition(cmd);
 
             var sql = $"SELECT * FROM clients {whereClause} ORDER BY first_name, last_name";

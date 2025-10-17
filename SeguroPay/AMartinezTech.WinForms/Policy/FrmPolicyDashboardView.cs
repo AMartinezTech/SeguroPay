@@ -1,5 +1,6 @@
 ﻿using AMartinezTech.WinForms.Utils;
 using AMartinezTech.WinForms.Utils.Factories;
+using FontAwesome.Sharp;
 
 namespace AMartinezTech.WinForms.Policy;
 
@@ -34,7 +35,9 @@ public partial class FrmPolicyDashboardView : Form
 
         //Buttons icon color
         IconPictureBoxSearch.IconColor = AppColors.Primary;
+        IconPictureBox.IconColor = AppColors.Primary;
         BtnInsurance.IconColor = AppColors.Primary;
+        BtnPrintList.IconColor = AppColors.Primary;
 
     }
     #endregion

@@ -147,7 +147,7 @@ public partial class FrmClientDashboardView : Form
 
 
             // Ejecuta el filtro en un hilo separado para no bloquear la UI
-            var result = await Task.Run(() => _controller.FilterAsync(filters, globalSearch, CheckBoxIsActived.Checked));
+            var result = await Task.Run(() => _controller.FilterAsync(filters, globalSearch, CheckBoxIsActive.Checked));
 
             // Reactiva el repintado y asigna el resultado
             DataGridView.DataSource = result;
@@ -173,8 +173,9 @@ public partial class FrmClientDashboardView : Form
 
         //Buttons icon color
         IconPictureBoxSearch.IconColor = AppColors.Primary;
+        IconPictureBox.IconColor = AppColors.Primary;
         BtnClient.IconColor = AppColors.Primary;
-
+        BtnPrintList.IconColor = AppColors.Primary;
     }
 
     private void OpenFrmClient(Guid clientId)
@@ -223,7 +224,7 @@ public partial class FrmClientDashboardView : Form
             InvokeFilterAsync();
         }
     }
-    private void CheckBoxIsActived_CheckedChanged(object sender, EventArgs e)
+    private void CheckBoxIsActive_CheckedChanged(object sender, EventArgs e)
     {
         _isChangeValueControl = true;
         TextBoxSearch.Focus();

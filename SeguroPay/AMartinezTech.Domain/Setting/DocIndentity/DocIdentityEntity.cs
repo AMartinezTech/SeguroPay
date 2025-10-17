@@ -11,9 +11,9 @@ public class DocIdentityEntity : IAggregateRoot
 {
     public Guid Id { get; private set; }
     public string Name { get; private set; }
-    public bool IsActived { get; private set; }
+    public bool IsActive { get; private set; }
 
-    private DocIdentityEntity(Guid id, string name, bool isActived)
+    private DocIdentityEntity(Guid id, string name, bool isActive)
     {
         if (string.IsNullOrWhiteSpace(name.Trim()))
             throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - Nombre! ");
@@ -26,12 +26,12 @@ public class DocIdentityEntity : IAggregateRoot
 
         Id = id;
         Name = name;
-        IsActived = isActived;
+        IsActive = isActive;
     }
 
-    public static DocIdentityEntity Create(Guid id, string name, bool isActived)
+    public static DocIdentityEntity Create(Guid id, string name, bool isActive)
     {
         id = CreateGuid.EnsureId(id);
-        return new DocIdentityEntity(id, name, isActived);
+        return new DocIdentityEntity(id, name, isActive);
     }
 }

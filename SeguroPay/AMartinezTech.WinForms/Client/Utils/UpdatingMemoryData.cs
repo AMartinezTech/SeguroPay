@@ -19,7 +19,7 @@ internal class UpdatingMemoryData
             item.Email = dto.Email;
             item.ContactName = dto.ContactName;
             item.ContactPhone = dto.ContactPhone;
-            item.IsActived = dto.IsActived;
+            item.IsActive = dto.IsActive;
         }
         else
         {

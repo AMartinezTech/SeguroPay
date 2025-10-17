@@ -7,9 +7,9 @@ public class PolicyGetByDate(IPolicyReadRepository repository)
 {
     private readonly IPolicyReadRepository _repository = repository;
 
-    public async Task<ByDateResult<PolicyDto>> ExecuteAsync(DateTime initialDate, DateTime endDate, bool? isActived)
+    public async Task<ByDateResult<PolicyDto>> ExecuteAsync(DateTime initialDate, DateTime endDate, bool? IsActive)
     {
-        var result = await _repository.GetByDateAsync(initialDate, endDate, isActived);
+        var result = await _repository.GetByDateAsync(initialDate, endDate, IsActive);
         var dtoList = PolicyMapper.ToDtoList(result.Data);
 
         return new ByDateResult<PolicyDto>(initialDate, endDate, dtoList);

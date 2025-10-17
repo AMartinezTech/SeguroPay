@@ -1,8 +1,7 @@
 ﻿using AMartinezTech.Application.Insurance.Interfaces;
 using AMartinezTech.Domain.Insurance;
 using AMartinezTech.Domain.Utils;
-using AMartinezTech.Domain.Utils.Exception;
-using AMartinezTech.Domain.Utils.ValueObjects;
+using AMartinezTech.Domain.Utils.Exception; 
 
 namespace AMartinezTech.Application.Insurance;
 
@@ -15,27 +14,25 @@ public class InsuranceApplicationServices(IInsuranceReadRepository readRepositor
     public async Task<Guid> PersistenceAsync(InsuranceDto dto)
     {
 
-        var address = ValueAddress.Create(dto.CountryId, dto.RegionId, dto.CityId, dto.StreetId);
+         
         if (dto.Id == Guid.Empty)
         {
             var entity = InsuranceEntity.Create(
                 dto.Id,
                 dto.CreatedAt,
                 dto.Name,
-                address,
+                dto.Address ?? string.Empty,
                 dto.Email,
                 dto.Phone,
                 dto.ContactName ?? string.Empty,
-                dto.ContactPhone ?? string.Empty,
-                dto.IsActived
-                );
+                dto.ContactPhone ?? string.Empty );
             await _writeRepository.CreateAsync(entity);
             return entity.Id;
         }
         else
         {
             var entity = await _readRepository.GetByIdAsync(dto.Id) ?? throw new Exception(ErrorMessages.Get(ErrorType.RecordDoesDotExist));
-            entity.Update(dto.Name, address, dto.Email, dto.Phone, dto.ContactName, dto.ContactPhone);
+            entity.Update(dto.Name, dto.Address ?? string.Empty, dto.Email, dto.Phone, dto.ContactName, dto.ContactPhone, dto.IsActive);
             await _writeRepository.UpdateAsync(entity);
             return entity.Id;
         }
@@ -60,9 +57,9 @@ public class InsuranceApplicationServices(IInsuranceReadRepository readRepositor
     #endregion
 
     #region "Read"
-    public async Task<PageResult<InsuranceDto>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
+    public async Task<PageResult<InsuranceDto>> PaginationAsync(int pageNumber, int pageSize, bool? IsActive)
     {
-        var result = await _readRepository.PaginationAsync(pageNumber, pageSize, isActived);
+        var result = await _readRepository.PaginationAsync(pageNumber, pageSize, IsActive);
         var dtoList = InsuranceMapper.ToDtoList(result.Data);
 
         return new PageResult<InsuranceDto>(result.TotalRecords, pageSize, dtoList);
@@ -74,9 +71,9 @@ public class InsuranceApplicationServices(IInsuranceReadRepository readRepositor
         return InsuranceMapper.ToDto(result);
     }
 
-    public async Task<List<InsuranceDto>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActived = null)
+    public async Task<List<InsuranceDto>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
     {
-        var result = await _readRepository.FilterAsync(filters, globalSearch, isActived);
+        var result = await _readRepository.FilterAsync(filters, globalSearch, IsActive);
         return InsuranceMapper.ToDtoList(result);
     }
     #endregion

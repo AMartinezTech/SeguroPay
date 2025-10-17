@@ -9,7 +9,7 @@ namespace AMartinezTech.Infrastructure.Setting.User;
 
 public class UserReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IUserReadRepository
 {
-    public async Task<IReadOnlyList<UserEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActived = null)
+    public async Task<IReadOnlyList<UserEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
     {
         var result = new List<UserEntity>();
         using (var conn = GetConnection())
@@ -17,13 +17,13 @@ public class UserReadRepository(string connectionString) : AdoRepositoryBase(con
             await conn.OpenAsync();
 
             // Base query
-            var sql = @"SELECT TOP 100 id, user_name, email, password, full_name, phone, rol, is_actived, created_at FROM users WHERE 1=1";
+            var sql = @"SELECT TOP 100 id, user_name, email, password, full_name, phone, rol, is_active, created_at FROM users WHERE 1=1";
             var cmd = new SqlCommand { Connection = conn };
 
-            if (isActived.HasValue)
+            if (IsActive.HasValue)
             {
-                sql += " AND is_actived=@is_actived";
-                cmd.Parameters.AddWithValue("@is_actived", isActived.Value);
+                sql += " AND is_active=@is_active";
+                cmd.Parameters.AddWithValue("@is_active", IsActive.Value);
             }
              
             int paramIndex = 0;
@@ -48,7 +48,7 @@ public class UserReadRepository(string connectionString) : AdoRepositoryBase(con
         return result;
     }
 
-    public async Task<UserEntity> GetByIdAsync(Guid id)
+    public async Task<UserEntity?> GetByIdAsync(Guid id)
     {
         try
         {
@@ -56,7 +56,7 @@ public class UserReadRepository(string connectionString) : AdoRepositoryBase(con
             using var conn = GetConnection();
             await conn.OpenAsync();
 
-            var sql = @"SELECT id, user_name, email, password, full_name, phone, rol, is_actived, created_at
+            var sql = @"SELECT id, user_name, email, password, full_name, phone, rol, is_active, created_at
                       FROM users WHERE id=@id";
 
 
@@ -93,7 +93,7 @@ public class UserReadRepository(string connectionString) : AdoRepositoryBase(con
             using var conn = GetConnection();
             await conn.OpenAsync();
 
-            var sql = @"SELECT id, user_name, email, password, full_name, phone, rol, is_actived, created_at
+            var sql = @"SELECT id, user_name, email, password, full_name, phone, rol, is_active, created_at
                     FROM users 
                     WHERE user_name = @user_name";
 
@@ -109,7 +109,7 @@ public class UserReadRepository(string connectionString) : AdoRepositoryBase(con
 
             if (entity == null) throw new Exception($"{ErrorMessages.Get(ErrorType.InvalidCredentials)} - NoExistUser");
 
-            if (!entity.IsActived) throw new Exception($"{ErrorMessages.Get(ErrorType.InvalidCredentials)} - NoActivedUse");
+            if (!entity.IsActive) throw new Exception($"{ErrorMessages.Get(ErrorType.InvalidCredentials)} - NoActivedUse");
 
             if (!entity.Password!.Verify(password)) throw new Exception($"{ErrorMessages.Get(ErrorType.InvalidCredentials)} - PassNotMach");
 

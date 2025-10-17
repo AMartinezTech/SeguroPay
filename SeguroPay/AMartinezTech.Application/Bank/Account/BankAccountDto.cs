@@ -9,5 +9,5 @@ public class BankAccountDto
     public string Type { get; set; } = string.Empty;
     public string? ContactName { get; set; }
     public string? ContactPhone { get; set; }
-    public bool IsActived { get; set; }
+    public bool IsActive { get; set; }
 }

@@ -33,7 +33,7 @@
             LabelTotalClients = new Label();
             PanelLeyenda = new Panel();
             BtnPrintList = new FontAwesome.Sharp.IconButton();
-            CheckBoxIsActived = new CheckBox();
+            CheckBoxIsActive = new CheckBox();
             DataGridView = new DataGridView();
             label3 = new Label();
             ComboBoxClientType = new ComboBox();
@@ -41,15 +41,17 @@
             TextBoxSearch = new TextBox();
             IconPictureBoxSearch = new FontAwesome.Sharp.IconPictureBox();
             PanelLineTop = new Panel();
+            IconPictureBox = new FontAwesome.Sharp.IconPictureBox();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)IconPictureBoxSearch).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)IconPictureBox).BeginInit();
             SuspendLayout();
             // 
             // LabelTitle
             // 
             LabelTitle.AutoSize = true;
             LabelTitle.Font = new Font("Segoe UI", 15F, FontStyle.Bold | FontStyle.Italic);
-            LabelTitle.Location = new Point(134, 13);
+            LabelTitle.Location = new Point(94, 20);
             LabelTitle.Name = "LabelTitle";
             LabelTitle.Size = new Size(184, 28);
             LabelTitle.TabIndex = 43;
@@ -57,12 +59,13 @@
             // 
             // BtnInsurance
             // 
+            BtnInsurance.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             BtnInsurance.Cursor = Cursors.Hand;
             BtnInsurance.Font = new Font("Segoe UI", 9F);
             BtnInsurance.IconChar = FontAwesome.Sharp.IconChar.BriefcaseMedical;
             BtnInsurance.IconColor = Color.Black;
             BtnInsurance.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnInsurance.Location = new Point(12, 13);
+            BtnInsurance.Location = new Point(770, 512);
             BtnInsurance.Name = "BtnInsurance";
             BtnInsurance.Size = new Size(85, 85);
             BtnInsurance.TabIndex = 42;
@@ -102,26 +105,25 @@
             BtnPrintList.Text = "&Imprimir listado";
             BtnPrintList.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnPrintList.UseVisualStyleBackColor = true;
-            BtnPrintList.Visible = false;
             // 
-            // CheckBoxIsActived
+            // CheckBoxIsActive
             // 
-            CheckBoxIsActived.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            CheckBoxIsActived.AutoSize = true;
-            CheckBoxIsActived.Checked = true;
-            CheckBoxIsActived.CheckState = CheckState.Checked;
-            CheckBoxIsActived.Location = new Point(702, 70);
-            CheckBoxIsActived.Name = "CheckBoxIsActived";
-            CheckBoxIsActived.Size = new Size(65, 19);
-            CheckBoxIsActived.TabIndex = 38;
-            CheckBoxIsActived.Text = "Activos";
-            CheckBoxIsActived.UseVisualStyleBackColor = true;
+            CheckBoxIsActive.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            CheckBoxIsActive.AutoSize = true;
+            CheckBoxIsActive.Checked = true;
+            CheckBoxIsActive.CheckState = CheckState.Checked;
+            CheckBoxIsActive.Location = new Point(671, 68);
+            CheckBoxIsActive.Name = "CheckBoxIsActive";
+            CheckBoxIsActive.Size = new Size(96, 19);
+            CheckBoxIsActive.TabIndex = 38;
+            CheckBoxIsActive.Text = "Filtrar activos";
+            CheckBoxIsActive.UseVisualStyleBackColor = true;
             // 
             // DataGridView
             // 
             DataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DataGridView.Location = new Point(12, 108);
+            DataGridView.Location = new Point(14, 108);
             DataGridView.Name = "DataGridView";
             DataGridView.Size = new Size(934, 394);
             DataGridView.TabIndex = 37;
@@ -132,9 +134,9 @@
             label3.AutoSize = true;
             label3.Location = new Point(773, 48);
             label3.Name = "label3";
-            label3.Size = new Size(31, 15);
+            label3.Size = new Size(61, 15);
             label3.TabIndex = 34;
-            label3.Text = "Tipo";
+            label3.Text = "Filtrar por:";
             // 
             // ComboBoxClientType
             // 
@@ -148,7 +150,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(134, 48);
+            label1.Location = new Point(94, 48);
             label1.Name = "label1";
             label1.Size = new Size(42, 15);
             label1.TabIndex = 31;
@@ -156,10 +158,9 @@
             // 
             // TextBoxSearch
             // 
-            TextBoxSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            TextBoxSearch.Location = new Point(134, 66);
+            TextBoxSearch.Location = new Point(94, 66);
             TextBoxSearch.Name = "TextBoxSearch";
-            TextBoxSearch.Size = new Size(546, 23);
+            TextBoxSearch.Size = new Size(350, 23);
             TextBoxSearch.TabIndex = 32;
             // 
             // IconPictureBoxSearch
@@ -170,7 +171,7 @@
             IconPictureBoxSearch.IconColor = SystemColors.ControlText;
             IconPictureBoxSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
             IconPictureBoxSearch.IconSize = 23;
-            IconPictureBoxSearch.Location = new Point(105, 66);
+            IconPictureBoxSearch.Location = new Point(65, 66);
             IconPictureBoxSearch.Name = "IconPictureBoxSearch";
             IconPictureBoxSearch.Size = new Size(25, 23);
             IconPictureBoxSearch.TabIndex = 33;
@@ -179,22 +180,37 @@
             // PanelLineTop
             // 
             PanelLineTop.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            PanelLineTop.Location = new Point(105, 95);
+            PanelLineTop.Location = new Point(14, 95);
             PanelLineTop.Name = "PanelLineTop";
-            PanelLineTop.Size = new Size(841, 2);
+            PanelLineTop.Size = new Size(931, 2);
             PanelLineTop.TabIndex = 36;
+            // 
+            // IconPictureBox
+            // 
+            IconPictureBox.BackColor = SystemColors.Control;
+            IconPictureBox.ForeColor = SystemColors.ControlText;
+            IconPictureBox.IconChar = FontAwesome.Sharp.IconChar.BriefcaseMedical;
+            IconPictureBox.IconColor = SystemColors.ControlText;
+            IconPictureBox.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            IconPictureBox.IconSize = 45;
+            IconPictureBox.Location = new Point(14, 44);
+            IconPictureBox.Name = "IconPictureBox";
+            IconPictureBox.Size = new Size(45, 45);
+            IconPictureBox.TabIndex = 44;
+            IconPictureBox.TabStop = false;
             // 
             // FrmPolicyDashboardView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(958, 761);
+            Controls.Add(IconPictureBox);
             Controls.Add(LabelTitle);
             Controls.Add(BtnInsurance);
             Controls.Add(LabelTotalClients);
             Controls.Add(PanelLeyenda);
             Controls.Add(BtnPrintList);
-            Controls.Add(CheckBoxIsActived);
+            Controls.Add(CheckBoxIsActive);
             Controls.Add(DataGridView);
             Controls.Add(label3);
             Controls.Add(ComboBoxClientType);
@@ -207,6 +223,7 @@
             Load += FrmPolicyDashboardView_Load;
             ((System.ComponentModel.ISupportInitialize)DataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)IconPictureBoxSearch).EndInit();
+            ((System.ComponentModel.ISupportInitialize)IconPictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -218,7 +235,7 @@
         private Label LabelTotalClients;
         private Panel PanelLeyenda;
         private FontAwesome.Sharp.IconButton BtnPrintList;
-        private CheckBox CheckBoxIsActived;
+        private CheckBox CheckBoxIsActive;
         private DataGridView DataGridView;
         private Label label3;
         private ComboBox ComboBoxClientType;
@@ -226,5 +243,6 @@
         private TextBox TextBoxSearch;
         private FontAwesome.Sharp.IconPictureBox IconPictureBoxSearch;
         private Panel PanelLineTop;
+        private FontAwesome.Sharp.IconPictureBox IconPictureBox;
     }
 }

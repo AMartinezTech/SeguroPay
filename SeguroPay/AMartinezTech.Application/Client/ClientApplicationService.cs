@@ -11,9 +11,9 @@ public class ClientApplicationService(IClientReadRepository readRepository, ICli
     private readonly IClientWriteRepository _writeRepository = writeRepository;
 
     #region "Read"
-    public async Task<IReadOnlyList<ClientDto>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActived = null)
+    public async Task<IReadOnlyList<ClientDto>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
     {
-        var result = await _readRepository.FilterAsync(filters, globalSearch, isActived);
+        var result = await _readRepository.FilterAsync(filters, globalSearch, IsActive);
         return ClientMapper.ToDtoList(result);
     }
     public async Task<ClientDto> GetByIdAsync(Guid id)
@@ -21,9 +21,9 @@ public class ClientApplicationService(IClientReadRepository readRepository, ICli
         var result = await _readRepository.GetByIdAsync(id);
         return ClientMapper.ToDto(result);
     }
-    public async Task<PageResult<ClientDto>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
+    public async Task<PageResult<ClientDto>> PaginationAsync(int pageNumber, int pageSize, bool? IsActive)
     {
-        var result = await _readRepository.PaginationAsync(pageNumber, pageSize, isActived);
+        var result = await _readRepository.PaginationAsync(pageNumber, pageSize, IsActive);
         var dtoList = ClientMapper.ToDtoList(result.Data);
 
         return new PageResult<ClientDto>(result.TotalRecords, pageSize, dtoList);
@@ -58,7 +58,7 @@ public class ClientApplicationService(IClientReadRepository readRepository, ICli
             dto.Observation ?? string.Empty,
             dto.LocationNo ?? string.Empty,
             dto.AddressRef ?? string.Empty,
-            dto.IsActived,
+            dto.IsActive,
             dto.ContactName ?? string.Empty,
             dto.ContactPhone ?? string.Empty,
             dto.CityId,
@@ -82,7 +82,7 @@ public class ClientApplicationService(IClientReadRepository readRepository, ICli
             dto.Observation ?? string.Empty,
             dto.LocationNo ?? string.Empty,
             dto.AddressRef ?? string.Empty,
-            dto.IsActived,
+            dto.IsActive,
             dto.ContactName ?? string.Empty,
             dto.ContactPhone ?? string.Empty,
             dto.CityId,

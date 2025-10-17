@@ -13,9 +13,9 @@ internal class ClientViewModel
     public string Email { get; set; } = string.Empty;
     public string? ContactName { get; set; }
     public string? ContactPhone { get; set; }
-    public bool IsActived { get; set; }
+    public bool IsActive { get; set; }
     public string FullName => FirstName +" "+ LastName;
-    public string IsActivedName => IsActived ? "Activo" : "Inactivo";
+    public string IsActiveName => IsActive ? "Activo" : "Inactivo";
 
     internal static ClientViewModel ToModel(ClientDto dto)
     {
@@ -30,7 +30,7 @@ internal class ClientViewModel
             Email = dto.Email,
             ContactName = dto.ContactName,
             ContactPhone = dto.ContactPhone,
-            IsActived = dto.IsActived,
+            IsActive = dto.IsActive,
 
         };
     }

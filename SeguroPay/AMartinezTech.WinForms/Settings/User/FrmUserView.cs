@@ -136,8 +136,7 @@ public partial class FrmUserView : Form
         {
             TextBoxUserName.Focus();
             errorProvider1.SetError(TextBoxUserName, "Aquí");
-        }
-
+        } 
         else if (fieldName.Contains("Password"))
         {
             TextBoxPassword.Focus();
@@ -166,7 +165,7 @@ public partial class FrmUserView : Form
         TextBoxConfirmPassword.Text = string.Empty;
         ComboBoxRol.Text = "Administrador";
         BtnPersistence.Enabled = true;
-        CheckBoxIsActived.Checked = false;
+        CheckBoxIsActive.Checked = false;
         DataGridView.Refresh();
     }
     private async void InvokeGetByIdAsync()
@@ -179,11 +178,11 @@ public partial class FrmUserView : Form
         TextBoxPhone.Text = data.Phone;
         TextBoxUserName.Text = data.UserName;
         ComboBoxRol.Text = data.Rol;
-        CheckBoxIsActived.Checked = data.IsActived;
+        CheckBoxIsActive.Checked = data.IsActive;
     }
-    private async void InvokeFilterAsync(bool? isActived)
+    private async void InvokeFilterAsync(bool? IsActive)
     {
-        _userList = await _userController.FilterAsync(null, null, isActived);
+        _userList = await _userController.FilterAsync(null, null, IsActive);
         if (_userList.Count > 0)
         {
             DataGridView.DataSource = _userList;
@@ -193,9 +192,9 @@ public partial class FrmUserView : Form
 
     #endregion
     #region "Field Events"
-    private void CheckBoxFilterByIsActived_CheckedChanged(object sender, EventArgs e)
+    private void CheckBoxFilterByIsActive_CheckedChanged(object sender, EventArgs e)
     {
-        InvokeFilterAsync(CheckBoxFilterByIsActived.Checked);
+        InvokeFilterAsync(CheckBoxFilterByIsActive.Checked);
     }
     private void TextBoxFullName_TextChanged(object sender, EventArgs e)
     {
@@ -260,7 +259,7 @@ public partial class FrmUserView : Form
                 Password = TextBoxPassword.Text.Trim(),
                 ConfirmPassword = TextBoxConfirmPassword.Text.Trim(),
                 Rol = ComboBoxRol.Text,
-                IsActived = CheckBoxIsActived.Checked
+                IsActive = CheckBoxIsActive.Checked
             };
             UserId = await _userController.PersistenceAsync(newDto);
             newDto.Id = UserId;
@@ -300,10 +299,10 @@ public partial class FrmUserView : Form
     private void DataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
     {
         if (e.RowIndex < 0 || e.ColumnIndex < 0) return; // Clic Only on valid cell and column
-        UserId = Guid.Parse(DataGridView.Rows[e.RowIndex].Cells["Id"].Value!.ToString()!);
 
         if (DataGridView.Columns[e.ColumnIndex].Name == "editCol")
         {
+        UserId = Guid.Parse(DataGridView.Rows[e.RowIndex].Cells["Id"].Value!.ToString()!);
             InvokeGetByIdAsync();
         }
     }

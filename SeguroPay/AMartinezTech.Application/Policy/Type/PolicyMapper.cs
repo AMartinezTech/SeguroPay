@@ -11,7 +11,7 @@ internal class PolicyMapper
             Id = entity.Id,
             Name = entity.Name.Value,
             InsuranceId = entity.InsuranceId.Value,
-            IsActived = entity.IsActived,
+            IsActive = entity.IsActive,
         };
     }
 

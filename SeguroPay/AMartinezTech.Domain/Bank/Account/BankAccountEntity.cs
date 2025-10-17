@@ -15,9 +15,9 @@ public class BankAccountEntity : IAggregateRoot
     public ValueEnum<BankAccountType> Type { get; private set; }
     public string? ContactName { get; private set; }
     public string? ContactPhone { get; private set; }
-    public bool IsActived { get; private set; }
+    public bool IsActive { get; private set; }
 
-    private BankAccountEntity(Guid id, DateTime createdAt, ValueBankAccountName name, ValueBankAccountNumber number, ValueEnum<BankAccountType> type, string? contactName, string? contactPhone, bool isActived)
+    private BankAccountEntity(Guid id, DateTime createdAt, ValueBankAccountName name, ValueBankAccountNumber number, ValueEnum<BankAccountType> type, string? contactName, string? contactPhone, bool isActive)
     {
         Id = id;
         CreatedAt = createdAt;
@@ -26,14 +26,14 @@ public class BankAccountEntity : IAggregateRoot
         Type = type;
         ContactName = contactName;
         ContactPhone = contactPhone;
-        IsActived = isActived;
+        IsActive = isActive;
     }
 
-    public static BankAccountEntity Create(Guid id, DateTime createdAt, string name, string number, string type, string? contactName, string? contactPhone, bool isActived)
+    public static BankAccountEntity Create(Guid id, DateTime createdAt, string name, string number, string type, string? contactName, string? contactPhone, bool isActive)
     {
         id = CreateGuid.EnsureId(id);
-        return new BankAccountEntity(id, createdAt, ValueBankAccountName.Create(name), ValueBankAccountNumber.Create(number), ValueEnum<BankAccountType>.Create(type), contactName, contactPhone, isActived);
+        return new BankAccountEntity(id, createdAt, ValueBankAccountName.Create(name), ValueBankAccountNumber.Create(number), ValueEnum<BankAccountType>.Create(type), contactName, contactPhone, isActive);
     }
-    public void Activate() => IsActived = true;
-    public void Deactivate() => IsActived = false;
+    public void Activate() => IsActive = true;
+    public void Deactivate() => IsActive = false;
 }

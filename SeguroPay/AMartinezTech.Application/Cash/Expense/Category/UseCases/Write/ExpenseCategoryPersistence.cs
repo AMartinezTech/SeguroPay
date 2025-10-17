@@ -12,7 +12,7 @@ public class ExpenseCategoryPersistence(IExpenseCategoryWriteRepository reposito
         var entity = ExpenseCategoryEntity.Create(
             dto.Id,
             dto.Name,
-            dto.IsActived
+            dto.IsActive
             );
 
         if (dto.Id == Guid.Empty) { await _repository.CreateAsync(entity); } else { await _repository.UpdateAsync(entity); }

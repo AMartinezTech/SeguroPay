@@ -1,10 +1,11 @@
-﻿using System.ComponentModel;
+﻿using AMartinezTech.Application.Insurance; 
+using System.ComponentModel;
 
-namespace AMartinezTech.WinForms.Settings.User.Utils;
+namespace AMartinezTech.WinForms.Insurance.Utils;
 
 internal class UpdatingMemoryData
 {
-    public static BindingList<UserViewModel> Excecute(UserViewModel dto, BindingList<UserViewModel> itemList)
+    public static BindingList<InsuranceDto> Excecute(InsuranceDto dto, BindingList<InsuranceDto> itemList)
     {
         var item = itemList.FirstOrDefault(x => x.Id == dto.Id);
 
@@ -12,10 +13,12 @@ internal class UpdatingMemoryData
         {
             // Si el elemento existe, actualizamos los valores
             item.Id = dto.Id;
+            item.Name = dto.Name;
+            item.Address = dto.Address;
             item.Email = dto.Email;
-            item.FullName = dto.FullName;
             item.Phone = dto.Phone;
-            item.Rol = dto.Rol;
+            item.ContactPhone = dto.ContactPhone;
+            item.ContactName = dto.ContactName;
             item.IsActive = dto.IsActive;
         }
         else

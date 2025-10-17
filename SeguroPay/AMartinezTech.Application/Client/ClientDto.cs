@@ -17,5 +17,5 @@ public class ClientDto
     public string? AddressRef { get; set; }
     public string? ContactName { get; set; }
     public string? ContactPhone { get; set; }
-    public bool IsActived { get; set; }
+    public bool IsActive { get; set; }
 }

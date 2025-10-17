@@ -9,9 +9,9 @@ public class StreetApplicationService(IStreetReadRepository readRepository, IStr
     private readonly IStreetWriteRepository _writeRepository = writeRepository;
 
     #region "Read"
-    public async Task<List<StreetDto>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActived = null)
+    public async Task<List<StreetDto>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
     {
-        var result = await _readRepository.FilterAsync(filters, globalSearch, isActived);
+        var result = await _readRepository.FilterAsync(filters, globalSearch, IsActive);
         return StreetMapper.ToDtoList(result);
     }
     

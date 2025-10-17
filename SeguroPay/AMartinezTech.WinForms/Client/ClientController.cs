@@ -21,13 +21,13 @@ public class ClientController(ClientApplicationService service, CityPagination c
         return await _service.GetByIdAsync(id);
     }
 
-    internal async Task<PageResult<ClientDto>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
+    internal async Task<PageResult<ClientDto>> PaginationAsync(int pageNumber, int pageSize, bool? IsActive)
     {
-        return await _service.PaginationAsync(pageNumber, pageSize, isActived);
+        return await _service.PaginationAsync(pageNumber, pageSize, IsActive);
     }
-    internal async Task<BindingList<ClientViewModel>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActived = null)
+    internal async Task<BindingList<ClientViewModel>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
     {
-        var result = await _service.FilterAsync(filters,globalSearch,isActived);
+        var result = await _service.FilterAsync(filters,globalSearch,IsActive);
         var modelList = result.Select(ClientViewModel.ToModel).ToList();
         return new BindingList<ClientViewModel>(modelList);
     }

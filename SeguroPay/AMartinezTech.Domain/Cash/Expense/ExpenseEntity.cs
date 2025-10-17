@@ -11,21 +11,21 @@ public class ExpenseEntity : IAggregateRoot
     public ValueGuid CategoryId { get; private set; }
     public ValuePositiveNum Amount { get; private set; }
     public string Note { get; private set; }
-    public bool IsActived { get; private set; }
+    public bool IsActive { get; private set; }
 
-    private ExpenseEntity(Guid id, DateTime createdAt, ValueGuid categoryId, ValuePositiveNum amount, string note, bool isActived)
+    private ExpenseEntity(Guid id, DateTime createdAt, ValueGuid categoryId, ValuePositiveNum amount, string note, bool isActive)
     {
         Id = id;
         CreatedAt = createdAt;
         CategoryId = categoryId;
         Amount = amount;
         Note = note;
-        IsActived = isActived;
+        IsActive = isActive;
     }
 
-    public static ExpenseEntity Create(Guid id, DateTime createdAt, Guid categoryId, decimal amount, string note, bool isActived)
+    public static ExpenseEntity Create(Guid id, DateTime createdAt, Guid categoryId, decimal amount, string note, bool isActive)
     {
         id = CreateGuid.EnsureId(id);
-        return new ExpenseEntity(id, createdAt, ValueGuid.Create(categoryId,"categoría"), ValuePositiveNum.Create(amount,"monto"), note, isActived);
+        return new ExpenseEntity(id, createdAt, ValueGuid.Create(categoryId,"categoría"), ValuePositiveNum.Create(amount,"monto"), note, isActive);
     }
 }

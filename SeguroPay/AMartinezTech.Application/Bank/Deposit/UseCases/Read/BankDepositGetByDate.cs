@@ -7,9 +7,9 @@ public class BankDepositGetByDate(IBankDepositReadRepository repository)
 {
     private readonly IBankDepositReadRepository _repository = repository;
 
-    public async Task<ByDateResult<BankDepositDto>> ExecuteAsync(DateTime initialDate, DateTime endDate, bool? isActived)
+    public async Task<ByDateResult<BankDepositDto>> ExecuteAsync(DateTime initialDate, DateTime endDate, bool? IsActive)
     {
-        var result = await _repository.GetByDateAsync(initialDate, endDate, isActived);
+        var result = await _repository.GetByDateAsync(initialDate, endDate, IsActive);
         var dtoList = BankDepositMapper.ToDtoList(result.Data);
         return new ByDateResult<BankDepositDto>(initialDate, endDate, dtoList);
     }

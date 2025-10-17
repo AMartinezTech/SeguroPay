@@ -11,7 +11,7 @@ public class DocIdentityMapper
         {
             Id = docIdentity.Id,
             Name = docIdentity.Name,
-            IsActived = docIdentity.IsActived,
+            IsActive = docIdentity.IsActive,
         };
     }
 

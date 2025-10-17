@@ -14,10 +14,10 @@ public class UserEntity : IAggregateRoot
     public ValueUserFullName FullName { get; private set; }
     public ValuePhone Phone { get; private set; }
     public ValueEnum<RolType> Rol { get; private set; }
-    public bool IsActived { get; private set; }
+    public bool IsActive { get; private set; }
     public DateTime? CreatedAt { get; private set; }
 
-    private UserEntity(Guid id, ValueUserFullName fullName, ValueEmail? email, ValuePhone phone, ValueUserName? userName, ValuePassword? password, ValueEnum<RolType> rol, bool isActived, DateTime? createdAt)
+    private UserEntity(Guid id, ValueUserFullName fullName, ValueEmail? email, ValuePhone phone, ValueUserName? userName, ValuePassword? password, ValueEnum<RolType> rol, bool isActive, DateTime? createdAt)
     {
         Id = id;
         FullName = fullName;
@@ -26,21 +26,21 @@ public class UserEntity : IAggregateRoot
         UserName = userName;
         Password = password;
         Rol = rol;
-        IsActived = isActived;
+        IsActive = isActive;
         CreatedAt = createdAt;
     }
 
-    public void Update(Guid id, string fullName, string phone, string rol, bool isActived)
+    public void Update(Guid id, string fullName, string phone, string rol, bool isActive)
     {
         Id = id;
         FullName = ValueUserFullName.Create(fullName);
         Phone = ValuePhone.Create(phone, "Phone");
         Rol = ValueEnum<RolType>.Create(rol);
-        IsActived = isActived;
+        IsActive = isActive;
         CreatedAt = DateTime.UtcNow;
     }
 
-    public static UserEntity Create(Guid id, string fullName, string email, string phone, string userName, ValuePassword password, string rol, bool isActived, DateTime? createdAt)
+    public static UserEntity Create(Guid id, string fullName, string email, string phone, string userName, ValuePassword password, string rol, bool IsActive, DateTime? createdAt)
         => new(CreateGuid.EnsureId(id),
             ValueUserFullName.Create(fullName),
             ValueEmail.Create(email),
@@ -48,11 +48,11 @@ public class UserEntity : IAggregateRoot
             ValueUserName.Create(userName),
             password,
             ValueEnum<RolType>.Create(rol),
-            isActived,
+            IsActive,
             createdAt);
 
     
-    public static UserEntity LoadExisting(Guid id, string fullName, string email, string phone, string userName, string rol, bool isActived, DateTime createdAt)
+    public static UserEntity LoadExisting(Guid id, string fullName, string email, string phone, string userName, string rol, bool IsActive, DateTime createdAt)
         => new(id,
             ValueUserFullName.Create(fullName),
             ValueEmail.Create(email),
@@ -60,7 +60,7 @@ public class UserEntity : IAggregateRoot
             ValueUserName.Create(userName),
             null,
             ValueEnum<RolType>.Create(rol),
-            isActived,
+            IsActive,
             createdAt);
 
 }

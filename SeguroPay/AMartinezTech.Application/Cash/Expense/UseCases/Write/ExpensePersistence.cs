@@ -15,7 +15,7 @@ public class ExpensePersistence(IExpenseWriteRepository repository)
             dto.CategoryId,
             dto.Amount,
             dto.Note,
-            dto.IsActived);
+            dto.IsActive);
 
         if (dto.Id == Guid.Empty) { await _repository.CreateAsync(entity); } else { await _repository.UpdateAsync(entity); }
 

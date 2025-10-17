@@ -8,7 +8,7 @@ namespace AMartinezTech.Infrastructure.Utils.DependencyInjection;
 
 public static class DILocationService
 {
-    public static IServiceCollection AddLocationModule(this IServiceCollection services, string connectionString)
+    public static IServiceCollection Add(this IServiceCollection services, string connectionString)
     {
         services.AddScoped<ICityReadRepository>(sp => new CityReadRepository(connectionString));
         services.AddScoped<IStreetReadRepository>(sp => new StreetReadRepository(connectionString));

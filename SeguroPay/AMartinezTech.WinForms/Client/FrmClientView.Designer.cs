@@ -57,7 +57,7 @@
             label13 = new Label();
             label14 = new Label();
             ComboBoxClientType = new ComboBox();
-            CheckBoxIsActived = new CheckBox();
+            CheckBoxIsActive = new CheckBox();
             BtnClear = new FontAwesome.Sharp.IconButton();
             BtnPersistence = new FontAwesome.Sharp.IconButton();
             LabelAlertMessage = new Label();
@@ -315,17 +315,17 @@
             ComboBoxClientType.SelectedIndexChanged += ComboBoxClientType_SelectedIndexChanged;
             ComboBoxClientType.KeyPress += ComboBoxClientType_KeyPress;
             // 
-            // CheckBoxIsActived
+            // CheckBoxIsActive
             // 
-            CheckBoxIsActived.AutoSize = true;
-            CheckBoxIsActived.Checked = true;
-            CheckBoxIsActived.CheckState = CheckState.Checked;
-            CheckBoxIsActived.Location = new Point(229, 70);
-            CheckBoxIsActived.Name = "CheckBoxIsActived";
-            CheckBoxIsActived.Size = new Size(60, 19);
-            CheckBoxIsActived.TabIndex = 2;
-            CheckBoxIsActived.Text = "Activo";
-            CheckBoxIsActived.UseVisualStyleBackColor = true;
+            CheckBoxIsActive.AutoSize = true;
+            CheckBoxIsActive.Checked = true;
+            CheckBoxIsActive.CheckState = CheckState.Checked;
+            CheckBoxIsActive.Location = new Point(229, 70);
+            CheckBoxIsActive.Name = "CheckBoxIsActive";
+            CheckBoxIsActive.Size = new Size(60, 19);
+            CheckBoxIsActive.TabIndex = 2;
+            CheckBoxIsActive.Text = "Activo";
+            CheckBoxIsActive.UseVisualStyleBackColor = true;
             // 
             // BtnClear
             // 
@@ -441,7 +441,7 @@
             Controls.Add(PanelAlertMessage);
             Controls.Add(BtnPersistence);
             Controls.Add(BtnClear);
-            Controls.Add(CheckBoxIsActived);
+            Controls.Add(CheckBoxIsActive);
             Controls.Add(label14);
             Controls.Add(ComboBoxClientType);
             Controls.Add(TextBoxObservation);
@@ -517,7 +517,7 @@
         private Label label13;
         private Label label14;
         private ComboBox ComboBoxClientType;
-        private CheckBox CheckBoxIsActived;
+        private CheckBox CheckBoxIsActive;
         private FontAwesome.Sharp.IconButton BtnClear;
         private FontAwesome.Sharp.IconButton BtnPersistence;
         private Label LabelAlertMessage;

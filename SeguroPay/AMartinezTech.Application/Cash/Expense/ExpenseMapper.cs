@@ -13,7 +13,7 @@ internal class ExpenseMapper
             CategoryId = entity.CategoryId.Value,
             Amount = entity.Amount.Value,
             Note = entity.Note ?? string.Empty,
-            IsActived = entity.IsActived,
+            IsActive = entity.IsActive,
         };
     }
 

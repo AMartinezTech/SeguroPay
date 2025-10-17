@@ -167,14 +167,14 @@
             PanelContainer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             PanelContainer.Location = new Point(0, 108);
             PanelContainer.Name = "PanelContainer";
-            PanelContainer.Size = new Size(1184, 612);
+            PanelContainer.Size = new Size(1184, 712);
             PanelContainer.TabIndex = 2;
             // 
             // PanelButtomMenu
             // 
             PanelButtomMenu.Controls.Add(LabelWelcome);
             PanelButtomMenu.Dock = DockStyle.Bottom;
-            PanelButtomMenu.Location = new Point(0, 726);
+            PanelButtomMenu.Location = new Point(0, 826);
             PanelButtomMenu.Name = "PanelButtomMenu";
             PanelButtomMenu.Size = new Size(1184, 35);
             PanelButtomMenu.TabIndex = 0;
@@ -193,12 +193,12 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1184, 761);
+            ClientSize = new Size(1184, 861);
             Controls.Add(PanelButtomMenu);
             Controls.Add(PanelContainer);
             Controls.Add(PanelLineHorizontal);
             Controls.Add(PanelTopMenu);
-            MinimumSize = new Size(1200, 800);
+            MinimumSize = new Size(1200, 900);
             Name = "FrmMainView";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "AMartínezTech Copyright © 2025 ( SeguroPay v.1.0.0 )";

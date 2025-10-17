@@ -11,9 +11,9 @@ public class StreetController(StreetApplicationService service)
     {
         return await _service.StreetGetByIdAsync(id);
     }
-    public async Task<BindingList<StreetDto>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActived = null)
+    public async Task<BindingList<StreetDto>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
     {
-        var result = await _service.FilterAsync(filters, globalSearch, isActived);
+        var result = await _service.FilterAsync(filters, globalSearch, IsActive);
         return new BindingList<StreetDto>(result);
     }
 

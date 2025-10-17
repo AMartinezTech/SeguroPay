@@ -43,15 +43,17 @@
             BtnExpense = new FontAwesome.Sharp.IconButton();
             label3 = new Label();
             dateTimePicker2 = new DateTimePicker();
+            IconPictureBox = new FontAwesome.Sharp.IconPictureBox();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)IconPictureBoxSearch).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)IconPictureBox).BeginInit();
             SuspendLayout();
             // 
             // LabelTitle
             // 
             LabelTitle.AutoSize = true;
             LabelTitle.Font = new Font("Segoe UI", 15F, FontStyle.Bold | FontStyle.Italic);
-            LabelTitle.Location = new Point(45, 9);
+            LabelTitle.Location = new Point(94, 20);
             LabelTitle.Name = "LabelTitle";
             LabelTitle.Size = new Size(155, 28);
             LabelTitle.TabIndex = 56;
@@ -89,7 +91,6 @@
             BtnPrintList.Text = "&Imprimir listado";
             BtnPrintList.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnPrintList.UseVisualStyleBackColor = true;
-            BtnPrintList.Visible = false;
             // 
             // DataGridView
             // 
@@ -103,7 +104,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(45, 48);
+            label1.Location = new Point(94, 48);
             label1.Name = "label1";
             label1.Size = new Size(42, 15);
             label1.TabIndex = 44;
@@ -111,7 +112,7 @@
             // 
             // TextBoxSearch
             // 
-            TextBoxSearch.Location = new Point(45, 66);
+            TextBoxSearch.Location = new Point(94, 66);
             TextBoxSearch.Name = "TextBoxSearch";
             TextBoxSearch.Size = new Size(350, 23);
             TextBoxSearch.TabIndex = 45;
@@ -124,7 +125,7 @@
             IconPictureBoxSearch.IconColor = SystemColors.ControlText;
             IconPictureBoxSearch.IconFont = FontAwesome.Sharp.IconFont.Auto;
             IconPictureBoxSearch.IconSize = 23;
-            IconPictureBoxSearch.Location = new Point(16, 66);
+            IconPictureBoxSearch.Location = new Point(65, 66);
             IconPictureBoxSearch.Name = "IconPictureBoxSearch";
             IconPictureBoxSearch.Size = new Size(25, 23);
             IconPictureBoxSearch.TabIndex = 46;
@@ -142,7 +143,7 @@
             // 
             dateTimePicker1.CustomFormat = "dd/MMM/yyyy";
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.Location = new Point(401, 66);
+            dateTimePicker1.Location = new Point(450, 66);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(118, 23);
             dateTimePicker1.TabIndex = 57;
@@ -150,7 +151,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(401, 48);
+            label2.Location = new Point(450, 48);
             label2.Name = "label2";
             label2.Size = new Size(70, 15);
             label2.TabIndex = 58;
@@ -158,12 +159,12 @@
             // 
             // BtnOtherIncome
             // 
-            BtnOtherIncome.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            BtnOtherIncome.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             BtnOtherIncome.Cursor = Cursors.Hand;
             BtnOtherIncome.IconChar = FontAwesome.Sharp.IconChar.HandHoldingUsd;
             BtnOtherIncome.IconColor = Color.Black;
             BtnOtherIncome.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnOtherIncome.Location = new Point(765, 4);
+            BtnOtherIncome.Location = new Point(679, 512);
             BtnOtherIncome.Name = "BtnOtherIncome";
             BtnOtherIncome.Size = new Size(85, 85);
             BtnOtherIncome.TabIndex = 59;
@@ -173,12 +174,12 @@
             // 
             // BtnExpense
             // 
-            BtnExpense.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            BtnExpense.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             BtnExpense.Cursor = Cursors.Hand;
             BtnExpense.IconChar = FontAwesome.Sharp.IconChar.MoneyBills;
             BtnExpense.IconColor = Color.Black;
             BtnExpense.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnExpense.Location = new Point(856, 4);
+            BtnExpense.Location = new Point(770, 512);
             BtnExpense.Name = "BtnExpense";
             BtnExpense.Size = new Size(85, 85);
             BtnExpense.TabIndex = 60;
@@ -189,7 +190,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(540, 48);
+            label3.Location = new Point(589, 48);
             label3.Name = "label3";
             label3.Size = new Size(64, 15);
             label3.TabIndex = 62;
@@ -199,16 +200,31 @@
             // 
             dateTimePicker2.CustomFormat = "dd/MMM/yyyy";
             dateTimePicker2.Format = DateTimePickerFormat.Custom;
-            dateTimePicker2.Location = new Point(540, 66);
+            dateTimePicker2.Location = new Point(589, 66);
             dateTimePicker2.Name = "dateTimePicker2";
             dateTimePicker2.Size = new Size(118, 23);
             dateTimePicker2.TabIndex = 61;
+            // 
+            // IconPictureBox
+            // 
+            IconPictureBox.BackColor = SystemColors.Control;
+            IconPictureBox.ForeColor = SystemColors.ControlText;
+            IconPictureBox.IconChar = FontAwesome.Sharp.IconChar.CashRegister;
+            IconPictureBox.IconColor = SystemColors.ControlText;
+            IconPictureBox.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            IconPictureBox.IconSize = 45;
+            IconPictureBox.Location = new Point(14, 44);
+            IconPictureBox.Name = "IconPictureBox";
+            IconPictureBox.Size = new Size(45, 45);
+            IconPictureBox.TabIndex = 63;
+            IconPictureBox.TabStop = false;
             // 
             // FrmCashDashboardView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(958, 761);
+            Controls.Add(IconPictureBox);
             Controls.Add(label3);
             Controls.Add(dateTimePicker2);
             Controls.Add(BtnExpense);
@@ -229,6 +245,7 @@
             Load += FrmCashDashboardView_Load;
             ((System.ComponentModel.ISupportInitialize)DataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)IconPictureBoxSearch).EndInit();
+            ((System.ComponentModel.ISupportInitialize)IconPictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -250,5 +267,6 @@
         private FontAwesome.Sharp.IconButton BtnExpense;
         private Label label3;
         private DateTimePicker dateTimePicker2;
+        private FontAwesome.Sharp.IconPictureBox IconPictureBox;
     }
 }

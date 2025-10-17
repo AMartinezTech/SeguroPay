@@ -7,5 +7,5 @@ public class ExpenseDto
     public Guid CategoryId { get; set; }
     public decimal Amount { get; set; }
     public string Note { get; set; } = string.Empty;
-    public bool IsActived { get; set; }
+    public bool IsActive { get; set; }
 }

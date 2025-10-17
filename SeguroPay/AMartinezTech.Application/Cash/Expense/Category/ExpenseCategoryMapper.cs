@@ -10,7 +10,7 @@ internal class ExpenseCategoryMapper
         {
             Id = entity.Id,
             Name = entity.Name,
-            IsActived = entity.IsActived,
+            IsActive = entity.IsActive,
         };
     }
 

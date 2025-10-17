@@ -168,7 +168,7 @@ public partial class FrmClientView : Form
         TextBoxContactName.Text = data.ContactName;
         TextBoxContactPhone.Text = data.ContactPhone;
         TextBoxObservation.Text = data.Observation;
-        CheckBoxIsActived.Checked = data.IsActived;
+        CheckBoxIsActive.Checked = data.IsActive;
 
         _isLoadingClient = false;
     }
@@ -351,7 +351,7 @@ public partial class FrmClientView : Form
                 ContactName = TextBoxContactName.Text.Trim(),
                 ContactPhone = TextBoxContactPhone.Text.Trim(),
                 Observation = TextBoxObservation.Text.Trim(),
-                IsActived = CheckBoxIsActived.Checked
+                IsActive = CheckBoxIsActive.Checked
             };
             ClientId = await _clientController.PersistenceAsync(Client);
             Client.Id = ClientId;

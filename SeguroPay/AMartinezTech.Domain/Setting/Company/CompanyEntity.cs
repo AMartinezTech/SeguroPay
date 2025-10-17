@@ -15,9 +15,9 @@ public class CompanyEntity : IAggregateRoot
     public ValuePhone Phone { get; private set; }
     public ValueCompanyLine Line1 { get; private set; }
     public ValueCompanyLine Line2 { get; private set; }
-    public bool IsActived { get; private set; }
+    public bool IsActive { get; private set; }
 
-    private CompanyEntity(Guid id, DateTime createdAt, ValueDocIdentity rNC, ValueCompanyName name, ValueAddress address, ValueEmail email, ValuePhone phone, ValueCompanyLine line1, ValueCompanyLine line2, bool isActived)
+    private CompanyEntity(Guid id, DateTime createdAt, ValueDocIdentity rNC, ValueCompanyName name, ValueAddress address, ValueEmail email, ValuePhone phone, ValueCompanyLine line1, ValueCompanyLine line2, bool isActive)
     {
         Id = id;
         CreatedAt = createdAt;
@@ -28,15 +28,15 @@ public class CompanyEntity : IAggregateRoot
         Phone = phone;
         Line1 = line1;
         Line2 = line2;
-        IsActived = isActived;
+        IsActive = isActive;
     }
 
-    public static CompanyEntity Create(Guid id, DateTime createdAt, string rNC, string name, ValueAddress address, string email, string phone, string line1, string line2, bool isActived)
+    public static CompanyEntity Create(Guid id, DateTime createdAt, string rNC, string name, ValueAddress address, string email, string phone, string line1, string line2, bool isActive)
     {
         id = CreateGuid.EnsureId(id);
-        return new CompanyEntity(id, createdAt, ValueDocIdentity.Create(rNC), ValueCompanyName.Create(name), address, ValueEmail.Create(email), ValuePhone.Create(phone, "Teléfono"), ValueCompanyLine.Create(line1,"Linea 1"), ValueCompanyLine.Create(line2,"Linea 2"), isActived);
+        return new CompanyEntity(id, createdAt, ValueDocIdentity.Create(rNC), ValueCompanyName.Create(name), address, ValueEmail.Create(email), ValuePhone.Create(phone, "Teléfono"), ValueCompanyLine.Create(line1,"Linea 1"), ValueCompanyLine.Create(line2,"Linea 2"), isActive);
 
     }
-    public void Activate() => IsActived = true;
-    public void Deactivate() => IsActived = false;
+    public void Activate() => IsActive = true;
+    public void Deactivate() => IsActive = false;
 }

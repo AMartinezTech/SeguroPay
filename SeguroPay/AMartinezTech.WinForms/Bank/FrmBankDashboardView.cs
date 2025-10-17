@@ -33,8 +33,10 @@ public partial class FrmBankDashboardView : Form
 
         //Buttons icon color
         IconPictureBoxSearch.IconColor = AppColors.Primary;
+        IconPictureBox.IconColor = AppColors.Primary;
         BtnBankAccount.IconColor = AppColors.Primary;
         BtnMovement.IconColor = AppColors.Primary;
+        BtnPrintList.IconColor = AppColors.Primary;
 
     }
     #endregion

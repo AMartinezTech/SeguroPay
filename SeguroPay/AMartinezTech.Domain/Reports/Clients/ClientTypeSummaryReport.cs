@@ -11,8 +11,8 @@ public class ClientTypeSummaryReport
          .Select(g => new ClientTypeSummary
          {
              ClientType = g.Key,
-             ActiveCount = g.Count(c => c.IsActived),
-             InactiveCount = g.Count(c => !c.IsActived)
+             ActiveCount = g.Count(c => c.IsActive),
+             InactiveCount = g.Count(c => !c.IsActive)
          })
          .ToList()          // Convierte a List<ClientTypeSummary>
          .AsReadOnly();     // Lo hace IReadOnlyList<ClientTypeSummary>

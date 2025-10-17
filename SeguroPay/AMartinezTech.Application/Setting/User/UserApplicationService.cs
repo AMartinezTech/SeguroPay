@@ -34,7 +34,7 @@ public class UserApplicationService(IUserWriteRepository writeRepository, IUserR
             dto.UserName,
             ValuePassword.Create(dto.Password, dto.ConfirmPassword),
             dto.Rol,
-            dto.IsActived,
+            dto.IsActive,
             DateTime.UtcNow);
         await _writeRepository.CreateAsync(newUser);
         return newUser.Id;
@@ -43,16 +43,16 @@ public class UserApplicationService(IUserWriteRepository writeRepository, IUserR
     private async Task UpdateUserAsync(UserDto dto)
     {
         var user = await _readRepository.GetByIdAsync(dto.Id);
-        user.Update(dto.Id, dto.FullName, dto.Phone, dto.Rol, dto.IsActived);
+        user.Update(dto.Id, dto.FullName, dto.Phone, dto.Rol, dto.IsActive);
         await _writeRepository.UpdateAsync(user);
     }
     #endregion
 
     #region "Read"
 
-    public async Task<List<UserDto>> FilterUsersAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActived = null)
+    public async Task<List<UserDto>> FilterUsersAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
     {
-        var result = await _readRepository.FilterAsync(filters, globalSearch, isActived);
+        var result = await _readRepository.FilterAsync(filters, globalSearch, IsActive);
         return UserMapper.ToDtoList(result);
     }
 

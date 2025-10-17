@@ -16,16 +16,16 @@ public class InsuranceWriteRepository(string connectionString) : AdoRepositoryBa
             await conn.OpenAsync();
             using var cmd = new SqlCommand { Connection = conn };
 
-            var sql = @"INSERT INTO insurances (id, name, address, email, phone, contact_name, contact_phone, is_active) VALUES(@id, @name, @address, @email, @phone, @contact_name, @contact_phone, i@s_active)";
+            var sql = @"INSERT INTO insurances (id, name, address, email, phone, contact_name, contact_phone, is_active) VALUES(@id, @name, @address, @email, @phone, @contact_name, @contact_phone, @is_active)";
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@id",entity.Id);
             cmd.Parameters.AddWithValue("@name",entity.Name.Value);
             cmd.Parameters.AddWithValue("@address",entity.Address);
-            cmd.Parameters.AddWithValue("@email",entity.Email);
-            cmd.Parameters.AddWithValue("@phone",entity.Phone);
+            cmd.Parameters.AddWithValue("@email",entity.Email.Value);
+            cmd.Parameters.AddWithValue("@phone",entity.Phone.Value);
             cmd.Parameters.AddWithValue("@contact_name",entity.ContactName);
             cmd.Parameters.AddWithValue("@contact_phone",entity.ContactPhone);
-            cmd.Parameters.AddWithValue("@is_active",entity.IsActived);
+            cmd.Parameters.AddWithValue("@is_active",entity.IsActive);
 
 
             await cmd.ExecuteNonQueryAsync();
@@ -54,11 +54,11 @@ public class InsuranceWriteRepository(string connectionString) : AdoRepositoryBa
             cmd.Parameters.AddWithValue("@id", entity.Id);
             cmd.Parameters.AddWithValue("@name", entity.Name.Value);
             cmd.Parameters.AddWithValue("@address", entity.Address);
-            cmd.Parameters.AddWithValue("@email", entity.Email);
-            cmd.Parameters.AddWithValue("@phone", entity.Phone);
+            cmd.Parameters.AddWithValue("@email", entity.Email.Value);
+            cmd.Parameters.AddWithValue("@phone", entity.Phone.Value);
             cmd.Parameters.AddWithValue("@contact_name", entity.ContactName);
             cmd.Parameters.AddWithValue("@contact_phone", entity.ContactPhone);
-            cmd.Parameters.AddWithValue("@is_active", entity.IsActived);
+            cmd.Parameters.AddWithValue("@is_active", entity.IsActive);
 
 
             await cmd.ExecuteNonQueryAsync();

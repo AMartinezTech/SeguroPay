@@ -6,9 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AMartinezTech.Infrastructure.Utils.DependencyInjection;
 
-public static class DISetting
+public static class DISettingServices
 {
-    public static IServiceCollection AddSettingModule(this IServiceCollection services,  string connectionString)
+    public static IServiceCollection Add(this IServiceCollection services,  string connectionString)
     {
         services.AddScoped<IDocIdentityReadRepository>(sp => new DocIdentityReadRepository(connectionString));
 

@@ -15,7 +15,7 @@ internal class BankAccountMapper
             Type = entity.Type.ToString(),
             ContactName = entity.ContactName ?? string.Empty,
             ContactPhone = entity.ContactPhone ?? string.Empty,
-            IsActived = entity.IsActived,
+            IsActive = entity.IsActive,
         };
     }
 

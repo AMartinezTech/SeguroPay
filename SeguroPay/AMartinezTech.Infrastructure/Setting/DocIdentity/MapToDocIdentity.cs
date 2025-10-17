@@ -10,7 +10,7 @@ internal class MapToDocIdentity
         return DocIdentityEntity.Create(
             reader.GetGuid(reader.GetOrdinal("id")),
             reader.GetOrdinal("name").ToString(),
-            bool.Parse(reader.GetOrdinal("is_actived").ToString())
+            bool.Parse(reader.GetOrdinal("is_active").ToString())
             );
     }
 }

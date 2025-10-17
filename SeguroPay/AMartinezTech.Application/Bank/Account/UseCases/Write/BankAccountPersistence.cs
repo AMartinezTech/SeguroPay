@@ -17,7 +17,7 @@ public class BankAccountPersistence(IBankAccountWriterRepository repository)
            dto.Type,
            dto.ContactName,
            dto.ContactPhone,
-           dto.IsActived);
+           dto.IsActive);
 
         if (dto.Id == Guid.Empty) { await _repository.CreateAsync(entity); } else { await _repository.UpdateAsync(entity); }
 

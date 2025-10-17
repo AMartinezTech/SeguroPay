@@ -10,7 +10,7 @@ namespace AMartinezTech.Infrastructure.Clients.Conversations;
 
 public class ClientConversationReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IClientConversationReadRepository
 {
-    public async Task<IReadOnlyList<ClientConversationEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActived = null)
+    public async Task<IReadOnlyList<ClientConversationEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
     {
         var result = new List<ClientConversationEntity>();
         using (var conn = GetConnection())
@@ -19,7 +19,7 @@ public class ClientConversationReadRepository(string connectionString) : AdoRepo
 
             using var cmd = new SqlCommand { Connection = conn };
 
-            var spec = new SqlFilterSpecification(filters, globalSearch, isActived);
+            var spec = new SqlFilterSpecification(filters, globalSearch, IsActive);
             var whereClause = spec.BuildCondition(cmd);
 
            
@@ -47,7 +47,7 @@ public class ClientConversationReadRepository(string connectionString) : AdoRepo
         return result;
     }
 
-    public async Task<ClientConversationEntity> GetByIdAsync(Guid id)
+    public async Task<ClientConversationEntity?> GetByIdAsync(Guid id)
     {
         try
         {

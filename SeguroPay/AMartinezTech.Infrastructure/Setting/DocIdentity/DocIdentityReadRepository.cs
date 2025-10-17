@@ -8,7 +8,7 @@ namespace AMartinezTech.Infrastructure.Setting.DocIdentity;
 
 public class DocIdentityReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IDocIdentityReadRepository
 {
-    public async Task<PageResult<DocIdentityEntity>> PaginationAsync(int pageNumber, int pageSize, bool? isActived)
+    public async Task<PageResult<DocIdentityEntity>> PaginationAsync(int pageNumber, int pageSize, bool? IsActive)
     {
         var result = new List<DocIdentityEntity>();
         int totalRecords = 0;
@@ -19,13 +19,13 @@ public class DocIdentityReadRepository(string connectionString) : AdoRepositoryB
 
             // 1️⃣ Contar total de registros
             var countSql = "SELECT COUNT(*) FROM doc_identity_types WHERE 1=1";
-            if (isActived.HasValue)
-                countSql += " AND is_actived = @is_actived";
+            if (IsActive.HasValue)
+                countSql += " AND is_active = @is_active";
 
             using (var countCmd = new SqlCommand(countSql, conn))
             {
-                if (isActived.HasValue)
-                    countCmd.Parameters.AddWithValue("@is_actived", isActived.Value);
+                if (IsActive.HasValue)
+                    countCmd.Parameters.AddWithValue("@is_active", IsActive.Value);
 
                 totalRecords = Convert.ToInt32(await countCmd.ExecuteScalarAsync());
             }
@@ -35,8 +35,8 @@ public class DocIdentityReadRepository(string connectionString) : AdoRepositoryB
                     FROM client_categories
                     WHERE 1=1";
 
-            if (isActived.HasValue)
-                sql += " AND is_actived = @is_actived";
+            if (IsActive.HasValue)
+                sql += " AND is_active = @is_active";
 
             sql += @" ORDER BY name
                   OFFSET @offset ROWS 
@@ -44,8 +44,8 @@ public class DocIdentityReadRepository(string connectionString) : AdoRepositoryB
 
             using var cmd = new SqlCommand(sql, conn);
 
-            if (isActived.HasValue)
-                cmd.Parameters.AddWithValue("@is_actived", isActived.Value);
+            if (IsActive.HasValue)
+                cmd.Parameters.AddWithValue("@is_active", IsActive.Value);
 
             cmd.Parameters.AddWithValue("@offset", (pageNumber - 1) * pageSize);
             cmd.Parameters.AddWithValue("@pageSize", pageSize);
