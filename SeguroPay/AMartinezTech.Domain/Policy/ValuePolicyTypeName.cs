@@ -9,7 +9,7 @@ public class ValuePolicyTypeName
 {
     public string Value { get; }
 
-    public ValuePolicyTypeName(string value)
+    private ValuePolicyTypeName(string value)
     {
         Value = value;
     }

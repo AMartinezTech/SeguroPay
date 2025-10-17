@@ -37,7 +37,7 @@ public class PolicyPaymentCalculatorService
 
     private static DateTime GetNextPaymentDate(PolicyEntity policy, DateTime ultimaFechaPago)
     {
-        var frecuency = policy.PayFrencuency.Type; 
+        var frecuency = policy.PayFrencuency; 
 
         return frecuency switch
         {

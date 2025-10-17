@@ -12,20 +12,20 @@ public class PolicyEntity : IAggregateRoot
     public string PolicyNo { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
-    public ValueGuid ClientId { get; private set; }
-    public ValueGuid InsuranceId { get; private set; }
-    public ValueGuid TypeId { get; private set; }
+    public Guid ClientId { get; private set; }
+    public Guid InsuranceId { get; private set; }
+    public Guid TypeId { get; private set; }
     public ValuePolicyPayDay PayDay { get; private set; }
-    public ValueEnum<PolicyPayFrencuency> PayFrencuency { get; private set; } // Mensual, TrisMestral, Semestral, Anual
+    public PolicyPayFrencuency PayFrencuency { get; private set; } // Mensual, TrisMestral, Semestral, Anual
     public decimal Amount { get; private set; }
-    public ValueEnum<PolicyStatusType> Status { get; private set; } = ValueEnum<PolicyStatusType>.Create("Inactiva");  // Activa, Suspendida, Cancelada, Inactiva
+    public PolicyStatusType Status { get; private set; } = PolicyStatusType.Inactiva; // Activa, Suspendida, Cancelada, Inactiva
     public string? Note { get; private set; }
     public Guid CreatedBy { get; private set; }
     public Guid? ActivateBy { get; private set; }
     public Guid? SuspendBy { get; private set; }
     public Guid? CancelBy { get; private set; }
 
-    private PolicyEntity(Guid id, string policyNo, DateTime createdAt, DateTime updatedAt, ValueGuid clientId, ValueGuid insuranceId, ValueGuid typeId, ValuePolicyPayDay payDay, ValueEnum<PolicyPayFrencuency> payFrencuency, decimal amount, ValueEnum<PolicyStatusType> status, string? note, Guid createdBy, Guid? activateBy, Guid? suspendBy, Guid? cancelBy)
+    private PolicyEntity(Guid id, string policyNo, DateTime createdAt, DateTime updatedAt, Guid clientId, Guid insuranceId, Guid typeId, ValuePolicyPayDay payDay, PolicyPayFrencuency payFrencuency, decimal amount, PolicyStatusType status, string? note, Guid createdBy, Guid? activateBy, Guid? suspendBy, Guid? cancelBy)
     {
         Id = id;
         PolicyNo = policyNo;
@@ -45,12 +45,12 @@ public class PolicyEntity : IAggregateRoot
         CancelBy = cancelBy;
     }
 
-    public static PolicyEntity Create(Guid id, string policyNo, DateTime createdAt, DateTime updatedAt, Guid clientId, Guid insuranceId, Guid typeId, int payDay, string payFrencuency, decimal amount, string status, string? note, Guid createdBy, Guid? activateBy, Guid? suspendBy, Guid? cancelBy)
+    public static PolicyEntity Create(Guid id, string policyNo, DateTime createdAt, DateTime updatedAt, Guid clientId, Guid insuranceId, Guid typeId, int payDay, PolicyPayFrencuency payFrencuency, decimal amount, PolicyStatusType status, string? note, Guid createdBy, Guid? activateBy, Guid? suspendBy, Guid? cancelBy)
     {
 
 
         id = CreateGuid.EnsureId(id);
-        return new PolicyEntity(id, policyNo, createdAt, updatedAt, ValueGuid.Create(clientId,"cliente"), ValueGuid.Create(insuranceId,"seguro"), ValueGuid.Create(typeId,"tipo"), ValuePolicyPayDay.Create(payDay), ValueEnum<PolicyPayFrencuency>.Create(payFrencuency), amount, ValueEnum<PolicyStatusType>.Create(status), note, createdBy, activateBy, suspendBy, cancelBy);
+        return new PolicyEntity(id, policyNo, createdAt, updatedAt, clientId, insuranceId, typeId, ValuePolicyPayDay.Create(payDay), payFrencuency, amount, status, note, createdBy, activateBy, suspendBy, cancelBy);
 
     }
 }
