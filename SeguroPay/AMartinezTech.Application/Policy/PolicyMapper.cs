@@ -10,18 +10,22 @@ internal class PolicyMapper
         {
             Id = entity.Id,
             PolicyNo = entity.PolicyNo,
+            PolicyTypeId = entity.PolicyTypeId,
+            InsuranceId = entity.InsuranceId,
+            ClientId = entity.ClientId,
+            PayFrencuency = entity.PayFrencuency.ToString(),
+            PayDay = entity.PayDay.Value,
+            Amount = entity.Amount,
+            Note = entity.Note ?? string.Empty,
+
+
+
             CreatedAt = entity.CreatedAt,
             UpdatedAt = entity.UpdatedAt,
-            ClientId = entity.ClientId,
-            InsuranceId = entity.InsuranceId,
-            TypeId = entity.TypeId,
-            PayDay = entity.PayDay.Value,
-            PayFrencuency = entity.PayFrencuency.ToString(),
-            Amount = entity.Amount,
             Status = entity.Status.ToString(),
-            Note = entity.Note ?? string.Empty,
             CreatedBy = entity.CreatedBy,
-            ActivateBy = entity.ActivateBy ?? Guid.Empty,
+            ActiveBy = entity.ActiveBy ?? Guid.Empty,
+            InactiveBy = entity.InactiveBy ?? Guid.Empty,
             SuspendBy = entity.SuspendBy ?? Guid.Empty, 
             CancelBy = entity.CancelBy ?? Guid.Empty,
         };

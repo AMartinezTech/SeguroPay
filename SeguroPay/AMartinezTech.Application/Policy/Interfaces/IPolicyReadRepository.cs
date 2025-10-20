@@ -3,4 +3,7 @@ using AMartinezTech.Domain.Utils.Interfaces;
 
 namespace AMartinezTech.Application.Policy.Interfaces;
 
-public interface IPolicyReadRepository : IPagination<PolicyEntity>, IGetByDate<PolicyEntity>, IGetById<PolicyEntity, Guid>, IFilter<PolicyEntity>;
+public interface IPolicyReadRepository : IGetByDate<PolicyEntity>, IGetById<PolicyEntity, Guid>, IFilter<PolicyEntity>
+{
+   Task<bool> GetByClientIdAsync(Guid id);
+}

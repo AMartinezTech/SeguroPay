@@ -17,7 +17,7 @@ public class ValuePolicyPayDay
     public static ValuePolicyPayDay Create(int value, int minRange = 1, int maxRange = 30)
     {
         if (value < 1 || value > 30)
-            throw new ValidationException($"{ErrorMessages.Get(ErrorType.RangeValid)} {minRange} a {maxRange} - día de pago");
+            throw new ValidationException($"{ErrorMessages.Get(ErrorType.RangeValid)} {minRange} a {maxRange} - PayDay");
           
         return new ValuePolicyPayDay(value);
     }

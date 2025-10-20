@@ -42,4 +42,9 @@ public partial class FrmPolicyDashboardView : Form
     }
     #endregion
 
+    private void BtnInsurance_Click(object sender, EventArgs e)
+    {
+        var frmPolicyView = _formFactory.CreateFormFactory<FrmPolicyView>();
+        frmPolicyView.ShowDialog();
+    }
 }

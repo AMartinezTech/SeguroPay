@@ -7,26 +7,26 @@ namespace AMartinezTech.Infrastructure.Data.Specifications;
 /// y búsqueda global (OR con LIKE).
 /// </summary>
 /// <param name="filters">Diccionario de filtros exactos (usa AND)</param>
-/// <param name="IsActive">Filtro opcional por estado activo/inactivo</param>
-/// <param name="globalSearch">Diccionario de campos y valores para búsqueda general con LIKE (usa OR)</param>
+/// <param name="isActive">Filtro opcional por estado activo/inactivo</param>
+/// <param name="search">Diccionario de campos y valores para búsqueda general con LIKE (usa OR)</param>
 public class SqlFilterSpecification(
     Dictionary<string, object?>? filters = null,
-    Dictionary<string, object?>? globalSearch = null, 
-    bool? IsActive = null)
+    Dictionary<string, object?>? search = null, 
+    bool? isActive = null)
 {
     private readonly Dictionary<string, object?>? _filters = filters;
-    private readonly Dictionary<string, object?>? _globalSearch = globalSearch;
-    private readonly bool? _IsActive = IsActive;
+    private readonly Dictionary<string, object?>? _globalSearch = search;
+    private readonly bool? _isActive = isActive;
 
     public string BuildCondition(SqlCommand cmd)
     {
         var sb = new StringBuilder("WHERE 1=1");
 
         // 🔹 Filtro por estado
-        if (_IsActive.HasValue)
+        if (_isActive.HasValue)
         {
             sb.Append(" AND is_active = @is_active");
-            cmd.Parameters.AddWithValue("@is_active", _IsActive.Value);
+            cmd.Parameters.AddWithValue("@is_active", _isActive.Value);
         }
 
         // 🔹 Filtros exactos (AND)

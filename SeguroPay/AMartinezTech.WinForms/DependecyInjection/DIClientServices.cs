@@ -13,6 +13,7 @@ public class DIClientServices
     {
         services.AddTransient<ClientReportService>();
 
+        services.AddTransient<FrmSelectClientView>();
         services.AddTransient<FrmClientDashboardView>();
         services.AddTransient<FrmClientView>();
         services.AddTransient<ClientController>();

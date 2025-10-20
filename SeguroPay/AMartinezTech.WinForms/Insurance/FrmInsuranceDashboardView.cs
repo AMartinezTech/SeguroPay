@@ -162,6 +162,7 @@ public partial class FrmInsuranceDashboardView : Form
     }
     private async void InvokeFilterAsync(bool? IsActive)
     {
+        DataGridView.DataSource = null;
         var result = await _services.FilterAsync(null, null, IsActive);
         _insuranceList = new BindingList<InsuranceDto>(result);
 
@@ -195,8 +196,7 @@ public partial class FrmInsuranceDashboardView : Form
     #region "Btn Events"
     private void BtnClear_Click(object sender, EventArgs e)
     {
-        ClearFields();
-
+        ClearFields(); 
     }
 
     private async void BtnPersistence_Click(object sender, EventArgs e)
@@ -221,6 +221,7 @@ public partial class FrmInsuranceDashboardView : Form
             newDto.Id = InsuranceId;
 
             UpdatingMemoryData.Excecute(newDto, _insuranceList);
+            DataGridView.DataSource = _insuranceList;
             ClearFields();
         }
         catch (OperationCanceledException ex)

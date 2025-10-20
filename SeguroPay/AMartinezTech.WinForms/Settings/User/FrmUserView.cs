@@ -104,7 +104,7 @@ public partial class FrmUserView : Form
         PanelLineTop.BackColor = AppColors.Outline;
         PanelLineButtom.BackColor = AppColors.Outline;
         PanelAlertMessage.BackColor = AppColors.SurfaceMessage;
-         
+
 
         // Btn
         BtnPersistence.IconColor = AppColors.Primary;
@@ -136,7 +136,7 @@ public partial class FrmUserView : Form
         {
             TextBoxUserName.Focus();
             errorProvider1.SetError(TextBoxUserName, "Aquí");
-        } 
+        }
         else if (fieldName.Contains("Password"))
         {
             TextBoxPassword.Focus();
@@ -302,11 +302,12 @@ public partial class FrmUserView : Form
 
         if (DataGridView.Columns[e.ColumnIndex].Name == "editCol")
         {
-        UserId = Guid.Parse(DataGridView.Rows[e.RowIndex].Cells["Id"].Value!.ToString()!);
+            UserId = Guid.Parse(DataGridView.Rows[e.RowIndex].Cells["Id"].Value!.ToString()!);
+            
             InvokeGetByIdAsync();
         }
     }
     #endregion
 
-   
+
 }

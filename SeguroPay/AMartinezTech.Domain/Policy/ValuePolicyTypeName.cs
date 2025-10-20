@@ -17,10 +17,10 @@ public class ValuePolicyTypeName
     public static ValuePolicyTypeName Create(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
-            throw new ValidationException($"{ErrorMessages.Get(ErrorType.RequiredField)} - nombre");
+            throw new ValidationException($"{ErrorMessages.Get(ErrorType.RequiredField)} - Name");
 
         if (value.Length < 6)
-            throw new ValidationException($"{ErrorMessages.Get(ErrorType.MinLength)} - nombre");
+            throw new ValidationException($"{ErrorMessages.Get(ErrorType.MinLength)} - Name");
 
         return new ValuePolicyTypeName(value);
     }

@@ -1,6 +1,15 @@
-﻿namespace AMartinezTech.Domain.Utils.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AMartinezTech.Domain.Utils.Enums;
 
 public enum PolicyPayFrencuency
 {
-    Mensual, Trimestral, Semestral, Anual
+    [Display(Name = "Mensual")]
+    Monthly,
+    [Display(Name = "Trimestral")]
+    Quarterly, 
+    [Display(Name = "Semestral")]
+    Semiannual, 
+    [Display(Name = "Anual")] 
+    Annual
 }

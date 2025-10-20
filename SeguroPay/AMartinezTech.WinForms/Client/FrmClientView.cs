@@ -37,8 +37,7 @@ public partial class FrmClientView : Form
 
         if (ClientId != Guid.Empty)
             InvokeGetByIdAsync(ClientId);
-
-
+         
     }
     #endregion
     #region "Methods"
@@ -46,11 +45,8 @@ public partial class FrmClientView : Form
     {
         var filters = new Dictionary<string, object?>
         {
-            ["city_id"] = cityId,
-
-        };
-
-
+            ["city_id"] = cityId, 
+        }; 
         var streetList = await _streetController.FilterAsync(filters, null, null);
         if (streetList.Count > 0)
         {
@@ -76,7 +72,6 @@ public partial class FrmClientView : Form
     }
     private void ClearFields()
     {
-        ClientId = Guid.Empty;
         ComboBoxDocIdentityType.SelectedIndex = 0;
         TextBoxDocIdentity.Text = string.Empty;
         ComboBoxClientType.SelectedIndex = 0;
@@ -357,7 +352,7 @@ public partial class FrmClientView : Form
             Client.Id = ClientId;
 
 
-            SetMessage("Cerrar - Registro  con exito.!", MessageType.Success);
+            SetMessage("Cerrar - Operación realizada con exito.!", MessageType.Success);
 
 
             // Set to 2 secons for alert

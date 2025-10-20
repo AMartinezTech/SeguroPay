@@ -41,10 +41,10 @@ public class PolicyPaymentCalculatorService
 
         return frecuency switch
         {
-            PolicyPayFrencuency.Mensual => ultimaFechaPago.AddMonths(1).WithDay(policy.PayDay.Value),
-            PolicyPayFrencuency.Trimestral => ultimaFechaPago.AddMonths(3).WithDay(policy.PayDay.Value),
-            PolicyPayFrencuency.Semestral => ultimaFechaPago.AddMonths(6).WithDay(policy.PayDay.Value),
-            PolicyPayFrencuency.Anual => ultimaFechaPago.AddYears(1).WithDay(policy.PayDay.Value),
+            PolicyPayFrencuency.Monthly => ultimaFechaPago.AddMonths(1).WithDay(policy.PayDay.Value),
+            PolicyPayFrencuency.Quarterly => ultimaFechaPago.AddMonths(3).WithDay(policy.PayDay.Value),
+            PolicyPayFrencuency.Semiannual => ultimaFechaPago.AddMonths(6).WithDay(policy.PayDay.Value),
+            PolicyPayFrencuency.Annual => ultimaFechaPago.AddYears(1).WithDay(policy.PayDay.Value),
             _ => throw new InvalidOperationException("Frecuencia no soportada")
         };
     }

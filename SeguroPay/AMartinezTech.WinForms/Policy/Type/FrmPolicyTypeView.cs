@@ -1,35 +1,37 @@
-﻿using AMartinezTech.Application.Location.Street;
-using AMartinezTech.WinForms.Location.Controllers;
-using AMartinezTech.WinForms.Location.Utils;
+﻿using AMartinezTech.Application.Policy;
+using AMartinezTech.Application.Policy.Type;
 using AMartinezTech.WinForms.Utils;
 using System.ComponentModel;
 
-namespace AMartinezTech.WinForms.Location.Views;
+namespace AMartinezTech.WinForms.Policy.Type;
 
-public partial class FrmStreetView : Form
+public partial class FrmPolicyTypeView : Form
 {
     #region "Fields"
     private CancellationTokenSource? _cts;
-    private Guid StreetId { get; set; } = Guid.Empty;
-    //private Guid CityId { get; set; } = Guid.Empty;
-    private readonly StreetController _streetController;
-    private BindingList<StreetDto> _streetList = [];
-    public Guid CityId = Guid.Empty;
+    private Guid Id { get; set; } = Guid.Empty;
+    public Guid InsuranceId = Guid.Empty;
+    private readonly PolicyTypeApplicationServices _services;
+    private BindingList<PolicyTypeDto> _list = [];
+    private bool _isLoadingPolicy = false;
+
     #endregion
     #region "Constructor"
-    public FrmStreetView(StreetController streetController)
+    public FrmPolicyTypeView(PolicyTypeApplicationServices service)
     {
         InitializeComponent();
-        _streetController = streetController;
+        _services = service;
         SetColorUI();
     }
     #endregion
+
     #region "Form Events"
-    private void FrmStreetView_Load(object sender, EventArgs e)
+    private void FrmPolicyTypeView_Load(object sender, EventArgs e)
     {
         SetMessage("Formulario preparado para recibir datos.", MessageType.Information);
         InvokeDataViewSetting();
-        InvokeFilterAsync();
+        InvokeFilterAsync(true);
+        _isLoadingPolicy = true;
     }
     #endregion
     #region "Methods"
@@ -43,7 +45,7 @@ public partial class FrmStreetView : Form
                 EditColumnName = "EDITAR",
             });
             // Set custom columns
-            StreetFormatingDGColumns.Apply(DataGridView);
+            FormatingDGColumns.Apply(DataGridView);
         }
         catch (Exception ex)
         {
@@ -119,85 +121,103 @@ public partial class FrmStreetView : Form
     private void ValidationFields(string fieldName)
     {
 
-        if (fieldName.Contains("StreetName"))
+        if (fieldName.Contains("Name"))
         {
             TextBoxName.Focus();
             errorProvider1.SetError(TextBoxName, "Aquí!");
         }
-        else if (fieldName.Contains("City"))
-        {
-            errorProvider1.SetError(LabelCityName, "Aquí!");
-        }
-
 
     }
     private void ClearFields()
     {
         ClearMessageErr();
-        StreetId = Guid.Empty;
+        Id = Guid.Empty;
         TextBoxName.Text = string.Empty;
-
         BtnPersistence.Enabled = true;
+        CheckBoxIsActive.Checked = true;
+        CheckBoxIsActive.Enabled = false;
+        CheckBoxFilterByIsActive.Checked = true;
         DataGridView.Refresh();
     }
     private async void InvokeGetByIdAsync()
     {
-        var data = await _streetController.GetByIdAsync(StreetId);
+        var data = await _services.GetByIdAsync(Id);
 
-        StreetId = data.Id;
+        Id = data.Id;
         TextBoxName.Text = data.Name;
+        CheckBoxIsActive.Checked = data.IsActive;
+        CheckBoxIsActive.Enabled = true;
 
     }
-    private async void InvokeFilterAsync()
+    private async void InvokeFilterAsync(bool? isActive)
     {
-        var filters = new Dictionary<string, object?>
-        {
-            ["city_id"] = CityId,
+        DataGridView.DataSource = null;
 
+        var filter = new Dictionary<string, object?>
+        {
+            ["insurance_id"] = InsuranceId
         };
 
-        var globalSearch = new Dictionary<string, object?>
+        var result = await _services.FilterAsync(filter, null, isActive);
+        _list = new BindingList<PolicyTypeDto>(result);
+        if (_list.Count > 0)
         {
-            ["street"] = TextBoxSearch.Text.Trim()
-        };
-        _streetList = await _streetController.FilterAsync(filters, globalSearch, null);
-        if (_streetList.Count > 0)
-        {
-            DataGridView.DataSource = _streetList;
+            DataGridView.DataSource = _list;
         }
 
     }
-
     #endregion
     #region "Field Events"
+
+
     private void TextBoxName_TextChanged(object sender, EventArgs e)
     {
         ClearMessageErr();
     }
+
+    private void ComboBoxInsuranceId_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        ClearMessageErr();
+    }
+
+    private void ComboBoxInsuranceId_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        e.Handled = true;
+    }
+    private void CheckBoxFilterByIsActive_CheckedChanged(object sender, EventArgs e)
+    {
+        if (!_isLoadingPolicy) return;
+        InvokeFilterAsync(CheckBoxFilterByIsActive.Checked);
+    }
     #endregion
+    #region "Btn Events"
 
     private void BtnClear_Click(object sender, EventArgs e)
     {
         ClearFields();
     }
+
     private async void BtnPersistence_Click(object sender, EventArgs e)
     {
         ClearMessageErr();
         _cts = new CancellationTokenSource();
         try
         {
-            BtnPersistence.Enabled = false;
-            var newDto = new StreetDto
-            {
-                Id = StreetId,
-                Name = TextBoxName.Text.Trim(),
-                CityId = CityId,
-            };
-            StreetId = await _streetController.PersistenceAsync(newDto);
-            newDto.Id = StreetId;
 
-            StreetUpdatingMemoryData.Excecute(newDto, _streetList);
-            DataGridView.DataSource = _streetList; 
+
+            BtnPersistence.Enabled = false;
+            var newDto = new PolicyTypeDto
+            {
+                Id = Id,
+                Name = TextBoxName.Text.Trim(),
+                InsuranceId = InsuranceId,
+                IsActive = CheckBoxIsActive.Checked
+            };
+            Id = await _services.PersistenceAsync(newDto);
+            newDto.Id = Id;
+
+            UpdatingMemoryData.Excecute(newDto, _list);
+            DataGridView.DataSource = _list;
             ClearFields();
         }
         catch (OperationCanceledException ex)
@@ -227,15 +247,22 @@ public partial class FrmStreetView : Form
             }
         }
     }
+    #endregion
+    #region "DataGridView Events"
 
     private void DataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
     {
         if (e.RowIndex < 0 || e.ColumnIndex < 0) return; // Clic Only on valid cell and column
-        StreetId = Guid.Parse(DataGridView.Rows[e.RowIndex].Cells["Id"].Value!.ToString()!);
 
         if (DataGridView.Columns[e.ColumnIndex].Name == "editCol")
         {
+            Id = Guid.Parse(DataGridView.Rows[e.RowIndex].Cells["Id"].Value!.ToString()!);
+
             InvokeGetByIdAsync();
         }
     }
+
+    #endregion
+
+
 }

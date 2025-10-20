@@ -33,7 +33,6 @@
             LabelTotalClients = new Label();
             PanelLeyenda = new Panel();
             BtnPrintList = new FontAwesome.Sharp.IconButton();
-            CheckBoxIsActive = new CheckBox();
             DataGridView = new DataGridView();
             label3 = new Label();
             ComboBoxClientType = new ComboBox();
@@ -72,6 +71,7 @@
             BtnInsurance.Text = "&Nueva";
             BtnInsurance.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnInsurance.UseVisualStyleBackColor = true;
+            BtnInsurance.Click += BtnInsurance_Click;
             // 
             // LabelTotalClients
             // 
@@ -105,19 +105,6 @@
             BtnPrintList.Text = "&Imprimir listado";
             BtnPrintList.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnPrintList.UseVisualStyleBackColor = true;
-            // 
-            // CheckBoxIsActive
-            // 
-            CheckBoxIsActive.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            CheckBoxIsActive.AutoSize = true;
-            CheckBoxIsActive.Checked = true;
-            CheckBoxIsActive.CheckState = CheckState.Checked;
-            CheckBoxIsActive.Location = new Point(671, 68);
-            CheckBoxIsActive.Name = "CheckBoxIsActive";
-            CheckBoxIsActive.Size = new Size(96, 19);
-            CheckBoxIsActive.TabIndex = 38;
-            CheckBoxIsActive.Text = "Filtrar activos";
-            CheckBoxIsActive.UseVisualStyleBackColor = true;
             // 
             // DataGridView
             // 
@@ -210,7 +197,6 @@
             Controls.Add(LabelTotalClients);
             Controls.Add(PanelLeyenda);
             Controls.Add(BtnPrintList);
-            Controls.Add(CheckBoxIsActive);
             Controls.Add(DataGridView);
             Controls.Add(label3);
             Controls.Add(ComboBoxClientType);
@@ -235,7 +221,6 @@
         private Label LabelTotalClients;
         private Panel PanelLeyenda;
         private FontAwesome.Sharp.IconButton BtnPrintList;
-        private CheckBox CheckBoxIsActive;
         private DataGridView DataGridView;
         private Label label3;
         private ComboBox ComboBoxClientType;

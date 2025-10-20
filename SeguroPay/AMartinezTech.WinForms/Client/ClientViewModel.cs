@@ -2,7 +2,7 @@
 
 namespace AMartinezTech.WinForms.Client;
 
-internal class ClientViewModel
+public class ClientViewModel
 {
     public Guid Id { get; set; }
     public string ClientType { get; set; } = string.Empty;
@@ -17,7 +17,7 @@ internal class ClientViewModel
     public string FullName => FirstName +" "+ LastName;
     public string IsActiveName => IsActive ? "Activo" : "Inactivo";
 
-    internal static ClientViewModel ToModel(ClientDto dto)
+    public static ClientViewModel ToModel(ClientDto dto)
     {
         return new ClientViewModel
         {

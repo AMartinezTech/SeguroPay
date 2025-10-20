@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AMartinezTech.Infrastructure.Utils.DependencyInjection;
 
-public static class DILocationService
+public static class DILocationServices
 {
     public static IServiceCollection Add(this IServiceCollection services, string connectionString)
     {

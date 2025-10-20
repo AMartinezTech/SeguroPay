@@ -2,7 +2,7 @@
 
 namespace AMartinezTech.Application.Policy.Type;
 
-internal class PolicyMapper
+internal class PolicyTypeMapper
 {
     internal static PolicyTypeDto ToDto(PolicyTypeEntity entity)
     {

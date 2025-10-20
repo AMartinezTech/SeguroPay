@@ -1,6 +1,18 @@
-﻿namespace AMartinezTech.Domain.Utils.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AMartinezTech.Domain.Utils.Enums;
 
 public enum PolicyStatusType
 {
-    Activa, Suspendida, Cancelada, Inactiva
+    [Display(Name = "Activa")]
+    Active,
+    
+    [Display(Name = "Suspendida")]
+    Suspended,
+    
+    [Display(Name = "Cancelada")]
+    Canceled,
+    
+    [Display(Name = "Inactiva")]
+    Inactive
 }

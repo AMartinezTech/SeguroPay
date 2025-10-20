@@ -28,7 +28,7 @@ public class PolicyPaymentEntity : IAggregateRoot
     public static PolicyPaymentEntity Create(Guid id, Guid policyId, DateTime createdAt, DateTime date, decimal amount, string? note, Guid createdBy)
     {
         id = CreateGuid.EnsureId(id);
-        return new PolicyPaymentEntity(id, ValueGuid.Create(policyId,"póliza"), createdAt, date, ValuePositiveNum.Create(amount,"monto"), note, createdBy);
+        return new PolicyPaymentEntity(id, ValueGuid.Create(policyId,"Policy"), createdAt, date, ValuePositiveNum.Create(amount,"Amount"), note, createdBy);
     }
 
 }

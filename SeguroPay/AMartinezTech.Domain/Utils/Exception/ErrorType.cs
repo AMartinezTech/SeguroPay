@@ -17,5 +17,6 @@ public enum ErrorType
     RecordDeleteError,
     DataBaseUnknownError,
     PasswordNotMatch,
-    InvalidCredentials
+    InvalidCredentials,
+    HasMomevements
 }
