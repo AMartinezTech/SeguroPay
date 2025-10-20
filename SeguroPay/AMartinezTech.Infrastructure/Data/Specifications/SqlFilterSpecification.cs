@@ -3,20 +3,24 @@ using Microsoft.Data.SqlClient;
 
 namespace AMartinezTech.Infrastructure.Data.Specifications;
 /// <summary>
-/// Crea una especificación SQL dinámica con soporte para filtros exactos (AND)
-/// y búsqueda global (OR con LIKE).
+/// Crea una especificación SQL dinámica con soporte para filtros exactos (AND),
+/// búsqueda global (OR con LIKE) y rangos de fechas (BETWEEN).
 /// </summary>
 /// <param name="filters">Diccionario de filtros exactos (usa AND)</param>
 /// <param name="isActive">Filtro opcional por estado activo/inactivo</param>
 /// <param name="search">Diccionario de campos y valores para búsqueda general con LIKE (usa OR)</param>
+/// <param name="dateRanges">Diccionario de campos de fecha con la sentencia BETWEEN)</param>
 public class SqlFilterSpecification(
     Dictionary<string, object?>? filters = null,
     Dictionary<string, object?>? search = null, 
-    bool? isActive = null)
+    bool? isActive = null,
+    Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null
+    )
 {
     private readonly Dictionary<string, object?>? _filters = filters;
     private readonly Dictionary<string, object?>? _globalSearch = search;
     private readonly bool? _isActive = isActive;
+    private readonly Dictionary<string, (DateTime? start, DateTime? end)>? _dateRanges = dateRanges;
 
     public string BuildCondition(SqlCommand cmd)
     {
@@ -39,6 +43,35 @@ public class SqlFilterSpecification(
                 string param = $"@{kvp.Key}";
                 sb.Append($" AND {kvp.Key} = {param}");
                 cmd.Parameters.AddWithValue(param, kvp.Value);
+            }
+        }
+
+        // 🔹 Filtros por rango de fechas (BETWEEN)
+        if (_dateRanges is { Count: > 0 })
+        {
+            foreach (var kvp in _dateRanges)
+            {
+                var (start, end) = kvp.Value;
+                if (start.HasValue && end.HasValue)
+                {
+                    string paramStart = $"@{kvp.Key}_start";
+                    string paramEnd = $"@{kvp.Key}_end";
+                    sb.Append($" AND {kvp.Key} BETWEEN {paramStart} AND {paramEnd}");
+                    cmd.Parameters.AddWithValue(paramStart, start.Value);
+                    cmd.Parameters.AddWithValue(paramEnd, end.Value);
+                }
+                else if (start.HasValue)
+                {
+                    string paramStart = $"@{kvp.Key}_start";
+                    sb.Append($" AND {kvp.Key} >= {paramStart}");
+                    cmd.Parameters.AddWithValue(paramStart, start.Value);
+                }
+                else if (end.HasValue)
+                {
+                    string paramEnd = $"@{kvp.Key}_end";
+                    sb.Append($" AND {kvp.Key} <= {paramEnd}");
+                    cmd.Parameters.AddWithValue(paramEnd, end.Value);
+                }
             }
         }
 

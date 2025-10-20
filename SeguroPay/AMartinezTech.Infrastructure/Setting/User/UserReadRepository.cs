@@ -9,7 +9,7 @@ namespace AMartinezTech.Infrastructure.Setting.User;
 
 public class UserReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IUserReadRepository
 {
-    public async Task<IReadOnlyList<UserEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
+    public async Task<IReadOnlyList<UserEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
     {
         var result = new List<UserEntity>();
         using (var conn = GetConnection())

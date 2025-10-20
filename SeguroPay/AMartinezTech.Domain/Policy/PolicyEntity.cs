@@ -1,13 +1,14 @@
-﻿using AMartinezTech.Domain.Utils.Interfaces; 
-using AMartinezTech.Domain.Utils.Enums; 
+﻿using AMartinezTech.Domain.Utils.Interfaces;
+using AMartinezTech.Domain.Utils.Enums;
 using AMartinezTech.Domain.Utils.Exception;
+using AMartinezTech.Domain.Utils;
 
 namespace AMartinezTech.Domain.Policy;
 
 public class PolicyEntity : IAggregateRoot
 {
 
-    public Guid Id { get; private set; } = Guid.NewGuid();
+    public Guid Id { get; private set; }
     public string PolicyNo { get; private set; }
     public Guid PolicyTypeId { get; private set; }
     public string? PolicyTypeName { get; private set; }
@@ -25,16 +26,16 @@ public class PolicyEntity : IAggregateRoot
     public DateTime UpdatedAt { get; private set; }
     public PolicyStatusType Status { get; private set; } = PolicyStatusType.Inactive; // Active, Suspended, Canceled, Inactive
     public Guid CreatedBy { get; private set; }
-    public Guid? ActiveBy { get; private set; } = Guid.Empty;
-    public Guid? InactiveBy { get; private set; } = Guid.Empty;
+    public Guid? ActiveBy { get; private set; } = Guid.Empty; 
     public Guid? SuspendBy { get; private set; } = Guid.Empty;
     public Guid? CancelBy { get; private set; } = Guid.Empty;
 
     private readonly List<PolicyPaymentEntity> _policyPayments = [];
     public IReadOnlyCollection<PolicyPaymentEntity> PolicyPayments => _policyPayments.AsReadOnly();
 
-    private PolicyEntity(string policyNo, Guid policyTypeId, Guid insuranceId, Guid clientId, PolicyPayFrencuency payFrencuency, ValuePolicyPayDay payDay, decimal amount, string? note, DateTime createdAt, DateTime updatedAt, PolicyStatusType status, Guid createdBy, string? policyTypeName , string? insuranceName, string? clientName)
+    private PolicyEntity(Guid id, string policyNo, Guid policyTypeId, Guid insuranceId, Guid clientId, PolicyPayFrencuency payFrencuency, ValuePolicyPayDay payDay, decimal amount, string? note, DateTime createdAt, DateTime updatedAt, PolicyStatusType status, Guid createdBy, string? policyTypeName, string? insuranceName, string? clientName)
     {
+        Id = id;
         PolicyNo = policyNo;
         PolicyTypeId = policyTypeId;
         InsuranceId = insuranceId;
@@ -52,20 +53,20 @@ public class PolicyEntity : IAggregateRoot
         InsuranceName = insuranceName;
         ClientName = clientName;
     }
-    public static PolicyEntity Create(string policyNo, Guid policyTypeId, Guid insuranceId, Guid clientId, PolicyPayFrencuency payFrencuency, int payDay, decimal amount, string? note, DateTime createdAt, DateTime updatedAt, PolicyStatusType status, Guid createdBy, string? policyTypeName = null, string? insuranceName = null, string? clientName = null)
-    {  
-        return new PolicyEntity(policyNo, policyTypeId, insuranceId, clientId, payFrencuency, ValuePolicyPayDay.Create(payDay), amount, note, createdAt, updatedAt, status, createdBy, policyTypeName, insuranceName, clientName); 
+    public static PolicyEntity Create(Guid id, string policyNo, Guid policyTypeId, Guid insuranceId, Guid clientId, PolicyPayFrencuency payFrencuency, int payDay, decimal amount, string? note, DateTime createdAt, DateTime updatedAt, PolicyStatusType status, Guid createdBy, string? policyTypeName = null, string? insuranceName = null, string? clientName = null)
+    {
+        return new PolicyEntity(CreateGuid.EnsureId(id), policyNo, policyTypeId, insuranceId, clientId, payFrencuency, ValuePolicyPayDay.Create(payDay), amount, note, createdAt, updatedAt, status, createdBy, policyTypeName, insuranceName, clientName);
     }
     public void UpdatePolicy(
      string policyNo, Guid policyTypeId, Guid insuranceId, PolicyPayFrencuency payFrencuency,
-     int payDay, decimal amount, string? note )
+     int payDay, decimal amount, string? note)
     {
         if (_policyPayments.Count != 0)
             throw new Exception($"{ErrorMessages.Get(ErrorType.HasMomevements)}");
 
         if (Status != PolicyStatusType.Active)
             throw new Exception("Solo se puede modificar una póliza activa.");
-         
+
         PolicyNo = policyNo;
         PolicyTypeId = policyTypeId;
         InsuranceId = insuranceId;
@@ -73,6 +74,7 @@ public class PolicyEntity : IAggregateRoot
         PayDay = ValuePolicyPayDay.Create(payDay);
         Amount = amount;
         Note = note;
+        UpdatedAt = DateTime.UtcNow;
         Validate();
     }
     private void Validate()
@@ -122,24 +124,24 @@ public class PolicyEntity : IAggregateRoot
         CancelBy = userId;
         UpdatedAt = DateTime.UtcNow;
     }
-    public void Inactivate(Guid userId, bool authorized)
-    {
-        bool hasMovements = _policyPayments.Count != 0;
-        if (hasMovements && !authorized)
-            throw new Exception("No se puede inactivar una póliza con movimientos sin autorización.");
+    //public void Inactivate(Guid userId, bool authorized)
+    //{
+    //    bool hasMovements = _policyPayments.Count != 0;
+    //    if (hasMovements && !authorized)
+    //        throw new Exception("No se puede inactivar una póliza con movimientos sin autorización.");
 
-        if (Status == PolicyStatusType.Canceled)
-            throw new Exception("No se puede inactivar una póliza cancelada.");
+    //    if (Status == PolicyStatusType.Canceled)
+    //        throw new Exception("No se puede inactivar una póliza cancelada.");
 
-        Status = PolicyStatusType.Inactive;
-        InactiveBy = userId;
-        UpdatedAt = DateTime.UtcNow;
-    }
+    //    Status = PolicyStatusType.Inactive;
+    //    InactiveBy = userId;
+    //    UpdatedAt = DateTime.UtcNow;
+    //}
     public void AddPayment(Guid id, DateTime date, decimal amount, string? note, Guid createdBy)
     {
         var payment = PolicyPaymentEntity.Create(id, Id, DateTime.UtcNow, date, amount, note, createdBy);
         _policyPayments.Add(payment);
-        UpdatedAt = DateTime.UtcNow;
+        
     }
-   
+
 }

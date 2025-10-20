@@ -12,7 +12,7 @@ namespace AMartinezTech.Infrastructure.Insurances;
 
 public class InsuranceReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IInsuranceReadRepository
 {
-    public async Task<IReadOnlyList<InsuranceEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
+    public async Task<IReadOnlyList<InsuranceEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
     {
         var result = new List<InsuranceEntity>();
         using (var conn = GetConnection())

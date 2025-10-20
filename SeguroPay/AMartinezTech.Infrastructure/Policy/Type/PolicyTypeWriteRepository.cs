@@ -65,7 +65,7 @@ public class PolicyTypeWriteRepository(string connectionString) : AdoRepositoryB
         }
         catch (Exception ex)
         {
-            throw new DatabaseException("Error inesperado en infraestructura. Creando registro.!", ex);
+            throw new DatabaseException("Error inesperado en infraestructura. actualizando registro.!", ex);
         }
     }
 }

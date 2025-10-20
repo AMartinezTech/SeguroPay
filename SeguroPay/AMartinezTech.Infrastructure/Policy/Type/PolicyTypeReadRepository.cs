@@ -10,7 +10,7 @@ namespace AMartinezTech.Infrastructure.Policy.Type;
 
 public class PolicyTypeReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IPolicyTypeReadRepository
 {
-    public async Task<IReadOnlyList<PolicyTypeEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActive = null)
+    public async Task<IReadOnlyList<PolicyTypeEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? isActive = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
     {
         var result = new List<PolicyTypeEntity>();
         using (var conn = GetConnection())

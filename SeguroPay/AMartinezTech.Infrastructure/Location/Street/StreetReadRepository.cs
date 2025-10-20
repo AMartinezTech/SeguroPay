@@ -10,7 +10,7 @@ namespace AMartinezTech.Infrastructure.Location.Street;
 
 public class StreetReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IStreetReadRepository
 {
-    public async Task<IReadOnlyList<StreetEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
+    public async Task<IReadOnlyList<StreetEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
     {
         var result = new List<StreetEntity>();
         using (var conn = GetConnection())

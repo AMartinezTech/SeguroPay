@@ -10,7 +10,7 @@ namespace AMartinezTech.Infrastructure.Clients.Conversations;
 
 public class ClientConversationReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IClientConversationReadRepository
 {
-    public async Task<IReadOnlyList<ClientConversationEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
+    public async Task<IReadOnlyList<ClientConversationEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
     {
         var result = new List<ClientConversationEntity>();
         using (var conn = GetConnection())

@@ -11,7 +11,7 @@ namespace AMartinezTech.Infrastructure.Clients;
 
 public class ClientReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IClientReadRepository
 {
-    public async Task<IReadOnlyList<ClientEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
+    public async Task<IReadOnlyList<ClientEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
     {
         var result = new List<ClientEntity>();
         using (var conn = GetConnection())

@@ -21,15 +21,6 @@ public class PolicyApplicationService(IPolicyReadRepository readRepository, IPol
         var result = await GetPolicyById(id);
         return PolicyMapper.ToDto(result);
     }
-
-    public async Task<ByDateResult<PolicyDto>> GetByDateAsync(DateTime initialDate, DateTime endDate, bool? IsActive)
-    {
-        var result = await _readRepository.GetByDateAsync(initialDate, endDate, IsActive);
-        var dtoList = PolicyMapper.ToDtoList(result.Data);
-
-        return new ByDateResult<PolicyDto>(initialDate, endDate, dtoList);
-    }
-
     public async Task<List<PolicyDto>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
     {
         var result = await _readRepository.FilterAsync(filters, globalSearch, IsActive);
@@ -55,7 +46,7 @@ public class PolicyApplicationService(IPolicyReadRepository readRepository, IPol
         //Create
         if (dto.Id == Guid.Empty)
         {
-            entity = PolicyEntity.Create(
+            entity = PolicyEntity.Create(Guid.Empty,
              dto.PolicyNo,
              dto.PolicyTypeId,
              dto.ClientId,
@@ -108,11 +99,6 @@ public class PolicyApplicationService(IPolicyReadRepository readRepository, IPol
         await _writeRepository.UpdateAsync(entity);
     }
 
-    public async Task InactivateAsync(Guid id, Guid userId, bool authorized)
-    {
-        var entity = await GetPolicyById(id);
-        entity.Inactivate(userId, authorized);
-        await _writeRepository.UpdateAsync(entity);
-    }
+    
     #endregion
 }
