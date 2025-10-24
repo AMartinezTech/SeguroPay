@@ -15,9 +15,9 @@ public class UserController(UserApplicationService service)
     {
         return await _service.GetByIdUserAsync(id);
     }
-    internal async Task<BindingList<UserViewModel>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
+    internal async Task<BindingList<UserViewModel>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? search = null)
     {
-        var result = await _service.FilterUsersAsync(filters, globalSearch, IsActive);
+        var result = await _service.FilterUsersAsync(filters, search);
         return new BindingList<UserViewModel>(UserViewModel.ToModelList(result));
     }
 }

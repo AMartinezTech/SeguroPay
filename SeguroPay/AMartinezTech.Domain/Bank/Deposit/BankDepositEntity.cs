@@ -11,7 +11,7 @@ namespace AMartinezTech.Domain.Bank.Deposit;
 public class BankDepositEntity : IAggregateRoot
 {
     public Guid Id { get; private set; }
-    public ValueEnum<BankDepositType> Type { get; private set; }
+    public ValueEnum<BankDeposits> Type { get; private set; }
     public ValueGuid BankAccountId { get; private set; }
     public ValuePositiveNum Amount { get; private set; }
     public DateTime Date { get; private set; }
@@ -20,7 +20,7 @@ public class BankDepositEntity : IAggregateRoot
     public DateTime CreatedAt { get; private set; }
     public Guid CreatedBy { get; private set; }
 
-    private BankDepositEntity(Guid id, ValueEnum<BankDepositType> type, ValueGuid bankAccountId, ValuePositiveNum amount, DateTime date, string? reference, string? note, DateTime createdAt, Guid createdBy)
+    private BankDepositEntity(Guid id, ValueEnum<BankDeposits> type, ValueGuid bankAccountId, ValuePositiveNum amount, DateTime date, string? reference, string? note, DateTime createdAt, Guid createdBy)
     {
         Id = id;
         Type = type;
@@ -36,6 +36,6 @@ public class BankDepositEntity : IAggregateRoot
     public static BankDepositEntity Create(Guid id, string type, Guid bankAccountId, decimal amount, DateTime date, string? reference, string? note, DateTime createdAt, Guid createdBy)
     {
         id = CreateGuid.EnsureId(id);
-        return new BankDepositEntity(id, ValueEnum<BankDepositType>.Create(type), ValueGuid.Create(bankAccountId,"banco"), ValuePositiveNum.Create(amount,"Monto"), date, reference, note, createdAt, createdBy);
+        return new BankDepositEntity(id, ValueEnum<BankDeposits>.Create(type), ValueGuid.Create(bankAccountId,"banco"), ValuePositiveNum.Create(amount,"Monto"), date, reference, note, createdAt, createdBy);
     }
 }

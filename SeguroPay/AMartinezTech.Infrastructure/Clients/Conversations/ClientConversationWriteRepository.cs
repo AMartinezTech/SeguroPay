@@ -1,5 +1,5 @@
 ﻿using AMartinezTech.Application.Client.Conversation.Interfaces;
-using AMartinezTech.Domain.Client.Entitties;
+using AMartinezTech.Domain.Client;
 using AMartinezTech.Infrastructure.Utils.Exceptions;
 using AMartinezTech.Infrastructure.Utils.Persistence;
 using Microsoft.Data.SqlClient;

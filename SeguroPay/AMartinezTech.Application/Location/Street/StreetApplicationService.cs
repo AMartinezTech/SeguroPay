@@ -1,5 +1,6 @@
 ﻿using AMartinezTech.Application.Location.Street.Interfaces;
-using AMartinezTech.Domain.Location.Entities; 
+using AMartinezTech.Domain.Location.Entities;
+using AMartinezTech.Domain.Utils.Exception;
 
 namespace AMartinezTech.Application.Location.Street;
 
@@ -9,15 +10,15 @@ public class StreetApplicationService(IStreetReadRepository readRepository, IStr
     private readonly IStreetWriteRepository _writeRepository = writeRepository;
 
     #region "Read"
-    public async Task<List<StreetDto>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
+    public async Task<List<StreetDto>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null)
     {
-        var result = await _readRepository.FilterAsync(filters, globalSearch, IsActive);
+        var result = await _readRepository.FilterAsync(filters, globalSearch);
         return StreetMapper.ToDtoList(result);
     }
     
     public async Task<StreetDto> StreetGetByIdAsync(Guid id)
     {
-        var result = await _readRepository.GetByIdAsync(id);
+        var result = await _readRepository.GetByIdAsync(id) ?? throw new Exception($"{ErrorMessages.Get(ErrorType.RecordDoesDotExist)} - Street"); ;
         return StreetMapper.ToDto(result);
     }
     #endregion

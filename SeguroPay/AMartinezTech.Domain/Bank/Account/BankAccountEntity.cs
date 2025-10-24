@@ -12,12 +12,12 @@ public class BankAccountEntity : IAggregateRoot
     public DateTime CreatedAt { get; private set; }
     public ValueBankAccountName Name { get; private set; }
     public ValueBankAccountNumber Number { get; private set; }
-    public ValueEnum<BankAccountType> Type { get; private set; }
+    public ValueEnum<BankAccountTypes> Type { get; private set; }
     public string? ContactName { get; private set; }
     public string? ContactPhone { get; private set; }
     public bool IsActive { get; private set; }
 
-    private BankAccountEntity(Guid id, DateTime createdAt, ValueBankAccountName name, ValueBankAccountNumber number, ValueEnum<BankAccountType> type, string? contactName, string? contactPhone, bool isActive)
+    private BankAccountEntity(Guid id, DateTime createdAt, ValueBankAccountName name, ValueBankAccountNumber number, ValueEnum<BankAccountTypes> type, string? contactName, string? contactPhone, bool isActive)
     {
         Id = id;
         CreatedAt = createdAt;
@@ -32,7 +32,7 @@ public class BankAccountEntity : IAggregateRoot
     public static BankAccountEntity Create(Guid id, DateTime createdAt, string name, string number, string type, string? contactName, string? contactPhone, bool isActive)
     {
         id = CreateGuid.EnsureId(id);
-        return new BankAccountEntity(id, createdAt, ValueBankAccountName.Create(name), ValueBankAccountNumber.Create(number), ValueEnum<BankAccountType>.Create(type), contactName, contactPhone, isActive);
+        return new BankAccountEntity(id, createdAt, ValueBankAccountName.Create(name), ValueBankAccountNumber.Create(number), ValueEnum<BankAccountTypes>.Create(type), contactName, contactPhone, isActive);
     }
     public void Activate() => IsActive = true;
     public void Deactivate() => IsActive = false;

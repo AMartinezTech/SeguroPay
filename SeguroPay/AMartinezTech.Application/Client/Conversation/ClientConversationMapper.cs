@@ -1,4 +1,4 @@
-﻿using AMartinezTech.Domain.Client.Entitties;
+﻿using AMartinezTech.Domain.Client;
 
 namespace AMartinezTech.Application.Client.Conversation;
 

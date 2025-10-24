@@ -12,27 +12,19 @@ namespace AMartinezTech.Infrastructure.Data.Specifications;
 /// <param name="dateRanges">Diccionario de campos de fecha con la sentencia BETWEEN)</param>
 public class SqlFilterSpecification(
     Dictionary<string, object?>? filters = null,
-    Dictionary<string, object?>? search = null, 
-    bool? isActive = null,
+    Dictionary<string, object?>? search = null,  
     Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null
     )
 {
     private readonly Dictionary<string, object?>? _filters = filters;
-    private readonly Dictionary<string, object?>? _globalSearch = search;
-    private readonly bool? _isActive = isActive;
+    private readonly Dictionary<string, object?>? _globalSearch = search; 
     private readonly Dictionary<string, (DateTime? start, DateTime? end)>? _dateRanges = dateRanges;
 
     public string BuildCondition(SqlCommand cmd)
     {
         var sb = new StringBuilder("WHERE 1=1");
 
-        // 🔹 Filtro por estado
-        if (_isActive.HasValue)
-        {
-            sb.Append(" AND is_active = @is_active");
-            cmd.Parameters.AddWithValue("@is_active", _isActive.Value);
-        }
-
+        
         // 🔹 Filtros exactos (AND)
         if (_filters is { Count: > 0 })
         {

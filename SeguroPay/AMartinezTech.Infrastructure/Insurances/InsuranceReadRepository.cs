@@ -12,7 +12,7 @@ namespace AMartinezTech.Infrastructure.Insurances;
 
 public class InsuranceReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IInsuranceReadRepository
 {
-    public async Task<IReadOnlyList<InsuranceEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
+    public async Task<IReadOnlyList<InsuranceEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
     {
         var result = new List<InsuranceEntity>();
         using (var conn = GetConnection())
@@ -21,7 +21,7 @@ public class InsuranceReadRepository(string connectionString) : AdoRepositoryBas
 
             using var cmd = new SqlCommand { Connection = conn };
 
-            var spec = new SqlFilterSpecification(filters, globalSearch, IsActive);
+            var spec = new SqlFilterSpecification(filters, globalSearch);
             var whereClause = spec.BuildCondition(cmd);
 
             var sql = $"SELECT TOP 100 * FROM insurances {whereClause} ORDER BY name";

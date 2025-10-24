@@ -1,5 +1,5 @@
 ﻿using AMartinezTech.Application.Client.Interfaces;
-using AMartinezTech.Domain.Client.Entitties;
+using AMartinezTech.Domain.Client;
 using AMartinezTech.Domain.Utils;
 using AMartinezTech.Domain.Utils.Exception;
 using AMartinezTech.Infrastructure.Data.Specifications;
@@ -11,7 +11,7 @@ namespace AMartinezTech.Infrastructure.Clients;
 
 public class ClientReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IClientReadRepository
 {
-    public async Task<IReadOnlyList<ClientEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
+    public async Task<IReadOnlyList<ClientEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null,  Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
     {
         var result = new List<ClientEntity>();
         using (var conn = GetConnection())
@@ -20,7 +20,7 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
 
             using var cmd = new SqlCommand { Connection = conn };
 
-            var spec = new SqlFilterSpecification(filters, globalSearch, IsActive);
+            var spec = new SqlFilterSpecification(filters, globalSearch);
             var whereClause = spec.BuildCondition(cmd);
 
             var sql = $"SELECT TOP 100 * FROM clients {whereClause} ORDER BY first_name, last_name";

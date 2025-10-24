@@ -156,11 +156,11 @@ public partial class FrmStreetView : Form
 
         };
 
-        var globalSearch = new Dictionary<string, object?>
+        var search = new Dictionary<string, object?>
         {
             ["street"] = TextBoxSearch.Text.Trim()
         };
-        _streetList = await _streetController.FilterAsync(filters, globalSearch, null);
+        _streetList = await _streetController.FilterAsync(filters, search);
         if (_streetList.Count > 0)
         {
             DataGridView.DataSource = _streetList;

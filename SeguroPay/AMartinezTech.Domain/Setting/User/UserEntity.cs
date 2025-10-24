@@ -13,11 +13,11 @@ public class UserEntity : IAggregateRoot
     public ValuePassword? Password { get; private set; }
     public ValueUserFullName FullName { get; private set; }
     public ValuePhone Phone { get; private set; }
-    public ValueEnum<RolType> Rol { get; private set; }
+    public ValueEnum<Roles> Rol { get; private set; }
     public bool IsActive { get; private set; }
     public DateTime? CreatedAt { get; private set; }
 
-    private UserEntity(Guid id, ValueUserFullName fullName, ValueEmail? email, ValuePhone phone, ValueUserName? userName, ValuePassword? password, ValueEnum<RolType> rol, bool isActive, DateTime? createdAt)
+    private UserEntity(Guid id, ValueUserFullName fullName, ValueEmail? email, ValuePhone phone, ValueUserName? userName, ValuePassword? password, ValueEnum<Roles> rol, bool isActive, DateTime? createdAt)
     {
         Id = id;
         FullName = fullName;
@@ -35,7 +35,7 @@ public class UserEntity : IAggregateRoot
         Id = id;
         FullName = ValueUserFullName.Create(fullName);
         Phone = ValuePhone.Create(phone, "Phone");
-        Rol = ValueEnum<RolType>.Create(rol);
+        Rol = ValueEnum<Roles>.Create(rol);
         IsActive = isActive;
         CreatedAt = DateTime.UtcNow;
     }
@@ -47,7 +47,7 @@ public class UserEntity : IAggregateRoot
             ValuePhone.Create(phone, "Phone"),
             ValueUserName.Create(userName),
             password,
-            ValueEnum<RolType>.Create(rol),
+            ValueEnum<Roles>.Create(rol),
             IsActive,
             createdAt);
 
@@ -59,7 +59,7 @@ public class UserEntity : IAggregateRoot
             ValuePhone.Create(phone, "Phone"),
             ValueUserName.Create(userName),
             null,
-            ValueEnum<RolType>.Create(rol),
+            ValueEnum<Roles>.Create(rol),
             IsActive,
             createdAt);
 

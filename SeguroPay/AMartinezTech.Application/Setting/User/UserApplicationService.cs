@@ -9,8 +9,7 @@ public class UserApplicationService(IUserWriteRepository writeRepository, IUserR
     private readonly IUserWriteRepository _writeRepository = writeRepository;
     private readonly IUserReadRepository _readRepository = readRepository;
     private readonly ICurrectUser _userContext = userContext;
-
-
+     
     #region "Write"
     public async Task<Guid> PersistenceAsync(UserDto dto)
     {
@@ -42,7 +41,7 @@ public class UserApplicationService(IUserWriteRepository writeRepository, IUserR
 
     private async Task UpdateUserAsync(UserDto dto)
     {
-        var user = await _readRepository.GetByIdAsync(dto.Id);
+        var user = await _readRepository.GetByIdAsync(dto.Id) ?? throw new Exception($"{ErrorMessages.Get(ErrorType.RecordDoesDotExist)} - User"); ;
         user.Update(dto.Id, dto.FullName, dto.Phone, dto.Rol, dto.IsActive);
         await _writeRepository.UpdateAsync(user);
     }
@@ -50,15 +49,15 @@ public class UserApplicationService(IUserWriteRepository writeRepository, IUserR
 
     #region "Read"
 
-    public async Task<List<UserDto>> FilterUsersAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
+    public async Task<List<UserDto>> FilterUsersAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null)
     {
-        var result = await _readRepository.FilterAsync(filters, globalSearch, IsActive);
+        var result = await _readRepository.FilterAsync(filters, globalSearch);
         return UserMapper.ToDtoList(result);
     }
 
     public async Task<UserDto> GetByIdUserAsync(Guid id)
     {
-        var result = await _readRepository.GetByIdAsync(id);
+        var result = await _readRepository.GetByIdAsync(id) ?? throw new Exception($"{ErrorMessages.Get(ErrorType.RecordDoesDotExist)} - User"); ;
         return UserMapper.ToDto(result);
     }
     public async Task<bool> LoginUserAsync(string username, string password)

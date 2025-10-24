@@ -6,9 +6,9 @@ using System.ComponentModel;
 
 namespace AMartinezTech.WinForms.Client;
 
-public class ClientController(ClientApplicationService service, CityPagination cityPagination)
+public class ClientController(ClientAppServices service, CityPagination cityPagination)
 {
-    private readonly ClientApplicationService _service = service;
+    private readonly ClientAppServices _service = service;
     private readonly CityPagination _cityPagination = cityPagination;
 
     internal async Task<Guid> PersistenceAsync(ClientDto dto)
@@ -25,9 +25,9 @@ public class ClientController(ClientApplicationService service, CityPagination c
     {
         return await _service.PaginationAsync(pageNumber, pageSize, IsActive);
     }
-    internal async Task<BindingList<ClientViewModel>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null)
+    internal async Task<BindingList<ClientViewModel>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null )
     {
-        var result = await _service.FilterAsync(filters,globalSearch,IsActive);
+        var result = await _service.FilterAsync(filters,globalSearch);
         var modelList = result.Select(ClientViewModel.ToModel).ToList();
         return new BindingList<ClientViewModel>(modelList);
     }

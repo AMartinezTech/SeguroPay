@@ -10,7 +10,7 @@ namespace AMartinezTech.Infrastructure.Location.Street;
 
 public class StreetReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IStreetReadRepository
 {
-    public async Task<IReadOnlyList<StreetEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
+    public async Task<IReadOnlyList<StreetEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
     {
         var result = new List<StreetEntity>();
         using (var conn = GetConnection())
@@ -19,7 +19,7 @@ public class StreetReadRepository(string connectionString) : AdoRepositoryBase(c
 
             using var cmd = new SqlCommand { Connection = conn };
 
-            var spec = new SqlFilterSpecification(filters, globalSearch, IsActive);
+            var spec = new SqlFilterSpecification(filters, globalSearch);
             var whereClause = spec.BuildCondition(cmd);
                       
             var sql = $"SELECT TOP 100 * FROM streets {whereClause} ORDER BY city_id,street";

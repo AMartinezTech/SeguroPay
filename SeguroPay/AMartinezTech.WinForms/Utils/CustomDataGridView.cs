@@ -102,6 +102,19 @@ public static class CustomDataGridView
             btnPrintCol.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
             datagrid.Columns.Add(btnPrintCol);
         }
+        if (paramsSetting.MenuColumnView)
+        {
+            var col = new DataGridViewImageColumn();
+            using (var ms = new MemoryStream(Resources.menu))
+            {
+                Image resizedImage = new Bitmap(Image.FromStream(ms), new Size(18, 18));
+                col.Image = resizedImage;
+            }
+            col.Name = "menuCol";
+            col.HeaderText = paramsSetting.MenuColumnName;
+            col.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            datagrid.Columns.Add(col);
+        }
         // Suscribir evento después de agregar las columnas
         datagrid.CellMouseEnter += (sender, e) =>
         {
@@ -132,6 +145,11 @@ public static class CustomDataGridView
                 datagrid.Cursor = Cursors.Hand;
                 cursorChanged = true;
             }
+            if (paramsSetting.MenuColumnView && datagrid.Columns.Contains("menuCol") && e.ColumnIndex == datagrid.Columns["menuCol"]!.Index && e.RowIndex >= 0)
+            {
+                datagrid.Cursor = Cursors.Hand;
+                cursorChanged = true;
+            }
 
             // Si el cursor no ha cambiado, establecer el cursor por defecto
             if (!cursorChanged)
@@ -149,12 +167,14 @@ public class CustomDataGridViewParams
     public bool SettingColumnView { get; set; } = false;
     public bool PrintColumnView { get; set; } = false;
     public bool PhoneColumnView { get; set; } = false;
+    public bool MenuColumnView { get; set; } = false;
 
     public string EditColumnName { get; set; } = "EDITAR";
     public string DeleteColumnName { get; set; } = "BORRAR";
     public string SettingColumnName { get; set; } = "CONFIG.";
     public string PrintColumnName { get; set; } = "PRINT";
     public string PhoneColumnName { get; set; } = "CALL";
+    public string MenuColumnName { get; set; } = "MENU";
 
 
 

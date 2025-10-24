@@ -182,7 +182,11 @@ public partial class FrmUserView : Form
     }
     private async void InvokeFilterAsync(bool? IsActive)
     {
-        _userList = await _userController.FilterAsync(null, null, IsActive);
+        var filter = new Dictionary<string, object?>
+        {
+            ["is_active"] = IsActive
+        };
+        _userList = await _userController.FilterAsync(filter, null);
         if (_userList.Count > 0)
         {
             DataGridView.DataSource = _userList;

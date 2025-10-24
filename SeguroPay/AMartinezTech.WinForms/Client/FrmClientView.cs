@@ -47,7 +47,7 @@ public partial class FrmClientView : Form
         {
             ["city_id"] = cityId, 
         }; 
-        var streetList = await _streetController.FilterAsync(filters, null, null);
+        var streetList = await _streetController.FilterAsync(filters, null);
         if (streetList.Count > 0)
         {
             ComboBoxStreet.DataSource = streetList;
@@ -169,8 +169,34 @@ public partial class FrmClientView : Form
     }
     private void FillComboBox()
     {
-        ComboBoxDocIdentityType.DataSource = Enum.GetValues<DocIdentityType>();
-        ComboBoxClientType.DataSource = Enum.GetValues<ClientType>();
+
+        var docIdentityType = Enum.GetValues<DocIdentityTypes>()
+            .Cast<DocIdentityTypes>()
+            .Select(e => new
+            {
+                Value = e,
+                Text = e.GetDisplayName()
+            })
+            .ToList();
+
+        ComboBoxDocIdentityType.DataSource = docIdentityType;
+        ComboBoxDocIdentityType.DisplayMember = "Text";
+        ComboBoxDocIdentityType.ValueMember = "Value";
+
+        var clientType = Enum.GetValues<ClientTypes>()
+            .Cast<ClientTypes>()
+            .Select(e => new
+            {
+                Value = e,
+                Text = e.GetDisplayName()
+            })
+            .ToList();
+
+        ComboBoxClientType.DataSource = clientType;
+        ComboBoxClientType.DisplayMember = "Text";
+        ComboBoxClientType.ValueMember = "Value";
+
+ 
 
     }
     private void SetColorUI()
@@ -332,9 +358,9 @@ public partial class FrmClientView : Form
             Client = new ClientDto
             {
                 Id = ClientId,
-                DocIdentityType = ComboBoxDocIdentityType.Text,
+                DocIdentityType = ComboBoxDocIdentityType.SelectedValue!.ToString()!,
                 DocIdentity = TextBoxDocIdentity.Text.Trim(),
-                ClientType = ComboBoxClientType.Text,
+                ClientType = ComboBoxClientType.SelectedValue!.ToString()!,
                 FirstName = TextBoxFirstName.Text,
                 LastName = TextBoxLastName.Text,
                 Email = TextBoxEmail.Text.Trim(),

@@ -163,48 +163,45 @@ CREATE TABLE policy_types (
     name NVARCHAR(200) NOT NULL,
     is_active BIT NOT NULL DEFAULT 1,
 	insurance_id UNIQUEIDENTIFIER NOT NULL,
-	CONSTRAINT FK_Policy_Ensurance FOREIGN KEY (insurance_id) REFERENCES insurances(id)
+	CONSTRAINT FK_Policy_type_Ensurance FOREIGN KEY (insurance_id) REFERENCES insurances(id)
 );
 
 
 CREATE TABLE policies (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
     policy_no NVARCHAR(50) NOT NULL,
-    created_at DATETIME2 NOT NULL DEFAULT GETDATE(),
-    updated_at DATETIME2 NOT NULL DEFAULT GETDATE(),
-    clients_id UNIQUEIDENTIFIER NOT NULL,
+    policy_type NVARCHAR(50) NOT NULL,
     insurance_id UNIQUEIDENTIFIER NOT NULL,
-    type_id UNIQUEIDENTIFIER NOT NULL,
-    pay_day INT NOT NULL,
-    pay_frencuency NVARCHAR(50) NOT NULL,  -- Mensual, Trimestral, Semestral, Anual
-    amount DECIMAL(18,2) NOT NULL,
-    status NVARCHAR(50) NOT NULL DEFAULT 'Inactiva',  -- Activa, Suspendida, Cancelada, Inactiva
+    clients_id UNIQUEIDENTIFIER NOT NULL,
+    payment_frencuency NVARCHAR(50) NOT NULL,  -- Mensual, Trimestral, Semestral, Anual
+	payment_method NVARCHAR(50) NOT NULL, -- Cash, Tranfer, DebitCard, CreditCard
+    payment_day INT NOT NULL,
+    payment_installment INT DEFAULT 0 NOT NULL,
+	amount DECIMAL(18,2) NOT NULL,
     note NVARCHAR(MAX) NULL,
-    created_by UNIQUEIDENTIFIER NOT NULL,
-    activate_by UNIQUEIDENTIFIER NULL,
-    suspend_by UNIQUEIDENTIFIER NULL,
-    cancel_by UNIQUEIDENTIFIER NULL,
-
+    status NVARCHAR(50) NOT NULL DEFAULT 'Inactive',  -- Activa, Suspendida, Cancelada, Inactiva
+    created_at DATETIME2 NOT NULL DEFAULT GETDATE(),
+    
     -- Foreign keys (asumiendo que existen las tablas clientss, ensurances, types y users)
-    CONSTRAINT FK_Policy_clients FOREIGN KEY (clients_id) REFERENCES clientss(id),
-    CONSTRAINT FK_Policy_Ensurance FOREIGN KEY (insurance_id) REFERENCES insurances(id),
-    CONSTRAINT FK_Policy_Type FOREIGN KEY (type_id) REFERENCES policy_types(id),
-    CONSTRAINT FK_Policy_CreatedBy FOREIGN KEY (created_by) REFERENCES users(id),
-    CONSTRAINT FK_Policy_ActivateBy FOREIGN KEY (activate_by) REFERENCES users(id),
-    CONSTRAINT FK_Policy_SuspendBy FOREIGN KEY (suspend_by) REFERENCES users(id),
-    CONSTRAINT FK_Policy_CancelBy FOREIGN KEY (cancel_by) REFERENCES users(id)
+      CONSTRAINT FK_Policy_clients FOREIGN KEY (clients_id) REFERENCES clients(id),
+      CONSTRAINT FK_Policy_Ensurance FOREIGN KEY (insurance_id) REFERENCES insurances(id),
 );
 
-CREATE TABLE policy_payments (
+ALTER TABLE policies DROP CONSTRAINT FK_Policy_Type ;
+
+
+
+CREATE TABLE incomes (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
-    policy_id UNIQUEIDENTIFIER NOT NULL,
-    date DATE NOT NULL,          -- Fecha en que el clientse pagó
-    amount DECIMAL(18,2) NOT NULL,      -- Monto pagado
+    payment_date DATE NOT NULL,           
     created_at DATETIME2 NOT NULL DEFAULT GETDATE(),
+    doc_id_related UNIQUEIDENTIFIER NOT NULL,
+	income_type NVARCHAR(50) NOT NULL,
+	payment_method  NVARCHAR(50) NOT NULL,
+	made_id NVARCHAR(50) NOT NULL,
     created_by UNIQUEIDENTIFIER NULL,    -- Usuario que registró el pago
-    note NVARCHAR(500) NULL,
+    amount DECIMAL(18,2) NOT NULL,      -- Monto pagado
     
-    CONSTRAINT FK_PolicyPayments_Policy FOREIGN KEY (policy_id) REFERENCES Policies(Id)
 );
 
 

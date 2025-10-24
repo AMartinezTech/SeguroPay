@@ -30,20 +30,20 @@
         {
             components = new System.ComponentModel.Container();
             label1 = new Label();
-            TextBoxPolicyNo = new TextBox();
+            PolicyNo = new TextBox();
             label2 = new Label();
-            ComboBoxInsurance = new ComboBox();
+            Insurance = new ComboBox();
             label3 = new Label();
-            ComboBoxPolicyTypeId = new ComboBox();
-            TextBoxClient = new TextBox();
-            ComboBoxPayFrecuency = new ComboBox();
+            PolicyType = new ComboBox();
+            ClientDetail = new TextBox();
+            PaymentFrequency = new ComboBox();
             label5 = new Label();
             NumericUpDownPayDay = new NumericUpDown();
             label6 = new Label();
-            TextBoxAmount = new TextBox();
+            Amount = new TextBox();
             label7 = new Label();
             label8 = new Label();
-            TextBoxNote = new TextBox();
+            Note = new TextBox();
             PanelLineTop = new Panel();
             PanelAlertMessage = new Panel();
             LabelAlertMessage = new Label();
@@ -53,8 +53,12 @@
             BtnPersistence = new FontAwesome.Sharp.IconButton();
             BtnClear = new FontAwesome.Sharp.IconButton();
             errorProvider1 = new ErrorProvider(components);
-            BtnNewPolicyType = new FontAwesome.Sharp.IconButton();
             BtnSelectClient = new FontAwesome.Sharp.IconButton();
+            label4 = new Label();
+            PaymentMethod = new ComboBox();
+            LabelAlert = new Label();
+            PaymentInstallments = new TextBox();
+            label9 = new Label();
             ((System.ComponentModel.ISupportInitialize)NumericUpDownPayDay).BeginInit();
             PanelAlertMessage.SuspendLayout();
             PanelButtom.SuspendLayout();
@@ -70,13 +74,13 @@
             label1.TabIndex = 0;
             label1.Text = "No. de poliza";
             // 
-            // TextBoxPolicyNo
+            // PolicyNo
             // 
-            TextBoxPolicyNo.Location = new Point(13, 75);
-            TextBoxPolicyNo.Name = "TextBoxPolicyNo";
-            TextBoxPolicyNo.Size = new Size(147, 23);
-            TextBoxPolicyNo.TabIndex = 1;
-            TextBoxPolicyNo.TextChanged += TextBoxPolicyNo_TextChanged;
+            PolicyNo.Location = new Point(13, 75);
+            PolicyNo.Name = "PolicyNo";
+            PolicyNo.Size = new Size(147, 23);
+            PolicyNo.TabIndex = 1;
+            PolicyNo.TextChanged += TextBoxPolicyNo_TextChanged;
             // 
             // label2
             // 
@@ -87,15 +91,15 @@
             label2.TabIndex = 2;
             label2.Text = "Aseguradora";
             // 
-            // ComboBoxInsurance
+            // Insurance
             // 
-            ComboBoxInsurance.FormattingEnabled = true;
-            ComboBoxInsurance.Location = new Point(13, 119);
-            ComboBoxInsurance.Name = "ComboBoxInsurance";
-            ComboBoxInsurance.Size = new Size(195, 23);
-            ComboBoxInsurance.TabIndex = 3;
-            ComboBoxInsurance.SelectedIndexChanged += ComboBoxInsurance_SelectedIndexChanged;
-            ComboBoxInsurance.KeyPress += ComboBoxInsurance_KeyPress;
+            Insurance.FormattingEnabled = true;
+            Insurance.Location = new Point(13, 119);
+            Insurance.Name = "Insurance";
+            Insurance.Size = new Size(195, 23);
+            Insurance.TabIndex = 3;
+            Insurance.SelectedIndexChanged += ComboBoxInsurance_SelectedIndexChanged;
+            Insurance.KeyPress += ComboBoxInsurance_KeyPress;
             // 
             // label3
             // 
@@ -106,34 +110,35 @@
             label3.TabIndex = 4;
             label3.Text = "Tipo";
             // 
-            // ComboBoxPolicyTypeId
+            // PolicyType
             // 
-            ComboBoxPolicyTypeId.FormattingEnabled = true;
-            ComboBoxPolicyTypeId.Location = new Point(13, 163);
-            ComboBoxPolicyTypeId.Name = "ComboBoxPolicyTypeId";
-            ComboBoxPolicyTypeId.Size = new Size(145, 23);
-            ComboBoxPolicyTypeId.TabIndex = 5;
-            ComboBoxPolicyTypeId.SelectedIndexChanged += ComboBoxPolicyTypeId_SelectedIndexChanged;
-            ComboBoxPolicyTypeId.KeyPress += ComboBoxPolicyTypeId_KeyPress;
+            PolicyType.FormattingEnabled = true;
+            PolicyType.Location = new Point(13, 163);
+            PolicyType.Name = "PolicyType";
+            PolicyType.Size = new Size(197, 23);
+            PolicyType.TabIndex = 5;
+            PolicyType.SelectedIndexChanged += ComboBoxPolicyTypeId_SelectedIndexChanged;
+            PolicyType.KeyPress += ComboBoxPolicyTypeId_KeyPress;
             // 
-            // TextBoxClient
+            // ClientDetail
             // 
-            TextBoxClient.Location = new Point(13, 223);
-            TextBoxClient.Multiline = true;
-            TextBoxClient.Name = "TextBoxClient";
-            TextBoxClient.Size = new Size(197, 74);
-            TextBoxClient.TabIndex = 6;
-            TextBoxClient.TextChanged += TextBoxClient_TextChanged;
+            ClientDetail.Enabled = false;
+            ClientDetail.Location = new Point(13, 223);
+            ClientDetail.Multiline = true;
+            ClientDetail.Name = "ClientDetail";
+            ClientDetail.Size = new Size(197, 101);
+            ClientDetail.TabIndex = 7;
+            ClientDetail.TextChanged += TextBoxClient_TextChanged;
             // 
-            // ComboBoxPayFrecuency
+            // PaymentFrequency
             // 
-            ComboBoxPayFrecuency.FormattingEnabled = true;
-            ComboBoxPayFrecuency.Location = new Point(251, 75);
-            ComboBoxPayFrecuency.Name = "ComboBoxPayFrecuency";
-            ComboBoxPayFrecuency.Size = new Size(197, 23);
-            ComboBoxPayFrecuency.TabIndex = 8;
-            ComboBoxPayFrecuency.SelectedIndexChanged += ComboBoxPayFrecuency_SelectedIndexChanged;
-            ComboBoxPayFrecuency.KeyPress += ComboBoxPayFrecuency_KeyPress;
+            PaymentFrequency.FormattingEnabled = true;
+            PaymentFrequency.Location = new Point(251, 75);
+            PaymentFrequency.Name = "PaymentFrequency";
+            PaymentFrequency.Size = new Size(197, 23);
+            PaymentFrequency.TabIndex = 9;
+            PaymentFrequency.SelectedIndexChanged += ComboBoxPayFrecuency_SelectedIndexChanged;
+            PaymentFrequency.KeyPress += ComboBoxPayFrecuency_KeyPress;
             // 
             // label5
             // 
@@ -141,68 +146,72 @@
             label5.Location = new Point(251, 57);
             label5.Name = "label5";
             label5.Size = new Size(110, 15);
-            label5.TabIndex = 9;
+            label5.TabIndex = 8;
             label5.Text = "Frecuencia de pago";
             // 
             // NumericUpDownPayDay
             // 
-            NumericUpDownPayDay.Location = new Point(251, 119);
+            NumericUpDownPayDay.Location = new Point(251, 163);
+            NumericUpDownPayDay.Maximum = new decimal(new int[] { 31, 0, 0, 0 });
+            NumericUpDownPayDay.Minimum = new decimal(new int[] { 25, 0, 0, 0 });
             NumericUpDownPayDay.Name = "NumericUpDownPayDay";
-            NumericUpDownPayDay.Size = new Size(120, 23);
-            NumericUpDownPayDay.TabIndex = 10;
+            NumericUpDownPayDay.Size = new Size(77, 23);
+            NumericUpDownPayDay.TabIndex = 13;
+            NumericUpDownPayDay.Value = new decimal(new int[] { 25, 0, 0, 0 });
             NumericUpDownPayDay.ValueChanged += NumericUpDownPayDay_ValueChanged;
+            NumericUpDownPayDay.KeyPress += NumericUpDownPayDay_KeyPress;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(251, 101);
+            label6.Location = new Point(251, 145);
             label6.Name = "label6";
             label6.Size = new Size(70, 15);
-            label6.TabIndex = 11;
+            label6.TabIndex = 12;
             label6.Text = "Día de pago";
             // 
-            // TextBoxAmount
+            // Amount
             // 
-            TextBoxAmount.Location = new Point(251, 163);
-            TextBoxAmount.Name = "TextBoxAmount";
-            TextBoxAmount.Size = new Size(120, 23);
-            TextBoxAmount.TabIndex = 12;
-            TextBoxAmount.Text = "0.00";
-            TextBoxAmount.TextChanged += TextBoxAmount_TextChanged;
+            Amount.Location = new Point(251, 206);
+            Amount.Name = "Amount";
+            Amount.Size = new Size(197, 23);
+            Amount.TabIndex = 17;
+            Amount.Text = "0.00";
+            Amount.TextChanged += TextBoxAmount_TextChanged;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(251, 145);
+            label7.Location = new Point(251, 188);
             label7.Name = "label7";
-            label7.Size = new Size(67, 15);
-            label7.TabIndex = 13;
-            label7.Text = "Monto RD$";
+            label7.Size = new Size(100, 15);
+            label7.TabIndex = 16;
+            label7.Text = "Monto cuota RD$";
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(251, 189);
+            label8.Location = new Point(251, 232);
             label8.Name = "label8";
             label8.Size = new Size(33, 15);
-            label8.TabIndex = 14;
+            label8.TabIndex = 18;
             label8.Text = "Nota";
             // 
-            // TextBoxNote
+            // Note
             // 
-            TextBoxNote.Location = new Point(251, 207);
-            TextBoxNote.Multiline = true;
-            TextBoxNote.Name = "TextBoxNote";
-            TextBoxNote.Size = new Size(197, 74);
-            TextBoxNote.TabIndex = 15;
+            Note.Location = new Point(251, 250);
+            Note.Multiline = true;
+            Note.Name = "Note";
+            Note.Size = new Size(197, 74);
+            Note.TabIndex = 19;
             // 
             // PanelLineTop
             // 
             PanelLineTop.Dock = DockStyle.Top;
             PanelLineTop.Location = new Point(0, 35);
             PanelLineTop.Name = "PanelLineTop";
-            PanelLineTop.Size = new Size(493, 2);
-            PanelLineTop.TabIndex = 34;
+            PanelLineTop.Size = new Size(478, 2);
+            PanelLineTop.TabIndex = 23;
             // 
             // PanelAlertMessage
             // 
@@ -210,8 +219,8 @@
             PanelAlertMessage.Dock = DockStyle.Top;
             PanelAlertMessage.Location = new Point(0, 0);
             PanelAlertMessage.Name = "PanelAlertMessage";
-            PanelAlertMessage.Size = new Size(493, 35);
-            PanelAlertMessage.TabIndex = 33;
+            PanelAlertMessage.Size = new Size(478, 35);
+            PanelAlertMessage.TabIndex = 24;
             // 
             // LabelAlertMessage
             // 
@@ -226,18 +235,18 @@
             // PanelLineButtom
             // 
             PanelLineButtom.Dock = DockStyle.Bottom;
-            PanelLineButtom.Location = new Point(0, 387);
+            PanelLineButtom.Location = new Point(0, 453);
             PanelLineButtom.Name = "PanelLineButtom";
-            PanelLineButtom.Size = new Size(493, 2);
-            PanelLineButtom.TabIndex = 36;
+            PanelLineButtom.Size = new Size(478, 2);
+            PanelLineButtom.TabIndex = 25;
             // 
             // PanelButtom
             // 
             PanelButtom.Controls.Add(LabelTitle);
             PanelButtom.Dock = DockStyle.Bottom;
-            PanelButtom.Location = new Point(0, 389);
+            PanelButtom.Location = new Point(0, 455);
             PanelButtom.Name = "PanelButtom";
-            PanelButtom.Size = new Size(493, 35);
+            PanelButtom.Size = new Size(478, 35);
             PanelButtom.TabIndex = 35;
             // 
             // LabelTitle
@@ -247,7 +256,7 @@
             LabelTitle.Location = new Point(13, 5);
             LabelTitle.Name = "LabelTitle";
             LabelTitle.Size = new Size(133, 21);
-            LabelTitle.TabIndex = 1;
+            LabelTitle.TabIndex = 0;
             LabelTitle.Text = "Maestro de poliza";
             // 
             // BtnPersistence
@@ -256,10 +265,10 @@
             BtnPersistence.IconChar = FontAwesome.Sharp.IconChar.Save;
             BtnPersistence.IconColor = Color.Black;
             BtnPersistence.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnPersistence.Location = new Point(123, 298);
+            BtnPersistence.Location = new Point(123, 348);
             BtnPersistence.Name = "BtnPersistence";
             BtnPersistence.Size = new Size(85, 85);
-            BtnPersistence.TabIndex = 38;
+            BtnPersistence.TabIndex = 21;
             BtnPersistence.Text = "&Guardar";
             BtnPersistence.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnPersistence.UseVisualStyleBackColor = true;
@@ -271,10 +280,10 @@
             BtnClear.IconChar = FontAwesome.Sharp.IconChar.File;
             BtnClear.IconColor = Color.Black;
             BtnClear.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnClear.Location = new Point(15, 298);
+            BtnClear.Location = new Point(15, 348);
             BtnClear.Name = "BtnClear";
             BtnClear.Size = new Size(85, 85);
-            BtnClear.TabIndex = 37;
+            BtnClear.TabIndex = 20;
             BtnClear.Text = "&Limpiar";
             BtnClear.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnClear.UseVisualStyleBackColor = true;
@@ -284,22 +293,9 @@
             // 
             errorProvider1.ContainerControl = this;
             // 
-            // BtnNewPolicyType
-            // 
-            BtnNewPolicyType.Cursor = Cursors.Hand;
-            BtnNewPolicyType.IconChar = FontAwesome.Sharp.IconChar.PlusSquare;
-            BtnNewPolicyType.IconColor = Color.Black;
-            BtnNewPolicyType.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnNewPolicyType.IconSize = 25;
-            BtnNewPolicyType.Location = new Point(180, 158);
-            BtnNewPolicyType.Name = "BtnNewPolicyType";
-            BtnNewPolicyType.Size = new Size(30, 30);
-            BtnNewPolicyType.TabIndex = 39;
-            BtnNewPolicyType.UseVisualStyleBackColor = true;
-            BtnNewPolicyType.Click += BtnNewPolicyType_Click;
-            // 
             // BtnSelectClient
             // 
+            BtnSelectClient.Cursor = Cursors.Hand;
             BtnSelectClient.IconChar = FontAwesome.Sharp.IconChar.Search;
             BtnSelectClient.IconColor = Color.Black;
             BtnSelectClient.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -307,40 +303,89 @@
             BtnSelectClient.Location = new Point(13, 189);
             BtnSelectClient.Name = "BtnSelectClient";
             BtnSelectClient.Size = new Size(195, 28);
-            BtnSelectClient.TabIndex = 40;
+            BtnSelectClient.TabIndex = 6;
             BtnSelectClient.Text = "Seleccionar Cliente";
             BtnSelectClient.TextAlign = ContentAlignment.MiddleLeft;
             BtnSelectClient.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnSelectClient.UseVisualStyleBackColor = true;
             BtnSelectClient.Click += BtnSelectClient_Click;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(251, 101);
+            label4.Name = "label4";
+            label4.Size = new Size(95, 15);
+            label4.TabIndex = 10;
+            label4.Text = "Método de pago";
+            // 
+            // PaymentMethod
+            // 
+            PaymentMethod.FormattingEnabled = true;
+            PaymentMethod.Location = new Point(251, 119);
+            PaymentMethod.Name = "PaymentMethod";
+            PaymentMethod.Size = new Size(197, 23);
+            PaymentMethod.TabIndex = 11;
+            PaymentMethod.KeyPress += PaymentMethod_KeyPress;
+            // 
+            // LabelAlert
+            // 
+            LabelAlert.AutoSize = true;
+            LabelAlert.Font = new Font("Segoe UI", 12F, FontStyle.Italic);
+            LabelAlert.Location = new Point(251, 348);
+            LabelAlert.Name = "LabelAlert";
+            LabelAlert.Size = new Size(53, 21);
+            LabelAlert.TabIndex = 22;
+            LabelAlert.Text = "label9";
+            LabelAlert.Visible = false;
+            // 
+            // PaymentInstallments
+            // 
+            PaymentInstallments.Location = new Point(352, 163);
+            PaymentInstallments.Name = "PaymentInstallments";
+            PaymentInstallments.Size = new Size(96, 23);
+            PaymentInstallments.TabIndex = 15;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(352, 145);
+            label9.Name = "label9";
+            label9.Size = new Size(93, 15);
+            label9.TabIndex = 14;
+            label9.Text = "Cantidad cuotas";
+            // 
             // FrmPolicyView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(493, 424);
+            ClientSize = new Size(478, 490);
+            Controls.Add(label9);
+            Controls.Add(PaymentInstallments);
+            Controls.Add(LabelAlert);
+            Controls.Add(label4);
+            Controls.Add(PaymentMethod);
             Controls.Add(BtnSelectClient);
-            Controls.Add(BtnNewPolicyType);
             Controls.Add(BtnPersistence);
             Controls.Add(BtnClear);
             Controls.Add(PanelLineButtom);
             Controls.Add(PanelButtom);
             Controls.Add(PanelLineTop);
             Controls.Add(PanelAlertMessage);
-            Controls.Add(TextBoxNote);
+            Controls.Add(Note);
             Controls.Add(label8);
             Controls.Add(label7);
-            Controls.Add(TextBoxAmount);
+            Controls.Add(Amount);
             Controls.Add(label6);
             Controls.Add(NumericUpDownPayDay);
             Controls.Add(label5);
-            Controls.Add(ComboBoxPayFrecuency);
-            Controls.Add(TextBoxClient);
-            Controls.Add(ComboBoxPolicyTypeId);
+            Controls.Add(PaymentFrequency);
+            Controls.Add(ClientDetail);
+            Controls.Add(PolicyType);
             Controls.Add(label3);
-            Controls.Add(ComboBoxInsurance);
+            Controls.Add(Insurance);
             Controls.Add(label2);
-            Controls.Add(TextBoxPolicyNo);
+            Controls.Add(PolicyNo);
             Controls.Add(label1);
             MaximizeBox = false;
             MinimizeBox = false;
@@ -362,20 +407,20 @@
         #endregion
 
         private Label label1;
-        private TextBox TextBoxPolicyNo;
+        private TextBox PolicyNo;
         private Label label2;
-        private ComboBox ComboBoxInsurance;
+        private ComboBox Insurance;
         private Label label3;
-        private ComboBox ComboBoxPolicyTypeId;
-        private TextBox TextBoxClient;
-        private ComboBox ComboBoxPayFrecuency;
+        private ComboBox PolicyType;
+        private TextBox ClientDetail;
+        private ComboBox PaymentFrequency;
         private Label label5;
         private NumericUpDown NumericUpDownPayDay;
         private Label label6;
-        private TextBox TextBoxAmount;
+        private TextBox Amount;
         private Label label7;
         private Label label8;
-        private TextBox TextBoxNote;
+        private TextBox Note;
         private Panel PanelLineTop;
         private Panel PanelAlertMessage;
         private Label LabelAlertMessage;
@@ -385,7 +430,11 @@
         private FontAwesome.Sharp.IconButton BtnPersistence;
         private FontAwesome.Sharp.IconButton BtnClear;
         private ErrorProvider errorProvider1;
-        private FontAwesome.Sharp.IconButton BtnNewPolicyType;
         private FontAwesome.Sharp.IconButton BtnSelectClient;
+        private Label label4;
+        private ComboBox PaymentMethod;
+        private Label LabelAlert;
+        private Label label9;
+        private TextBox PaymentInstallments;
     }
 }

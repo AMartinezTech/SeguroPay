@@ -1,4 +1,4 @@
-﻿using AMartinezTech.Domain.Client.Entitties;
+﻿using AMartinezTech.Domain.Client;
 
 namespace AMartinezTech.Application.Client;
 
@@ -9,8 +9,8 @@ internal class ClientMapper
         return new ClientDto
         {
             Id = entity.Id,
-            DocIdentityType = entity.DocIdentityType.Type.ToString(),
-            ClientType = entity.ClientType.Type.ToString(),
+            DocIdentityType = entity.DocIdentityType.ToString(),
+            ClientType = entity.ClientType.ToString(),
             DocIdentity = entity.DocIdentity,
             FirstName = entity.FirstName.Value,
             LastName = entity.LastName.Value,

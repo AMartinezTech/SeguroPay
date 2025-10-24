@@ -11,7 +11,7 @@ public class ErrorMessages
             ErrorType.InvalidType => "Tipo de datos invalido.",
             ErrorType.MaxLength => "Longitud máxima de caractéres.",
             ErrorType.MinLength => "Longitud mínima de caractéres.",
-            ErrorType.NoNegativeNum => "El valor númerico no puede cero o ser negativo.",
+            ErrorType.NoNegativeNum => "El valor no puede ser negativo.",
             ErrorType.PostiveNum => "El valor númerico debe ser mayor a cero.",
             ErrorType.RangeValid => "El rango permitdo es",
             ErrorType.NullDetails => "El detalle es obligatorio",

@@ -9,6 +9,6 @@ public static  class DIInsuranceServices
     public static void Add(IServiceCollection services)
     {
         services.AddTransient<FrmInsuranceDashboardView>();
-        services.AddTransient<InsuranceApplicationServices>();
+        services.AddTransient<InsuranceAppServices>();
     }
 }

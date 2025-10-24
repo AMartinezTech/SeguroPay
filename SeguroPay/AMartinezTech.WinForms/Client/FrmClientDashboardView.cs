@@ -1,10 +1,10 @@
-﻿using AMartinezTech.Application.Reports.Clients;
+﻿using AMartinezTech.Application.Reports.Clients.Interfaces;
 using AMartinezTech.Domain.Utils.Enums;
 using AMartinezTech.WinForms.Client.Conversations;
 using AMartinezTech.WinForms.Client.Utils;
 using AMartinezTech.WinForms.Utils;
 using AMartinezTech.WinForms.Utils.Factories;
-using System.ComponentModel;
+using System.ComponentModel; 
 
 
 namespace AMartinezTech.WinForms.Client;
@@ -15,11 +15,11 @@ public partial class FrmClientDashboardView : Form
     private readonly ClientController _controller;
     private BindingList<ClientViewModel> _clientList = [];
     private readonly IFormFactory _formFactory;
-    private readonly ClientReportService _clientReportService;
+    private readonly IClientReportService _clientReportService;
     private bool _isChangeValueControl = false;
     #endregion
     #region "Constructor"
-    public FrmClientDashboardView(IFormFactory formFactory, ClientController clientController, ClientReportService clientReportService)
+    public FrmClientDashboardView(IFormFactory formFactory, ClientController clientController, IClientReportService clientReportService)
     {
         InitializeComponent();
         _formFactory = formFactory;
@@ -101,7 +101,19 @@ public partial class FrmClientDashboardView : Form
     }
     private void FillComboBox()
     {
-        ComboBoxClientType.DataSource = Enum.GetValues<ClientType>();
+
+        var statuses = Enum.GetValues<ClientTypes>()
+          .Cast<ClientTypes>()
+          .Select(e => new
+          {
+              Value = e,
+              Text = e.GetDisplayName()
+          })
+          .ToList();
+
+        ComboBoxClientType.DataSource = statuses;
+        ComboBoxClientType.DisplayMember = "Text";
+        ComboBoxClientType.ValueMember = "Value"; 
     }
     private void InvokeDataViewSetting()
     {
@@ -126,15 +138,14 @@ public partial class FrmClientDashboardView : Form
     {
         try
         {
-
-
+             
             // Detiene el repintado del DataGridView temporalmente
             DataGridView.SuspendLayout();
             DataGridView.DataSource = null;
 
             var filters = new Dictionary<string, object?>
             {
-                ["client_type"] = string.IsNullOrWhiteSpace(ComboBoxClientType.Text) ? null : ComboBoxClientType.Text.Trim()
+                ["client_type"] = string.IsNullOrWhiteSpace(ComboBoxClientType.SelectedValue!.ToString()) ? null : ComboBoxClientType.SelectedValue!.ToString()
 
             };
 
@@ -147,7 +158,7 @@ public partial class FrmClientDashboardView : Form
 
 
             // Ejecuta el filtro en un hilo separado para no bloquear la UI
-            var result = await Task.Run(() => _controller.FilterAsync(filters, globalSearch, CheckBoxIsActive.Checked));
+            var result = await Task.Run(() => _controller.FilterAsync(filters, globalSearch));
 
             // Reactiva el repintado y asigna el resultado
             DataGridView.DataSource = result;

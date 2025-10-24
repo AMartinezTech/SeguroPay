@@ -13,12 +13,12 @@ public partial class FrmClientConversationView : Form
     private CancellationTokenSource? _cts;
     public Guid Id = Guid.Empty;
     public Guid ClientId = Guid.Empty;
-    private readonly ClientConversationApplicationService _clientConversationApplicationService;
+    private readonly ClientConversationAppService _clientConversationApplicationService;
     private BindingList<ClientConversationDto> _clientConversationList = [];
     private readonly ICurrectUser _currentUser; 
     #endregion
     #region "Constructor" 
-    public FrmClientConversationView(ClientConversationApplicationService clientConversationApplicationService, ICurrectUser currentUser)
+    public FrmClientConversationView(ClientConversationAppService clientConversationApplicationService, ICurrectUser currentUser)
     {
         InitializeComponent();
         _clientConversationApplicationService = clientConversationApplicationService;
@@ -153,7 +153,7 @@ public partial class FrmClientConversationView : Form
     }
     private void FillChannelComboBox()
     {
-        ComboBoxChannel.DataSource = Enum.GetValues<ChannelConvertationType>();
+        ComboBoxChannel.DataSource = Enum.GetValues<ChannelConvertations>();
     }
     private async void InvokeFilterAsync()
     {
@@ -171,12 +171,10 @@ public partial class FrmClientConversationView : Form
     {
         ClearMessageErr();
     }
-
     private void TextBoxSubject_TextChanged(object sender, EventArgs e)
     {
         ClearMessageErr();
     }
-
     private void ComboBoxChannel_SelectedIndexChanged(object sender, EventArgs e)
     {
         ClearMessageErr();
@@ -195,7 +193,6 @@ public partial class FrmClientConversationView : Form
     {
         ClearFields();
     }
-
     private async void BtnPersistence_Click(object sender, EventArgs e)
     {
         ClearMessageErr();
@@ -220,7 +217,7 @@ public partial class FrmClientConversationView : Form
 
             UpdatingMemoryData.Excecute(clientConversation, _clientConversationList);
             ClearFields();
-
+            DataGridView.DataSource = _clientConversationList;
             SetMessage("Cerrar - Registro guardado con exito.!", MessageType.Success);
             await SetInitialMessage(2, LabelAlertMessage);
 

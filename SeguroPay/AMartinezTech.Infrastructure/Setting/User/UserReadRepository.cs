@@ -1,6 +1,7 @@
 ﻿using AMartinezTech.Application.Setting.User.Interfaces;
 using AMartinezTech.Domain.Setting.User;
 using AMartinezTech.Domain.Utils.Exception;
+using AMartinezTech.Infrastructure.Data.Specifications;
 using AMartinezTech.Infrastructure.Utils.Exceptions;
 using AMartinezTech.Infrastructure.Utils.Persistence;
 using Microsoft.Data.SqlClient;
@@ -9,36 +10,21 @@ namespace AMartinezTech.Infrastructure.Setting.User;
 
 public class UserReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IUserReadRepository
 {
-    public async Task<IReadOnlyList<UserEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
+    public async Task<IReadOnlyList<UserEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? search = null,  Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
     {
         var result = new List<UserEntity>();
         using (var conn = GetConnection())
         {
             await conn.OpenAsync();
+            using var cmd = new SqlCommand { Connection = conn };
 
-            // Base query
-            var sql = @"SELECT TOP 100 id, user_name, email, password, full_name, phone, rol, is_active, created_at FROM users WHERE 1=1";
-            var cmd = new SqlCommand { Connection = conn };
 
-            if (IsActive.HasValue)
-            {
-                sql += " AND is_active=@is_active";
-                cmd.Parameters.AddWithValue("@is_active", IsActive.Value);
-            }
+            var spec = new SqlFilterSpecification(filters, search, dateRanges);
+            var whereClause = spec.BuildCondition(cmd);
+
+
+            var sql = @$"SELECT TOP 100 id, user_name, email, password, full_name, phone, rol, is_active, created_at FROM users {whereClause}";
              
-            int paramIndex = 0;
-            if (filters != null)
-            {
-                foreach (var filter in filters)
-                {
-                    if (filter.Value is null) continue;
-
-                    string paramName = $"@p{paramIndex++}";
-                    sql += $" AND {filter.Key} LIKE {paramName}";
-                    cmd.Parameters.AddWithValue(paramName, $"%{filter.Value}%");
-                }
-            }
-
             cmd.CommandText = sql;
 
             using var reader = await cmd.ExecuteReaderAsync();

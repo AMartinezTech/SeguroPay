@@ -12,12 +12,12 @@ public partial class FrmInsuranceDashboardView : Form
 {
     #region "Fields"
     private Guid InsuranceId { get; set; } = Guid.Empty;
-    private readonly InsuranceApplicationServices _services;
+    private readonly InsuranceAppServices _services;
     private CancellationTokenSource? _cts;
     private BindingList<InsuranceDto> _insuranceList = [];
     #endregion
     #region "Constructor"
-    public FrmInsuranceDashboardView(InsuranceApplicationServices services)
+    public FrmInsuranceDashboardView(InsuranceAppServices services)
     {
         InitializeComponent();
         SetColorUI();
@@ -160,10 +160,16 @@ public partial class FrmInsuranceDashboardView : Form
         TextBoxContactPhone.Text = data.ContactPhone;
         TextBoxAddress.Text = data.Address;
     }
-    private async void InvokeFilterAsync(bool? IsActive)
+    private async void InvokeFilterAsync(bool isActive)
     {
         DataGridView.DataSource = null;
-        var result = await _services.FilterAsync(null, null, IsActive);
+
+        var filter = new Dictionary<string, object?>
+        {
+            ["is_active"] = isActive
+        };
+
+        var result = await _services.FilterAsync(filter, null);
         _insuranceList = new BindingList<InsuranceDto>(result);
 
         if (_insuranceList.Count > 0)

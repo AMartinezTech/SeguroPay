@@ -7,6 +7,9 @@ public static class EnumExtensions
 {
     public static string GetDisplayName(this Enum value)
     {
+        if (value == null)
+            return string.Empty;
+
         return value.GetType()
                     .GetField(value.ToString())
                     ?.GetCustomAttribute<DisplayAttribute>()?

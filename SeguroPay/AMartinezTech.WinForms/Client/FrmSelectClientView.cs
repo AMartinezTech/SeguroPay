@@ -42,8 +42,12 @@ public partial class FrmSelectClientView : Form
             DataGridView.SuspendLayout();
             DataGridView.DataSource = null;
 
+            var filter = new Dictionary<string, object?>
+            {
+                ["is_active"] = true
+            };
 
-            var globalSearch = new Dictionary<string, object?>
+            var search = new Dictionary<string, object?>
             {
                 ["first_name"] = TextBoxSearch.Text.Trim(),
                 ["last_name"] = TextBoxSearch.Text.Trim(),
@@ -52,7 +56,7 @@ public partial class FrmSelectClientView : Form
 
 
             // Ejecuta el filtro en un hilo separado para no bloquear la UI
-            var result = await Task.Run(() => _controller.FilterAsync(null, globalSearch, true));
+            var result = await Task.Run(() => _controller.FilterAsync(filter, search));
 
             // Reactiva el repintado y asigna el resultado
             DataGridView.DataSource = result;

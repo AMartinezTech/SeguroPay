@@ -1,5 +1,5 @@
 ﻿using AMartinezTech.Application.Client.Conversation.Interfaces;
-using AMartinezTech.Domain.Client.Entitties;
+using AMartinezTech.Domain.Client;
 using AMartinezTech.Domain.Utils.Exception;
 using AMartinezTech.Infrastructure.Data.Specifications;
 using AMartinezTech.Infrastructure.Utils.Exceptions;
@@ -10,7 +10,7 @@ namespace AMartinezTech.Infrastructure.Clients.Conversations;
 
 public class ClientConversationReadRepository(string connectionString) : AdoRepositoryBase(connectionString), IClientConversationReadRepository
 {
-    public async Task<IReadOnlyList<ClientConversationEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, bool? IsActive = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
+    public async Task<IReadOnlyList<ClientConversationEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? globalSearch = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
     {
         var result = new List<ClientConversationEntity>();
         using (var conn = GetConnection())
@@ -19,7 +19,7 @@ public class ClientConversationReadRepository(string connectionString) : AdoRepo
 
             using var cmd = new SqlCommand { Connection = conn };
 
-            var spec = new SqlFilterSpecification(filters, globalSearch, IsActive);
+            var spec = new SqlFilterSpecification(filters, globalSearch);
             var whereClause = spec.BuildCondition(cmd);
 
            
