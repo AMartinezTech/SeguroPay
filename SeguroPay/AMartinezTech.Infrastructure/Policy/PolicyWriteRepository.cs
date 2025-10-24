@@ -16,7 +16,7 @@ public class PolicyWriteRepository(string connectionString) : AdoRepositoryBase(
             await conn.OpenAsync();
 
             using var cmd = new SqlCommand { Connection = conn };
-            var sql = @"INSERT INTO policies (id, policy_no, policy_type, insurance_id, clients_id, payment_frencuency, payment_method, payment_day, payment_installment, amount, note, status) VALUES(@Id, @PolicyNo, @PolicyType, @InsuranceId, @ClientId, @PaymentFrequency,  @PaymentMethod, @PaymentDay, @PaymentInstallment, @Amount, @Note, @Status)";
+            var sql = @"INSERT INTO policies (id, policy_no, policy_type, insurance_id, clients_id, payment_frencuency, payment_day, payment_installment, amount, note, status) VALUES(@Id, @PolicyNo, @PolicyType, @InsuranceId, @ClientId, @PaymentFrequency,  @PaymentDay, @PaymentInstallment, @Amount, @Note, @Status)";
 
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@Id", entity.Id); 
@@ -24,8 +24,7 @@ public class PolicyWriteRepository(string connectionString) : AdoRepositoryBase(
             cmd.Parameters.AddWithValue("@PolicyType", entity.PolicyType.ToString()); 
             cmd.Parameters.AddWithValue("@InsuranceId", entity.InsuranceId); 
             cmd.Parameters.AddWithValue("@ClientId", entity.ClientId); 
-            cmd.Parameters.AddWithValue("@PaymentFrequency", entity.PaymentFrequency.ToString()); 
-            cmd.Parameters.AddWithValue("@PaymentMethod", entity.PaymentMethod.ToString());   
+            cmd.Parameters.AddWithValue("@PaymentFrequency", entity.PaymentFrequency.ToString());   
             cmd.Parameters.AddWithValue("@PaymentDay", entity.PaymentDay.Value); 
             cmd.Parameters.AddWithValue("@PaymentInstallment", entity.PaymentInstallment); 
             cmd.Parameters.AddWithValue("@Amount", entity.Amount); 
@@ -54,7 +53,7 @@ public class PolicyWriteRepository(string connectionString) : AdoRepositoryBase(
             await conn.OpenAsync();
 
             using var cmd = new SqlCommand { Connection = conn };
-            var sql = @"UPDATE policies  SET policy_no = @PolicyNo, policy_type = @PolicyType, insurance_id = @InsuranceId, clients_id = @ClientId, payment_frencuency = @PaymentFrequency, payment_method = @PaymentMethod , payment_day = @PaymentDay, payment_installment = @PaymentInstallment, amount = @Amount, note = @Note, status = @Status WHERE id = @Id";
+            var sql = @"UPDATE policies  SET policy_no = @PolicyNo, policy_type = @PolicyType, insurance_id = @InsuranceId, clients_id = @ClientId, payment_frencuency = @PaymentFrequency, payment_day = @PaymentDay, payment_installment = @PaymentInstallment, amount = @Amount, note = @Note, status = @Status WHERE id = @Id";
 
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@Id", entity.Id);
@@ -62,8 +61,7 @@ public class PolicyWriteRepository(string connectionString) : AdoRepositoryBase(
             cmd.Parameters.AddWithValue("@PolicyType", entity.PolicyType.ToString());
             cmd.Parameters.AddWithValue("@InsuranceId", entity.InsuranceId);
             cmd.Parameters.AddWithValue("@ClientId", entity.ClientId);
-            cmd.Parameters.AddWithValue("@PaymentFrequency", entity.PaymentFrequency.ToString());
-            cmd.Parameters.AddWithValue("@PaymentMethod", entity.PaymentMethod.ToString());
+            cmd.Parameters.AddWithValue("@PaymentFrequency", entity.PaymentFrequency.ToString()); 
             cmd.Parameters.AddWithValue("@PaymentDay", entity.PaymentDay.Value);
             cmd.Parameters.AddWithValue("@PaymentInstallment", entity.PaymentInstallment);
             cmd.Parameters.AddWithValue("@Amount", entity.Amount);

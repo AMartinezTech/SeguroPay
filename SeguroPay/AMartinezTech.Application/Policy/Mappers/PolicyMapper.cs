@@ -16,14 +16,14 @@ internal class PolicyMapper
             InsuranceName = entity.InsuranceName,
             ClientId = entity.ClientId,
             ClientName = entity.ClientName,
-            PaymentFrequency = entity.PaymentFrequency.ToString(),
-            PaymentMethod = entity.PaymentMethod.ToString(),
+            PaymentFrequency = entity.PaymentFrequency.ToString(), 
             PaymentDay = entity.PaymentDay.Value,
             PaymentInstallment = entity.PaymentInstallment,
             Amount = entity.Amount,
             Note = entity.Note ?? string.Empty, 
             Status = entity.Status.ToString(),
             CreatedAt = entity.CreatedAt,
+            LastPayment = entity.LastPayment,
         };
     }
 

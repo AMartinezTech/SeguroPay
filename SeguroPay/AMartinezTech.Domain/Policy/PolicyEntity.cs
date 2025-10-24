@@ -16,25 +16,24 @@ public class PolicyEntity : IAggregateRoot
     public Guid ClientId { get; private set; }
     public string? ClientName { get; private set; }
     public PolicyPaymentFrequencies PaymentFrequency { get; private set; } = PolicyPaymentFrequencies.Monthly; // Monthly, Quarterly, Semiannual, Annual
-    public PaymentMethods PaymentMethod { get; private set; }
+ 
     public ValuePolicyPayDay PaymentDay { get; private set; }
     public int PaymentInstallment { get; private set; }
     public decimal Amount { get; private set; }
     public string? Note { get; private set; }
     public PolicyStatus Status { get; private set; } = PolicyStatus.Inactive; // Active, Suspended, Canceled, Inactive
     public DateTime CreatedAt { get; private set; }
-
+    public DateTime? LastPayment { get; private set; }
     private readonly List<IncomeEntity> _payments = [];
     public IReadOnlyCollection<IncomeEntity> Payments => _payments.AsReadOnly();
-    private PolicyEntity(Guid id, string policyNo, PolicyTypes policyType, Guid insuranceId, Guid clientId, PolicyPaymentFrequencies paymentFrequency, PaymentMethods paymentMethod, ValuePolicyPayDay paymentDay, int paymentInstallment, decimal amount, string? note, DateTime? createdAt)
+    private PolicyEntity(Guid id, string policyNo, PolicyTypes policyType, Guid insuranceId, Guid clientId, PolicyPaymentFrequencies paymentFrequency,  ValuePolicyPayDay paymentDay, int paymentInstallment, decimal amount, string? note, DateTime? createdAt)
     {
         Id = id;
         PolicyNo = policyNo;
         PolicyType = policyType;
         InsuranceId = insuranceId;
         ClientId = clientId;
-        PaymentFrequency = paymentFrequency;
-        PaymentMethod = paymentMethod;
+        PaymentFrequency = paymentFrequency; 
         PaymentDay = paymentDay;
         PaymentInstallment = paymentInstallment;
         Amount = amount;
@@ -43,14 +42,14 @@ public class PolicyEntity : IAggregateRoot
         CreatedAt = createdAt ?? DateTime.UtcNow;
         Validate();
     }
-    public static PolicyEntity Create(Guid id, string policyNo, string policyType, Guid insuranceId, Guid clientId, string paymentFrequency, string paymentMethod, int paymentDay, int paymentInstallment, decimal amount, string? note, DateTime? createdAt = null)
+    public static PolicyEntity Create(Guid id, string policyNo, string policyType, Guid insuranceId, Guid clientId, string paymentFrequency,   int paymentDay, int paymentInstallment, decimal amount, string? note, DateTime? createdAt = null)
     {
-        var (_policyType, _paymentFrequency, _paymentMethod) =
-        PolicyEnumValidator.ValidateEnums(policyType, paymentFrequency, paymentMethod);
+        var (_policyType, _paymentFrequency ) =
+        PolicyEnumValidator.ValidateEnums(policyType, paymentFrequency);
 
-        return new PolicyEntity(CreateGuid.EnsureId(id), policyNo, _policyType, insuranceId, clientId, _paymentFrequency, _paymentMethod, ValuePolicyPayDay.Create(paymentDay), paymentInstallment, amount, note, createdAt);
+        return new PolicyEntity(CreateGuid.EnsureId(id), policyNo, _policyType, insuranceId, clientId, _paymentFrequency, ValuePolicyPayDay.Create(paymentDay), paymentInstallment, amount, note, createdAt);
     }
-    public void UpdatePolicy(string policyNo, string policyType, Guid insuranceId, string paymentFrequency, int paymentDay, decimal amount, string? note, string paymentMethod, Guid clientId, int paymentInstallments)
+    public void UpdatePolicy(string policyNo, string policyType, Guid insuranceId, string paymentFrequency, int paymentDay, decimal amount, string? note,  Guid clientId, int paymentInstallments)
     {
         if (_payments.Count != 0)
             throw new Exception($"{ErrorMessages.Get(ErrorType.HasMomevements)}");
@@ -58,8 +57,8 @@ public class PolicyEntity : IAggregateRoot
         if (Status != PolicyStatus.Active && Status != PolicyStatus.Inactive)
             throw new Exception("Solo se puede modificar una póliza activa o inactiva.");
 
-        var (_policyType, _paymentFrequency, _paymentMethod) =
-        PolicyEnumValidator.ValidateEnums(policyType, paymentFrequency, paymentMethod);
+        var (_policyType, _paymentFrequency) =
+        PolicyEnumValidator.ValidateEnums(policyType, paymentFrequency);
 
         PolicyNo = policyNo;
         PolicyType = _policyType;
@@ -67,8 +66,7 @@ public class PolicyEntity : IAggregateRoot
         PaymentFrequency = _paymentFrequency;
         PaymentDay = ValuePolicyPayDay.Create(paymentDay);
         Amount = amount;
-        Note = note;
-        PaymentMethod = _paymentMethod;
+        Note = note; 
         ClientId = clientId;
         PaymentInstallment = paymentInstallments;
         Validate();
@@ -78,10 +76,11 @@ public class PolicyEntity : IAggregateRoot
         if (!Enum.TryParse(status, out PolicyStatus _status)) throw new Exception($"{ErrorMessages.Get(ErrorType.InvalidType)} - Status");
         Status = _status;
     }
-    public void SetPropertiesIdsNames(string insuranceName, string clientName)
+    public void SetAnotherProperties(string insuranceName, string clientName, DateTime? lastPayment)
     {
         InsuranceName = insuranceName;
         ClientName = clientName;
+        LastPayment = lastPayment;
     }
     private void Validate()
     {

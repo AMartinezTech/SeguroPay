@@ -30,7 +30,7 @@ internal class FormatingDGColumns
             HeaderText = "REGISTRADA",
             DataPropertyName = "CreatedAt", // Vincula con la propiedad del resultado
             Width = 100,
-            DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft, Format = "dd/MMM/yyyy" }
+            DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft, Format = "dd-MMM-yyyy" }
 
         };
         dataGridView.Columns.Add(CreatedAt);
@@ -82,25 +82,27 @@ internal class FormatingDGColumns
         };
         dataGridView.Columns.Add(ClientName);
 
-        var PaymentMethod = new DataGridViewTextBoxColumn
-        {
-            Name = "PaymentMethod",
-            HeaderText = "M. DE PAGO",
-            DataPropertyName = "PaymentMethod", // Vincula con la propiedad del resultado
-            Width = 100,
-            DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft },
-        };
-        dataGridView.Columns.Add(PaymentMethod);
+        
 
-        var PaymentFrequency = new DataGridViewTextBoxColumn
+        var LastPayment = new DataGridViewTextBoxColumn
         {
-            Name = "PaymentFrequency",
-            HeaderText = "FRECUENCIA",
-            DataPropertyName = "PaymentFrequency", // Vincula con la propiedad del resultado
+            Name = "LastPayment",
+            HeaderText = "ULT. PAGO",
+            DataPropertyName = "LastPayment", // Vincula con la propiedad del resultado
+            Width = 100,
+            DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft, Format = "dd-MMM-yyyy" },
+        };
+        dataGridView.Columns.Add(LastPayment);
+
+        var PendingPayment = new DataGridViewTextBoxColumn
+        {
+            Name = "PendingPayment",
+            HeaderText = "PAGO",
+            DataPropertyName = "PendingPayment", // Vincula con la propiedad del resultado
             Width = 100,
             DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft },
         };
-        dataGridView.Columns.Add(PaymentFrequency);
+        dataGridView.Columns.Add(PendingPayment);
 
         var Amount = new DataGridViewTextBoxColumn
         {

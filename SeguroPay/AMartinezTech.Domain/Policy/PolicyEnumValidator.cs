@@ -5,13 +5,12 @@ namespace AMartinezTech.Domain.Policy;
 
 internal static class PolicyEnumValidator
 {
-    internal static (PolicyTypes PolicyType, PolicyPaymentFrequencies PayFrequency, PaymentMethods PaymentMethod)
-            ValidateEnums(string policyTypes, string payFrequency, string methodOfPayment)
+    internal static (PolicyTypes PolicyType, PolicyPaymentFrequencies PayFrequency)
+            ValidateEnums(string policyTypes, string payFrequency)
     {
         var _policyType = EnumValidator.ParseEnum<PolicyTypes>(policyTypes, nameof(policyTypes));
-        var _payFrequency = EnumValidator.ParseEnum<PolicyPaymentFrequencies>(payFrequency, nameof(payFrequency));
-        var _paymentMethod = EnumValidator.ParseEnum<PaymentMethods>(methodOfPayment, nameof(methodOfPayment));
+        var _payFrequency = EnumValidator.ParseEnum<PolicyPaymentFrequencies>(payFrequency, nameof(payFrequency)); 
 
-        return (_policyType, _payFrequency, _paymentMethod);
+        return (_policyType, _payFrequency);
     }
 }

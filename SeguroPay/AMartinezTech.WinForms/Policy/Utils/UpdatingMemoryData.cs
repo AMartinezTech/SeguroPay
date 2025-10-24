@@ -16,14 +16,15 @@ internal class UpdatingMemoryData
             item.PolicyNo = dto.PolicyNo;
             item.CreatedAt = dto.CreatedAt;
             item.PolicyType = dto.PolicyType;
-            item.PaymentInstallment = dto.PaymentInstallment;
-            item.PaymentMethod = dto.PaymentMethod;
+            item.PaymentInstallment = dto.PaymentInstallment; 
             item.PaymentDay = dto.PaymentDay;
             item.InsuranceId = dto.InsuranceId;
             item.InsuranceName = dto.InsuranceName;
             item.ClientId = dto.ClientId;
             item.ClientName = dto.ClientName;
             item.Status = dto.Status;
+            item.LastPayment = dto.LastPayment;
+            
 
         }
         else

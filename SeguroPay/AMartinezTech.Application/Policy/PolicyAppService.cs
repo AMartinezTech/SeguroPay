@@ -79,8 +79,7 @@ public class PolicyAppService(IPolicyReadRepository readRepository, IPolicyWrite
                  dto.PolicyType,
                  dto.InsuranceId,
                  dto.ClientId,
-                 dto.PaymentFrequency,
-                 dto.PaymentMethod,
+                 dto.PaymentFrequency, 
                  dto.PaymentDay,
                  dto.PaymentInstallment,
                  dto.Amount,
@@ -95,7 +94,7 @@ public class PolicyAppService(IPolicyReadRepository readRepository, IPolicyWrite
         {
             entity = await GetPolicyById(dto.Id);
 
-            entity.UpdatePolicy(dto.PolicyNo, dto.PolicyType, dto.InsuranceId, dto.PaymentFrequency, dto.PaymentDay, dto.Amount, dto.Note, dto.PaymentMethod, dto.ClientId,dto.PaymentInstallment);
+            entity.UpdatePolicy(dto.PolicyNo, dto.PolicyType, dto.InsuranceId, dto.PaymentFrequency, dto.PaymentDay, dto.Amount, dto.Note,   dto.ClientId,dto.PaymentInstallment);
 
             await _writeRepository.UpdateAsync(entity);
 

@@ -184,18 +184,12 @@ public partial class FrmPolicyDashboardView : Form
             if (PolicyType.SelectedValue != null && PolicyType.SelectedValue.ToString() != "[Todas]")
                 filters["policy_type"] = PolicyType.SelectedValue.ToString();
 
-            if (Insurance.SelectedValue != null && Guid.TryParse(Insurance.SelectedValue.ToString(), out var insuranceId) &&
-     insuranceId != Guid.Empty)
+            if (Insurance.SelectedValue != null && Guid.TryParse(Insurance.SelectedValue.ToString(), out var insuranceId) && insuranceId != Guid.Empty)
             {
                 filters["insurance_id"] = insuranceId;
             }
 
-            //var filters = new Dictionary<string, object?>
-            //{
-            //    ["status"] = string.IsNullOrWhiteSpace(Status.SelectedValue!.ToString()) ? null : Status.SelectedValue!.ToString(),
-            //    ["policy_type"] = string.IsNullOrWhiteSpace(PolicyType.SelectedValue!.ToString()) ? null : PolicyType.SelectedValue!.ToString(),
-            //};
-
+           
             var searchText = TextBoxSearch.Text.Trim();
             var search = new Dictionary<string, object?>
             {
@@ -211,7 +205,7 @@ public partial class FrmPolicyDashboardView : Form
             // Reactiva el repintado y asigna el resultado
             _list = new BindingList<PolicyDto>(result);
             DataGridView.DataSource = _list;
-            DataGridView.TranslateEnumColumns("PaymentFrequency", "PaymentMethod", "PolicyType");
+            DataGridView.TranslateEnumColumns("PolicyType");
 
             // Traducir solo las columnas de enum
             LoadPolicyStatusChart();
@@ -435,24 +429,40 @@ public partial class FrmPolicyDashboardView : Form
             var contextMenu = new ContextMenuStrip();
 
             // Crear las opciones del menú
-            var activateItem = new ToolStripMenuItem("-> Activar", null, async (s, ev)
+            var activateItem = new ToolStripMenuItem("→ Activar", null, async (s, ev)
                 => await SafeExecuteAsync(() => _applicationService.ActiveAsync(policyId)));
 
-            var cancelItem = new ToolStripMenuItem("-> Cancelar", null, async (s, ev)
+            var cancelItem = new ToolStripMenuItem("→ Cancelar", null, async (s, ev)
                 => await SafeExecuteAsync(() => _applicationService.CancelAsync(policyId, true)));
 
 
-            var suspendItem = new ToolStripMenuItem("-> Suspender", null, async (s, ev)
+            var suspendItem = new ToolStripMenuItem("→ Suspender", null, async (s, ev)
                 => await SafeExecuteAsync(() => _applicationService.SuspendAsync(policyId, true)));
-
-
-
+            
+            
             // Agregar las opciones al menú
             contextMenu.Items.AddRange([activateItem, cancelItem, suspendItem]);
+
+
+            // Evaluar si la póliza tiene pago pendiente
+            var pendingStatus = DataGridView.Rows[e.RowIndex].Cells["PendingPayment"].Value?.ToString();
+            if (pendingStatus == "Pendiente")
+            {
+
+                // Separador antes del pago
+                contextMenu.Items.Add(new ToolStripSeparator());
+
+                var payItem = new ToolStripMenuItem("→ Cobrar", null); //, async (s, ev)
+                    // => await SafeExecuteAsync(() => _applicationService.SuspendAsync(policyId))); 
+
+                // Insertarlo al inicio del menú
+                contextMenu.Items.Add( payItem);
+            }
 
             // Mostrar el menú en la posición del clic
             var cellRectangle = DataGridView.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
             var menuX = DataGridView.PointToScreen(new Point(cellRectangle.Left + 20, cellRectangle.Bottom));
+            contextMenu.Cursor = Cursors.Hand;
             contextMenu.Show(menuX);
 
 

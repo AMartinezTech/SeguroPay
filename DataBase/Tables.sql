@@ -198,7 +198,7 @@ CREATE TABLE incomes (
     doc_id_related UNIQUEIDENTIFIER NOT NULL,
 	income_type NVARCHAR(50) NOT NULL,
 	payment_method  NVARCHAR(50) NOT NULL,
-	made_id NVARCHAR(50) NOT NULL,
+	made_in NVARCHAR(50) NOT NULL,
     created_by UNIQUEIDENTIFIER NULL,    -- Usuario que registró el pago
     amount DECIMAL(18,2) NOT NULL,      -- Monto pagado
     

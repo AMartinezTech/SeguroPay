@@ -88,7 +88,7 @@ public class PolicyReadRepository(string connectionString) : AdoRepositoryBase(c
             var spec = new SqlFilterSpecification(filters, search, dateRanges);
             var whereClause = spec.BuildCondition(cmd);
 
-            var sql = $@"SELECT TOP 250 
+            var sql = $@"SELECT TOP 500 
                 p.id, 
                 p.policy_no, 
                 p.created_at,
@@ -102,9 +102,9 @@ public class PolicyReadRepository(string connectionString) : AdoRepositoryBase(c
                 p.status, 
                 i.id AS insurance_id,
                 c.id AS clients_id,
-                c.doc_identity AS doc_identity,
-                p.payment_method,
-                p.payment_installment
+                c.doc_identity AS doc_identity, 
+                p.payment_installment,
+                (SELECT MAX(payment_date) FROM incomes WHERE doc_id_related=p.id) as last_payment  
                 FROM policies p
                 INNER JOIN insurances i ON p.insurance_id = i.id 
                 INNER JOIN clients c ON p.clients_id = c.id 
@@ -114,6 +114,8 @@ public class PolicyReadRepository(string connectionString) : AdoRepositoryBase(c
             using var reader = await cmd.ExecuteReaderAsync();
             while (await reader.ReadAsync())
                 result.Add(MapToPolicy.ToEntity(reader));
+
+             
         }
         return result;
     }
@@ -130,7 +132,7 @@ public class PolicyReadRepository(string connectionString) : AdoRepositoryBase(c
 
            
 
-            var sql = $@"SELECT TOP 250 
+            var sql = $@"SELECT TOP 1 
                p.id, 
                 p.policy_no, 
                 p.created_at,
@@ -144,9 +146,9 @@ public class PolicyReadRepository(string connectionString) : AdoRepositoryBase(c
                 p.status, 
                 i.id AS insurance_id,
                 c.id AS clients_id,
-                c.doc_identity AS doc_identity,
-                p.payment_method,
-                p.payment_installment
+                c.doc_identity AS doc_identity, 
+                p.payment_installment,
+                (SELECT MAX(payment_date) FROM incomes WHERE doc_id_related=p.id) as last_payment
                 FROM policies p 
                 INNER JOIN insurances i ON p.insurance_id = i.id 
                 INNER JOIN clients c ON p.clients_id = c.id 
@@ -162,6 +164,7 @@ public class PolicyReadRepository(string connectionString) : AdoRepositoryBase(c
             {
                 entity = MapToPolicy.ToEntity(reader);
             }
+            reader.Close();
 
             if (entity == null) throw new DatabaseException($"{ErrorMessages.Get(ErrorType.RecordDoesDotExist)}"); ;
 
@@ -179,12 +182,12 @@ public class PolicyReadRepository(string connectionString) : AdoRepositoryBase(c
                 doc_id_related,
                 income_type,
                 payment_method,
-                made_id,
+                made_in,
                 created_by,
                 amount
             FROM incomes
             WHERE doc_id_related = @policyId
-            AND type = 'Insured'
+            AND income_type = 'Insured'
             ORDER BY created_at ASC;";
 
             using (var cmdIncome = new SqlCommand(sqlIncomes, conn))
@@ -195,7 +198,7 @@ public class PolicyReadRepository(string connectionString) : AdoRepositoryBase(c
                 while (await readerIncome.ReadAsync())
                     incomes.Add(MapToPolicy.ToIncomeEntity(readerIncome));
             }
-
+              
             // =================================
             // 3️⃣ ASOCIAR LOS PAGOS A LA POLIZA
             // =================================

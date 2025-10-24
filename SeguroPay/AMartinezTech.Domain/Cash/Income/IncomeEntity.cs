@@ -13,7 +13,7 @@ public class IncomeEntity
     public PaymentMethods PaymentMethod { get; private set; } 
     public IncomeMadeIn MadeIn { get; private set; }
     public Guid CreatedBy { get; private set; }
-    public decimal Amount { get; private set; }
+    public decimal Amount { get; private set; } 
 
     private IncomeEntity(Guid id, DateTime paymentDate, DateTime createdAt, Guid docIdRelated, IncomeTypes incomeType, PaymentMethods paymentMethod, IncomeMadeIn madeIn, Guid createdBy, decimal amount)
     {

@@ -38,8 +38,7 @@ public partial class FrmPolicyView : Form
         SetMessage("Formulario preparado para recibir datos.", MessageType.Information);
         FillInsurance();
         FillPolicyType();
-        FillPaymentFrequency();
-        FillPaymentMethod();
+        FillPaymentFrequency(); 
         Amount.AllowDecimalNumbers();
         PaymentInstallments.AllowDecimalNumbers();
         if (PolicyId != Guid.Empty)
@@ -60,8 +59,7 @@ public partial class FrmPolicyView : Form
         ClientId = PolicyCurrentData.ClientId;
         var _client = await _clientApplicationService.GetByIdAsync(ClientId);
         ClientDetail.Text = $"{_client.FirstName} {_client.LastName}{Environment.NewLine}{_client.DocIdentity}{Environment.NewLine}{_client.Phone}";
-        PaymentFrequency.SelectedValue = Enum.Parse<PolicyPaymentFrequencies>(PolicyCurrentData.PaymentFrequency); ;
-        PaymentMethod.SelectedValue = Enum.Parse<PaymentMethods>(PolicyCurrentData.PaymentMethod);
+        PaymentFrequency.SelectedValue = Enum.Parse<PolicyPaymentFrequencies>(PolicyCurrentData.PaymentFrequency);  
         PolicyType.SelectedValue = Enum.Parse<PolicyTypes>(PolicyCurrentData.PolicyType);
         NumericUpDownPayDay.Value = PolicyCurrentData.PaymentDay;
         PaymentInstallments.Text = PolicyCurrentData.PaymentInstallment.ToString();
@@ -103,25 +101,10 @@ public partial class FrmPolicyView : Form
 
         PaymentFrequency.DataSource = statuses;
         PaymentFrequency.DisplayMember = "Text";
-        PaymentFrequency.ValueMember = "Value"; 
+        PaymentFrequency.ValueMember = "Value";
         PaymentFrequency.SelectedIndex = -1;
     }
-    private void FillPaymentMethod()
-    {
-        var statuses = Enum.GetValues<PaymentMethods>()
-            .Cast<PaymentMethods>()
-            .Select(e => new
-            {
-                Value = e,
-                Text = e.GetDisplayName()
-            })
-            .ToList();
-
-        PaymentMethod.DataSource = statuses;
-        PaymentMethod.DisplayMember = "Text";
-        PaymentMethod.ValueMember = "Value";
-        PaymentMethod.SelectedIndex = -1;
-    }
+     
     private void FillPolicyType()
     {
         var statuses = Enum.GetValues<PolicyTypes>()
@@ -209,6 +192,7 @@ public partial class FrmPolicyView : Form
         if (Insurance.SelectedValue == null || !Guid.TryParse(Insurance.SelectedValue.ToString(), out insuranceId))
         {
             SetMessage("Seleccione una aseguradora", MessageType.Warning);
+            errorProvider1.SetError(Insurance, "Aquí");
             Insurance.Focus();
             insuranceId = default;
             return false;
@@ -343,13 +327,40 @@ public partial class FrmPolicyView : Form
         {
             BtnPersistence.Enabled = false;
             if (PaymentInstallments.Text == string.Empty) PaymentInstallments.Text = "0";
-            
-            bool flowControl = InsuranceValidate(out Guid insuranceId);
-            if (!flowControl)
+            if (Amount.Text == string.Empty) Amount.Text = "0";
+            if (string.IsNullOrEmpty(PolicyNo.Text.Trim()))
             {
+                SetMessage("El número de poliza es obligatorio", MessageType.Warning);
+                errorProvider1.SetError(PolicyNo, "Aquí");
+                BtnPersistence.Enabled = true;
                 return;
             }
 
+            bool flowControl = InsuranceValidate(out Guid insuranceId);
+            if (!flowControl)
+            {
+                BtnPersistence.Enabled = true;
+                return;
+            }
+            // Validar aquí todos los combobox
+            if (PolicyType.SelectedIndex == -1)
+            {
+                SetMessage("Seleccione el tipo de póliza", MessageType.Warning);
+                errorProvider1.SetError(PolicyType, "Aquí");
+                BtnPersistence.Enabled = true;
+                return;
+            }
+
+            if (PaymentFrequency.SelectedIndex == -1)
+            {
+                SetMessage("Seleccione la frecuencia de pago", MessageType.Warning);
+                errorProvider1.SetError(PaymentFrequency, "Aquí");
+                BtnPersistence.Enabled = true;
+                return;
+            }
+
+           
+           
 
             Policy = new PolicyDto
             {
@@ -358,8 +369,7 @@ public partial class FrmPolicyView : Form
                 InsuranceId = insuranceId,
                 PolicyType = PolicyType.SelectedValue!.ToString()!,
                 ClientId = ClientId,
-                PaymentFrequency = PaymentFrequency.SelectedValue!.ToString()!,
-                PaymentMethod = PaymentMethod.SelectedValue!.ToString()!,
+                PaymentFrequency = PaymentFrequency.SelectedValue!.ToString()!, 
                 PaymentDay = int.Parse(NumericUpDownPayDay.Value.ToString()),
                 PaymentInstallment = int.Parse(PaymentInstallments.Text.Trim()),
                 Amount = decimal.Parse(Amount.Text),
@@ -394,7 +404,7 @@ public partial class FrmPolicyView : Form
             SetMessage("Cerrar - " + message.Message, MessageType.Warning);
 
             // Set to 3 secons for alert
-            await SetInitialMessage(4, LabelAlertMessage);
+            await SetInitialMessage(3, LabelAlertMessage);
             BtnPersistence.Enabled = true;
         }
         finally
@@ -425,6 +435,4 @@ public partial class FrmPolicyView : Form
     #endregion
 
 
-
-    
 }
