@@ -54,7 +54,7 @@ public class PolicyAppService(IPolicyReadRepository readRepository, IPolicyWrite
     #region "Write"
     public async Task<Guid> PersistenceAsync(PolicyDto dto)
     {
-        ArgumentNullException.ThrowIfNull(dto);
+        ArgumentNullException.ThrowIfNull(dto, nameof(dto));
 
 
         PolicyEntity entity;
