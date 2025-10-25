@@ -11,12 +11,16 @@ internal class IncomeMapper
             Id = entity.Id,
             PaymentDate = entity.PaymentDate,
             CreatedAt = entity.CreatedAt,
-            DocIdRelated = entity.DocIdRelated,
+            PolicyId = entity.PolicyId,
+            ClientId = entity.ClientId,
             IncomeType  = entity.IncomeType.ToString(),
             PaymentMethod = entity.PaymentMethod.ToString(),
             MadeIn = entity.MadeIn.ToString(),
             CreatedBy = entity.CreatedBy,
             Amount = entity.Amount,
+            Note = entity.Note,
+            ClientName = entity.ClientName,
+            TypeName = entity.TypeName,
         };
     }
 

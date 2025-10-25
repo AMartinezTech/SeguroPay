@@ -31,20 +31,27 @@ public class IncomeAppServices(IIncomeReadRepository readRepository, IIncomeWrit
         ArgumentNullException.ThrowIfNull(dto, nameof(dto));
 
         IncomeEntity entity;
-          
-        entity = IncomeEntity.Create(
-            Guid.Empty, dto.PaymentDate, dto.CreatedAt, dto.DocIdRelated, dto.IncomeType, dto.PaymentMethod, dto.MadeIn, dto.CreatedBy, dto.Amount
+        if (dto.Id == Guid.Empty)
+        {
 
-             );
+            entity = IncomeEntity.Create(
+                Guid.Empty, dto.PaymentDate, dto.CreatedAt, dto.PolicyId, dto.ClientId, dto.IncomeType, dto.PaymentMethod, dto.MadeIn, dto.CreatedBy, dto.Amount, dto.Note);
 
-        await _writeRepository.CreateAsync(entity);
+            await _writeRepository.CreateAsync(entity);
+        }
+        else
+        {
+            entity = await GetIncomeById(dto.Id);
+            entity.Update(dto.PaymentMethod, dto.MadeIn, dto.Note);
+            await _writeRepository.UpdateAsync(entity);
+        }
 
-         
+
         return entity.Id;
     }
     public async Task DeleteAsync(Guid id)
     {
-        IncomeEntity entity = await GetIncomeById(id);
+        _ = await GetIncomeById(id);
         await _writeRepository.DeleteAsync(id);
     }
     #endregion

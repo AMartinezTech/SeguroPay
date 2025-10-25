@@ -127,9 +127,9 @@ public class PolicyEntity : IAggregateRoot
 
         Status = PolicyStatus.Canceled;
     }
-    public void AddPayment(Guid id, DateTime paymentDate, DateTime createdAt, Guid docIdRelated, string incomeType, string paymentMethod, string madeIn, Guid createdBy, decimal amount)
+    public void AddPayment(Guid id, DateTime paymentDate, DateTime createdAt, Guid policyId, Guid clientId, string incomeType, string paymentMethod, string madeIn, Guid createdBy, decimal amount, string note)
     {
 
-        _payments.Add(IncomeEntity.Create(id, paymentDate, createdAt, docIdRelated, incomeType, paymentMethod, madeIn, createdBy, amount));
+        _payments.Add(IncomeEntity.Create(id, paymentDate, createdAt, policyId, clientId, incomeType, paymentMethod, madeIn, createdBy, amount, note));
     }
 }

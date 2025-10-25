@@ -40,12 +40,14 @@ internal class MapToPolicy
             reader.GetGuid(reader.GetOrdinal("id")),
             reader.GetDateTime(reader.GetOrdinal("created_at")),
             reader.GetDateTime(reader.GetOrdinal("created_at")),
-            reader.GetGuid(reader.GetOrdinal("doc_id_related")),
+            reader.GetGuid(reader.GetOrdinal("policy_id")),
+            reader.GetGuid(reader.GetOrdinal("client_id")),
             reader.GetString(reader.GetOrdinal("income_type")),
             reader.GetString(reader.GetOrdinal("payment_method")),
             reader.GetString(reader.GetOrdinal("made_in")),
             reader.GetGuid(reader.GetOrdinal("created_by")),
-            reader.GetDecimal(reader.GetOrdinal("amount"))
+            reader.GetDecimal(reader.GetOrdinal("amount")),
+            reader.GetString(reader.GetOrdinal("note"))
             );
 
     }

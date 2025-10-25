@@ -115,7 +115,7 @@ public class PolicyReadRepository(string connectionString) : AdoRepositoryBase(c
             while (await reader.ReadAsync())
                 result.Add(MapToPolicy.ToEntity(reader));
 
-             
+
         }
         return result;
     }
@@ -130,7 +130,7 @@ public class PolicyReadRepository(string connectionString) : AdoRepositoryBase(c
             using var conn = GetConnection();
             await conn.OpenAsync();
 
-           
+
 
             var sql = $@"SELECT TOP 1 
                p.id, 
@@ -198,7 +198,7 @@ public class PolicyReadRepository(string connectionString) : AdoRepositoryBase(c
                 while (await readerIncome.ReadAsync())
                     incomes.Add(MapToPolicy.ToIncomeEntity(readerIncome));
             }
-              
+
             // =================================
             // 3️⃣ ASOCIAR LOS PAGOS A LA POLIZA
             // =================================
@@ -208,13 +208,14 @@ public class PolicyReadRepository(string connectionString) : AdoRepositoryBase(c
                     income.Id,
                     income.PaymentDate,
                     income.CreatedAt,
-                    income.DocIdRelated, 
-                    income.IncomeType.ToString(), 
-                    income.PaymentMethod.ToString(), 
-                    income.MadeIn.ToString(), 
+                    income.PolicyId,
+                    income.ClientId,
+                    income.IncomeType.ToString(),
+                    income.PaymentMethod.ToString(),
+                    income.MadeIn.ToString(),
                     income.CreatedBy,
-                    income.Amount
-                     
+                    income.Amount,
+                    income.Note ?? string.Empty
                 );
             }
 

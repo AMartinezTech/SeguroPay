@@ -201,7 +201,7 @@ CREATE TABLE incomes (
 	made_in NVARCHAR(50) NOT NULL,
     created_by UNIQUEIDENTIFIER NULL,    -- Usuario que registró el pago
     amount DECIMAL(18,2) NOT NULL,      -- Monto pagado
-    
+    note NVARCHAR(MAX) NUll
 );
 
 
