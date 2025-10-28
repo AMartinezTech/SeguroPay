@@ -52,6 +52,11 @@
             label4 = new Label();
             label5 = new Label();
             PanelTopFilter1 = new Panel();
+            LabelPayPendingPolicy = new Label();
+            PanelLeyenda_1 = new Panel();
+            PanelLeyenda_2 = new Panel();
+            PayStatus = new ComboBox();
+            label6 = new Label();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)IconPictureBoxSearch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)IconPictureBox).BeginInit();
@@ -79,7 +84,7 @@
             BtnInsurance.Location = new Point(770, 512);
             BtnInsurance.Name = "BtnInsurance";
             BtnInsurance.Size = new Size(85, 85);
-            BtnInsurance.TabIndex = 42;
+            BtnInsurance.TabIndex = 6;
             BtnInsurance.Text = "&Nueva";
             BtnInsurance.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnInsurance.UseVisualStyleBackColor = true;
@@ -114,7 +119,7 @@
             BtnPrintList.Location = new Point(861, 512);
             BtnPrintList.Name = "BtnPrintList";
             BtnPrintList.Size = new Size(85, 85);
-            BtnPrintList.TabIndex = 39;
+            BtnPrintList.TabIndex = 7;
             BtnPrintList.Text = "&Imprimir listado";
             BtnPrintList.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnPrintList.UseVisualStyleBackColor = true;
@@ -134,7 +139,7 @@
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label3.Location = new Point(537, 20);
+            label3.Location = new Point(432, 20);
             label3.Name = "label3";
             label3.Size = new Size(65, 15);
             label3.TabIndex = 34;
@@ -144,10 +149,10 @@
             // 
             Status.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Status.FormattingEnabled = true;
-            Status.Location = new Point(837, 66);
+            Status.Location = new Point(732, 66);
             Status.Name = "Status";
             Status.Size = new Size(109, 23);
-            Status.TabIndex = 35;
+            Status.TabIndex = 4;
             Status.SelectedIndexChanged += ComboBoxStatus_SelectedIndexChanged;
             Status.KeyPress += ComboBoxStatus_KeyPress;
             // 
@@ -157,15 +162,15 @@
             label1.Location = new Point(94, 48);
             label1.Name = "label1";
             label1.Size = new Size(42, 15);
-            label1.TabIndex = 31;
+            label1.TabIndex = 0;
             label1.Text = "Buscar";
             // 
             // TextBoxSearch
             // 
             TextBoxSearch.Location = new Point(94, 66);
             TextBoxSearch.Name = "TextBoxSearch";
-            TextBoxSearch.Size = new Size(350, 23);
-            TextBoxSearch.TabIndex = 32;
+            TextBoxSearch.Size = new Size(304, 23);
+            TextBoxSearch.TabIndex = 1;
             TextBoxSearch.Enter += TextBoxSearch_Enter;
             TextBoxSearch.KeyDown += TextBoxSearch_KeyDown;
             // 
@@ -231,10 +236,10 @@
             // 
             Insurance.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Insurance.FormattingEnabled = true;
-            Insurance.Location = new Point(537, 66);
+            Insurance.Location = new Point(432, 66);
             Insurance.Name = "Insurance";
             Insurance.Size = new Size(144, 23);
-            Insurance.TabIndex = 47;
+            Insurance.TabIndex = 2;
             Insurance.SelectedIndexChanged += Insurance_SelectedIndexChanged;
             Insurance.KeyPress += Insurance_KeyPress;
             // 
@@ -242,26 +247,26 @@
             // 
             PolicyType.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             PolicyType.FormattingEnabled = true;
-            PolicyType.Location = new Point(687, 66);
+            PolicyType.Location = new Point(582, 66);
             PolicyType.Name = "PolicyType";
             PolicyType.Size = new Size(144, 23);
-            PolicyType.TabIndex = 48;
+            PolicyType.TabIndex = 3;
             PolicyType.SelectedIndexChanged += PolicyType_SelectedIndexChanged;
             PolicyType.KeyPress += PolicyType_KeyPress;
             // 
             // PanelTopFilter2
             // 
             PanelTopFilter2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            PanelTopFilter2.Location = new Point(537, 58);
+            PanelTopFilter2.Location = new Point(432, 58);
             PanelTopFilter2.Name = "PanelTopFilter2";
-            PanelTopFilter2.Size = new Size(409, 2);
+            PanelTopFilter2.Size = new Size(512, 2);
             PanelTopFilter2.TabIndex = 49;
             // 
             // label2
             // 
             label2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label2.AutoSize = true;
-            label2.Location = new Point(537, 40);
+            label2.Location = new Point(432, 40);
             label2.Name = "label2";
             label2.Size = new Size(74, 15);
             label2.TabIndex = 50;
@@ -271,7 +276,7 @@
             // 
             label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
-            label4.Location = new Point(687, 40);
+            label4.Location = new Point(582, 40);
             label4.Name = "label4";
             label4.Size = new Size(81, 15);
             label4.TabIndex = 51;
@@ -281,7 +286,7 @@
             // 
             label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label5.AutoSize = true;
-            label5.Location = new Point(837, 40);
+            label5.Location = new Point(732, 40);
             label5.Name = "label5";
             label5.Size = new Size(42, 15);
             label5.TabIndex = 52;
@@ -290,16 +295,70 @@
             // PanelTopFilter1
             // 
             PanelTopFilter1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            PanelTopFilter1.Location = new Point(537, 36);
+            PanelTopFilter1.Location = new Point(432, 36);
             PanelTopFilter1.Name = "PanelTopFilter1";
-            PanelTopFilter1.Size = new Size(409, 2);
+            PanelTopFilter1.Size = new Size(512, 2);
             PanelTopFilter1.TabIndex = 50;
+            // 
+            // LabelPayPendingPolicy
+            // 
+            LabelPayPendingPolicy.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            LabelPayPendingPolicy.AutoSize = true;
+            LabelPayPendingPolicy.Location = new Point(14, 713);
+            LabelPayPendingPolicy.Name = "LabelPayPendingPolicy";
+            LabelPayPendingPolicy.Size = new Size(38, 15);
+            LabelPayPendingPolicy.TabIndex = 53;
+            LabelPayPendingPolicy.Text = "label6";
+            // 
+            // PanelLeyenda_1
+            // 
+            PanelLeyenda_1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            PanelLeyenda_1.Location = new Point(686, 612);
+            PanelLeyenda_1.Name = "PanelLeyenda_1";
+            PanelLeyenda_1.Size = new Size(260, 70);
+            PanelLeyenda_1.TabIndex = 54;
+            // 
+            // PanelLeyenda_2
+            // 
+            PanelLeyenda_2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            PanelLeyenda_2.Location = new Point(686, 688);
+            PanelLeyenda_2.Name = "PanelLeyenda_2";
+            PanelLeyenda_2.Size = new Size(260, 70);
+            PanelLeyenda_2.TabIndex = 55;
+            // 
+            // PayStatus
+            // 
+            PayStatus.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PayStatus.FormattingEnabled = true;
+            PayStatus.Items.AddRange(new object[] { "Pendiente", "Al día" });
+            PayStatus.Location = new Point(847, 66);
+            PayStatus.Name = "PayStatus";
+            PayStatus.Size = new Size(98, 23);
+            PayStatus.TabIndex = 5;
+            PayStatus.Text = "Pendiente";
+            PayStatus.SelectedIndexChanged += PayStatus_SelectedIndexChanged;
+            PayStatus.KeyPress += PayStatus_KeyPress;
+            // 
+            // label6
+            // 
+            label6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            label6.AutoSize = true;
+            label6.Location = new Point(847, 40);
+            label6.Name = "label6";
+            label6.Size = new Size(34, 15);
+            label6.TabIndex = 57;
+            label6.Text = "Pago";
             // 
             // FrmPolicyDashboardView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(958, 761);
+            Controls.Add(label6);
+            Controls.Add(PayStatus);
+            Controls.Add(PanelLeyenda_2);
+            Controls.Add(PanelLeyenda_1);
+            Controls.Add(LabelPayPendingPolicy);
             Controls.Add(PanelTopFilter1);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -358,5 +417,10 @@
         private Label label4;
         private Label label2;
         private Panel PanelTopFilter2;
+        private Label LabelPayPendingPolicy;
+        private Panel PanelLeyenda_2;
+        private Panel PanelLeyenda_1;
+        private Label label6;
+        private ComboBox PayStatus;
     }
 }

@@ -3,6 +3,7 @@ using AMartinezTech.Application.Policy;
 using AMartinezTech.Application.Policy.DTOs;
 using AMartinezTech.Application.Reports.Policies.Interfaces;
 using AMartinezTech.Domain.Utils.Enums;
+using AMartinezTech.WinForms.Cash.Income;
 using AMartinezTech.WinForms.Policy.Utils;
 using AMartinezTech.WinForms.Utils;
 using AMartinezTech.WinForms.Utils.Factories;
@@ -53,7 +54,8 @@ public partial class FrmPolicyDashboardView : Form
     #region "Methods"
     private async void LoadPolicyStatusChart()
     {
-        var summaries = (await _policyReportService.GetAllPolicyByStatusAsync()).ToList();
+        var report = await _policyReportService.GetPolicyReportAsync();
+        var summaries = report.Summary.ToList();
 
         int cardWidth = 300;
         int cardHeight = 80;
@@ -123,7 +125,51 @@ public partial class FrmPolicyDashboardView : Form
             }
         }
 
-        LabelTotalClients.Text = $"Total General: {totalPolicies}";
+
+        PanelLeyenda_1.Controls.Clear();
+        PanelLeyenda_2.Controls.Clear();
+
+
+        int yOffset1 = 10;
+        int yOffset2 = 10;
+
+        // Creamos tarjeta para Active Pendientes
+        Panel cardPending = new()
+        {
+            Width = 250,
+            Height = 60,
+            BackColor = Color.White,
+            BorderStyle = BorderStyle.FixedSingle,
+            Location = new Point(10, yOffset1)
+        };
+        cardPending.Controls.Add(new Label() { Text = $"PENDIENTES DE PAGO", Location = new Point(10, 5), AutoSize = true, Font = new Font("Segoe UI", 10, FontStyle.Bold) });
+        cardPending.Controls.Add(new Label() { Text = $"Total: {report.ActivePendingCount}", Location = new Point(10, 30), AutoSize = true });
+        cardPending.Controls.Add(new Label() { Text = $"Porcentaje: {report.ActivePendingPercentage:F2}%", Location = new Point(125, 30), AutoSize = true });
+
+        PanelLeyenda_1.Controls.Add(cardPending);
+
+        // Creamos tarjeta para Active Al día
+        Panel cardOnTime = new()
+        {
+            Width = 250,
+            Height = 60,
+            BackColor = Color.White,
+            BorderStyle = BorderStyle.FixedSingle,
+            Location = new Point(10, yOffset2)
+        };
+        cardOnTime.Controls.Add(new Label() { Text = $"PAGO AL DÍA", Location = new Point(10, 5), AutoSize = true, Font = new Font("Segoe UI", 10, FontStyle.Bold) });
+        cardOnTime.Controls.Add(new Label() { Text = $"Total: {report.ActiveOnTimeCount}", Location = new Point(10, 30), AutoSize = true });
+        cardOnTime.Controls.Add(new Label() { Text = $"Porcentaje: {report.ActiveOnTimePercentage:F2}%", Location = new Point(125, 30), AutoSize = true });
+
+        PanelLeyenda_2.Controls.Add(cardOnTime);
+        // Accedes a los totales de las activas:
+        var pendingCount = report.ActivePendingCount;
+        var onTimeCount = report.ActiveOnTimeCount;
+        var pendingPercentage = report.ActivePendingPercentage;
+        var onTimePercentage = report.ActiveOnTimePercentage;
+
+        // Para Label:
+        LabelPayPendingPolicy.Text = $"Pendientes: {pendingCount} ({pendingPercentage:F2}%), Al día: {onTimeCount} ({onTimePercentage:F2}%)";
     }
     private void FillComboBoxStatus()
     {
@@ -190,6 +236,7 @@ public partial class FrmPolicyDashboardView : Form
             }
 
            
+
             var searchText = TextBoxSearch.Text.Trim();
             var search = new Dictionary<string, object?>
             {
@@ -202,8 +249,14 @@ public partial class FrmPolicyDashboardView : Form
             // Ejecuta el filtro en un hilo separado para no bloquear la UI
             var result = await Task.Run(() => _applicationService.FilterAsync(filters, search));
 
+            if (PayStatus.Text != string.Empty)
+            {
+                filters["insurance_id"] = PayStatus.Text;
+            }
+            var filterByPayStatus = result.Where(x => x.PendingPayment == PayStatus.Text).ToList();
+
             // Reactiva el repintado y asigna el resultado
-            _list = new BindingList<PolicyDto>(result);
+            _list = new BindingList<PolicyDto>(filterByPayStatus);
             DataGridView.DataSource = _list;
             DataGridView.TranslateEnumColumns("PolicyType");
 
@@ -378,7 +431,6 @@ public partial class FrmPolicyDashboardView : Form
     {
         e.Handled = true;
     }
-
     private void PolicyType_SelectedIndexChanged(object sender, EventArgs e)
     {
         _isChangeValueControl = true;
@@ -388,14 +440,22 @@ public partial class FrmPolicyDashboardView : Form
     {
         e.Handled = true;
     }
-
     private void Insurance_SelectedIndexChanged(object sender, EventArgs e)
     {
         _isChangeValueControl = true;
         TextBoxSearch.Focus();
     }
-
     private void Insurance_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        e.Handled = true;
+    }
+    private void PayStatus_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        _isChangeValueControl = true;
+        TextBoxSearch.Focus();
+    }
+
+    private void PayStatus_KeyPress(object sender, KeyPressEventArgs e)
     {
         e.Handled = true;
     }
@@ -421,6 +481,8 @@ public partial class FrmPolicyDashboardView : Form
         else if (DataGridView.Columns[e.ColumnIndex].Name == "menuCol")
         {
 
+            var status = DataGridView.Rows[e.RowIndex].Cells["Status"].Value?.ToString();
+
 
             // Obtener el ID de la póliza seleccionada
             Guid policyId = Guid.Parse(DataGridView.Rows[e.RowIndex].Cells["Id"].Value!.ToString()!);
@@ -429,34 +491,71 @@ public partial class FrmPolicyDashboardView : Form
             var contextMenu = new ContextMenuStrip();
 
             // Crear las opciones del menú
-            var activateItem = new ToolStripMenuItem("→ Activar", null, async (s, ev)
-                => await SafeExecuteAsync(() => _applicationService.ActiveAsync(policyId)));
+            if (status == "Active")
+            {
+                var cancelItem = new ToolStripMenuItem("→ Cancelar", null, async (s, ev)
+               => await SafeExecuteAsync(async () =>
+               {
+                   await _applicationService.CancelAsync(policyId, true);
+                   Status.SelectedValue = PolicyStatus.Canceled;
+               }));
 
-            var cancelItem = new ToolStripMenuItem("→ Cancelar", null, async (s, ev)
-                => await SafeExecuteAsync(() => _applicationService.CancelAsync(policyId, true)));
+
+                var suspendItem = new ToolStripMenuItem("→ Suspender", null, async (s, ev)
+                    => await SafeExecuteAsync(async () =>
+                    {
+                        await _applicationService.SuspendAsync(policyId, true);
+                        Status.SelectedValue = PolicyStatus.Suspended;
+
+                    }
+                ));
 
 
-            var suspendItem = new ToolStripMenuItem("→ Suspender", null, async (s, ev)
-                => await SafeExecuteAsync(() => _applicationService.SuspendAsync(policyId, true)));
-            
-            
-            // Agregar las opciones al menú
-            contextMenu.Items.AddRange([activateItem, cancelItem, suspendItem]);
+                // Agregar las opciones al menú
+                contextMenu.Items.AddRange([cancelItem, suspendItem]);
+            }
+
+            if (status == "Inactive" || status == "Suspended")
+            {
+                var activateItem = new ToolStripMenuItem("→ Activar", null, async (s, ev)
+              => await SafeExecuteAsync(async () =>
+              {
+                  await _applicationService.ActiveAsync(policyId);
+                  Status.SelectedValue = PolicyStatus.Active;
+
+              }));
+
+
+                contextMenu.Items.AddRange([activateItem]);
+            }
 
 
             // Evaluar si la póliza tiene pago pendiente
             var pendingStatus = DataGridView.Rows[e.RowIndex].Cells["PendingPayment"].Value?.ToString();
-            if (pendingStatus == "Pendiente")
+
+            if (pendingStatus == "Pendiente" && status == "Active")
             {
 
                 // Separador antes del pago
                 contextMenu.Items.Add(new ToolStripSeparator());
 
-                var payItem = new ToolStripMenuItem("→ Cobrar", null); //, async (s, ev)
-                    // => await SafeExecuteAsync(() => _applicationService.SuspendAsync(policyId))); 
+                var payItem = new ToolStripMenuItem("→ Cobrar", null, async (s, ev) =>
+                await SafeExecuteAsync(async () =>
+                    {
+                        var frmIncomeView = _formFactory.CreateFormFactory<FrmIncomeView>();
+                        frmIncomeView.PolicyId = policyId;
+                        frmIncomeView.ShowDialog();
+                        await Task.CompletedTask;
+                        if (frmIncomeView.DialogResult == DialogResult.OK)
+                        {
+                            InvokeFilterAsync();
+                        }
+                    })
+                );
 
                 // Insertarlo al inicio del menú
-                contextMenu.Items.Add( payItem);
+                contextMenu.Items.Add(payItem);
+
             }
 
             // Mostrar el menú en la posición del clic
@@ -472,4 +571,5 @@ public partial class FrmPolicyDashboardView : Form
     #endregion
 
 
+  
 }

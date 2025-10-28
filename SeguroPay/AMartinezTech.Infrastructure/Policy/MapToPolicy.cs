@@ -15,7 +15,7 @@ internal class MapToPolicy
             reader.GetString(reader.GetOrdinal("policy_type")),
             reader.GetGuid(reader.GetOrdinal("insurance_id")),
             reader.GetGuid(reader.GetOrdinal("clients_id")),
-            reader.GetString(reader.GetOrdinal("payment_frencuency")), 
+            reader.GetString(reader.GetOrdinal("payment_frencuency")),
             reader.GetInt32(reader.GetOrdinal("payment_day")),
             reader.GetInt32(reader.GetOrdinal("payment_installment")),
             reader.GetDecimal(reader.GetOrdinal("amount")),
@@ -24,7 +24,7 @@ internal class MapToPolicy
 
         entity.SetStatus(reader.GetString(reader.GetOrdinal("status")));
 
-        var lastPayment = reader.IsDBNull(reader.GetOrdinal("last_payment")) ? (DateTime?)null  : reader.GetDateTime(reader.GetOrdinal("last_payment"));
+        var lastPayment = reader.IsDBNull(reader.GetOrdinal("last_payment")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("last_payment"));
 
         entity.SetAnotherProperties(
             reader.GetString(reader.GetOrdinal("insurance_name")),
@@ -47,7 +47,7 @@ internal class MapToPolicy
             reader.GetString(reader.GetOrdinal("made_in")),
             reader.GetGuid(reader.GetOrdinal("created_by")),
             reader.GetDecimal(reader.GetOrdinal("amount")),
-            reader.GetString(reader.GetOrdinal("note"))
+            reader.GetString(reader.GetOrdinal("note")) ?? string.Empty
             );
 
     }

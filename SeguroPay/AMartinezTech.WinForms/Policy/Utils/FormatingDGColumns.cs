@@ -115,7 +115,17 @@ internal class FormatingDGColumns
         };
         dataGridView.Columns.Add(Amount);
 
-         
+        var Status = new DataGridViewTextBoxColumn
+        {
+            Name = "Status",
+            HeaderText = "ID",
+            DataPropertyName = "Status", // Vincula con la propiedad del resultado
+            Width = 75,
+            DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleCenter },
+            Visible = false
+
+        };
+        dataGridView.Columns.Add(Status);
 
     }
 }

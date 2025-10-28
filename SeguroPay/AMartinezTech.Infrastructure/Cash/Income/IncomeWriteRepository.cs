@@ -17,11 +17,10 @@ public class IncomeWriteRepository(string connectionString) : AdoRepositoryBase(
             using var cmd = new SqlCommand { Connection = conn };
 
 
-            var sql = @"INSERT INTO incomes (id, payment_date, policy_id, client_id, income_type, payment_method, made_in, created_by, amount, note) " +
-                "VALUES (@id, @PaymentDate, @PolicyId, @ClientId, @IncomeType, @PaymentMethod, @MadeIn, @CreatedBy, @Amount, @Note)";
+            var sql = @"INSERT INTO incomes (id, payment_date, policy_id, client_id, income_type, payment_method, made_in, created_by, amount, note)  VALUES (@Id, @PaymentDate, @PolicyId, @ClientId, @IncomeType, @PaymentMethod, @MadeIn, @CreatedBy, @Amount, @Note)";
             cmd.CommandText = sql;
-            cmd.Parameters.AddWithValue("@id", entity.Id);
-            cmd.Parameters.AddWithValue("@PaymentDate", entity.PaymentDate );
+            cmd.Parameters.AddWithValue("@Id", entity.Id);
+            cmd.Parameters.AddWithValue("@PaymentDate", entity.PaymentDate);
             cmd.Parameters.AddWithValue("@PolicyId", entity.PolicyId);
             cmd.Parameters.AddWithValue("@ClientId", entity.ClientId);
             cmd.Parameters.AddWithValue("@IncomeType", entity.IncomeType.ToString());
@@ -29,7 +28,7 @@ public class IncomeWriteRepository(string connectionString) : AdoRepositoryBase(
             cmd.Parameters.AddWithValue("@MadeIn", entity.MadeIn.ToString());
             cmd.Parameters.AddWithValue("@CreatedBy", entity.CreatedBy);
             cmd.Parameters.AddWithValue("@Amount", entity.Amount);
-            cmd.Parameters.AddWithValue("@Note", entity.Note); 
+            cmd.Parameters.AddWithValue("@Note", entity.Note ?? string.Empty); 
 
             await cmd.ExecuteNonQueryAsync();
 

@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             PaymentMethod = new ComboBox();
             label1 = new Label();
             MadeIn = new ComboBox();
             label2 = new Label();
             Note = new TextBox();
             label3 = new Label();
-            Amount = new Label();
+            LabelAmount = new Label();
             BtnPersistence = new FontAwesome.Sharp.IconButton();
             PanelLineTop = new Panel();
             PanelAlertMessage = new Panel();
@@ -42,25 +43,33 @@
             PanelLineButtom = new Panel();
             PanelButtom = new Panel();
             LabelTitle = new Label();
+            errorProvider1 = new ErrorProvider(components);
+            InsuranceName = new TextBox();
+            PolicyNo = new TextBox();
+            ClientName = new TextBox();
             label4 = new Label();
             label5 = new Label();
             label6 = new Label();
+            Amount = new TextBox();
             PanelAlertMessage.SuspendLayout();
             PanelButtom.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // PaymentMethod
             // 
             PaymentMethod.FormattingEnabled = true;
-            PaymentMethod.Location = new Point(13, 144);
+            PaymentMethod.Location = new Point(13, 208);
             PaymentMethod.Name = "PaymentMethod";
             PaymentMethod.Size = new Size(187, 23);
             PaymentMethod.TabIndex = 0;
+            PaymentMethod.SelectedIndexChanged += PaymentMethod_SelectedIndexChanged;
+            PaymentMethod.KeyPress += PaymentMethod_KeyPress;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(13, 126);
+            label1.Location = new Point(13, 190);
             label1.Name = "label1";
             label1.Size = new Size(95, 15);
             label1.TabIndex = 1;
@@ -69,15 +78,17 @@
             // MadeIn
             // 
             MadeIn.FormattingEnabled = true;
-            MadeIn.Location = new Point(13, 199);
+            MadeIn.Location = new Point(13, 263);
             MadeIn.Name = "MadeIn";
             MadeIn.Size = new Size(295, 23);
             MadeIn.TabIndex = 2;
+            MadeIn.SelectedIndexChanged += MadeIn_SelectedIndexChanged;
+            MadeIn.KeyPress += MadeIn_KeyPress;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(13, 181);
+            label2.Location = new Point(13, 245);
             label2.Name = "label2";
             label2.Size = new Size(87, 15);
             label2.TabIndex = 3;
@@ -85,30 +96,31 @@
             // 
             // Note
             // 
-            Note.Location = new Point(13, 256);
+            Note.Location = new Point(13, 320);
             Note.Multiline = true;
             Note.Name = "Note";
             Note.Size = new Size(295, 105);
             Note.TabIndex = 4;
+            Note.TextChanged += Note_TextChanged;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(13, 238);
+            label3.Location = new Point(13, 302);
             label3.Name = "label3";
             label3.Size = new Size(33, 15);
             label3.TabIndex = 5;
             label3.Text = "Nota";
             // 
-            // Amount
+            // LabelAmount
             // 
-            Amount.AutoSize = true;
-            Amount.Font = new Font("Segoe UI", 12F);
-            Amount.Location = new Point(178, 387);
-            Amount.Name = "Amount";
-            Amount.Size = new Size(130, 21);
-            Amount.TabIndex = 6;
-            Amount.Text = "Monto.: RD$ 0.00";
+            LabelAmount.AutoSize = true;
+            LabelAmount.Font = new Font("Segoe UI", 12F);
+            LabelAmount.Location = new Point(104, 433);
+            LabelAmount.Name = "LabelAmount";
+            LabelAmount.Size = new Size(96, 21);
+            LabelAmount.TabIndex = 6;
+            LabelAmount.Text = "Monto.: RD$";
             // 
             // BtnPersistence
             // 
@@ -116,13 +128,14 @@
             BtnPersistence.IconChar = FontAwesome.Sharp.IconChar.Save;
             BtnPersistence.IconColor = Color.Black;
             BtnPersistence.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnPersistence.Location = new Point(223, 424);
+            BtnPersistence.Location = new Point(223, 475);
             BtnPersistence.Name = "BtnPersistence";
             BtnPersistence.Size = new Size(85, 85);
             BtnPersistence.TabIndex = 20;
             BtnPersistence.Text = "&Guardar";
             BtnPersistence.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnPersistence.UseVisualStyleBackColor = true;
+            BtnPersistence.Click += BtnPersistence_Click;
             // 
             // PanelLineTop
             // 
@@ -154,7 +167,7 @@
             // PanelLineButtom
             // 
             PanelLineButtom.Dock = DockStyle.Bottom;
-            PanelLineButtom.Location = new Point(0, 541);
+            PanelLineButtom.Location = new Point(0, 580);
             PanelLineButtom.Name = "PanelLineButtom";
             PanelLineButtom.Size = new Size(341, 2);
             PanelLineButtom.TabIndex = 26;
@@ -163,7 +176,7 @@
             // 
             PanelButtom.Controls.Add(LabelTitle);
             PanelButtom.Dock = DockStyle.Bottom;
-            PanelButtom.Location = new Point(0, 543);
+            PanelButtom.Location = new Point(0, 582);
             PanelButtom.Name = "PanelButtom";
             PanelButtom.Size = new Size(341, 35);
             PanelButtom.TabIndex = 25;
@@ -178,50 +191,87 @@
             LabelTitle.TabIndex = 0;
             LabelTitle.Text = "Maestro de ingreso";
             // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
+            // 
+            // InsuranceName
+            // 
+            InsuranceName.Enabled = false;
+            InsuranceName.Location = new Point(13, 105);
+            InsuranceName.Name = "InsuranceName";
+            InsuranceName.Size = new Size(295, 23);
+            InsuranceName.TabIndex = 30;
+            // 
+            // PolicyNo
+            // 
+            PolicyNo.Enabled = false;
+            PolicyNo.Location = new Point(13, 61);
+            PolicyNo.Name = "PolicyNo";
+            PolicyNo.Size = new Size(176, 23);
+            PolicyNo.TabIndex = 31;
+            // 
+            // ClientName
+            // 
+            ClientName.Enabled = false;
+            ClientName.Location = new Point(13, 149);
+            ClientName.Name = "ClientName";
+            ClientName.Size = new Size(295, 23);
+            ClientName.TabIndex = 32;
+            // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 11F);
             label4.Location = new Point(13, 40);
             label4.Name = "label4";
-            label4.Size = new Size(147, 20);
-            label4.TabIndex = 27;
-            label4.Text = "Aseguradora: Senasa";
+            label4.Size = new Size(76, 15);
+            label4.TabIndex = 33;
+            label4.Text = "No. de póliza";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 11F);
-            label5.Location = new Point(13, 60);
+            label5.Location = new Point(12, 87);
             label5.Name = "label5";
-            label5.Size = new Size(158, 20);
-            label5.TabIndex = 28;
-            label5.Text = "Póliza NO.......: 9827383";
+            label5.Size = new Size(74, 15);
+            label5.TabIndex = 34;
+            label5.Text = "Aseguradora";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 11F);
-            label6.Location = new Point(13, 80);
+            label6.Location = new Point(12, 131);
             label6.Name = "label6";
-            label6.Size = new Size(280, 20);
-            label6.TabIndex = 29;
-            label6.Text = "Cliente..............: Alexis Martínez De La Cruz";
+            label6.Size = new Size(44, 15);
+            label6.TabIndex = 35;
+            label6.Text = "Cliente";
+            // 
+            // Amount
+            // 
+            Amount.Enabled = false;
+            Amount.Location = new Point(208, 431);
+            Amount.Name = "Amount";
+            Amount.Size = new Size(100, 23);
+            Amount.TabIndex = 36;
             // 
             // FrmIncomeView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(341, 578);
+            ClientSize = new Size(341, 617);
+            Controls.Add(Amount);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
+            Controls.Add(ClientName);
+            Controls.Add(PolicyNo);
+            Controls.Add(InsuranceName);
             Controls.Add(PanelLineButtom);
             Controls.Add(PanelButtom);
             Controls.Add(PanelLineTop);
             Controls.Add(PanelAlertMessage);
             Controls.Add(BtnPersistence);
-            Controls.Add(Amount);
+            Controls.Add(LabelAmount);
             Controls.Add(label3);
             Controls.Add(Note);
             Controls.Add(label2);
@@ -235,10 +285,12 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Ingreso";
+            Load += FrmIncomeView_Load;
             PanelAlertMessage.ResumeLayout(false);
             PanelAlertMessage.PerformLayout();
             PanelButtom.ResumeLayout(false);
             PanelButtom.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -251,7 +303,7 @@
         private Label label2;
         private TextBox Note;
         private Label label3;
-        private Label Amount;
+        private Label LabelAmount;
         private FontAwesome.Sharp.IconButton BtnPersistence;
         private Panel PanelLineTop;
         private Panel PanelAlertMessage;
@@ -259,8 +311,13 @@
         private Panel PanelLineButtom;
         private Panel PanelButtom;
         private Label LabelTitle;
-        private Label label4;
+        private ErrorProvider errorProvider1;
         private Label label5;
+        private Label label4;
+        private TextBox ClientName;
+        private TextBox PolicyNo;
+        private TextBox InsuranceName;
+        private TextBox Amount;
         private Label label6;
     }
 }

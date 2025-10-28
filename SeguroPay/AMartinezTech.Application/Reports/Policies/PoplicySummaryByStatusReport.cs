@@ -10,7 +10,13 @@ public class PoplicySummaryByStatusReport
 
     public IReadOnlyList<PolicySummaryByStatus> Summary { get; }
 
-    public PoplicySummaryByStatusReport(IEnumerable<PolicyStatusProjection> policies)
+    public int ActivePendingCount { get; }
+    public int ActiveOnTimeCount { get; }
+
+    public decimal ActivePendingPercentage { get; }
+    public decimal ActiveOnTimePercentage { get; }
+
+    public PoplicySummaryByStatusReport(IEnumerable<PolicyStatusProjection> policies, DateTime serverNow)
     {
         if (policies == null || !policies.Any())
         {
@@ -49,6 +55,20 @@ public class PoplicySummaryByStatusReport
             .ToList();
 
         Summary = grouped;
+
+        // === Cálculos adicionales (solo para pólizas activas)
+        var activePolicies = policies.Where(p => p.Status == PolicyStatus.Active.ToString()).ToList();
+        var totalActive = activePolicies.Count;
+
+        if (totalActive > 0)
+        {
+            ActivePendingCount = activePolicies.Count(p => p.GetPendingPayment(serverNow) == "Pendiente");
+            ActiveOnTimeCount = activePolicies.Count(p => p.GetPendingPayment(serverNow) == "Al día");
+
+            ActivePendingPercentage = Math.Round((decimal)ActivePendingCount / totalActive * 100, 2);
+            ActiveOnTimePercentage = Math.Round((decimal)ActiveOnTimeCount / totalActive * 100, 2);
+        }
+
     }
 
     private static string GetDisplayName(Enum value)

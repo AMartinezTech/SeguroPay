@@ -4,5 +4,5 @@ namespace AMartinezTech.Application.Reports.Policies.Interfaces;
 
 public interface IPolicyReportService
 {
-    Task<IEnumerable<PolicySummaryByStatus>> GetAllPolicyByStatusAsync();
+    Task<PoplicySummaryByStatusReport> GetPolicyReportAsync();
 }

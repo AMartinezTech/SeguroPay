@@ -9,8 +9,7 @@ public class IncomeDto
     public Guid ClientId { get;  set; }
     public string IncomeType { get; set; } = string.Empty;
     public string PaymentMethod { get; set; } = string.Empty;
-    public string MadeIn { get; set; } = string.Empty;
-    public Guid CreatedBy { get; set; }
+    public string MadeIn { get; set; } = string.Empty; 
     public decimal Amount { get; set; }
     public string? Note { get; set; } 
     public string? ClientName { get; set; }

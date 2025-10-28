@@ -104,7 +104,7 @@ public class PolicyReadRepository(string connectionString) : AdoRepositoryBase(c
                 c.id AS clients_id,
                 c.doc_identity AS doc_identity, 
                 p.payment_installment,
-                (SELECT MAX(payment_date) FROM incomes WHERE doc_id_related=p.id) as last_payment  
+                (SELECT MAX(payment_date) FROM incomes WHERE policy_id=p.id) as last_payment  
                 FROM policies p
                 INNER JOIN insurances i ON p.insurance_id = i.id 
                 INNER JOIN clients c ON p.clients_id = c.id 
@@ -148,7 +148,7 @@ public class PolicyReadRepository(string connectionString) : AdoRepositoryBase(c
                 c.id AS clients_id,
                 c.doc_identity AS doc_identity, 
                 p.payment_installment,
-                (SELECT MAX(payment_date) FROM incomes WHERE doc_id_related=p.id) as last_payment
+                (SELECT MAX(payment_date) FROM incomes WHERE policy_id=p.id) as last_payment
                 FROM policies p 
                 INNER JOIN insurances i ON p.insurance_id = i.id 
                 INNER JOIN clients c ON p.clients_id = c.id 
@@ -166,7 +166,7 @@ public class PolicyReadRepository(string connectionString) : AdoRepositoryBase(c
             }
             reader.Close();
 
-            if (entity == null) throw new DatabaseException($"{ErrorMessages.Get(ErrorType.RecordDoesDotExist)}"); ;
+            if (entity == null) throw new DatabaseException($"{ErrorMessages.Get(ErrorType.RecordDoesDotExist)}"); 
 
 
             // =================================
@@ -179,20 +179,22 @@ public class PolicyReadRepository(string connectionString) : AdoRepositoryBase(c
                 id,
                 payment_date,
                 created_at,
-                doc_id_related,
+                policy_id,
+                client_id,
                 income_type,
                 payment_method,
                 made_in,
                 created_by,
-                amount
+                amount,
+                note
             FROM incomes
-            WHERE doc_id_related = @policyId
+            WHERE policy_id = @PolicyId
             AND income_type = 'Insured'
             ORDER BY created_at ASC;";
 
             using (var cmdIncome = new SqlCommand(sqlIncomes, conn))
             {
-                cmdIncome.Parameters.AddWithValue("@policyId", id);
+                cmdIncome.Parameters.AddWithValue("@PolicyId", id);
 
                 using var readerIncome = await cmdIncome.ExecuteReaderAsync();
                 while (await readerIncome.ReadAsync())

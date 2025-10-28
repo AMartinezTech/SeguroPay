@@ -22,7 +22,7 @@ public class ErrorMessages
             ErrorType.DataBaseUnknownError => "Error desconocido de base de datos.!",
             ErrorType.PasswordNotMatch => "Las claves NO coinciden.!",
             ErrorType.InvalidCredentials => "La credenciales no son válidas.!",
-            ErrorType.HasMomevements => "Regsitro con movimiento, no se puede modificar.",
+            ErrorType.HasMomevements => "Acción no permitida, ya existen movimientos.",
             _ => "Error no definido",
         };
     }

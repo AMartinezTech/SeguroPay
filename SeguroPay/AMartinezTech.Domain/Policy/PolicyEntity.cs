@@ -104,8 +104,8 @@ public class PolicyEntity : IAggregateRoot
     }
     public void Activate()
     {
-        if (Status != PolicyStatus.Inactive)
-            throw new Exception("Solo se pueden activar pólizas inactivas.");
+        if (Status == PolicyStatus.Canceled )
+            throw new Exception("Solo se pueden activar pólizas inactivas o supendidas.");
 
         Status = PolicyStatus.Active;
     }
