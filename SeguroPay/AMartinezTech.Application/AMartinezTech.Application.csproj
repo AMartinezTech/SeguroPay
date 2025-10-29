@@ -10,8 +10,4 @@
     <ProjectReference Include="..\AMartinezTech.Domain\AMartinezTech.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Setting\Company\" />
-  </ItemGroup>
-
 </Project>

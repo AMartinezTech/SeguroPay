@@ -36,6 +36,20 @@ public class CompanyEntity : IAggregateRoot
         return new CompanyEntity(id, createdAt, ValueDocIdentity.Create(rNC), ValueCompanyName.Create(name), ValueEmail.Create(email), ValuePhone.Create(phone, "Teléfono"), ValueCompanyLine.Create(line1, "Linea 1"), ValueCompanyLine.Create(line2, "Linea 2"), isActive, logo);
 
     }
+
+    public void Update(string rNC, string name, string email, string phone, string line1, string line2, bool isActive, MemoryStream logo)
+    {
+
+        RNC = ValueDocIdentity.Create(rNC);
+        Name = ValueCompanyName.Create(name);
+        Email = ValueEmail.Create(email);
+        Phone = ValuePhone.Create(phone, "Teléfono");
+        Line1 = ValueCompanyLine.Create(line1, "Linea 1");
+        Line2 = ValueCompanyLine.Create(line2, "Linea 2");
+        IsActive = isActive;
+        Logo = logo;
+
+    }
     public void Activate() => IsActive = true;
     public void Deactivate() => IsActive = false;
 }

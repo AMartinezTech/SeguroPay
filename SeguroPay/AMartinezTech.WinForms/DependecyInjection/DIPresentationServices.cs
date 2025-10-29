@@ -10,7 +10,9 @@ public class DIPresentationServices
     public static void AddServices(IServiceCollection services)
     {
 
-        services.AddTransient<CompanyReportService>();
+        
+
+
         services.AddTransient<IFormFactory, FormFactory>();
         services.AddTransient<FrmMainView>();
         services.AddTransient<FrmSettingDashboardView>();
@@ -23,5 +25,6 @@ public class DIPresentationServices
         DILocationServices.Add(services);
         DIPolicyServices.Add(services);
         DIUserServices.Add(services);
+        DICompanyServices.AddServices(services);
     }
 }
