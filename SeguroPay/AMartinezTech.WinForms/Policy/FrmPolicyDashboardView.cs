@@ -142,7 +142,7 @@ public partial class FrmPolicyDashboardView : Form
             BorderStyle = BorderStyle.FixedSingle,
             Location = new Point(10, yOffset1)
         };
-        cardPending.Controls.Add(new Label() { Text = $"PENDIENTES DE PAGO", Location = new Point(10, 5), AutoSize = true, Font = new Font("Segoe UI", 10, FontStyle.Bold) });
+        cardPending.Controls.Add(new Label() { Text = $"Pendientes", Location = new Point(10, 5), AutoSize = true, Font = new Font("Segoe UI", 10, FontStyle.Bold) });
         cardPending.Controls.Add(new Label() { Text = $"Total: {report.ActivePendingCount}", Location = new Point(10, 30), AutoSize = true });
         cardPending.Controls.Add(new Label() { Text = $"Porcentaje: {report.ActivePendingPercentage:F2}%", Location = new Point(125, 30), AutoSize = true });
 
@@ -157,19 +157,15 @@ public partial class FrmPolicyDashboardView : Form
             BorderStyle = BorderStyle.FixedSingle,
             Location = new Point(10, yOffset2)
         };
-        cardOnTime.Controls.Add(new Label() { Text = $"PAGO AL DÍA", Location = new Point(10, 5), AutoSize = true, Font = new Font("Segoe UI", 10, FontStyle.Bold) });
+        cardOnTime.Controls.Add(new Label() { Text = $"Al día", Location = new Point(10, 5), AutoSize = true, Font = new Font("Segoe UI", 10, FontStyle.Bold) });
         cardOnTime.Controls.Add(new Label() { Text = $"Total: {report.ActiveOnTimeCount}", Location = new Point(10, 30), AutoSize = true });
         cardOnTime.Controls.Add(new Label() { Text = $"Porcentaje: {report.ActiveOnTimePercentage:F2}%", Location = new Point(125, 30), AutoSize = true });
 
         PanelLeyenda_2.Controls.Add(cardOnTime);
-        // Accedes a los totales de las activas:
-        var pendingCount = report.ActivePendingCount;
-        var onTimeCount = report.ActiveOnTimeCount;
-        var pendingPercentage = report.ActivePendingPercentage;
-        var onTimePercentage = report.ActiveOnTimePercentage;
+         
+                
+        LabelTotalClients.Text = $"Total de pólizas: {totalPolicies}";
 
-        // Para Label:
-        LabelPayPendingPolicy.Text = $"Pendientes: {pendingCount} ({pendingPercentage:F2}%), Al día: {onTimeCount} ({onTimePercentage:F2}%)";
     }
     private void FillComboBoxStatus()
     {
@@ -253,6 +249,7 @@ public partial class FrmPolicyDashboardView : Form
             {
                 filters["insurance_id"] = PayStatus.Text;
             }
+
             var filterByPayStatus = result.Where(x => x.PendingPayment == PayStatus.Text).ToList();
 
             // Reactiva el repintado y asigna el resultado
@@ -262,6 +259,9 @@ public partial class FrmPolicyDashboardView : Form
 
             // Traducir solo las columnas de enum
             LoadPolicyStatusChart();
+            // Para Label: 
+            int totalPolicyFiltered = filterByPayStatus.Count;
+            TotalPolicyFiltered.Text = $"Total de pólizas filtradas: {totalPolicyFiltered}";
         }
         catch (Exception ex)
         {

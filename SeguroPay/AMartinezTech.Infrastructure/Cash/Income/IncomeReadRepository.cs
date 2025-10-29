@@ -28,26 +28,25 @@ public class IncomeReadRepository(string connectionString) : AdoRepositoryBase(c
                             i.payment_date,
                             i.created_at, 
                             i.policy_id,
-                            i.client_id
+                            i.client_id,
                             i.income_type,
                             i.payment_method,
-                            i.made_id,
-                            i.created_at,
+                            i.made_in,
                             i.amount,
+                            i.created_by,
                             i.note,
                             c.first_name + ' ' + c.last_name AS client_name,
                             u.full_name,
-                            i.policy_id,
                             CASE
                                 WHEN i.policy_id IS NULL THEN 'Otros ingresos'
-                                ELSE ins.name
+                                ELSE 'Seguro'
                             END AS type_name
                         FROM incomes i 
                         LEFT JOIN policies p ON i.policy_id = p.id
                         LEFT JOIN insurances ins ON p.insurance_id = ins.id
-                        INNER JOIN clients c ON i.clients_id = c.id
+                        INNER JOIN clients c ON i.client_id = c.id
                         INNER JOIN users u ON i.created_by = u.id
-                        {whereClause} ORDER BY i.created_by DESC";
+                        {whereClause} ORDER BY i.created_by DESC;";
             cmd.CommandText = sql;
 
             using var reader = await cmd.ExecuteReaderAsync();
@@ -67,30 +66,29 @@ public class IncomeReadRepository(string connectionString) : AdoRepositoryBase(c
 
             var sql = $@"
                         SELECT 
-                            i.id, 
+                             i.id, 
                             i.payment_date,
                             i.created_at, 
                             i.policy_id,
-                            i.client_id
+                            i.client_id,
                             i.income_type,
                             i.payment_method,
-                            i.made_id,
-                            i.created_at,
+                            i.made_in,
                             i.amount,
+                            i.created_by,
                             i.note,
                             c.first_name + ' ' + c.last_name AS client_name,
                             u.full_name,
-                            i.policy_id,
                             CASE
                                 WHEN i.policy_id IS NULL THEN 'Otros ingresos'
-                                ELSE ins.name
+                                ELSE 'Seguro'
                             END AS type_name
                         FROM incomes i 
                         LEFT JOIN policies p ON i.policy_id = p.id
                         LEFT JOIN insurances ins ON p.insurance_id = ins.id
-                        INNER JOIN clients c ON i.clients_id = c.id
+                        INNER JOIN clients c ON i.client_id = c.id
                         INNER JOIN users u ON i.created_by = u.id
-                        WHERE id=@id ORDER BY i.created_by DESC"; 
+                        WHERE i.id=@id ORDER BY i.created_by DESC"; 
 
             using var cmd = new SqlCommand(sql, conn);
 

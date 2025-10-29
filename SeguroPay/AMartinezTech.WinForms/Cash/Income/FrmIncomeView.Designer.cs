@@ -90,9 +90,9 @@
             label2.AutoSize = true;
             label2.Location = new Point(13, 245);
             label2.Name = "label2";
-            label2.Size = new Size(87, 15);
+            label2.Size = new Size(73, 15);
             label2.TabIndex = 3;
-            label2.Text = "Medio de pago";
+            label2.Text = "Realizado en";
             // 
             // Note
             // 

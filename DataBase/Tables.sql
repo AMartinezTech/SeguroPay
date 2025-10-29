@@ -103,32 +103,13 @@ CREATE TABLE companies (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
 	created_at DATETIME2 NOT NULL DEFAULT SYSDATETIME(),
     rnc NVARCHAR(50) NOT NULL,
-    name NVARCHAR(100) NOT NULL,
-    street_id UNIQUEIDENTIFIER NULL,
-    city_id UNIQUEIDENTIFIER NULL,
-    region_id UNIQUEIDENTIFIER NULL,
-    country_id UNIQUEIDENTIFIER NULL,
+    name NVARCHAR(100) NOT NULL, 
     phone NVARCHAR(50) NULL,
     email NVARCHAR(100) NULL,
     line1 NVARCHAR(300) NULL,    
     line2 NVARCHAR(300) NULL,    
-    is_active BIT NOT NULL DEFAULT 1,   
-    
-	CONSTRAINT FK_Companies_Streets FOREIGN KEY (street_id)
-        REFERENCES streets(id)
-        ON DELETE NO ACTION,
- 
-    CONSTRAINT FK_Companies_City FOREIGN KEY (city_id)
-        REFERENCES cities(id)
-        ON DELETE NO ACTION,
-
-    CONSTRAINT FK_Companies_Region FOREIGN KEY (region_id)
-        REFERENCES regions(id)
-        ON DELETE NO ACTION,
-
-    CONSTRAINT FK_Companies_Country FOREIGN KEY (country_id)
-        REFERENCES countries(id)
-        ON DELETE NO ACTION
+    is_active BIT NOT NULL DEFAULT 1,  
+	logo VARBINARY(MAX) NULL,
 );
 
 
@@ -174,8 +155,7 @@ CREATE TABLE policies (
     insurance_id UNIQUEIDENTIFIER NOT NULL,
     clients_id UNIQUEIDENTIFIER NOT NULL,
     payment_frencuency NVARCHAR(50) NOT NULL,  -- Mensual, Trimestral, Semestral, Anual
-	payment_method NVARCHAR(50) NOT NULL, -- Cash, Tranfer, DebitCard, CreditCard
-    payment_day INT NOT NULL,
+	payment_day INT NOT NULL,
     payment_installment INT DEFAULT 0 NOT NULL,
 	amount DECIMAL(18,2) NOT NULL,
     note NVARCHAR(MAX) NULL,

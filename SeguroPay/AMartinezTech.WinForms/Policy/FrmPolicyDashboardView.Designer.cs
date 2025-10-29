@@ -52,11 +52,12 @@
             label4 = new Label();
             label5 = new Label();
             PanelTopFilter1 = new Panel();
-            LabelPayPendingPolicy = new Label();
+            TotalPolicyFiltered = new Label();
             PanelLeyenda_1 = new Panel();
             PanelLeyenda_2 = new Panel();
             PayStatus = new ComboBox();
             label6 = new Label();
+            label7 = new Label();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)IconPictureBoxSearch).BeginInit();
             ((System.ComponentModel.ISupportInitialize)IconPictureBox).BeginInit();
@@ -94,10 +95,10 @@
             // 
             LabelTotalClients.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             LabelTotalClients.AutoSize = true;
-            LabelTotalClients.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            LabelTotalClients.Location = new Point(14, 502);
+            LabelTotalClients.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            LabelTotalClients.Location = new Point(14, 506);
             LabelTotalClients.Name = "LabelTotalClients";
-            LabelTotalClients.Size = new Size(50, 19);
+            LabelTotalClients.Size = new Size(40, 15);
             LabelTotalClients.TabIndex = 41;
             LabelTotalClients.Text = "label2";
             // 
@@ -300,15 +301,16 @@
             PanelTopFilter1.Size = new Size(512, 2);
             PanelTopFilter1.TabIndex = 50;
             // 
-            // LabelPayPendingPolicy
+            // TotalPolicyFiltered
             // 
-            LabelPayPendingPolicy.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            LabelPayPendingPolicy.AutoSize = true;
-            LabelPayPendingPolicy.Location = new Point(14, 713);
-            LabelPayPendingPolicy.Name = "LabelPayPendingPolicy";
-            LabelPayPendingPolicy.Size = new Size(38, 15);
-            LabelPayPendingPolicy.TabIndex = 53;
-            LabelPayPendingPolicy.Text = "label6";
+            TotalPolicyFiltered.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            TotalPolicyFiltered.AutoSize = true;
+            TotalPolicyFiltered.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            TotalPolicyFiltered.Location = new Point(341, 506);
+            TotalPolicyFiltered.Name = "TotalPolicyFiltered";
+            TotalPolicyFiltered.Size = new Size(40, 15);
+            TotalPolicyFiltered.TabIndex = 53;
+            TotalPolicyFiltered.Text = "label6";
             // 
             // PanelLeyenda_1
             // 
@@ -349,16 +351,28 @@
             label6.TabIndex = 57;
             label6.Text = "Pago";
             // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label7.Location = new Point(693, 601);
+            label7.Name = "label7";
+            label7.Size = new Size(112, 15);
+            label7.TabIndex = 58;
+            label7.Text = "Solo pólizas activas";
+            // 
             // FrmPolicyDashboardView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(958, 761);
+            Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(PayStatus);
             Controls.Add(PanelLeyenda_2);
             Controls.Add(PanelLeyenda_1);
-            Controls.Add(LabelPayPendingPolicy);
+            Controls.Add(TotalPolicyFiltered);
             Controls.Add(PanelTopFilter1);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -417,10 +431,11 @@
         private Label label4;
         private Label label2;
         private Panel PanelTopFilter2;
-        private Label LabelPayPendingPolicy;
+        private Label TotalPolicyFiltered;
         private Panel PanelLeyenda_2;
         private Panel PanelLeyenda_1;
         private Label label6;
         private ComboBox PayStatus;
+        private Label label7;
     }
 }

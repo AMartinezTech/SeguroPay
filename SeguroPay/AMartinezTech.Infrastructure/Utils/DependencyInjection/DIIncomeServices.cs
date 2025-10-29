@@ -1,4 +1,5 @@
 ﻿using AMartinezTech.Application.Cash.Income;
+using AMartinezTech.Application.Reports.Incomes.Interfaces;
 using AMartinezTech.Infrastructure.Cash.Income;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,7 @@ public static class DIIncomeServices
     {
         services.AddScoped<IIncomeReadRepository>(_ => new IncomeReadRepository(connectionString));
         services.AddScoped<IIncomeWriteRepository>(_ => new IncomeWriteRepository(connectionString));
+        services.AddScoped<IIncomeReportRepository>(_ => new IncomeReportRepository(connectionString));
         return services;
     }
 }

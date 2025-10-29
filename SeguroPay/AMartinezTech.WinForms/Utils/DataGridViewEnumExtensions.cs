@@ -40,6 +40,7 @@ public static class DataGridViewEnumExtensions
                         "PaymentFrequency" => typeof(PolicyPaymentFrequencies),
                         "PaymentMethod" => typeof(PaymentMethods),
                         "PolicyType" => typeof(PolicyTypes),
+                        "MadeIn" => typeof(IncomeMadeIn),
                         _ => null
                     };
 
