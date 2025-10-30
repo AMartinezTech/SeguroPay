@@ -318,7 +318,7 @@ namespace AMartinezTech.WinForms.Cash.Income.Print {
             
             private global::System.Data.DataColumn columnIncomeId;
             
-            private global::System.Data.DataColumn columnPolicyName;
+            private global::System.Data.DataColumn columnPolicyNumber;
             
             private global::System.Data.DataColumn columnInsuranceName;
             
@@ -379,9 +379,9 @@ namespace AMartinezTech.WinForms.Cash.Income.Print {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn PolicyNameColumn {
+            public global::System.Data.DataColumn PolicyNumberColumn {
                 get {
-                    return this.columnPolicyName;
+                    return this.columnPolicyNumber;
                 }
             }
             
@@ -478,11 +478,11 @@ namespace AMartinezTech.WinForms.Cash.Income.Print {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public IncomeRow AddIncomeRow(System.Guid IncomeId, string PolicyName, string InsuranceName, string ClientName, string ClientPhone, System.DateTime PaymentDate, decimal Amount, string PaymentMethod, string Note) {
+            public IncomeRow AddIncomeRow(System.Guid IncomeId, string PolicyNumber, string InsuranceName, string ClientName, string ClientPhone, System.DateTime PaymentDate, decimal Amount, string PaymentMethod, string Note) {
                 IncomeRow rowIncomeRow = ((IncomeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         IncomeId,
-                        PolicyName,
+                        PolicyNumber,
                         InsuranceName,
                         ClientName,
                         ClientPhone,
@@ -520,7 +520,7 @@ namespace AMartinezTech.WinForms.Cash.Income.Print {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             internal void InitVars() {
                 this.columnIncomeId = base.Columns["IncomeId"];
-                this.columnPolicyName = base.Columns["PolicyName"];
+                this.columnPolicyNumber = base.Columns["PolicyNumber"];
                 this.columnInsuranceName = base.Columns["InsuranceName"];
                 this.columnClientName = base.Columns["ClientName"];
                 this.columnClientPhone = base.Columns["ClientPhone"];
@@ -535,8 +535,8 @@ namespace AMartinezTech.WinForms.Cash.Income.Print {
             private void InitClass() {
                 this.columnIncomeId = new global::System.Data.DataColumn("IncomeId", typeof(global::System.Guid), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIncomeId);
-                this.columnPolicyName = new global::System.Data.DataColumn("PolicyName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPolicyName);
+                this.columnPolicyNumber = new global::System.Data.DataColumn("PolicyNumber", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPolicyNumber);
                 this.columnInsuranceName = new global::System.Data.DataColumn("InsuranceName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnInsuranceName);
                 this.columnClientName = new global::System.Data.DataColumn("ClientName", typeof(string), null, global::System.Data.MappingType.Element);
@@ -700,9 +700,9 @@ namespace AMartinezTech.WinForms.Cash.Income.Print {
             
             private global::System.Data.DataColumn columnemail;
             
-            private global::System.Data.DataColumn columnlinea1;
+            private global::System.Data.DataColumn columnline1;
             
-            private global::System.Data.DataColumn columnlinea2;
+            private global::System.Data.DataColumn columnline2;
             
             private global::System.Data.DataColumn columnis_active;
             
@@ -793,17 +793,17 @@ namespace AMartinezTech.WinForms.Cash.Income.Print {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn linea1Column {
+            public global::System.Data.DataColumn line1Column {
                 get {
-                    return this.columnlinea1;
+                    return this.columnline1;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn linea2Column {
+            public global::System.Data.DataColumn line2Column {
                 get {
-                    return this.columnlinea2;
+                    return this.columnline2;
                 }
             }
             
@@ -860,7 +860,7 @@ namespace AMartinezTech.WinForms.Cash.Income.Print {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public CompanyRow AddCompanyRow(string id, System.DateTime created_at, string rnc, string name, string phone, string email, string linea1, string linea2, bool is_active, byte logo) {
+            public CompanyRow AddCompanyRow(string id, System.DateTime created_at, string rnc, string name, string phone, string email, string line1, string line2, bool is_active, byte logo) {
                 CompanyRow rowCompanyRow = ((CompanyRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
@@ -869,8 +869,8 @@ namespace AMartinezTech.WinForms.Cash.Income.Print {
                         name,
                         phone,
                         email,
-                        linea1,
-                        linea2,
+                        line1,
+                        line2,
                         is_active,
                         logo};
                 rowCompanyRow.ItemArray = columnValuesArray;
@@ -908,8 +908,8 @@ namespace AMartinezTech.WinForms.Cash.Income.Print {
                 this.columnname = base.Columns["name"];
                 this.columnphone = base.Columns["phone"];
                 this.columnemail = base.Columns["email"];
-                this.columnlinea1 = base.Columns["linea1"];
-                this.columnlinea2 = base.Columns["linea2"];
+                this.columnline1 = base.Columns["line1"];
+                this.columnline2 = base.Columns["line2"];
                 this.columnis_active = base.Columns["is_active"];
                 this.columnlogo = base.Columns["logo"];
             }
@@ -929,10 +929,10 @@ namespace AMartinezTech.WinForms.Cash.Income.Print {
                 base.Columns.Add(this.columnphone);
                 this.columnemail = new global::System.Data.DataColumn("email", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnemail);
-                this.columnlinea1 = new global::System.Data.DataColumn("linea1", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnlinea1);
-                this.columnlinea2 = new global::System.Data.DataColumn("linea2", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnlinea2);
+                this.columnline1 = new global::System.Data.DataColumn("line1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnline1);
+                this.columnline2 = new global::System.Data.DataColumn("line2", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnline2);
                 this.columnis_active = new global::System.Data.DataColumn("is_active", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnis_active);
                 this.columnlogo = new global::System.Data.DataColumn("logo", typeof(byte), null, global::System.Data.MappingType.Element);
@@ -1094,17 +1094,17 @@ namespace AMartinezTech.WinForms.Cash.Income.Print {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string PolicyName {
+            public string PolicyNumber {
                 get {
                     try {
-                        return ((string)(this[this.tableIncome.PolicyNameColumn]));
+                        return ((string)(this[this.tableIncome.PolicyNumberColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'PolicyName\' in table \'Income\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'PolicyNumber\' in table \'Income\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableIncome.PolicyNameColumn] = value;
+                    this[this.tableIncome.PolicyNumberColumn] = value;
                 }
             }
             
@@ -1222,14 +1222,14 @@ namespace AMartinezTech.WinForms.Cash.Income.Print {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsPolicyNameNull() {
-                return this.IsNull(this.tableIncome.PolicyNameColumn);
+            public bool IsPolicyNumberNull() {
+                return this.IsNull(this.tableIncome.PolicyNumberColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetPolicyNameNull() {
-                this[this.tableIncome.PolicyNameColumn] = global::System.Convert.DBNull;
+            public void SetPolicyNumberNull() {
+                this[this.tableIncome.PolicyNumberColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1424,33 +1424,33 @@ namespace AMartinezTech.WinForms.Cash.Income.Print {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string linea1 {
+            public string line1 {
                 get {
                     try {
-                        return ((string)(this[this.tableCompany.linea1Column]));
+                        return ((string)(this[this.tableCompany.line1Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'linea1\' in table \'Company\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'line1\' in table \'Company\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableCompany.linea1Column] = value;
+                    this[this.tableCompany.line1Column] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string linea2 {
+            public string line2 {
                 get {
                     try {
-                        return ((string)(this[this.tableCompany.linea2Column]));
+                        return ((string)(this[this.tableCompany.line2Column]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'linea2\' in table \'Company\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'line2\' in table \'Company\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableCompany.linea2Column] = value;
+                    this[this.tableCompany.line2Column] = value;
                 }
             }
             
@@ -1548,26 +1548,26 @@ namespace AMartinezTech.WinForms.Cash.Income.Print {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool Islinea1Null() {
-                return this.IsNull(this.tableCompany.linea1Column);
+            public bool Isline1Null() {
+                return this.IsNull(this.tableCompany.line1Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void Setlinea1Null() {
-                this[this.tableCompany.linea1Column] = global::System.Convert.DBNull;
+            public void Setline1Null() {
+                this[this.tableCompany.line1Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool Islinea2Null() {
-                return this.IsNull(this.tableCompany.linea2Column);
+            public bool Isline2Null() {
+                return this.IsNull(this.tableCompany.line2Column);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void Setlinea2Null() {
-                this[this.tableCompany.linea2Column] = global::System.Convert.DBNull;
+            public void Setline2Null() {
+                this[this.tableCompany.line2Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

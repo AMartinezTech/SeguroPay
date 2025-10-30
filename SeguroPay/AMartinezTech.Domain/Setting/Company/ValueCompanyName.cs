@@ -13,13 +13,13 @@ public class ValueCompanyName
     {
 
         if (string.IsNullOrWhiteSpace(value))
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - nombre! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - CompanyName! ");
 
         if (value.Length > 25)
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.MaxLength)} (25) - nombre! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.MaxLength)} (25) - CompanyName! ");
 
         if (value.Length < 4)
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.MinLength)} (4) - nombre! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.MinLength)} (4) - CompanyName! ");
          
         Value = value;
         

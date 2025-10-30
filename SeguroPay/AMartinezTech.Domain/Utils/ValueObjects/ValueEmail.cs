@@ -14,7 +14,7 @@ public class ValueEmail
     private ValueEmail(string value)
     {
          
-        if (!string.IsNullOrEmpty(value))
+        if (!string.IsNullOrWhiteSpace(value.Trim()))
         {
             if (!ValidationRegex.IsMatch(value))
                 throw new ValidationException($" {ErrorMessages.Get(ErrorType.InvalidFormat)} - Email! "); 

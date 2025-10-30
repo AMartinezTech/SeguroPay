@@ -6,9 +6,6 @@ public class CompanyReportService(ICompanyReportRepository companyReportReposito
 {
     private readonly ICompanyReportRepository _companyReportRepository = companyReportRepository;
 
-    public async Task<DataTable> GetByIdAsync(  )
-    {
-        Guid companyId = Guid.Empty;
-        return await _companyReportRepository.GetByIdReportsAsync(companyId);
-    }
+    public async Task<DataTable> GetByIdAsync() => await _companyReportRepository.GetReportsAsync();
+
 }

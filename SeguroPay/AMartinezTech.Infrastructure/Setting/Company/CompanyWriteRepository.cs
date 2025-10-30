@@ -17,7 +17,6 @@ public class CompanyWriteRepository(string connectionString) : AdoRepositoryBase
             await conn.OpenAsync();
             using var cmd = new SqlCommand { Connection = conn };
 
-
             var sql = @"INSERT INTO companies (id, rnc, name, phone, email, line1, line2, logo) " +
                 "VALUES (@Id, @RNC, @Name, @Phone, @Email, @Line1, @Line2, @Logo )";
             cmd.CommandText = sql;
@@ -27,8 +26,8 @@ public class CompanyWriteRepository(string connectionString) : AdoRepositoryBase
             cmd.Parameters.AddWithValue("@Phone", entity.Phone.Value);
             cmd.Parameters.AddWithValue("@Email", entity.Email.Value); 
             cmd.Parameters.AddWithValue("@Line1", entity.Line1.Value);
-            cmd.Parameters.AddWithValue("@Line2", entity.Line2.Value);  
-            cmd.Parameters.AddWithValue("@Logo", SqlDbType.VarBinary).Value = entity.Logo.ToArray();
+            cmd.Parameters.AddWithValue("@Line2", entity.Line2.Value);
+            cmd.Parameters.Add("@Logo", SqlDbType.VarBinary).Value = entity.Logo != null ? entity.Logo.ToArray() : DBNull.Value;
 
 
             await cmd.ExecuteNonQueryAsync();
@@ -62,8 +61,8 @@ public class CompanyWriteRepository(string connectionString) : AdoRepositoryBase
             cmd.Parameters.AddWithValue("@Phone", entity.Phone.Value);
             cmd.Parameters.AddWithValue("@Email", entity.Email.Value);
             cmd.Parameters.AddWithValue("@Line1", entity.Line1.Value);
-            cmd.Parameters.AddWithValue("@Line2", entity.Line2.Value);
-            cmd.Parameters.AddWithValue("@Logo", SqlDbType.VarBinary).Value = entity.Logo.ToArray();
+            cmd.Parameters.AddWithValue("@Line2", entity.Line2.Value); 
+            cmd.Parameters.Add("@Logo", SqlDbType.VarBinary).Value = entity.Logo != null ? entity.Logo.ToArray() : DBNull.Value;
 
 
             await cmd.ExecuteNonQueryAsync();

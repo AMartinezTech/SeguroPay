@@ -15,41 +15,62 @@ public class CompanyEntity : IAggregateRoot
     public ValueCompanyLine Line1 { get; private set; }
     public ValueCompanyLine Line2 { get; private set; }
     public bool IsActive { get; private set; }
-    public MemoryStream Logo { get; private set; }
-    private CompanyEntity(Guid id, DateTime createdAt, ValueDocIdentity rNC, ValueCompanyName name, ValueEmail email, ValuePhone phone, ValueCompanyLine line1, ValueCompanyLine line2, bool isActive, MemoryStream logo)
+    public MemoryStream? Logo { get; private set; }
+    private CompanyEntity(Guid id, DateTime createdAt, ValueCompanyName name, ValueDocIdentity rNC,  ValueEmail email, ValuePhone phone, ValueCompanyLine line1, ValueCompanyLine line2, bool isActive)
     {
         Id = id;
         CreatedAt = createdAt;
-        RNC = rNC;
         Name = name;
+        RNC = rNC;
         Email = email;
         Phone = phone;
         Line1 = line1;
         Line2 = line2;
         IsActive = isActive;
-        Logo = logo;
+        
     }
 
-    public static CompanyEntity Create(Guid id, DateTime createdAt, string rNC, string name, string email, string phone, string line1, string line2, bool isActive, MemoryStream logo)
+    public static CompanyEntity Create(Guid id, DateTime createdAt, string name, string rNC,  string email, string phone, string line1, string line2, bool isActive, MemoryStream? logo)
     {
         id = CreateGuid.EnsureId(id);
-        return new CompanyEntity(id, createdAt, ValueDocIdentity.Create(rNC), ValueCompanyName.Create(name), ValueEmail.Create(email), ValuePhone.Create(phone, "Teléfono"), ValueCompanyLine.Create(line1, "Linea 1"), ValueCompanyLine.Create(line2, "Linea 2"), isActive, logo);
-
+        var entity = new CompanyEntity(id, createdAt, ValueCompanyName.Create(name), ValueDocIdentity.Create(rNC),  ValueEmail.Create(email), ValuePhone.Create(phone, "Phone"), ValueCompanyLine.Create(line1, "Line1"), ValueCompanyLine.Create(line2, "Line2"), isActive);
+        entity.SetLogo(logo);
+        return entity;
     }
 
-    public void Update(string rNC, string name, string email, string phone, string line1, string line2, bool isActive, MemoryStream logo)
+    public void Update(string name, string rNC, string email, string phone, string line1, string line2, bool isActive, MemoryStream logo)
     {
 
-        RNC = ValueDocIdentity.Create(rNC);
         Name = ValueCompanyName.Create(name);
+        RNC = ValueDocIdentity.Create(rNC);
         Email = ValueEmail.Create(email);
-        Phone = ValuePhone.Create(phone, "Teléfono");
-        Line1 = ValueCompanyLine.Create(line1, "Linea 1");
-        Line2 = ValueCompanyLine.Create(line2, "Linea 2");
+        Phone = ValuePhone.Create(phone, "Phone");
+        Line1 = ValueCompanyLine.Create(line1, "Line1");
+        Line2 = ValueCompanyLine.Create(line2, "Line2");
         IsActive = isActive;
-        Logo = logo;
+        SetLogo(logo);
 
     }
+
+    /// <summary>
+    /// Asigna un nuevo logo asegurando que el stream sea seguro para uso interno.
+    /// </summary>
+    public void SetLogo(MemoryStream? logo)
+    {
+        if (logo == null)
+        {
+            Logo = null;
+            return;
+        }
+
+        // Copia el contenido del stream a un nuevo MemoryStream
+        var memory = new MemoryStream();
+        logo.Position = 0; // aseguramos lectura desde el inicio
+        logo.CopyTo(memory);
+        memory.Position = 0;
+        Logo = memory;
+    }
+
     public void Activate() => IsActive = true;
     public void Deactivate() => IsActive = false;
 }

@@ -3,8 +3,7 @@ using AMartinezTech.Application.Reports.Incomes;
 using AMartinezTech.WinForms.Utils;
 using Microsoft.Reporting.WinForms;
 using System.Data;
-using System.Drawing.Printing;
-using System.Reflection.Metadata;
+using System.Drawing.Printing; 
 
 namespace AMartinezTech.WinForms.Cash.Income.Print;
 
@@ -69,9 +68,10 @@ public partial class FrmPrintPreviewView : Form
         _reportViewer.LocalReport.DataSources.Clear();
 
         DataTable incomeData = await reportDef.GetDataAsync();
-        DataTable companyData = await reportDef.GetDataCompanyAsync();
-
         ReportDataSource incomeDataSource = new(reportDef.DataSourceName, incomeData);
+
+        DataTable companyData = await reportDef.GetDataCompanyAsync();
+        
         ReportDataSource companyDataSource = new(reportDef.DataSourceCompanyName, companyData);
 
         _reportViewer.LocalReport.ReportPath = reportDef.ReportPath;

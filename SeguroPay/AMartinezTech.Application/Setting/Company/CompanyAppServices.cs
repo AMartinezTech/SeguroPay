@@ -9,9 +9,9 @@ public class CompanyAppServices(ICompanyReadRepository readRepository, ICompanyW
     public readonly ICompanyWriteRepository _writeRepository = writeRepository;
 
     #region "Read"
-    public async Task<List<CompanyDto>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? search = null)
+    public async Task<List<CompanyDto>> FilterAsync()
     {
-        var result = await _readRepository.FilterAsync(filters, search);
+        var result = await _readRepository.FilterAsync();
         return CompanyMapper.ToDtoList(result);
     }
     private async Task<CompanyEntity> GetCompanyByIdAsync(Guid companyId)
@@ -35,13 +35,13 @@ public class CompanyAppServices(ICompanyReadRepository readRepository, ICompanyW
 
         if (dto.Id == Guid.Empty)
         {
-            entity = CompanyEntity.Create(dto.Id, dto.CreatedAt, dto.RNC, dto.Name, dto.Email, dto.Phone, dto.Line1, dto.Line2, dto.IsActive, dto.Logo);
+            entity = CompanyEntity.Create(dto.Id, dto.CreatedAt, dto.Name, dto.RNC,  dto.Email, dto.Phone, dto.Line1, dto.Line2, dto.IsActive, dto.Logo);
             await _writeRepository.CreateAsync(entity);
         }
         else
         {
             entity = await GetCompanyByIdAsync(dto.Id);
-            entity.Update(dto.RNC, dto.Name, dto.Email, dto.Phone, dto.Line1, dto.Line2, dto.IsActive, dto.Logo);
+            entity.Update(dto.Name, dto.RNC,  dto.Email, dto.Phone, dto.Line1, dto.Line2, dto.IsActive, dto.Logo);
             await _writeRepository.UpdateAsync(entity);
         }
         return entity.Id;
