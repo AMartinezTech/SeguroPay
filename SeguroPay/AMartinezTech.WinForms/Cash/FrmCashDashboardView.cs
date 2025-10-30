@@ -1,12 +1,9 @@
-﻿using AMartinezTech.Application.Cash.Income;
-using AMartinezTech.Domain.Utils.Enums;
-using AMartinezTech.WinForms.Cash.Income;
+﻿using AMartinezTech.Application.Cash.Income; 
 using AMartinezTech.WinForms.Cash.Income.Print;
 using AMartinezTech.WinForms.Cash.Utils;
 using AMartinezTech.WinForms.Utils;
 using AMartinezTech.WinForms.Utils.Factories;
-using System.ComponentModel;
-using System.Threading.Tasks;
+using System.ComponentModel; 
 
 namespace AMartinezTech.WinForms.Cash;
 
@@ -17,6 +14,8 @@ public partial class FrmCashDashboardView : Form
     private CancellationTokenSource? _cts;
     private readonly IncomeAppServices _incomeAppServices;
     private BindingList<IncomeDto> _list = [];
+    private bool _isChangeValueControl = false;
+
     #endregion
     #region "Constructor"
     public FrmCashDashboardView(IFormFactory formFactory, IncomeAppServices incomeAppServices)
@@ -85,10 +84,13 @@ public partial class FrmCashDashboardView : Form
                 ["i.payment_method"] = searchText,
                 ["c.doc_identity"] = searchText
             };
-
+            var dateRanges = new Dictionary<string, (DateTime? start, DateTime? end)>
+            {
+                { "i.created_at", (DateTimePicker1.Value.Date, DateTimePicker2.Value.Date) }
+            };
 
             // Ejecuta el filtro en un hilo separado para no bloquear la UI
-            var result = await Task.Run(() => _incomeAppServices.FilterAsync(filters, search));
+            var result = await Task.Run(() => _incomeAppServices.FilterAsync(filters, search, dateRanges));
 
 
             // Reactiva el repintado y asigna el resultado
@@ -219,12 +221,39 @@ public partial class FrmCashDashboardView : Form
     #region "Field Events"
     private void FilterBy_SelectedIndexChanged(object sender, EventArgs e)
     {
-
+        _isChangeValueControl = true;
+        TextBoxSearch.Focus();
     }
 
     private void FilterBy_KeyPress(object sender, KeyPressEventArgs e)
     {
 
+    }
+    private void TextBoxSearch_Enter(object sender, EventArgs e)
+    {
+        if (_isChangeValueControl)
+        {
+            _isChangeValueControl = false;
+            InvokeFilterAsync();
+        }
+    }
+
+    private void DateTimePicker1_ValueChanged(object sender, EventArgs e)
+    {
+        _isChangeValueControl = true;
+        TextBoxSearch.Focus();
+    }
+
+    private void DateTimePicker2_ValueChanged(object sender, EventArgs e)
+    {
+        _isChangeValueControl = true;
+        TextBoxSearch.Focus();
+    }
+
+    private void TextBoxSearch_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter)
+            InvokeFilterAsync();
     }
     #endregion
 
@@ -246,6 +275,7 @@ public partial class FrmCashDashboardView : Form
 
     #endregion
 
+    #region "DataGridView Events"
     private async void DataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
     {
         if (e.RowIndex < 0 || e.ColumnIndex < 0) return; // Clic Only on valid cell and column
@@ -270,4 +300,7 @@ public partial class FrmCashDashboardView : Form
 
         }
     }
+    #endregion
+
+    
 }

@@ -31,15 +31,22 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_UserColumnName="id" msprop:Generator_ColumnVarNameInTable="columnid" type="xs:string" />
-              <xs:element name="created_at" msprop:Generator_UserColumnName="created_at" msprop:Generator_ColumnPropNameInTable="created_atColumn" msprop:Generator_ColumnPropNameInRow="created_at" msprop:Generator_ColumnVarNameInTable="columncreated_at" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="rnc" msprop:Generator_UserColumnName="rnc" msprop:Generator_ColumnPropNameInTable="rncColumn" msprop:Generator_ColumnPropNameInRow="rnc" msprop:Generator_ColumnVarNameInTable="columnrnc" type="xs:string" minOccurs="0" />
-              <xs:element name="name" msprop:Generator_UserColumnName="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnVarNameInTable="columnname" type="xs:string" minOccurs="0" />
-              <xs:element name="phone" msprop:Generator_UserColumnName="phone" msprop:Generator_ColumnPropNameInTable="phoneColumn" msprop:Generator_ColumnPropNameInRow="phone" msprop:Generator_ColumnVarNameInTable="columnphone" type="xs:string" minOccurs="0" />
-              <xs:element name="email" msprop:Generator_UserColumnName="email" msprop:Generator_ColumnPropNameInTable="emailColumn" msprop:Generator_ColumnPropNameInRow="email" msprop:Generator_ColumnVarNameInTable="columnemail" type="xs:string" minOccurs="0" />
-              <xs:element name="line1" msprop:Generator_UserColumnName="line1" msprop:Generator_ColumnPropNameInTable="line1Column" msprop:Generator_ColumnPropNameInRow="line1" msprop:Generator_ColumnVarNameInTable="columnline1" type="xs:string" minOccurs="0" />
-              <xs:element name="line2" msprop:Generator_UserColumnName="line2" msprop:Generator_ColumnPropNameInTable="line2Column" msprop:Generator_ColumnPropNameInRow="line2" msprop:Generator_ColumnVarNameInTable="columnline2" type="xs:string" minOccurs="0" />
-              <xs:element name="is_active" msprop:Generator_UserColumnName="is_active" msprop:Generator_ColumnPropNameInTable="is_activeColumn" msprop:Generator_ColumnPropNameInRow="is_active" msprop:Generator_ColumnVarNameInTable="columnis_active" type="xs:boolean" minOccurs="0" />
-              <xs:element name="logo" msprop:Generator_UserColumnName="logo" msprop:Generator_ColumnPropNameInTable="logoColumn" msprop:Generator_ColumnPropNameInRow="logo" msprop:Generator_ColumnVarNameInTable="columnlogo" type="xs:unsignedByte" minOccurs="0" />
+              <xs:element name="created_at" msprop:Generator_ColumnPropNameInTable="created_atColumn" msprop:Generator_ColumnPropNameInRow="created_at" msprop:Generator_UserColumnName="created_at" msprop:Generator_ColumnVarNameInTable="columncreated_at" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="rnc" msprop:Generator_ColumnPropNameInTable="rncColumn" msprop:Generator_ColumnPropNameInRow="rnc" msprop:Generator_UserColumnName="rnc" msprop:Generator_ColumnVarNameInTable="columnrnc" type="xs:string" minOccurs="0" />
+              <xs:element name="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_UserColumnName="name" msprop:Generator_ColumnVarNameInTable="columnname" type="xs:string" minOccurs="0" />
+              <xs:element name="phone" msprop:Generator_ColumnPropNameInTable="phoneColumn" msprop:Generator_ColumnPropNameInRow="phone" msprop:Generator_UserColumnName="phone" msprop:Generator_ColumnVarNameInTable="columnphone" type="xs:string" minOccurs="0" />
+              <xs:element name="email" msprop:Generator_ColumnPropNameInTable="emailColumn" msprop:Generator_ColumnPropNameInRow="email" msprop:Generator_UserColumnName="email" msprop:Generator_ColumnVarNameInTable="columnemail" type="xs:string" minOccurs="0" />
+              <xs:element name="line1" msprop:Generator_ColumnPropNameInTable="line1Column" msprop:Generator_ColumnPropNameInRow="line1" msprop:Generator_UserColumnName="line1" msprop:Generator_ColumnVarNameInTable="columnline1" type="xs:string" minOccurs="0" />
+              <xs:element name="line2" msprop:Generator_ColumnPropNameInTable="line2Column" msprop:Generator_ColumnPropNameInRow="line2" msprop:Generator_UserColumnName="line2" msprop:Generator_ColumnVarNameInTable="columnline2" type="xs:string" minOccurs="0" />
+              <xs:element name="is_active" msprop:Generator_ColumnPropNameInTable="is_activeColumn" msprop:Generator_ColumnPropNameInRow="is_active" msprop:Generator_UserColumnName="is_active" msprop:Generator_ColumnVarNameInTable="columnis_active" type="xs:boolean" minOccurs="0" />
+              <xs:element name="logo" msprop:Generator_ColumnPropNameInTable="logoColumn" msprop:Generator_ColumnPropNameInRow="logo" msprop:Generator_UserColumnName="logo" msprop:Generator_ColumnVarNameInTable="columnlogo" type="xs:unsignedByte" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DSQr" msprop:Generator_RowClassName="DSQrRow" msprop:Generator_RowEvHandlerName="DSQrRowChangeEventHandler" msprop:Generator_RowDeletedName="DSQrRowDeleted" msprop:Generator_RowDeletingName="DSQrRowDeleting" msprop:Generator_RowEvArgName="DSQrRowChangeEvent" msprop:Generator_TablePropName="DSQr" msprop:Generator_RowChangedName="DSQrRowChanged" msprop:Generator_UserTableName="DSQr" msprop:Generator_RowChangingName="DSQrRowChanging" msprop:Generator_TableClassName="DSQrDataTable" msprop:Generator_TableVarName="tableDSQr">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="QrImage" msprop:Generator_UserColumnName="QrImage" msprop:Generator_ColumnPropNameInTable="QrImageColumn" msprop:Generator_ColumnPropNameInRow="QrImage" msprop:Generator_ColumnVarNameInTable="columnQrImage" type="xs:unsignedByte" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -1,5 +1,6 @@
 ﻿using AMartinezTech.Application.Reports.Companies;
 using AMartinezTech.Application.Reports.Incomes;
+using AMartinezTech.Domain.Utils.Enums;
 using AMartinezTech.WinForms.Utils;
 using Microsoft.Reporting.WinForms;
 using System.Data;
@@ -68,6 +69,21 @@ public partial class FrmPrintPreviewView : Form
         _reportViewer.LocalReport.DataSources.Clear();
 
         DataTable incomeData = await reportDef.GetDataAsync();
+
+        // Traducir PaymentMethod al español
+        foreach (DataRow row in incomeData.Rows)
+        {
+            if (row["PaymentMethod"] != DBNull.Value)
+            {
+                string value = row["PaymentMethod"].ToString();
+
+                if (Enum.TryParse(typeof(PaymentMethods), value, out var enumValue))
+                {
+                    var displayName = ((PaymentMethods)enumValue).GetDisplayName();
+                    row["PaymentMethod"] = displayName;
+                }
+            }
+        }
         ReportDataSource incomeDataSource = new(reportDef.DataSourceName, incomeData);
 
         DataTable companyData = await reportDef.GetDataCompanyAsync();
@@ -79,6 +95,11 @@ public partial class FrmPrintPreviewView : Form
         _reportViewer.LocalReport.DataSources.Add(incomeDataSource);
         _reportViewer.LocalReport.DataSources.Add(companyDataSource);
 
+
+        var qrData = QrGenerator.GenerateQr(IncomeId);
+        var qrDataSource = new ReportDataSource("DSQr", qrData);
+
+        _reportViewer.LocalReport.DataSources.Add(qrDataSource);
 
         // === Establecer configuración de página personalizada ===
         PageSettings pageSettings = new()
@@ -92,6 +113,8 @@ public partial class FrmPrintPreviewView : Form
 
         // Asignar la configuración de página al reporte
         _reportViewer.SetPageSettings(pageSettings);
+
+       
 
         // Mostrar en modo impresión
         _reportViewer.SetDisplayMode(DisplayMode.PrintLayout);

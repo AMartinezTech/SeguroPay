@@ -6,8 +6,7 @@ namespace AMartinezTech.Infrastructure.Data.Specifications;
 /// Crea una especificación SQL dinámica con soporte para filtros exactos (AND),
 /// búsqueda global (OR con LIKE) y rangos de fechas (BETWEEN).
 /// </summary>
-/// <param name="filters">Diccionario de filtros exactos (usa AND)</param>
-/// <param name="isActive">Filtro opcional por estado activo/inactivo</param>
+/// <param name="filters">Diccionario de filtros exactos (usa AND)</param> 
 /// <param name="search">Diccionario de campos y valores para búsqueda general con LIKE (usa OR)</param>
 /// <param name="dateRanges">Diccionario de campos de fecha con la sentencia BETWEEN)</param>
 public class SqlFilterSpecification(
@@ -38,31 +37,41 @@ public class SqlFilterSpecification(
             }
         }
 
+        
         // 🔹 Filtros por rango de fechas (BETWEEN)
         if (_dateRanges is { Count: > 0 })
         {
             foreach (var kvp in _dateRanges)
             {
                 var (start, end) = kvp.Value;
-                if (start.HasValue && end.HasValue)
+                if (start.HasValue || end.HasValue)
                 {
-                    string paramStart = $"@{kvp.Key}_start";
-                    string paramEnd = $"@{kvp.Key}_end";
-                    sb.Append($" AND {kvp.Key} BETWEEN {paramStart} AND {paramEnd}");
-                    cmd.Parameters.AddWithValue(paramStart, start.Value);
-                    cmd.Parameters.AddWithValue(paramEnd, end.Value);
-                }
-                else if (start.HasValue)
-                {
-                    string paramStart = $"@{kvp.Key}_start";
-                    sb.Append($" AND {kvp.Key} >= {paramStart}");
-                    cmd.Parameters.AddWithValue(paramStart, start.Value);
-                }
-                else if (end.HasValue)
-                {
-                    string paramEnd = $"@{kvp.Key}_end";
-                    sb.Append($" AND {kvp.Key} <= {paramEnd}");
-                    cmd.Parameters.AddWithValue(paramEnd, end.Value);
+                    // Campo original con alias, por ejemplo "i.created_at"
+                    string fieldName = kvp.Key;
+
+                    // Nombre de parámetro limpio (sin puntos)
+                    string safeParamName = fieldName.Replace(".", "_");
+
+                    if (start.HasValue && end.HasValue)
+                    {
+                        string paramStart = $"@{safeParamName}_start";
+                        string paramEnd = $"@{safeParamName}_end";
+                        sb.Append($" AND {fieldName} BETWEEN {paramStart} AND {paramEnd}");
+                        cmd.Parameters.AddWithValue(paramStart, start.Value);
+                        cmd.Parameters.AddWithValue(paramEnd, end.Value);
+                    }
+                    else if (start.HasValue)
+                    {
+                        string paramStart = $"@{safeParamName}_start";
+                        sb.Append($" AND {fieldName} >= {paramStart}");
+                        cmd.Parameters.AddWithValue(paramStart, start.Value);
+                    }
+                    else if (end.HasValue)
+                    {
+                        string paramEnd = $"@{safeParamName}_end";
+                        sb.Append($" AND {fieldName} <= {paramEnd}");
+                        cmd.Parameters.AddWithValue(paramEnd, end.Value);
+                    }
                 }
             }
         }

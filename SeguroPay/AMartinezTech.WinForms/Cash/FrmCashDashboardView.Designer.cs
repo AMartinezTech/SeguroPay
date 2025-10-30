@@ -37,12 +37,12 @@
             TextBoxSearch = new TextBox();
             IconPictureBoxSearch = new FontAwesome.Sharp.IconPictureBox();
             PanelLineTop = new Panel();
-            dateTimePicker1 = new DateTimePicker();
+            DateTimePicker1 = new DateTimePicker();
             label2 = new Label();
             BtnOtherIncome = new FontAwesome.Sharp.IconButton();
             BtnExpense = new FontAwesome.Sharp.IconButton();
             label3 = new Label();
-            dateTimePicker2 = new DateTimePicker();
+            DateTimePicker2 = new DateTimePicker();
             IconPictureBox = new FontAwesome.Sharp.IconPictureBox();
             LabelAlertMessage = new Label();
             errorProvider1 = new ErrorProvider(components);
@@ -72,9 +72,9 @@
             LabelTotalClients.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             LabelTotalClients.Location = new Point(18, 506);
             LabelTotalClients.Name = "LabelTotalClients";
-            LabelTotalClients.Size = new Size(50, 19);
+            LabelTotalClients.Size = new Size(65, 19);
             LabelTotalClients.TabIndex = 54;
-            LabelTotalClients.Text = "label2";
+            LabelTotalClients.Text = "Leyenda";
             // 
             // PanelLeyenda
             // 
@@ -114,6 +114,8 @@
             TextBoxSearch.Name = "TextBoxSearch";
             TextBoxSearch.Size = new Size(350, 23);
             TextBoxSearch.TabIndex = 45;
+            TextBoxSearch.Enter += TextBoxSearch_Enter;
+            TextBoxSearch.KeyDown += TextBoxSearch_KeyDown;
             // 
             // IconPictureBoxSearch
             // 
@@ -137,14 +139,15 @@
             PanelLineTop.Size = new Size(925, 2);
             PanelLineTop.TabIndex = 49;
             // 
-            // dateTimePicker1
+            // DateTimePicker1
             // 
-            dateTimePicker1.CustomFormat = "dd/MMM/yyyy";
-            dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.Location = new Point(450, 66);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(118, 23);
-            dateTimePicker1.TabIndex = 57;
+            DateTimePicker1.CustomFormat = "dd/MMM/yyyy";
+            DateTimePicker1.Format = DateTimePickerFormat.Custom;
+            DateTimePicker1.Location = new Point(450, 66);
+            DateTimePicker1.Name = "DateTimePicker1";
+            DateTimePicker1.Size = new Size(118, 23);
+            DateTimePicker1.TabIndex = 57;
+            DateTimePicker1.ValueChanged += DateTimePicker1_ValueChanged;
             // 
             // label2
             // 
@@ -196,14 +199,15 @@
             label3.TabIndex = 62;
             label3.Text = "Fecha final";
             // 
-            // dateTimePicker2
+            // DateTimePicker2
             // 
-            dateTimePicker2.CustomFormat = "dd/MMM/yyyy";
-            dateTimePicker2.Format = DateTimePickerFormat.Custom;
-            dateTimePicker2.Location = new Point(589, 66);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(118, 23);
-            dateTimePicker2.TabIndex = 61;
+            DateTimePicker2.CustomFormat = "dd/MMM/yyyy";
+            DateTimePicker2.Format = DateTimePickerFormat.Custom;
+            DateTimePicker2.Location = new Point(589, 66);
+            DateTimePicker2.Name = "DateTimePicker2";
+            DateTimePicker2.Size = new Size(118, 23);
+            DateTimePicker2.TabIndex = 61;
+            DateTimePicker2.ValueChanged += DateTimePicker2_ValueChanged;
             // 
             // IconPictureBox
             // 
@@ -277,11 +281,11 @@
             Controls.Add(LabelAlertMessage);
             Controls.Add(IconPictureBox);
             Controls.Add(label3);
-            Controls.Add(dateTimePicker2);
+            Controls.Add(DateTimePicker2);
             Controls.Add(BtnExpense);
             Controls.Add(BtnOtherIncome);
             Controls.Add(label2);
-            Controls.Add(dateTimePicker1);
+            Controls.Add(DateTimePicker1);
             Controls.Add(LabelTitle);
             Controls.Add(LabelTotalClients);
             Controls.Add(PanelLeyenda);
@@ -311,12 +315,12 @@
         private TextBox TextBoxSearch;
         private FontAwesome.Sharp.IconPictureBox IconPictureBoxSearch;
         private Panel PanelLineTop;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker DateTimePicker1;
         private Label label2;
         private FontAwesome.Sharp.IconButton BtnOtherIncome;
         private FontAwesome.Sharp.IconButton BtnExpense;
         private Label label3;
-        private DateTimePicker dateTimePicker2;
+        private DateTimePicker DateTimePicker2;
         private FontAwesome.Sharp.IconPictureBox IconPictureBox;
         private Label LabelAlertMessage;
         private ErrorProvider errorProvider1;
