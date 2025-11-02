@@ -1,9 +1,10 @@
-﻿using AMartinezTech.Application.Cash.Income; 
+﻿using AMartinezTech.Application.Cash.Income;
+using AMartinezTech.WinForms.Cash.Income;
 using AMartinezTech.WinForms.Cash.Income.Print;
 using AMartinezTech.WinForms.Cash.Utils;
 using AMartinezTech.WinForms.Utils;
 using AMartinezTech.WinForms.Utils.Factories;
-using System.ComponentModel; 
+using System.ComponentModel;
 
 namespace AMartinezTech.WinForms.Cash;
 
@@ -58,22 +59,12 @@ public partial class FrmCashDashboardView : Form
     {
         try
         {
+            ClearMessageErr();
             // Detiene el repintado del DataGridView temporalmente
             DataGridView.SuspendLayout();
             DataGridView.DataSource = null;
 
             var filters = new Dictionary<string, object?>();
-
-            //if (Status.SelectedValue != null && Status.SelectedValue.ToString() != "[Todas]")
-            //    filters["status"] = Status.SelectedValue.ToString();
-
-            //if (PolicyType.SelectedValue != null && PolicyType.SelectedValue.ToString() != "[Todas]")
-            //    filters["policy_type"] = PolicyType.SelectedValue.ToString();
-
-            //if (Insurance.SelectedValue != null && Guid.TryParse(Insurance.SelectedValue.ToString(), out var insuranceId) && insuranceId != Guid.Empty)
-            //{
-            //    filters["insurance_id"] = insuranceId;
-            //}
 
 
 
@@ -84,10 +75,35 @@ public partial class FrmCashDashboardView : Form
                 ["i.payment_method"] = searchText,
                 ["c.doc_identity"] = searchText
             };
-            var dateRanges = new Dictionary<string, (DateTime? start, DateTime? end)>
+
+            Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null;
+
+            // Verifica que ambos controles tengan fechas válidas
+            if (DateTimePicker1.Value.Date > DateTimePicker2.Value.Date)
             {
-                { "i.created_at", (DateTimePicker1.Value.Date, DateTimePicker2.Value.Date) }
-            };
+
+                SetMessage("La fecha inicial no puede ser mayor que la fecha final. Rango de fechas inválido", MessageType.Warning);
+                return;
+            }
+
+            if (DateTimePicker1.Value.Date == DateTimePicker2.Value.Date)
+            {
+                // Si ambas fechas son iguales → filtra desde esa fecha (inicio = fecha, fin = null)
+                dateRanges = new Dictionary<string, (DateTime? start, DateTime? end)>
+                {
+                    { "i.created_at", (DateTimePicker1.Value.Date, null) }
+                };
+            }
+            else
+            {
+                // Si hay un rango de fechas válido → BETWEEN start AND end
+                dateRanges = new Dictionary<string, (DateTime? start, DateTime? end)>
+                {
+                    { "i.created_at", (DateTimePicker1.Value.Date, DateTimePicker2.Value.Date) }
+                };
+            }
+
+
 
             // Ejecuta el filtro en un hilo separado para no bloquear la UI
             var result = await Task.Run(() => _incomeAppServices.FilterAsync(filters, search, dateRanges));
@@ -260,7 +276,8 @@ public partial class FrmCashDashboardView : Form
     #region "Btn Events"
     private void BtnOtherIncome_Click(object sender, EventArgs e)
     {
-
+        var frmOtherIncomeView = _formFactory.CreateFormFactory<FrmOtherIncomeView>();
+        frmOtherIncomeView.ShowDialog();
     }
 
     private void BtnExpense_Click(object sender, EventArgs e)
@@ -302,5 +319,5 @@ public partial class FrmCashDashboardView : Form
     }
     #endregion
 
-    
+
 }

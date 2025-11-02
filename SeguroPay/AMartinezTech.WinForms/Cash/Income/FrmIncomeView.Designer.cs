@@ -187,9 +187,9 @@
             LabelTitle.Font = new Font("Segoe UI", 12F, FontStyle.Italic);
             LabelTitle.Location = new Point(13, 5);
             LabelTitle.Name = "LabelTitle";
-            LabelTitle.Size = new Size(142, 21);
+            LabelTitle.Size = new Size(222, 21);
             LabelTitle.TabIndex = 0;
-            LabelTitle.Text = "Maestro de ingreso";
+            LabelTitle.Text = "Maestro de ingreso por pólizas";
             // 
             // errorProvider1
             // 
@@ -284,7 +284,7 @@
             Name = "FrmIncomeView";
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Ingreso";
+            Text = "Ingreso por pólizas";
             Load += FrmIncomeView_Load;
             PanelAlertMessage.ResumeLayout(false);
             PanelAlertMessage.PerformLayout();

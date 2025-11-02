@@ -11,7 +11,7 @@ internal class IncomeMapper
             Id = entity.Id,
             PaymentDate = entity.PaymentDate,
             CreatedAt = entity.CreatedAt,
-            PolicyId = entity.PolicyId,
+            PolicyId = entity.PolicyId ?? Guid.Empty,
             ClientId = entity.ClientId,
             IncomeType  = entity.IncomeType.ToString(),
             PaymentMethod = entity.PaymentMethod.ToString(),

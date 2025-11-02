@@ -7,11 +7,16 @@ internal class MapToIncome
 {
     internal static IncomeEntity ToEntity(SqlDataReader reader)
     {
+        Guid policyId = reader.IsDBNull(reader.GetOrdinal("policy_id"))
+        ? Guid.Empty
+        : reader.GetGuid(reader.GetOrdinal("policy_id"));
+
+
         var entity = IncomeEntity.Create(
             reader.GetGuid(reader.GetOrdinal("id")),
             reader.GetDateTime(reader.GetOrdinal("payment_date")),
             reader.GetDateTime(reader.GetOrdinal("created_at")),
-            reader.GetGuid(reader.GetOrdinal("policy_id")),
+            policyId,
             reader.GetGuid(reader.GetOrdinal("client_id")),
             reader.GetString(reader.GetOrdinal("income_type")),
             reader.GetString(reader.GetOrdinal("payment_method")),

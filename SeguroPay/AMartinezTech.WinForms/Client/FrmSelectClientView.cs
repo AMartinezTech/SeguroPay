@@ -1,4 +1,5 @@
 ﻿
+using AMartinezTech.Domain.Utils.Enums;
 using AMartinezTech.WinForms.Client.Utils;
 using AMartinezTech.WinForms.Utils;
 
@@ -9,10 +10,11 @@ public partial class FrmSelectClientView : Form
     private readonly ClientController _controller;
 
     public ClientViewModel? SelectedClient { get; private set; }
+    public ClientTypes ClientTypes = ClientTypes.Insured;
     public FrmSelectClientView(ClientController clientController)
     {
         InitializeComponent();
-        _controller = clientController; 
+        _controller = clientController;
     }
 
     private void FrmSelectClientView_Load(object sender, EventArgs e)
@@ -24,7 +26,7 @@ public partial class FrmSelectClientView : Form
     {
         try
         {
-            DataGridView.SetCustomDesign(new CustomDataGridViewParams {});
+            DataGridView.SetCustomDesign(new CustomDataGridViewParams { });
             // Set custom columns
             FormatingDGColumnsSelectClient.Apply(DataGridView);
         }
@@ -44,7 +46,8 @@ public partial class FrmSelectClientView : Form
 
             var filter = new Dictionary<string, object?>
             {
-                ["is_active"] = true
+                ["is_active"] = true,
+                ["client_type"] = ClientTypes.ToString(),
             };
 
             var search = new Dictionary<string, object?>

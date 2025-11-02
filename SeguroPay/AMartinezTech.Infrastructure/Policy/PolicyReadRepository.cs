@@ -210,7 +210,7 @@ public class PolicyReadRepository(string connectionString) : AdoRepositoryBase(c
                     income.Id,
                     income.PaymentDate,
                     income.CreatedAt,
-                    income.PolicyId,
+                    income.PolicyId ?? Guid.Empty,
                     income.ClientId,
                     income.IncomeType.ToString(),
                     income.PaymentMethod.ToString(),

@@ -21,14 +21,14 @@ public class IncomeWriteRepository(string connectionString) : AdoRepositoryBase(
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@Id", entity.Id);
             cmd.Parameters.AddWithValue("@PaymentDate", entity.PaymentDate);
-            cmd.Parameters.AddWithValue("@PolicyId", entity.PolicyId);
+            cmd.Parameters.AddWithValue("@PolicyId", entity.PolicyId.HasValue ? entity.PolicyId.Value : DBNull.Value);
             cmd.Parameters.AddWithValue("@ClientId", entity.ClientId);
             cmd.Parameters.AddWithValue("@IncomeType", entity.IncomeType.ToString());
             cmd.Parameters.AddWithValue("@PaymentMethod", entity.PaymentMethod.ToString());
             cmd.Parameters.AddWithValue("@MadeIn", entity.MadeIn.ToString());
             cmd.Parameters.AddWithValue("@CreatedBy", entity.CreatedBy);
             cmd.Parameters.AddWithValue("@Amount", entity.Amount);
-            cmd.Parameters.AddWithValue("@Note", entity.Note ?? string.Empty); 
+            cmd.Parameters.AddWithValue("@Note", entity.Note ?? string.Empty);
 
             await cmd.ExecuteNonQueryAsync();
 
@@ -56,7 +56,7 @@ public class IncomeWriteRepository(string connectionString) : AdoRepositoryBase(
             var sql = @"DELETE FROM incomes WHERE id = @Id";
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@Id", id);
-            
+
 
             await cmd.ExecuteNonQueryAsync();
 
@@ -82,9 +82,9 @@ public class IncomeWriteRepository(string connectionString) : AdoRepositoryBase(
 
             var sql = @"UPDATE incomes SET  payment_method = @PaymentMethod, made_in = @MadeIn, note = @Note WHERE id = @Id";
             cmd.CommandText = sql;
-            cmd.Parameters.AddWithValue("@id", entity.Id); 
+            cmd.Parameters.AddWithValue("@id", entity.Id);
             cmd.Parameters.AddWithValue("@PaymentMethod", entity.PaymentMethod.ToString());
-            cmd.Parameters.AddWithValue("@MadeIn", entity.MadeIn.ToString()); 
+            cmd.Parameters.AddWithValue("@MadeIn", entity.MadeIn.ToString());
             cmd.Parameters.AddWithValue("@Note", entity.Note);
 
             await cmd.ExecuteNonQueryAsync();

@@ -145,7 +145,8 @@ public partial class FrmClientDashboardView : Form
 
             var filters = new Dictionary<string, object?>
             {
-                ["client_type"] = string.IsNullOrWhiteSpace(ComboBoxClientType.SelectedValue!.ToString()) ? null : ComboBoxClientType.SelectedValue!.ToString()
+                ["client_type"] = string.IsNullOrWhiteSpace(ComboBoxClientType.SelectedValue!.ToString()) ? null : ComboBoxClientType.SelectedValue!.ToString(),
+                ["is_active"]= CheckBoxIsActive.Checked,
 
             };
 

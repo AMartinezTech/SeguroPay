@@ -1,16 +1,14 @@
-﻿using AMartinezTech.Application.Policy.Interfaces;
+﻿using AMartinezTech.Application.Policy.Interfaces; 
 using AMartinezTech.Application.Setting.User.Interfaces;
 using AMartinezTech.Application.Utils.Interfaces;
 using AMartinezTech.Domain.Cash.Income;
+using AMartinezTech.Domain.Cash.Income.Services;
 using AMartinezTech.Domain.Utils.Exception;
-
 namespace AMartinezTech.Application.Cash.Income;
 
-public class IncomeAppServices(IIncomeReadRepository readRepository, IIncomeWriteRepository writeRepository, ICurrectUser currectUser, IServerTimeProvider serverTimeProvider, IPolicyReadRepository policyReadRepository)
+public class IncomeAppServices(IIncomeReadRepository readRepository, IIncomeWriteRepository writeRepository, ICurrectUser currentUser, IServerTimeProvider serverTimeProvider, IPolicyReadRepository policyReadRepository): BaseIncomeService(writeRepository, currentUser)
 {
-    private readonly IIncomeReadRepository _readRepository = readRepository;
-    private readonly IIncomeWriteRepository _writeRepository = writeRepository;
-    private readonly ICurrectUser _currectUser = currectUser;
+    private readonly IIncomeReadRepository _readRepository = readRepository;  
     private readonly IServerTimeProvider _serverTimeProvider = serverTimeProvider;
     private readonly IPolicyReadRepository _policyReadRepository = policyReadRepository;
 
@@ -39,25 +37,30 @@ public class IncomeAppServices(IIncomeReadRepository readRepository, IIncomeWrit
         IncomeEntity entity;
         if (dto.Id == Guid.Empty)
         {
+            
             // Traer la póliza desde el repositorio
             var policyEntity = await _policyReadRepository.GetByIdAsync(dto.PolicyId) ?? throw new Exception($"{ErrorMessages.Get(ErrorType.RecordDoesDotExist)} - Policy");
 
             // Obtener la fecha actual del servidor (no del cliente)
             var currentServerDateTime = await _serverTimeProvider.GetServerDateTimeAsync();
 
-            // Ajustar el día de pago, manteniendo la hora actual del servidor
-            // (si el día de pago no existe en el mes actual, se usa el último día disponible)
-            var lastDayOfMonth = DateTime.DaysInMonth(currentServerDateTime.Year, currentServerDateTime.Month);
-            var safeDay = Math.Min(policyEntity.PaymentDay.Value, lastDayOfMonth);
-
-            var adjustedDate = new DateTime(currentServerDateTime.Year, currentServerDateTime.Month, safeDay, currentServerDateTime.Hour, currentServerDateTime.Minute, currentServerDateTime.Second);
+            // Delegar la regla de negocio al dominio
+            var adjustedDate =  PaymentDateAdjuster.AdjustToValidPaymentDate(currentServerDateTime, policyEntity.PaymentDay.Value);
 
             // Crear el IncomeEntity con las fechas ajustadas
-            entity = IncomeEntity.Create(
-                Guid.Empty, adjustedDate, currentServerDateTime, dto.PolicyId, dto.ClientId, dto.IncomeType, dto.PaymentMethod, dto.MadeIn, _currectUser!.User!.Id, dto.Amount, dto.Note);
+            entity = CreateBaseIncomeAsync(
+            adjustedDate,
+            currentServerDateTime,
+            dto.PolicyId,
+            dto.ClientId,
+            dto.IncomeType,
+            dto.PaymentMethod,
+            dto.MadeIn,
+            dto.Amount,
+            dto.Note);
 
             // Guardar el ingreso
-            await _writeRepository.CreateAsync(entity);
+            await SaveIncomeAsync(entity);
         }
         else
         {

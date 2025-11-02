@@ -10,18 +10,18 @@ public class IncomeEntity : IAggregateRoot
     public Guid Id { get; private set; }
     public DateTime PaymentDate { get; private set; }
     public DateTime CreatedAt { get; private set; }
-    public Guid PolicyId { get; private set; }
+    public Guid? PolicyId { get; private set; }
     public Guid ClientId { get; private set; }
     public IncomeTypes IncomeType { get; private set; }
     public PaymentMethods PaymentMethod { get; private set; }
     public IncomeMadeIn MadeIn { get; private set; }
     public Guid CreatedBy { get; private set; }
     public decimal Amount { get; private set; }
-    public string? Note {  get; private set; }
+    public string? Note { get; private set; }
     public string? ClientName { get; private set; }
-    public string? TypeName {  get; private set; }
+    public string? TypeName { get; private set; }
 
-    private IncomeEntity(Guid id, DateTime paymentDate, DateTime createdAt, Guid policyId, Guid clientId, IncomeTypes incomeType, PaymentMethods paymentMethod, IncomeMadeIn madeIn, Guid createdBy, decimal amount, string? note)
+    private IncomeEntity(Guid id, DateTime paymentDate, DateTime createdAt, Guid? policyId, Guid clientId, IncomeTypes incomeType, PaymentMethods paymentMethod, IncomeMadeIn madeIn, Guid createdBy, decimal amount, string? note)
     {
         Id = id;
         PaymentDate = paymentDate;
@@ -35,15 +35,18 @@ public class IncomeEntity : IAggregateRoot
         Amount = amount;
         Note = note;
     }
-    
-    public static IncomeEntity Create(Guid id, DateTime paymentDate, DateTime createdAt, Guid policyId, Guid clientId, string incomeType, string paymentMethod, string madeIn, Guid createdBy, decimal amount, string? note)
+
+    public static IncomeEntity Create(Guid id, DateTime paymentDate, DateTime createdAt, Guid? policyId, Guid clientId, string incomeType, string paymentMethod, string madeIn, Guid createdBy, decimal amount, string? note)
     {
 
-        if (policyId == Guid.Empty) throw new Exception($"{ErrorMessages.Get(ErrorType.RequiredField)} -  PolicyId");
 
         if (clientId == Guid.Empty) throw new Exception($"{ErrorMessages.Get(ErrorType.RequiredField)} -  ClientId");
-         
         var (_incomeType, _paymentMethod, _madeIn) = IncomeEnumValidator.ValidateEnums(incomeType, madeIn, paymentMethod);
+
+        if (_incomeType == IncomeTypes.Insured)
+        {
+            if (policyId == Guid.Empty) throw new Exception($"{ErrorMessages.Get(ErrorType.RequiredField)} -  PolicyId");
+        }
 
         if (createdBy == Guid.Empty) throw new Exception($"{ErrorMessages.Get(ErrorType.RequiredField)} -  CreatedBy");
 
@@ -61,6 +64,7 @@ public class IncomeEntity : IAggregateRoot
         MadeIn = _incomeMadeIn;
         Note = note;
     }
+
     public void SetOpcionalProperties(string? clientName, string? typeName)
     {
         ClientName = clientName;

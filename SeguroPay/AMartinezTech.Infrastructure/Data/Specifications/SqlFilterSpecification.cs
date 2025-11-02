@@ -56,9 +56,14 @@ public class SqlFilterSpecification(
                     {
                         string paramStart = $"@{safeParamName}_start";
                         string paramEnd = $"@{safeParamName}_end";
+
+                        // ✅ Ajuste aquí — incluye todo el día final
+                        var adjustedEnd = end.Value.Date.AddDays(1).AddTicks(-1);
+
+
                         sb.Append($" AND {fieldName} BETWEEN {paramStart} AND {paramEnd}");
-                        cmd.Parameters.AddWithValue(paramStart, start.Value);
-                        cmd.Parameters.AddWithValue(paramEnd, end.Value);
+                        cmd.Parameters.AddWithValue(paramStart, start.Value.Date);
+                        cmd.Parameters.AddWithValue(paramEnd, adjustedEnd);
                     }
                     else if (start.HasValue)
                     {

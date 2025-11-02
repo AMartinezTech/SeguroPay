@@ -1,38 +1,41 @@
-﻿using AMartinezTech.Application.Cash.Income; 
-using AMartinezTech.Application.Policy;
-using AMartinezTech.Application.Policy.DTOs;
+﻿using AMartinezTech.Application.Cash.Income;
+using AMartinezTech.Application.Client;
 using AMartinezTech.Domain.Utils.Enums;
+using AMartinezTech.WinForms.Client;
 using AMartinezTech.WinForms.Utils;
+using AMartinezTech.WinForms.Utils.Factories;
 
 namespace AMartinezTech.WinForms.Cash.Income;
 
-public partial class FrmIncomeView : Form
+public partial class FrmOtherIncomeView : Form
 {
-
     #region "Fields"
+    private readonly IFormFactory _formFactory;
+
     private CancellationTokenSource? _cts;
-    private readonly IncomeAppServices _appServices;
-    private readonly PolicyAppService _policyAppService;
+    private readonly OtherIncomeAppService _otherIncomeAppService;
+    private readonly ClientAppServices _clientApplicationService;
+
     public Guid IncomeId = Guid.Empty;
-    public Guid PolicyId = Guid.Empty;
-    public PolicyDto? Policy { get; private set; }
+    public Guid ClientId = Guid.Empty;
     public IncomeDto? Income { get; private set; }
     #endregion
     #region "Constructor"
-    public FrmIncomeView(IncomeAppServices incomeAppServices, PolicyAppService policyAppService)
+    public FrmOtherIncomeView(IFormFactory formFactory, OtherIncomeAppService otherIncomeAppService, ClientAppServices clientApplicationService)
     {
         InitializeComponent();
-        _appServices = incomeAppServices;
-        _policyAppService = policyAppService;
+        _formFactory = formFactory;
+         _otherIncomeAppService = otherIncomeAppService;
         SetColorUI();
+        _clientApplicationService = clientApplicationService;
     }
     #endregion
     #region "Form events"
-    private void FrmIncomeView_Load(object sender, EventArgs e)
+    private void FrmOtherIncomeView_Load(object sender, EventArgs e)
     {
         SetMessage("Formulario preparado para recibir datos.", MessageType.Information);
         FillComboBoxs();
-        LoadPolicyById();
+        Amount.AllowDecimalNumbers();
     }
     #endregion
     #region "Methods"
@@ -66,16 +69,7 @@ public partial class FrmIncomeView : Form
         MadeIn.ValueMember = "Value";
         MadeIn.SelectedIndex = -1;
     }
-    private async void LoadPolicyById()
-    {
 
-        Policy = await _policyAppService.GetByIdAsync(PolicyId);
-        PolicyNo.Text = Policy.PolicyNo;
-        InsuranceName.Text = Policy.InsuranceName;
-        ClientName.Text = Policy.ClientName;
-        Amount.Text = Policy.Amount.ToString("N2");
-
-    }
     private void SetColorUI()
     {
         // Set Backgroud color
@@ -152,10 +146,25 @@ public partial class FrmIncomeView : Form
             MadeIn.Focus();
             errorProvider1.SetError(MadeIn, "Aquí!");
         }
+        else if (fieldName.Contains("Amount"))
+        {
+            Amount.Focus();
+            errorProvider1.SetError(Amount, "Aquí!");
+        }
     }
-    
+
     #endregion
     #region "Field events"
+
+    private void PaymentMethod_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        e.Handled = true;
+    }
+
+    private void MadeIn_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        e.Handled = true;
+    }
     private void PaymentMethod_SelectedIndexChanged(object sender, EventArgs e)
     {
         ClearMessageErr();
@@ -171,23 +180,21 @@ public partial class FrmIncomeView : Form
         ClearMessageErr();
     }
 
-    private void PaymentMethod_KeyPress(object sender, KeyPressEventArgs e)
+    private void Amount_TextChanged(object sender, EventArgs e)
     {
-        e.Handled = true;
-    }
-
-    private void MadeIn_KeyPress(object sender, KeyPressEventArgs e)
-    {
-        e.Handled = true;
+        ClearMessageErr();
     }
     #endregion
     #region "Btn events"
+
+
     private async void BtnPersistence_Click(object sender, EventArgs e)
     {
         ClearMessageErr();
         _cts = new CancellationTokenSource();
         try
         {
+            if (string.IsNullOrEmpty(Amount.Text)) Amount.Text = "0.00";
 
             if (PaymentMethod.SelectedIndex == -1)
             {
@@ -210,15 +217,15 @@ public partial class FrmIncomeView : Form
             Income = new IncomeDto
             {
                 Id = IncomeId,
-                PolicyId = Policy!.Id,
-                ClientId = Policy.ClientId,
-                IncomeType = "Insured",
+
+                ClientId = ClientId,
+                IncomeType = "Accessory",
                 PaymentMethod = PaymentMethod.SelectedValue!.ToString()!,
                 MadeIn = MadeIn.SelectedValue!.ToString()!,
-                Amount = Policy.Amount,
+                Amount = Decimal.Parse(Amount.Text),
 
             };
-            IncomeId = await _appServices.PersistenceAsync(Income);
+            IncomeId = await _otherIncomeAppService.CreateAsync(Income);
             Income.Id = IncomeId;
 
 
@@ -262,6 +269,19 @@ public partial class FrmIncomeView : Form
     #endregion
 
 
-
-
+    private async void BtnSelectClient_Click(object sender, EventArgs e)
+    {
+        using var frmSelectClientView = _formFactory.CreateFormFactory<FrmSelectClientView>();
+        frmSelectClientView.ClientTypes = ClientTypes.Accessory;
+        if (frmSelectClientView.ShowDialog() == DialogResult.OK)
+        {
+            var client = frmSelectClientView.SelectedClient;
+            if (client != null)
+            {
+                ClientId = client.Id;
+                var _client = await _clientApplicationService.GetByIdAsync(client.Id);
+                ClientDetail.Text = $"{_client.FirstName} {_client.LastName}{Environment.NewLine}{_client.DocIdentity}{Environment.NewLine}{_client.Phone}";
+            }
+        }
+    }
 }

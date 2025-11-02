@@ -13,8 +13,10 @@ public static class DICashServices
         services.AddTransient<FrmCashDashboardView>();
         
         services.AddTransient<IncomeAppServices>();
+        services.AddTransient<OtherIncomeAppService>();
         services.AddTransient<IncomeReportService>();
         services.AddTransient<FrmIncomeView>();
+        services.AddTransient<FrmOtherIncomeView>();
 
 
     }
