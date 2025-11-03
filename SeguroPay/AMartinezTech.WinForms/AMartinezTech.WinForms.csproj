@@ -34,6 +34,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>IncomeReceipt.xsd</DependentUpon>
     </Compile>
+    <Compile Update="Client\Print\ClientsDS.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ClientsDS.xsd</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -59,6 +64,13 @@
     <None Update="Cash\Income\Print\IncomeReceipt.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>IncomeReceipt.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Client\Print\ClientsDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ClientsDS.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Client\Print\ListOfClients.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

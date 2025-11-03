@@ -1,6 +1,7 @@
 ﻿using AMartinezTech.Application.Reports.Clients.Interfaces;
 using AMartinezTech.Domain.Utils.Enums;
 using AMartinezTech.WinForms.Client.Conversations;
+using AMartinezTech.WinForms.Client.Print;
 using AMartinezTech.WinForms.Client.Utils;
 using AMartinezTech.WinForms.Utils;
 using AMartinezTech.WinForms.Utils.Factories;
@@ -113,7 +114,7 @@ public partial class FrmClientDashboardView : Form
 
         ComboBoxClientType.DataSource = statuses;
         ComboBoxClientType.DisplayMember = "Text";
-        ComboBoxClientType.ValueMember = "Value"; 
+        ComboBoxClientType.ValueMember = "Value";
     }
     private void InvokeDataViewSetting()
     {
@@ -138,7 +139,7 @@ public partial class FrmClientDashboardView : Form
     {
         try
         {
-             
+
             // Detiene el repintado del DataGridView temporalmente
             DataGridView.SuspendLayout();
             DataGridView.DataSource = null;
@@ -146,7 +147,7 @@ public partial class FrmClientDashboardView : Form
             var filters = new Dictionary<string, object?>
             {
                 ["client_type"] = string.IsNullOrWhiteSpace(ComboBoxClientType.SelectedValue!.ToString()) ? null : ComboBoxClientType.SelectedValue!.ToString(),
-                ["is_active"]= CheckBoxIsActive.Checked,
+                ["is_active"] = CheckBoxIsActive.Checked,
 
             };
 
@@ -266,4 +267,10 @@ public partial class FrmClientDashboardView : Form
     #endregion
 
 
+    private  void BtnPrintList_Click(object sender, EventArgs e)
+    {
+        var frmPrintClientPreviewView = _formFactory.CreateFormFactory<FrmPrintClientPreviewView>();
+        frmPrintClientPreviewView.ReportName = "ListOfClients";
+        frmPrintClientPreviewView.Show();
+    }
 }

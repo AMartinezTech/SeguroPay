@@ -1,6 +1,6 @@
-﻿namespace AMartinezTech.WinForms.Cash.Income.Print
+﻿namespace AMartinezTech.WinForms.Client.Print
 {
-    partial class FrmPrintPreviewView
+    partial class FrmPrintClientPreviewView
     {
         /// <summary>
         /// Required designer variable.
@@ -30,15 +30,15 @@
         {
             SuspendLayout();
             // 
-            // FrmPrintPreviewView
+            // FrmPrintClientPreviewView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(920, 765);
-            Name = "FrmPrintPreviewView";
+            ClientSize = new Size(884, 761);
+            Name = "FrmPrintClientPreviewView";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FrmPrintPreviewView";
-            Load += FrmPrintPreviewView_Load;
+            Text = "FrmPrintClientPreviewView";
+            Load += FrmPrintClientPreviewView_Load;
             ResumeLayout(false);
         }
 

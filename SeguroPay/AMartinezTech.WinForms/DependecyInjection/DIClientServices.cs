@@ -4,6 +4,7 @@ using AMartinezTech.Application.Reports.Clients;
 using AMartinezTech.Application.Reports.Clients.Interfaces;
 using AMartinezTech.WinForms.Client;
 using AMartinezTech.WinForms.Client.Conversations;
+using AMartinezTech.WinForms.Client.Print;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AMartinezTech.WinForms.DependecyInjection;
@@ -14,6 +15,7 @@ public class DIClientServices
     {
         services.AddTransient<IClientReportService, ClientReportService>();
 
+        services.AddTransient<FrmPrintClientPreviewView>();
         services.AddTransient<FrmSelectClientView>();
         services.AddTransient<FrmClientDashboardView>();
         services.AddTransient<FrmClientView>();

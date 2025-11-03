@@ -150,6 +150,7 @@
             // BtnPrintList
             // 
             BtnPrintList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            BtnPrintList.Cursor = Cursors.Hand;
             BtnPrintList.IconChar = FontAwesome.Sharp.IconChar.Print;
             BtnPrintList.IconColor = Color.Black;
             BtnPrintList.IconFont = FontAwesome.Sharp.IconFont.Auto;
@@ -160,6 +161,7 @@
             BtnPrintList.Text = "&Imprimir listado";
             BtnPrintList.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnPrintList.UseVisualStyleBackColor = true;
+            BtnPrintList.Click += BtnPrintList_Click;
             // 
             // PanelLeyenda
             // 

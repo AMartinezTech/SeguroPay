@@ -8,7 +8,7 @@ using System.Drawing.Printing;
 
 namespace AMartinezTech.WinForms.Cash.Income.Print;
 
-public partial class FrmPrintPreviewView : Form
+public partial class FrmPrintIncomePreviewView : Form
 {
 
     public required Guid IncomeId = Guid.Empty;
@@ -41,7 +41,7 @@ public partial class FrmPrintPreviewView : Form
         //    PaperSize = new PaperSize("A4", 850, 1100)
         //};
     }
-    public FrmPrintPreviewView(IncomeReportService incomeReportService, CompanyReportService companyReportService)
+    public FrmPrintIncomePreviewView(IncomeReportService incomeReportService, CompanyReportService companyReportService)
     {
         InitializeComponent();
         _reportViewer = new ReportViewer();
@@ -75,7 +75,7 @@ public partial class FrmPrintPreviewView : Form
         {
             if (row["PaymentMethod"] != DBNull.Value)
             {
-                string value = row["PaymentMethod"].ToString();
+                string value = row["PaymentMethod"].ToString()!;
 
                 if (Enum.TryParse(typeof(PaymentMethods), value, out var enumValue))
                 {

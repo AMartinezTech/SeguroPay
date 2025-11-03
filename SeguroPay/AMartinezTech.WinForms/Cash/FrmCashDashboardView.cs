@@ -310,7 +310,7 @@ public partial class FrmCashDashboardView : Form
         else if (DataGridView.Columns[e.ColumnIndex].Name == "printCol")
         {
 
-            var _frmPrintPreviewView = _formFactory.CreateFormFactory<FrmPrintPreviewView>();
+            var _frmPrintPreviewView = _formFactory.CreateFormFactory<FrmPrintIncomePreviewView>();
             _frmPrintPreviewView.IncomeId = incomeId;
             _frmPrintPreviewView.ReportName = "IncomeReceipt";
             _frmPrintPreviewView.Show();

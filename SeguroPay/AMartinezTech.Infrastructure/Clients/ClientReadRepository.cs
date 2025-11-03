@@ -23,7 +23,7 @@ public class ClientReadRepository(string connectionString) : AdoRepositoryBase(c
             var spec = new SqlFilterSpecification(filters, globalSearch);
             var whereClause = spec.BuildCondition(cmd);
 
-            var sql = $"SELECT TOP 500 * FROM clients {whereClause} ORDER BY created_at DESC, first_name, last_name";
+            var sql = $"SELECT * FROM clients {whereClause} ORDER BY created_at DESC, first_name, last_name";
             cmd.CommandText = sql;
 
             using var reader = await cmd.ExecuteReaderAsync();

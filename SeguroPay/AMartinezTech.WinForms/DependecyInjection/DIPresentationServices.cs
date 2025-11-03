@@ -16,7 +16,7 @@ public class DIPresentationServices
         services.AddTransient<IFormFactory, FormFactory>();
         services.AddTransient<FrmMainView>();
         services.AddTransient<FrmSettingDashboardView>();
-        services.AddTransient<FrmPrintPreviewView>();
+        services.AddTransient<FrmPrintIncomePreviewView>();
 
         DIBankServices.Add(services);
         DICashServices.Add(services);
