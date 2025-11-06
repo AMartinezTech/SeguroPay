@@ -303,8 +303,7 @@ public partial class FrmPolicyDashboardView : Form
         //Buttons icon color
         IconPictureBoxSearch.IconColor = AppColors.Primary;
         IconPictureBox.IconColor = AppColors.Primary;
-        BtnInsurance.IconColor = AppColors.Primary;
-        BtnPrintList.IconColor = AppColors.Primary;
+        BtnInsurance.IconColor = AppColors.Primary; 
 
     }
     private void OpenFrmPolicy(Guid policyId)

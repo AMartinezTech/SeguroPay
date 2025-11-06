@@ -205,6 +205,13 @@ CREATE TABLE clients_conversations
     CONSTRAINT CK_Conversation_Channel CHECK (channel IN ('Teléfono', 'WhatsApp', 'Correo'))
 );
 
+
+CREATE TABLE expense_categories (
+    id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+    name NVARCHAR(200) NOT NULL,
+    is_active BIT NOT NULL DEFAULT 1 
+);
+
 CREATE TABLE bank_accounts (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
 	created_at DATETIME2 NOT NULL DEFAULT GETDATE(),

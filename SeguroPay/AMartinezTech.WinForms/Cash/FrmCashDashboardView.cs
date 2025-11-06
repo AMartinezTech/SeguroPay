@@ -277,7 +277,12 @@ public partial class FrmCashDashboardView : Form
     private void BtnOtherIncome_Click(object sender, EventArgs e)
     {
         var frmOtherIncomeView = _formFactory.CreateFormFactory<FrmOtherIncomeView>();
-        frmOtherIncomeView.ShowDialog();
+         
+        if(frmOtherIncomeView.ShowDialog() == DialogResult.OK)
+        {
+            _isChangeValueControl = true;
+            TextBoxSearch.Focus();
+        }
     }
 
     private void BtnExpense_Click(object sender, EventArgs e)

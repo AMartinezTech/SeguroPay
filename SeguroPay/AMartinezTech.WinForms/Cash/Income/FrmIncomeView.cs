@@ -216,6 +216,7 @@ public partial class FrmIncomeView : Form
                 PaymentMethod = PaymentMethod.SelectedValue!.ToString()!,
                 MadeIn = MadeIn.SelectedValue!.ToString()!,
                 Amount = Policy.Amount,
+                Note = Note.Text,
 
             };
             IncomeId = await _appServices.PersistenceAsync(Income);

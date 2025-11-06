@@ -21,15 +21,23 @@ public class ExpenseCategoryEntity : IAggregateRoot
     public static ExpenseCategoryEntity Create(Guid id, string name, bool isActive)
     {
         if (string.IsNullOrWhiteSpace(name.Trim()))
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - Nombre! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - Name! ");
 
         if (name.Length > 15)
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.MaxLength)} (15) - Nombre! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.MaxLength)} (15) - Name! ");
 
         if (name.Length < 4)
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.MinLength)} (4) - Nombre! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.MinLength)} (4) - Name! ");
 
         id = CreateGuid.EnsureId(id);
         return new ExpenseCategoryEntity(id, name, isActive);
     }
+
+    public void Update(string name)
+    {
+        Name = name;
+    }
+
+    public void MarkAsActive() => IsActive = true;
+    public void MarkAsInactive() => IsActive = false;
 }

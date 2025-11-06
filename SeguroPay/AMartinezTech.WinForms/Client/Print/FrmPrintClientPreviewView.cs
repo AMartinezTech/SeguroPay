@@ -61,7 +61,7 @@ public partial class FrmPrintClientPreviewView : Form
 
         _reportViewer.LocalReport.DataSources.Clear();
 
-        DataTable clientsData = await _clientReportService.GetByFilterReportsAsync();
+        DataTable clientsData = await _clientReportService.GetByFilterReportsAsync(filter);
 
         // Traducir PaymentMethod al español
         foreach (DataRow row in clientsData.Rows)

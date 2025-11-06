@@ -269,8 +269,15 @@ public partial class FrmClientDashboardView : Form
 
     private  void BtnPrintList_Click(object sender, EventArgs e)
     {
+        var filters = new Dictionary<string, object?>
+        {
+            ["client_type"] = string.IsNullOrWhiteSpace(ComboBoxClientType.SelectedValue!.ToString()) ? null : ComboBoxClientType.SelectedValue!.ToString(),
+            ["is_active"] = CheckBoxIsActive.Checked,
+
+        };
         var frmPrintClientPreviewView = _formFactory.CreateFormFactory<FrmPrintClientPreviewView>();
         frmPrintClientPreviewView.ReportName = "ListOfClients";
+        frmPrintClientPreviewView.filter = filters;
         frmPrintClientPreviewView.Show();
     }
 }

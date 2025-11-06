@@ -286,12 +286,6 @@
             <Border>
               <Style>None</Style>
             </Border>
-            <LeftBorder>
-              <Style>Solid</Style>
-            </LeftBorder>
-            <RightBorder>
-              <Style>Solid</Style>
-            </RightBorder>
             <PaddingLeft>2pt</PaddingLeft>
             <PaddingRight>2pt</PaddingRight>
             <PaddingTop>2pt</PaddingTop>

@@ -33,7 +33,6 @@
             BtnInsurance = new FontAwesome.Sharp.IconButton();
             LabelTotalClients = new Label();
             PanelLeyenda1 = new Panel();
-            BtnPrintList = new FontAwesome.Sharp.IconButton();
             DataGridView = new DataGridView();
             label3 = new Label();
             Status = new ComboBox();
@@ -82,7 +81,7 @@
             BtnInsurance.IconChar = FontAwesome.Sharp.IconChar.BriefcaseMedical;
             BtnInsurance.IconColor = Color.Black;
             BtnInsurance.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnInsurance.Location = new Point(770, 512);
+            BtnInsurance.Location = new Point(861, 508);
             BtnInsurance.Name = "BtnInsurance";
             BtnInsurance.Size = new Size(85, 85);
             BtnInsurance.TabIndex = 6;
@@ -109,21 +108,6 @@
             PanelLeyenda1.Name = "PanelLeyenda1";
             PanelLeyenda1.Size = new Size(315, 186);
             PanelLeyenda1.TabIndex = 40;
-            // 
-            // BtnPrintList
-            // 
-            BtnPrintList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            BtnPrintList.Cursor = Cursors.Hand;
-            BtnPrintList.IconChar = FontAwesome.Sharp.IconChar.Print;
-            BtnPrintList.IconColor = Color.Black;
-            BtnPrintList.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnPrintList.Location = new Point(861, 512);
-            BtnPrintList.Name = "BtnPrintList";
-            BtnPrintList.Size = new Size(85, 85);
-            BtnPrintList.TabIndex = 7;
-            BtnPrintList.Text = "&Imprimir listado";
-            BtnPrintList.TextImageRelation = TextImageRelation.ImageAboveText;
-            BtnPrintList.UseVisualStyleBackColor = true;
             // 
             // DataGridView
             // 
@@ -387,7 +371,6 @@
             Controls.Add(BtnInsurance);
             Controls.Add(LabelTotalClients);
             Controls.Add(PanelLeyenda1);
-            Controls.Add(BtnPrintList);
             Controls.Add(DataGridView);
             Controls.Add(label3);
             Controls.Add(Status);
@@ -412,7 +395,6 @@
         private FontAwesome.Sharp.IconButton BtnInsurance;
         private Label LabelTotalClients;
         private Panel PanelLeyenda1;
-        private FontAwesome.Sharp.IconButton BtnPrintList;
         private DataGridView DataGridView;
         private Label label3;
         private ComboBox Status;

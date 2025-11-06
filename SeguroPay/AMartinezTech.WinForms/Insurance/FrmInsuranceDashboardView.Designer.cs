@@ -31,7 +31,6 @@
             components = new System.ComponentModel.Container();
             LabelTotalClients = new Label();
             PanelLeyenda = new Panel();
-            BtnPrintList = new FontAwesome.Sharp.IconButton();
             CheckBoxIsActiveFilter = new CheckBox();
             DataGridView = new DataGridView();
             label1 = new Label();
@@ -84,21 +83,6 @@
             PanelLeyenda.Name = "PanelLeyenda";
             PanelLeyenda.Size = new Size(383, 115);
             PanelLeyenda.TabIndex = 11;
-            // 
-            // BtnPrintList
-            // 
-            BtnPrintList.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            BtnPrintList.IconChar = FontAwesome.Sharp.IconChar.Print;
-            BtnPrintList.IconColor = Color.Black;
-            BtnPrintList.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnPrintList.Location = new Point(861, 543);
-            BtnPrintList.Name = "BtnPrintList";
-            BtnPrintList.Size = new Size(85, 85);
-            BtnPrintList.TabIndex = 9;
-            BtnPrintList.Text = "&Imprimir listado";
-            BtnPrintList.TextImageRelation = TextImageRelation.ImageAboveText;
-            BtnPrintList.UseVisualStyleBackColor = true;
-            BtnPrintList.Click += BtnPrintList_Click;
             // 
             // CheckBoxIsActiveFilter
             // 
@@ -384,7 +368,6 @@
             Controls.Add(IconPictureBox);
             Controls.Add(LabelTitle);
             Controls.Add(PanelLeyenda);
-            Controls.Add(BtnPrintList);
             Controls.Add(CheckBoxIsActiveFilter);
             Controls.Add(DataGridView);
             Controls.Add(label1);
@@ -410,7 +393,6 @@
 
         private Label LabelTotalClients;
         private Panel PanelLeyenda;
-        private FontAwesome.Sharp.IconButton BtnPrintList;
         private CheckBox CheckBoxIsActiveFilter;
         private DataGridView DataGridView;
         private Label label1;

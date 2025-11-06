@@ -223,6 +223,7 @@ public partial class FrmOtherIncomeView : Form
                 PaymentMethod = PaymentMethod.SelectedValue!.ToString()!,
                 MadeIn = MadeIn.SelectedValue!.ToString()!,
                 Amount = Decimal.Parse(Amount.Text),
+                Note = Note.Text,
 
             };
             IncomeId = await _otherIncomeAppService.CreateAsync(Income);

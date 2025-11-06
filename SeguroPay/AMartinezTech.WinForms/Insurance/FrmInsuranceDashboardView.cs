@@ -110,9 +110,7 @@ public partial class FrmInsuranceDashboardView : Form
         IconPictureBox.IconColor = AppColors.Primary;
         IconPictureBoxSearch.IconColor = AppColors.Primary;
         BtnClear.IconColor = AppColors.Primary;
-        BtnPersistence.IconColor = AppColors.Primary;
-        BtnPrintList.IconColor = AppColors.Primary;
-
+        BtnPersistence.IconColor = AppColors.Primary; 
     }
     private void ValidationFields(string fieldName)
     {
