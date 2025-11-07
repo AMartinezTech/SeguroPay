@@ -46,7 +46,7 @@ public class IncomeReadRepository(string connectionString) : AdoRepositoryBase(c
                         LEFT JOIN insurances ins ON p.insurance_id = ins.id
                         INNER JOIN clients c ON i.client_id = c.id
                         INNER JOIN users u ON i.created_by = u.id
-                        {whereClause} ORDER BY i.created_by DESC;";
+                        {whereClause} ORDER BY i.created_at DESC;";
             cmd.CommandText = sql;
 
             using var reader = await cmd.ExecuteReaderAsync();
