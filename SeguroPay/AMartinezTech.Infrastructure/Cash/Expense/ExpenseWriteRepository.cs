@@ -6,7 +6,7 @@ using Microsoft.Data.SqlClient;
 
 namespace AMartinezTech.Infrastructure.Cash.Expense;
 
-public class ExpenseWriterRepository(string connectionString) : AdoRepositoryBase(connectionString), IExpenseWriteRepository
+public class ExpenseWriteRepository(string connectionString) : AdoRepositoryBase(connectionString), IExpenseWriteRepository
 {
     public async Task CreateAsync(ExpenseEntity entity)
     {

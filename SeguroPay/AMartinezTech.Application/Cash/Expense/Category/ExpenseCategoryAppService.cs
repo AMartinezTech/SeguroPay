@@ -19,7 +19,7 @@ public class ExpenseCategoryAppService(IExpenseCategoryReadRepository readReposi
     }
     public async Task<ExpenseCategoryDto> GetByIdAsync(Guid id)
     {
-        var result = await _readRepository.GetByIdAsync(id) ?? throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - Id ");
+        var result = await _readRepository.GetByIdAsync(id) ?? throw new ValidationException($" {ErrorMessages.Get(ErrorType.RecordDoesDotExist)} - ExpenseCategory ");
         return ExpenseCategoryMapper.ToDto(result);
     }
     #endregion

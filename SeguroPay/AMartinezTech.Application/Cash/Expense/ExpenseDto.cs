@@ -8,4 +8,7 @@ public class ExpenseDto
     public decimal Amount { get; set; }
     public string Note { get; set; } = string.Empty;
     public bool IsActive { get; set; }
+    public string IsActiveName => IsActive ? "Si" : "No";
+    public Guid CreatedBy { get; set; }
+
 }

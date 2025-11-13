@@ -14,6 +14,7 @@ internal class ExpenseMapper
             Amount = entity.Amount.Value,
             Note = entity.Note ?? string.Empty,
             IsActive = entity.IsActive,
+            CreatedBy = entity.CreatedBy,
         };
     }
 

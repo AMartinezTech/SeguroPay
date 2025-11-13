@@ -1,9 +1,9 @@
-﻿using Microsoft.Data.SqlClient;
-using AMartinezTech.Domain.Utils;
-using AMartinezTech.Domain.Cash.Expense; 
-using AMartinezTech.Infrastructure.Utils.Persistence;
+﻿using AMartinezTech.Application.Cash.Expense.Interfaces;
+using AMartinezTech.Domain.Cash.Expense;
+using AMartinezTech.Domain.Utils; 
 using AMartinezTech.Infrastructure.Data.Specifications;
-using AMartinezTech.Application.Cash.Expense.Interfaces;
+using AMartinezTech.Infrastructure.Utils.Persistence;
+using Microsoft.Data.SqlClient;
 
 namespace AMartinezTech.Infrastructure.Cash.Expense;
 
@@ -42,9 +42,35 @@ public class ExpenseReadRepository(string connectionString) : AdoRepositoryBase(
         return result;
     }
 
-    public Task<ExpenseEntity?> GetByIdAsync(Guid id)
+    public async Task<ExpenseEntity?> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        ExpenseEntity result;
+        using (var conn = GetConnection())
+        {
+            await conn.OpenAsync();
+
+            using var cmd = new SqlCommand { Connection = conn };
+            cmd.Parameters.AddWithValue("@Id", id);
+
+            var sql = $@"
+                        SELECT 
+                           e.id,
+                           e.created_at,
+                           e.category_id,
+                           e.amount,
+                           e.note,
+                           e.is_active,
+                           ec.name AS category_name
+                        FROM expenses e 
+                        LEFT JOIN expense_categories ec ON e.category_id = ec.id
+                        WHERE e.id = @Id ORDER BY i.created_at DESC;";
+            cmd.CommandText = sql;
+
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            result = MapToExpense.ToEntity(reader);
+        }
+        return result;
     }
 
     public async Task<PageResult<ExpenseEntity>> PaginationAsync(int pageNumber, int pageSize, bool? IsActive)

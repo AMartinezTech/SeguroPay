@@ -18,5 +18,6 @@ public enum ErrorType
     DataBaseUnknownError,
     PasswordNotMatch,
     InvalidCredentials,
-    HasMomevements
+    HasMomevements,
+    InvalidUser
 }

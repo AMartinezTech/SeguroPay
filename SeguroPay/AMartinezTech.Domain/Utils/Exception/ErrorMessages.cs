@@ -23,6 +23,7 @@ public class ErrorMessages
             ErrorType.PasswordNotMatch => "Las claves NO coinciden.!",
             ErrorType.InvalidCredentials => "La credenciales no son válidas.!",
             ErrorType.HasMomevements => "Acción no permitida, ya existen movimientos.",
+            ErrorType.InvalidUser => "Usuario o sesión invalidos.",
             _ => "Error no definido",
         };
     }
