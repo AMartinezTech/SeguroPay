@@ -1,6 +1,7 @@
 ﻿using AMartinezTech.Application.Cash.Income;
 using AMartinezTech.Application.Reports.Incomes;
 using AMartinezTech.WinForms.Cash;
+using AMartinezTech.WinForms.Cash.Expense.Category;
 using AMartinezTech.WinForms.Cash.Income;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,12 +13,14 @@ public static class DICashServices
     {
         services.AddTransient<FrmCashDashboardView>();
         
+        // Income
         services.AddTransient<IncomeAppServices>();
         services.AddTransient<OtherIncomeAppService>();
         services.AddTransient<IncomeReportService>();
         services.AddTransient<FrmIncomeView>();
         services.AddTransient<FrmOtherIncomeView>();
 
-
+        // Expense
+        services.AddTransient<FrmExpenseCategory>();
     }
 }

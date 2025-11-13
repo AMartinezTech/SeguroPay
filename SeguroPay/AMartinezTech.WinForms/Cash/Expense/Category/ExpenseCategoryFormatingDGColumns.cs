@@ -1,6 +1,6 @@
-﻿namespace AMartinezTech.WinForms.Location.Utils;
+﻿namespace AMartinezTech.WinForms.Cash.Expense.Category;
 
-internal class StreetFormatingDGColumns
+internal class ExpenseCategoryFormatingDGColumns
 {
     internal static void Apply(DataGridView dataGridView)
     {
@@ -20,7 +20,7 @@ internal class StreetFormatingDGColumns
         };
         dataGridView.Columns.Add(colId);
 
-        
+
 
         var colName = new DataGridViewTextBoxColumn
         {
@@ -34,6 +34,15 @@ internal class StreetFormatingDGColumns
         };
         dataGridView.Columns.Add(colName);
 
-        
+        var isActiveName = new DataGridViewTextBoxColumn
+        {
+            Name = "IsActiveName",
+            HeaderText = "ACTIVA",
+            DataPropertyName = "IsActiveName", // Vincula con la propiedad del resultado
+            Width = 100,
+            DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft }, 
+
+        };
+        dataGridView.Columns.Add(isActiveName);
     }
 }

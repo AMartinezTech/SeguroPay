@@ -1,5 +1,7 @@
 ﻿using AMartinezTech.Domain.Cash.Expense;
 using AMartinezTech.Domain.Utils;
+using AMartinezTech.Domain.Utils.Exception;
+using System.ComponentModel.DataAnnotations;
 
 namespace AMartinezTech.Application.Cash.Expense.Category;
 
@@ -14,6 +16,11 @@ public class ExpenseCategoryAppService(IExpenseCategoryReadRepository readReposi
         var result = await _readRepository.PaginationAsync(pageNumber, pageSize, IsActive);
         var dtoList = ExpenseCategoryMapper.ToDtoList(result.Data);
         return new PageResult<ExpenseCategoryDto>(result.TotalRecords, pageSize, dtoList);
+    }
+    public async Task<ExpenseCategoryDto> GetByIdAsync(Guid id)
+    {
+        var result = await _readRepository.GetByIdAsync(id) ?? throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - Id ");
+        return ExpenseCategoryMapper.ToDto(result);
     }
     #endregion
 

@@ -1,11 +1,11 @@
-﻿using AMartinezTech.Application.Location.Street; 
+﻿using AMartinezTech.Application.Cash.Expense.Category; 
 using System.ComponentModel;
 
-namespace AMartinezTech.WinForms.Location.Utils;
+namespace AMartinezTech.WinForms.Cash.Expense.Category;
 
-internal class StreetUpdatingMemoryData
+internal class ExpenseCategoryUpdatingMemoryData
 {
-    internal static BindingList<StreetDto> Excecute(StreetDto dto, BindingList<StreetDto> itemList)
+    internal static BindingList<ExpenseCategoryDto> Excecute(ExpenseCategoryDto dto, BindingList<ExpenseCategoryDto> itemList)
     {
         var item = itemList.FirstOrDefault(x => x.Id == dto.Id);
 
@@ -13,7 +13,9 @@ internal class StreetUpdatingMemoryData
         {
             // Si el elemento existe, actualizamos los valores
             item.Id = dto.Id;
-           item.Name = dto.Name;
+            item.Name = dto.Name;
+            item.IsActive = dto.IsActive;
+
         }
         else
         {
