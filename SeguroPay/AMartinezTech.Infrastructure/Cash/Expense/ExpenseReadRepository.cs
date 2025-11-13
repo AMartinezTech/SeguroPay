@@ -42,6 +42,11 @@ public class ExpenseReadRepository(string connectionString) : AdoRepositoryBase(
         return result;
     }
 
+    public Task<ExpenseEntity?> GetByIdAsync(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<PageResult<ExpenseEntity>> PaginationAsync(int pageNumber, int pageSize, bool? IsActive)
     {
         var result = new List<ExpenseEntity>();

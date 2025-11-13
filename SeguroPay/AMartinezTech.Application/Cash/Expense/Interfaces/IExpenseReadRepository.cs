@@ -3,4 +3,4 @@ using AMartinezTech.Domain.Utils.Interfaces;
 
 namespace AMartinezTech.Application.Cash.Expense.Interfaces;
 
-public interface IExpenseReadRepository :  IPagination<ExpenseEntity>, IFilter<ExpenseEntity>;
+public interface IExpenseReadRepository :  IPagination<ExpenseEntity>, IFilter<ExpenseEntity>, IGetById<ExpenseEntity,Guid>;

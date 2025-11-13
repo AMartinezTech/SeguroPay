@@ -230,6 +230,7 @@ public partial class FrmStreetView : Form
 
     private void DataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
     {
+       
         if (e.RowIndex < 0 || e.ColumnIndex < 0) return; // Clic Only on valid cell and column
         StreetId = Guid.Parse(DataGridView.Rows[e.RowIndex].Cells["Id"].Value!.ToString()!);
 

@@ -1,5 +1,5 @@
-﻿using AMartinezTech.Application.Cash.Expense.Category.Interfaces;
-using AMartinezTech.Domain.Cash.Expense; 
+﻿using AMartinezTech.Application.Cash.Expense.Category;
+using AMartinezTech.Domain.Cash.Expense;
 using AMartinezTech.Domain.Utils;
 using AMartinezTech.Domain.Utils.Exception;
 using AMartinezTech.Infrastructure.Utils.Exceptions;

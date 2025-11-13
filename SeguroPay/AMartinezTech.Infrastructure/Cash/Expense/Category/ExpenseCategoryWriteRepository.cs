@@ -1,4 +1,4 @@
-﻿using AMartinezTech.Application.Cash.Expense.Category.Interfaces;
+﻿using AMartinezTech.Application.Cash.Expense.Category;
 using AMartinezTech.Domain.Cash.Expense;
 using AMartinezTech.Infrastructure.Utils.Exceptions;
 using AMartinezTech.Infrastructure.Utils.Persistence;
