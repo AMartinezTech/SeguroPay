@@ -16,6 +16,7 @@ public static class DependencyInjection
         DILocationServices.Add(services, connectionString);
         DIPolicyServices.Add(services, connectionString);
         DIIncomeServices.Add(services, connectionString);
+        DIExpenseServices.Add(services, connectionString);
         return services;
     }
 }

@@ -212,6 +212,17 @@ CREATE TABLE expense_categories (
     is_active BIT NOT NULL DEFAULT 1 
 );
 
+CREATE TABLE expenses (
+    id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	created_at DATETIME2 NOT NULL DEFAULT GETDATE(),  
+	category_id UNIQUEIDENTIFIER NOT NULL,         
+	amount DECIMAL(18,2) NOT NULL,                  
+    note NVARCHAR(200) NULL,
+    is_active BIT NOT NULL DEFAULT 1,
+	created_by UNIQUEIDENTIFIER NOT NULL, 
+	CONSTRAINT FK_category_expense FOREIGN KEY (category_id) REFERENCES expense_categories(id)
+);
+
 CREATE TABLE bank_accounts (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
 	created_at DATETIME2 NOT NULL DEFAULT GETDATE(),

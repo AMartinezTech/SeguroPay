@@ -1,6 +1,9 @@
-﻿using AMartinezTech.Application.Cash.Income;
+﻿using AMartinezTech.Application.Cash.Expense;
+using AMartinezTech.Application.Cash.Expense.Category;
+using AMartinezTech.Application.Cash.Income;
 using AMartinezTech.Application.Reports.Incomes;
 using AMartinezTech.WinForms.Cash;
+using AMartinezTech.WinForms.Cash.Expense;
 using AMartinezTech.WinForms.Cash.Expense.Category;
 using AMartinezTech.WinForms.Cash.Income;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +24,9 @@ public static class DICashServices
         services.AddTransient<FrmOtherIncomeView>();
 
         // Expense
+        services.AddTransient<ExpenseAppService>();
+        services.AddTransient<ExpenseCategoryAppService>();
         services.AddTransient<FrmExpenseCategory>();
+        services.AddTransient<FrmExpenseView>();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AMartinezTech.Application.Cash.Income;
+using AMartinezTech.WinForms.Cash.Expense;
 using AMartinezTech.WinForms.Cash.Income;
 using AMartinezTech.WinForms.Cash.Income.Print;
 using AMartinezTech.WinForms.Cash.Utils;
@@ -287,7 +288,13 @@ public partial class FrmCashDashboardView : Form
 
     private void BtnExpense_Click(object sender, EventArgs e)
     {
+        var frmOtherIncomeView = _formFactory.CreateFormFactory<FrmExpenseView>();
 
+        if (frmOtherIncomeView.ShowDialog() == DialogResult.OK)
+        {
+            _isChangeValueControl = true;
+            TextBoxSearch.Focus();
+        }
     }
 
     private void BtnPrintList_Click(object sender, EventArgs e)
