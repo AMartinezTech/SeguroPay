@@ -17,14 +17,15 @@ public class ExpenseWriteRepository(string connectionString) : AdoRepositoryBase
             using var cmd = new SqlCommand { Connection = conn };
 
 
-            var sql = @"INSERT INTO expenses (id, created_at, category_id, amount, note, is_active)  VALUES (@Id, @CreatedAt, @CategoryId, @Amount, @Note, @IsActive)";
+            var sql = @"INSERT INTO expenses (id, category_id, amount, note, is_active, created_by)  VALUES (@Id,  @CategoryId, @Amount, @Note, @IsActive, @CreatedBy)";
             cmd.CommandText = sql;
-            cmd.Parameters.AddWithValue("@Id", entity.Id);
-            cmd.Parameters.AddWithValue("@CreatedAt", entity.CreatedAt);
-            cmd.Parameters.AddWithValue("@CategoryId", entity.CategoryId);
-            cmd.Parameters.AddWithValue("@Amount", entity.Amount);
+            cmd.Parameters.AddWithValue("@Id", entity.Id); 
+            cmd.Parameters.AddWithValue("@CategoryId", entity.CategoryId.Value);
+            cmd.Parameters.AddWithValue("@Amount", entity.Amount.Value);
             cmd.Parameters.AddWithValue("@Note", entity.Note ?? string.Empty);
             cmd.Parameters.AddWithValue("@IsActive", entity.IsActive);
+            cmd.Parameters.AddWithValue("@CreatedBy", entity.CreatedBy);
+
 
             await cmd.ExecuteNonQueryAsync();
 
@@ -49,7 +50,7 @@ public class ExpenseWriteRepository(string connectionString) : AdoRepositoryBase
             using var cmd = new SqlCommand { Connection = conn };
 
 
-            var sql = @"DELETE FROM expenses  WHERE id = @Id";
+            var sql = @"DELETE FROM expenses WHERE id = @Id";
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@Id", id);
           
@@ -77,7 +78,7 @@ public class ExpenseWriteRepository(string connectionString) : AdoRepositoryBase
             using var cmd = new SqlCommand { Connection = conn };
 
 
-            var sql = @"UPDATE expenses  SET category_id = @CategoryId, amount = @Amount, note = @Note, is_active = @IsActive WHERE id = @Id";
+            var sql = @"UPDATE expenses SET category_id = @CategoryId, amount = @Amount, note = @Note, is_active = @IsActive WHERE id = @Id";
             cmd.CommandText = sql;
             cmd.Parameters.AddWithValue("@Id", entity.Id); 
             cmd.Parameters.AddWithValue("@CategoryId", entity.CategoryId);

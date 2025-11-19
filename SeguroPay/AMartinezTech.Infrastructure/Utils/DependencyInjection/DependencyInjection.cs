@@ -17,6 +17,7 @@ public static class DependencyInjection
         DIPolicyServices.Add(services, connectionString);
         DIIncomeServices.Add(services, connectionString);
         DIExpenseServices.Add(services, connectionString);
+        DIBankServices.Add(services, connectionString);
         return services;
     }
 }

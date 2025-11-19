@@ -1,11 +1,13 @@
-﻿using AMartinezTech.Application.Cash.Income;
+﻿using AMartinezTech.Application.Cash.Expense;
+using AMartinezTech.Application.Cash.Income;
+using AMartinezTech.Domain.Utils.Enums;
 using AMartinezTech.WinForms.Cash.Expense;
 using AMartinezTech.WinForms.Cash.Income;
 using AMartinezTech.WinForms.Cash.Income.Print;
 using AMartinezTech.WinForms.Cash.Utils;
 using AMartinezTech.WinForms.Utils;
 using AMartinezTech.WinForms.Utils.Factories;
-using System.ComponentModel;
+using System.ComponentModel; 
 
 namespace AMartinezTech.WinForms.Cash;
 
@@ -14,17 +16,21 @@ public partial class FrmCashDashboardView : Form
     #region "Fields"
     private readonly IFormFactory _formFactory;
     private CancellationTokenSource? _cts;
+    private readonly ExpenseAppService _expenseAppService;
+    private BindingList<ExpenseDto> _listExpense = [];
+
     private readonly IncomeAppServices _incomeAppServices;
     private BindingList<IncomeDto> _list = [];
     private bool _isChangeValueControl = false;
 
     #endregion
     #region "Constructor"
-    public FrmCashDashboardView(IFormFactory formFactory, IncomeAppServices incomeAppServices)
+    public FrmCashDashboardView(IFormFactory formFactory, IncomeAppServices incomeAppServices, ExpenseAppService expenseAppService)
     {
         InitializeComponent();
         _formFactory = formFactory;
         _incomeAppServices = incomeAppServices;
+        _expenseAppService = expenseAppService;
         SetColorUI();
     }
     #endregion
@@ -35,11 +41,62 @@ public partial class FrmCashDashboardView : Form
     {
         InvokeDataViewSetting();
         DataGridView.EnableDoubleBuffering();
-        InvokeFilterAsync();
+        InvokeFilterAsync("Ingresos");
         SetMessage("Alertas!", MessageType.Information);
+        FillComboBoxes();
     }
     #endregion
     #region "Methods"
+    private void FillComboBoxes()
+    {
+
+        var incomeTypes = Enum.GetValues<IncomeTypes>()
+            .Cast<IncomeTypes>()
+            .Select(e => new
+            {
+                Value = (IncomeTypes?)e,
+                Text = e.GetDisplayName()
+            })
+            .ToList();
+
+        incomeTypes.Insert(0, new { Value = (IncomeTypes?)null, Text = "[Todas]" });
+        ComboBoxIncomeTypes.DataSource = incomeTypes;
+        ComboBoxIncomeTypes.DisplayMember = "Text";
+        ComboBoxIncomeTypes.ValueMember = "Value";
+        ComboBoxIncomeTypes.SelectedIndex = 0;
+
+        var paymentMethods = Enum.GetValues<PaymentMethods>()
+            .Cast<PaymentMethods>()
+            .Select(e => new
+            {
+                Value = (PaymentMethods?)e,
+                Text = e.GetDisplayName()
+            })
+            .ToList();
+
+        paymentMethods.Insert(0, new { Value = (PaymentMethods?)null, Text = "[Todas]" }); 
+        ComboBoxPaymentMethods.DataSource = paymentMethods;
+        ComboBoxPaymentMethods.DisplayMember = "Text";
+        ComboBoxPaymentMethods.ValueMember = "Value";
+        ComboBoxPaymentMethods.SelectedIndex = 0;
+
+        var incomeMadeIn = Enum.GetValues<IncomeMadeIn>()
+            .Cast<IncomeMadeIn>()
+            .Select(e => new
+            {
+                Value = (IncomeMadeIn?)e,
+                Text = e.GetDisplayName()
+            })
+            .ToList();
+        incomeMadeIn.Insert(0, new { Value = (IncomeMadeIn?)null, Text = "[Todas]" });
+        ComboBoxIncomeMadeIn.DataSource = incomeMadeIn;
+        ComboBoxIncomeMadeIn.DisplayMember = "Text";
+        ComboBoxIncomeMadeIn.ValueMember = "Value";
+        ComboBoxIncomeMadeIn.SelectedIndex = 0;
+
+
+
+    }
     private void SetColorUI()
     {
         // Set Backgroud color
@@ -56,18 +113,121 @@ public partial class FrmCashDashboardView : Form
         BtnPrintList.IconColor = AppColors.Primary;
 
     }
-    private async void InvokeFilterAsync()
+    private void InvokeFilterAsync(string filterBy)
+    {
+        if (string.IsNullOrWhiteSpace(filterBy))
+            return;
+
+
+
+        if (filterBy == "Ingresos")
+        {
+            IncomenDGColumns.Apply(DataGridView);   // columnas de ingresos
+            InvokeIncomeFilterAsync(false);              // consulta de ingresos
+        }
+        else
+        {
+            ExpenseDGColumns.Apply(DataGridView);   // columnas de gastos
+            InvokeExpenseFilterAsync();             // consulta de gastos
+        }
+    }
+    private async void InvokeExpenseFilterAsync()
     {
         try
         {
             ClearMessageErr();
-            // Detiene el repintado del DataGridView temporalmente
+            // Detiene el repintado del DataGridView temporalmente _expenseAppService
             DataGridView.SuspendLayout();
             DataGridView.DataSource = null;
 
             var filters = new Dictionary<string, object?>();
 
+            var searchText = TextBoxSearch.Text.Trim();
+            var search = new Dictionary<string, object?>
+            {
+                ["e.note"] = searchText
+            };
 
+            Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null;
+
+            // Verifica que ambos controles tengan fechas válidas
+            if (DateTimePicker1.Value.Date > DateTimePicker2.Value.Date)
+            {
+
+                SetMessage("La fecha inicial no puede ser mayor que la fecha final. Rango de fechas inválido", MessageType.Warning);
+                return;
+            }
+
+            if (DateTimePicker1.Value.Date == DateTimePicker2.Value.Date)
+            {
+                // Si ambas fechas son iguales → filtra desde esa fecha (inicio = fecha, fin = null)
+                dateRanges = new Dictionary<string, (DateTime? start, DateTime? end)>
+                {
+                    { "e.created_at", (DateTimePicker1.Value.Date, null) }
+                };
+            }
+            else
+            {
+                // Si hay un rango de fechas válido → BETWEEN start AND end
+                dateRanges = new Dictionary<string, (DateTime? start, DateTime? end)>
+                {
+                    { "e.created_at", (DateTimePicker1.Value.Date, DateTimePicker2.Value.Date) }
+                };
+            }
+
+
+            var fecha = dateRanges;
+            // Ejecuta el filtro en un hilo separado para no bloquear la UI
+            var result = await Task.Run(() => _expenseAppService.FilterAsync(filters, search, dateRanges));
+
+
+            // Reactiva el repintado y asigna el resultado
+            _listExpense = new BindingList<ExpenseDto>(result);
+            DataGridView.DataSource = _listExpense;
+
+            LabelTotal.Text = _listExpense.Sum(x => x.Amount).ToString("N2");
+            //DataGridView.TranslateEnumColumns("MadeIn", "PaymentMethod");
+
+            // Traducir solo las columnas de enum
+            //LoadPolicyStatusChart();
+            //// Para Label: 
+            //int totalPolicyFiltered = filterByPayStatus.Count;
+            //TotalPolicyFiltered.Text = $"Total de pólizas filtradas: {totalPolicyFiltered}";
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Error al filtrar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        finally
+        {
+            // Reanuda el pintado del DataGridView
+            DataGridView.ResumeLayout();
+        }
+    }
+    private async void InvokeIncomeFilterAsync(bool incomeFilter)
+    {
+        try
+        {
+            ClearMessageErr();
+            // Detiene el repintado del DataGridView temporalmente _expenseAppService
+            DataGridView.SuspendLayout();
+            DataGridView.DataSource = null;
+
+            var filters = new Dictionary<string, object?>();
+
+            if (incomeFilter)
+            {
+                if (ComboBoxPaymentMethods.SelectedValue != null && ComboBoxPaymentMethods.SelectedValue.ToString() != "[Todas]")
+                    filters["payment_method"] = ComboBoxPaymentMethods.SelectedValue!.ToString();
+
+                if (ComboBoxIncomeTypes.SelectedValue != null && ComboBoxIncomeTypes.SelectedValue.ToString() != "[Todas]")
+                    filters["income_type"] = ComboBoxIncomeTypes.SelectedValue!.ToString();
+
+                if (ComboBoxIncomeMadeIn.SelectedValue != null && ComboBoxIncomeMadeIn.SelectedValue.ToString() != "[Todas]")
+                    filters["made_in"] = ComboBoxIncomeMadeIn.SelectedValue!.ToString();
+                 
+            }
+          
 
             var searchText = TextBoxSearch.Text.Trim();
             var search = new Dictionary<string, object?>
@@ -104,11 +264,8 @@ public partial class FrmCashDashboardView : Form
                 };
             }
 
-
-
             // Ejecuta el filtro en un hilo separado para no bloquear la UI
             var result = await Task.Run(() => _incomeAppServices.FilterAsync(filters, search, dateRanges));
-
 
             // Reactiva el repintado y asigna el resultado
             _list = new BindingList<IncomeDto>(result);
@@ -116,11 +273,16 @@ public partial class FrmCashDashboardView : Form
 
             DataGridView.TranslateEnumColumns("MadeIn", "PaymentMethod");
 
+            DataGridView.Refresh();
+
+            LabelTotal.Text = _list.Sum(x => x.Amount).ToString("N2");
+
+
             // Traducir solo las columnas de enum
-            //LoadPolicyStatusChart();
-            //// Para Label: 
-            //int totalPolicyFiltered = filterByPayStatus.Count;
-            //TotalPolicyFiltered.Text = $"Total de pólizas filtradas: {totalPolicyFiltered}";
+            // LoadPolicyStatusChart();
+            // Para Label: 
+            // int totalPolicyFiltered = filterByPayStatus.Count;
+            // TotalPolicyFiltered.Text = $"Total de pólizas filtradas: {totalPolicyFiltered}";
         }
         catch (Exception ex)
         {
@@ -143,8 +305,7 @@ public partial class FrmCashDashboardView : Form
                 PrintColumnView = true,
                 PrintColumnName = "IMPRIMIR",
             });
-            // Set custom columns
-            FormatingDGColumns.Apply(DataGridView);
+
         }
         catch (Exception ex)
         {
@@ -251,7 +412,11 @@ public partial class FrmCashDashboardView : Form
         if (_isChangeValueControl)
         {
             _isChangeValueControl = false;
-            InvokeFilterAsync();
+            PanelIncomeFilter.Visible = false;
+            InvokeFilterAsync(FilterBy.Text);
+
+            if (FilterBy.Text == "Ingresos")
+                PanelIncomeFilter.Visible = true;
         }
     }
 
@@ -270,7 +435,7 @@ public partial class FrmCashDashboardView : Form
     private void TextBoxSearch_KeyDown(object sender, KeyEventArgs e)
     {
         if (e.KeyCode == Keys.Enter)
-            InvokeFilterAsync();
+            InvokeFilterAsync(FilterBy.Text);
     }
     #endregion
 
@@ -278,8 +443,8 @@ public partial class FrmCashDashboardView : Form
     private void BtnOtherIncome_Click(object sender, EventArgs e)
     {
         var frmOtherIncomeView = _formFactory.CreateFormFactory<FrmOtherIncomeView>();
-         
-        if(frmOtherIncomeView.ShowDialog() == DialogResult.OK)
+
+        if (frmOtherIncomeView.ShowDialog() == DialogResult.OK)
         {
             _isChangeValueControl = true;
             TextBoxSearch.Focus();
@@ -293,6 +458,7 @@ public partial class FrmCashDashboardView : Form
         if (frmOtherIncomeView.ShowDialog() == DialogResult.OK)
         {
             _isChangeValueControl = true;
+            FilterBy.Text = "Gastos";
             TextBoxSearch.Focus();
         }
     }
@@ -315,7 +481,7 @@ public partial class FrmCashDashboardView : Form
             if (MessageBox.Show("¿Seguro que desea borrar el registro?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 await _incomeAppServices.DeleteAsync(incomeId);
-                InvokeFilterAsync();
+                InvokeFilterAsync(FilterBy.Text);
             }
 
         }
@@ -329,7 +495,12 @@ public partial class FrmCashDashboardView : Form
 
         }
     }
+
     #endregion
 
 
+    private void BtnIncomeFilter_Click(object sender, EventArgs e)
+    {
+        InvokeIncomeFilterAsync(true);
+    }
 }

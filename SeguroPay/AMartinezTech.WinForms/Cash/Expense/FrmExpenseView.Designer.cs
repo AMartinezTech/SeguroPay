@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             PanelAlertMessage = new Panel();
             LabelAlertMessage = new Label();
             PanelLineTop = new Panel();
@@ -35,16 +36,17 @@
             LabelTitle = new Label();
             PanelLineButtom = new Panel();
             CbExpenseCategory = new ComboBox();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            BtnClear = new FontAwesome.Sharp.IconButton();
+            TextBoxAmount = new TextBox();
+            TextBoxNote = new TextBox();
             BtnPersistence = new FontAwesome.Sharp.IconButton();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
             BtnExpenseCategory = new FontAwesome.Sharp.IconButton();
+            errorProvider1 = new ErrorProvider(components);
             PanelAlertMessage.SuspendLayout();
             PanelButtom.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // PanelAlertMessage
@@ -53,7 +55,7 @@
             PanelAlertMessage.Dock = DockStyle.Top;
             PanelAlertMessage.Location = new Point(0, 0);
             PanelAlertMessage.Name = "PanelAlertMessage";
-            PanelAlertMessage.Size = new Size(307, 35);
+            PanelAlertMessage.Size = new Size(410, 35);
             PanelAlertMessage.TabIndex = 2;
             // 
             // LabelAlertMessage
@@ -71,16 +73,16 @@
             PanelLineTop.Dock = DockStyle.Top;
             PanelLineTop.Location = new Point(0, 35);
             PanelLineTop.Name = "PanelLineTop";
-            PanelLineTop.Size = new Size(307, 2);
+            PanelLineTop.Size = new Size(410, 2);
             PanelLineTop.TabIndex = 3;
             // 
             // PanelButtom
             // 
             PanelButtom.Controls.Add(LabelTitle);
             PanelButtom.Dock = DockStyle.Bottom;
-            PanelButtom.Location = new Point(0, 415);
+            PanelButtom.Location = new Point(0, 389);
             PanelButtom.Name = "PanelButtom";
-            PanelButtom.Size = new Size(307, 35);
+            PanelButtom.Size = new Size(410, 35);
             PanelButtom.TabIndex = 11;
             // 
             // LabelTitle
@@ -96,9 +98,9 @@
             // PanelLineButtom
             // 
             PanelLineButtom.Dock = DockStyle.Bottom;
-            PanelLineButtom.Location = new Point(0, 413);
+            PanelLineButtom.Location = new Point(0, 387);
             PanelLineButtom.Name = "PanelLineButtom";
-            PanelLineButtom.Size = new Size(307, 2);
+            PanelLineButtom.Size = new Size(410, 2);
             PanelLineButtom.TabIndex = 10;
             // 
             // CbExpenseCategory
@@ -110,36 +112,21 @@
             CbExpenseCategory.TabIndex = 1;
             CbExpenseCategory.SelectedIndexChanged += CbExpenseCategory_SelectedIndexChanged;
             // 
-            // textBox1
+            // TextBoxAmount
             // 
-            textBox1.Location = new Point(11, 128);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(184, 23);
-            textBox1.TabIndex = 3;
-            textBox1.TextChanged += textBox1_TextChanged;
+            TextBoxAmount.Location = new Point(216, 73);
+            TextBoxAmount.Name = "TextBoxAmount";
+            TextBoxAmount.Size = new Size(165, 23);
+            TextBoxAmount.TabIndex = 3;
+            TextBoxAmount.TextChanged += TextBoxAmount_TextChanged;
             // 
-            // textBox2
+            // TextBoxNote
             // 
-            textBox2.Location = new Point(10, 182);
-            textBox2.Multiline = true;
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(250, 97);
-            textBox2.TabIndex = 5;
-            // 
-            // BtnClear
-            // 
-            BtnClear.Cursor = Cursors.Hand;
-            BtnClear.IconChar = FontAwesome.Sharp.IconChar.File;
-            BtnClear.IconColor = Color.Black;
-            BtnClear.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnClear.Location = new Point(11, 293);
-            BtnClear.Name = "BtnClear";
-            BtnClear.Size = new Size(85, 85);
-            BtnClear.TabIndex = 6;
-            BtnClear.Text = "&Limpiar";
-            BtnClear.TextImageRelation = TextImageRelation.ImageAboveText;
-            BtnClear.UseVisualStyleBackColor = true;
-            BtnClear.Click += BtnClear_Click;
+            TextBoxNote.Location = new Point(11, 117);
+            TextBoxNote.Multiline = true;
+            TextBoxNote.Name = "TextBoxNote";
+            TextBoxNote.Size = new Size(371, 172);
+            TextBoxNote.TabIndex = 5;
             // 
             // BtnPersistence
             // 
@@ -147,7 +134,7 @@
             BtnPersistence.IconChar = FontAwesome.Sharp.IconChar.Save;
             BtnPersistence.IconColor = Color.Black;
             BtnPersistence.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnPersistence.Location = new Point(176, 293);
+            BtnPersistence.Location = new Point(296, 294);
             BtnPersistence.Name = "BtnPersistence";
             BtnPersistence.Size = new Size(85, 85);
             BtnPersistence.TabIndex = 7;
@@ -168,7 +155,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(11, 110);
+            label2.Location = new Point(216, 55);
             label2.Name = "label2";
             label2.Size = new Size(43, 15);
             label2.TabIndex = 2;
@@ -177,7 +164,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(12, 164);
+            label3.Location = new Point(13, 99);
             label3.Name = "label3";
             label3.Size = new Size(59, 15);
             label3.TabIndex = 4;
@@ -185,35 +172,41 @@
             // 
             // BtnExpenseCategory
             // 
+            BtnExpenseCategory.Cursor = Cursors.Hand;
+            BtnExpenseCategory.FlatAppearance.BorderSize = 0;
+            BtnExpenseCategory.FlatStyle = FlatStyle.Flat;
             BtnExpenseCategory.IconChar = FontAwesome.Sharp.IconChar.PlusSquare;
             BtnExpenseCategory.IconColor = Color.Black;
             BtnExpenseCategory.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnExpenseCategory.IconSize = 32;
-            BtnExpenseCategory.Location = new Point(201, 67);
+            BtnExpenseCategory.Location = new Point(163, 46);
             BtnExpenseCategory.Name = "BtnExpenseCategory";
-            BtnExpenseCategory.Size = new Size(32, 32);
+            BtnExpenseCategory.Size = new Size(32, 33);
             BtnExpenseCategory.TabIndex = 12;
             BtnExpenseCategory.UseVisualStyleBackColor = true;
             BtnExpenseCategory.Click += BtnExpenseCategory_Click;
+            // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
             // 
             // FrmExpenseView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(307, 450);
-            Controls.Add(BtnExpenseCategory);
+            ClientSize = new Size(410, 424);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(BtnPersistence);
-            Controls.Add(BtnClear);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(TextBoxNote);
+            Controls.Add(TextBoxAmount);
             Controls.Add(CbExpenseCategory);
             Controls.Add(PanelLineButtom);
             Controls.Add(PanelButtom);
             Controls.Add(PanelLineTop);
             Controls.Add(PanelAlertMessage);
+            Controls.Add(BtnExpenseCategory);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -226,6 +219,7 @@
             PanelAlertMessage.PerformLayout();
             PanelButtom.ResumeLayout(false);
             PanelButtom.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -239,13 +233,13 @@
         private Label LabelTitle;
         private Panel PanelLineButtom;
         private ComboBox CbExpenseCategory;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private FontAwesome.Sharp.IconButton BtnClear;
+        private TextBox TextBoxAmount;
+        private TextBox TextBoxNote;
         private FontAwesome.Sharp.IconButton BtnPersistence;
         private Label label1;
         private Label label2;
         private Label label3;
         private FontAwesome.Sharp.IconButton BtnExpenseCategory;
+        private ErrorProvider errorProvider1;
     }
 }

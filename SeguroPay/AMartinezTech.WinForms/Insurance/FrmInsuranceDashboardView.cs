@@ -1,7 +1,5 @@
-﻿using AMartinezTech.Application.Insurance;
-using AMartinezTech.Application.Setting.User;
-using AMartinezTech.WinForms.Insurance.Utils;
-using AMartinezTech.WinForms.Settings.User;
+﻿using AMartinezTech.Application.Insurance; 
+using AMartinezTech.WinForms.Insurance.Utils; 
 using AMartinezTech.WinForms.Utils;
 using System.ComponentModel;
 

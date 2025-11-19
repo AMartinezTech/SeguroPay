@@ -191,8 +191,8 @@ public partial class FrmPolicyDashboardView : Form
                 Value = e,
                 Text = e.GetDisplayName()
             })
-            .ToList();
-        //statuses.Insert(0, item: new { Value = (PolicyTypes)"All", Text = "[Todas]" });
+            .ToList(); 
+
         PolicyType.DataSource = statuses;
         PolicyType.DisplayMember = "Text";
         PolicyType.ValueMember = "Value";

@@ -29,10 +29,11 @@ public class ExpenseReadRepository(string connectionString) : AdoRepositoryBase(
                            e.amount,
                            e.note,
                            e.is_active,
-                           ec.name AS category_name
+                           ec.name AS category_name,
+                           e.created_by
                         FROM expenses e 
                         LEFT JOIN expense_categories ec ON e.category_id = ec.id
-                        {whereClause} ORDER BY i.created_at DESC;";
+                        {whereClause} ORDER BY e.created_at DESC;";
             cmd.CommandText = sql;
 
             using var reader = await cmd.ExecuteReaderAsync();
@@ -60,10 +61,11 @@ public class ExpenseReadRepository(string connectionString) : AdoRepositoryBase(
                            e.amount,
                            e.note,
                            e.is_active,
-                           ec.name AS category_name
+                           ec.name AS category_name,
+                           e.created_by
                         FROM expenses e 
                         LEFT JOIN expense_categories ec ON e.category_id = ec.id
-                        WHERE e.id = @Id ORDER BY i.created_at DESC;";
+                        WHERE e.id = @Id;";
             cmd.CommandText = sql;
 
             using var reader = await cmd.ExecuteReaderAsync();

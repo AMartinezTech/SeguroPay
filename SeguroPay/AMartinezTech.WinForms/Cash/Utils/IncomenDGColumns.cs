@@ -2,13 +2,14 @@
 
 namespace AMartinezTech.WinForms.Cash.Utils;
 
-internal class FormatingDGColumns
+internal class IncomenDGColumns
 {
-    public static void Apply(DataGridView dataGridView)
+    internal static void Apply(DataGridView dataGridView)
     {
         //Desable aut generate columns
         dataGridView.AutoGenerateColumns = false;
 
+        dataGridView.Columns.Clear(); // <-- limpiar columnas antes de aplicar
 
 
         // Add columns
@@ -23,6 +24,7 @@ internal class FormatingDGColumns
 
         };
         dataGridView.Columns.Add(Id);
+        dataGridView.Columns["Id"]!.Visible = false;
 
         var CreatedAt = new DataGridViewTextBoxColumn
         {
@@ -38,7 +40,7 @@ internal class FormatingDGColumns
         var PaymentMethod = new DataGridViewTextBoxColumn
         {
             Name = "PaymentMethod",
-            HeaderText = "Metódo de pago",
+            HeaderText = "MÉTODO DE PAGO",
             DataPropertyName = "PaymentMethod", // Vincula con la propiedad del resultado
             Width = 150,
             DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft }
@@ -72,7 +74,7 @@ internal class FormatingDGColumns
         var MadeIn = new DataGridViewTextBoxColumn
         {
             Name = "MadeIn",
-            HeaderText = "Realizado en",
+            HeaderText = "REALIZADO EN",
             DataPropertyName = "MadeIn", // Vincula con la propiedad del resultado
             Width = 150,
             DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft }
@@ -83,7 +85,7 @@ internal class FormatingDGColumns
         var TypeName = new DataGridViewTextBoxColumn
         {
             Name = "TypeName",
-            HeaderText = "Tipo de ingreso",
+            HeaderText = "TIPO",
             DataPropertyName = "TypeName", // Vincula con la propiedad del resultado
             Width = 150,
             DefaultCellStyle = { Alignment = DataGridViewContentAlignment.MiddleLeft }

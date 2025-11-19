@@ -8,4 +8,4 @@ public enum IncomeTypes
     Insured,
     [Display(Name = "Accesoría")]
     Accessory
-}
+} 

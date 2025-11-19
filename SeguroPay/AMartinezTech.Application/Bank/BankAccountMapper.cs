@@ -1,6 +1,6 @@
-﻿using AMartinezTech.Domain.Bank.Account;
+﻿using AMartinezTech.Domain.Bank;
 
-namespace AMartinezTech.Application.Bank.Account;
+namespace AMartinezTech.Application.Bank;
 
 internal class BankAccountMapper
 {
@@ -16,6 +16,17 @@ internal class BankAccountMapper
             ContactName = entity.ContactName ?? string.Empty,
             ContactPhone = entity.ContactPhone ?? string.Empty,
             IsActive = entity.IsActive,
+            Movements = [.. entity.Movements.Select(x => new BankAccountMovementDto
+            {
+                Id = x.Id,
+                BankAccountId = x.BankAccountId,
+                CreatedAt = x.CreatedAt,
+                MovementTypes = x.MovementTypes.ToString(),
+                Amount = x.Amount,
+                Description = x.Description ?? string.Empty,
+                CreatedBy = x.CreatedBy,
+                CreatedByName = x.CreatedByName,
+            })]
         };
     }
 

@@ -23,7 +23,7 @@ public class ExpenseAppService(IExpenseReadRepository readRepository, IExpenseWr
         return new PageResult<ExpenseDto>(result.TotalRecords, pageSize, dtoList);
     }
 
-    public async Task<List<ExpenseDto>> FilterASync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? search = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
+    public async Task<List<ExpenseDto>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? search = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
     {
         var result = await _repository.FilterAsync(filters, search, dateRanges);
         return ExpenseMapper.ToDtoList(result);
@@ -31,7 +31,7 @@ public class ExpenseAppService(IExpenseReadRepository readRepository, IExpenseWr
 
     public async Task<ExpenseDto> GetByIdAsync(Guid id)
     {
-        var result = await _repository.GetByIdAsync(id) ?? throw new ValidationException($" {ErrorMessages.Get(ErrorType.RecordDoesDotExist)} - Expense "); ;
+        var result = await _repository.GetByIdAsync(id) ?? throw new ValidationException($" {ErrorMessages.Get(ErrorType.RecordDoesDotExist)} - Expense "); 
         return ExpenseMapper.ToDto(result);
     }
     #endregion

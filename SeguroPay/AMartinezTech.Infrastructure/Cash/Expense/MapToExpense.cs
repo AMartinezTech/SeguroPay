@@ -14,7 +14,7 @@ internal class MapToExpense
                   reader.GetDecimal(reader.GetOrdinal("amount")),
                   reader.GetString(reader.GetOrdinal("note")),
                   reader.GetBoolean(reader.GetOrdinal("is_active")),
-                  reader.GetGuid(reader.GetOrdinal("category_by")));
+                  reader.GetGuid(reader.GetOrdinal("created_by")));
 
         entity.SetCategoryName(reader.GetString(reader.GetOrdinal("category_name")));
 

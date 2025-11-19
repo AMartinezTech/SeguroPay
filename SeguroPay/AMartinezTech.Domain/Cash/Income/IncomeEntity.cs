@@ -6,7 +6,7 @@ using AMartinezTech.Domain.Utils.Interfaces;
 namespace AMartinezTech.Domain.Cash.Income;
 
 public class IncomeEntity : IAggregateRoot
-{
+{ 
     public Guid Id { get; private set; }
     public DateTime PaymentDate { get; private set; }
     public DateTime CreatedAt { get; private set; }

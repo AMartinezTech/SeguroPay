@@ -12,7 +12,10 @@ public class IncomeReadRepository(string connectionString) : AdoRepositoryBase(c
 {
     public async Task<IReadOnlyList<IncomeEntity>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? search = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
     {
-        var result = new List<IncomeEntity>();
+
+        try
+        {
+            var result = new List<IncomeEntity>();
         using (var conn = GetConnection())
         {
             await conn.OpenAsync();
@@ -54,6 +57,15 @@ public class IncomeReadRepository(string connectionString) : AdoRepositoryBase(c
                 result.Add(MapToIncome.ToEntity(reader));
         }
         return result;
+        }
+        catch (SqlException ex)
+        {
+            var messaje = SqlErrorMapper.Map(ex);
+            throw new DatabaseException(messaje);
+        }
+        catch (Exception ex) { 
+            throw new DatabaseException(ex.Message); 
+        }
     }
 
     public async Task<IncomeEntity?> GetByIdAsync(Guid id)

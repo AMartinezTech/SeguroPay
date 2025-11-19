@@ -11,6 +11,7 @@ internal class ExpenseMapper
             Id = entity.Id,
             CreatedAt = entity.CreatedAt,
             CategoryId = entity.CategoryId.Value,
+            CategoryName = entity.CategoryName ?? string.Empty,
             Amount = entity.Amount.Value,
             Note = entity.Note ?? string.Empty,
             IsActive = entity.IsActive,
