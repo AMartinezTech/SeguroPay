@@ -10,6 +10,16 @@ public class BankAccountAppService(IBankAccountReadRepository readRepository, IB
     private readonly IBankAccountWriteRepository _writerRepository = writerRepository;
 
     #region "Read"
+    public async Task<BankAccountDto> GetByIdAsync(Guid id)
+    {
+        var result = await _readRepository.GetByIdAsync(id);
+        return BankAccountMapper.ToDto(result);
+    }
+    public async Task<List<BankAccountDto>> FilterAsync(Dictionary<string, object?>? filters = null, Dictionary<string, object?>? search = null, Dictionary<string, (DateTime? start, DateTime? end)>? dateRanges = null)
+    {
+        var result = await _readRepository.FilterAsync(filters, search, dateRanges);
+        return BankAccountMapper.ToDtoList(result);
+    }
     #endregion
 
     #region "Write"

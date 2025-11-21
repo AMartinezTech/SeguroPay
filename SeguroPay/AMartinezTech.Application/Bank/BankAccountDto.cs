@@ -10,5 +10,6 @@ public class BankAccountDto
     public string? ContactName { get; set; }
     public string? ContactPhone { get; set; }
     public bool IsActive { get; set; }
+    public string IsActiveName => IsActive ? "Si" : "No";
     public List<BankAccountMovementDto> Movements { get; set; } = [];
 }

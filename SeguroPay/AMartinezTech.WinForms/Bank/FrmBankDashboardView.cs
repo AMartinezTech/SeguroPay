@@ -1,4 +1,5 @@
-﻿using AMartinezTech.WinForms.Utils;
+﻿using AMartinezTech.WinForms.Bank;
+using AMartinezTech.WinForms.Utils;
 using AMartinezTech.WinForms.Utils.Factories;
 
 namespace AMartinezTech.WinForms;
@@ -40,4 +41,10 @@ public partial class FrmBankDashboardView : Form
 
     }
     #endregion
+
+    private void BtnBankAccount_Click(object sender, EventArgs e)
+    {
+        var frmBankAccount = _formFactory.CreateFormFactory<FrmBankAccount>();
+        frmBankAccount.ShowDialog();
+    }
 }

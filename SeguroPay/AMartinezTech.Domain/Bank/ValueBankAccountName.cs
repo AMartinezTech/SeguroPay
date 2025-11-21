@@ -10,10 +10,10 @@ public class ValueBankAccountName
     private ValueBankAccountName(string value)
     {
         if (string.IsNullOrWhiteSpace(value.Trim()))
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - nombre! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RequiredField)} - Name ");
 
         if (value.Length < 8 || value.Length > 25)
-            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RangeValid)} 8 a 25 - número de cuenta! ");
+            throw new ValidationException($" {ErrorMessages.Get(ErrorType.RangeValid)} 8 a 25 - Name ");
 
         Value = value;
     }

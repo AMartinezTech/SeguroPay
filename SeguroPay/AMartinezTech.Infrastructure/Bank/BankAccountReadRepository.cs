@@ -23,7 +23,7 @@ public class BankAccountReadRepository(string connectionString) : AdoRepositoryB
             var sql = $@"
                         SELECT 
                           *
-                        FROM bank_account  
+                        FROM bank_accounts  
                         {whereClause} ORDER BY created_at DESC;";
             cmd.CommandText = sql;
 
@@ -45,7 +45,7 @@ public class BankAccountReadRepository(string connectionString) : AdoRepositoryB
 
             var sql = @"
                 SELECT *
-                FROM bank_account
+                FROM bank_accounts
                 WHERE id = @Id";
 
             using var cmd = new SqlCommand(sql, conn);

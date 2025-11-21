@@ -234,15 +234,14 @@ CREATE TABLE bank_accounts (
     is_active BIT NOT NULL DEFAULT 1
 );
 
-CREATE TABLE bank_deposits (
+CREATE TABLE bank_account_movements (
     id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
     bank_account_id UNIQUEIDENTIFIER NOT NULL,       -- Relación con BankAccounts
+    created_at DATETIME2 NOT NULL DEFAULT GETDATE(),
 	type NVARCHAR(50) NOT NULL,						-- Tipo de depósito: Efectivo, Cheque, Transferencia, Tarjeta
     amount DECIMAL(18,2) NOT NULL,                 -- Monto del depósito
     date DATETIME2 NOT NULL DEFAULT GETDATE(), -- Fecha del depósito
-    reference NVARCHAR(100) NULL,                  -- No. de recibo, referencia bancaria
-    note NVARCHAR(500) NULL,                       -- Comentario adicional
-    created_at DATETIME2 NOT NULL DEFAULT GETDATE(),
+    description NVARCHAR(500) NULL,                       -- Comentario adicional
     created_by UNIQUEIDENTIFIER NOT NULL,
 
     CONSTRAINT FK_BankDeposits_BankAccounts FOREIGN KEY (bank_account_id)

@@ -207,6 +207,7 @@
             BtnBankAccount.Text = "&Crear cuenta";
             BtnBankAccount.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnBankAccount.UseVisualStyleBackColor = true;
+            BtnBankAccount.Click += BtnBankAccount_Click;
             // 
             // comboBox1
             // 

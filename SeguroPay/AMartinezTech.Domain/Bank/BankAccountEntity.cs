@@ -22,8 +22,7 @@ public class BankAccountEntity : IAggregateRoot
     private readonly List<BankAccountMovement> _movements = [];
     public IReadOnlyCollection<BankAccountMovement> Movements => _movements.AsReadOnly();
 
-   
-
+    
     private BankAccountEntity(Guid id, DateTime createdAt, ValueBankAccountName name, ValueBankAccountNumber number, ValueEnum<BankAccountTypes> type, string? contactName, string? contactPhone, bool isActive)
     {
         Id = id;
