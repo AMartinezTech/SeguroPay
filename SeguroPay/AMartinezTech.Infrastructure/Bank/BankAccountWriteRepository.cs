@@ -56,7 +56,7 @@ public class BankAccountWriteRepository(string connectionString) : AdoRepository
             cmd.Parameters.AddWithValue("@Id", entity.Id);
             cmd.Parameters.AddWithValue("@Name", entity.Name.Value);
             cmd.Parameters.AddWithValue("@Number", entity.Number.Value);
-            cmd.Parameters.AddWithValue("@Type", entity.Type);
+            cmd.Parameters.AddWithValue("@Type", entity.Type.ToString());
             cmd.Parameters.AddWithValue("@ContactName", entity.ContactName ?? string.Empty);
             cmd.Parameters.AddWithValue("@ContactPhone", entity.ContactPhone ?? string.Empty);
             cmd.Parameters.AddWithValue("@IsActive", entity.IsActive); 

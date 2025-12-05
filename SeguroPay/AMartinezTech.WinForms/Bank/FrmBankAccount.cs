@@ -238,7 +238,7 @@ public partial class FrmBankAccount : Form
                 Id = _bankAccountId,
                 Name = TextBoxName.Text.Trim(),
                 Number = TextBoxNumber.Text.Trim(),
-                Type = ComboBoxType.Text.Trim(),
+                Type = ComboBoxType.SelectedValue.ToString(),
                 ContactName = TextBoxContactName.Text.Trim(),
                 ContactPhone = TextBoxContactPhone.Text.Trim(),
                 IsActive = CheckBoxIsActive.Checked

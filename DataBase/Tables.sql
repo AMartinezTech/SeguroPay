@@ -228,7 +228,7 @@ CREATE TABLE bank_accounts (
 	created_at DATETIME2 NOT NULL DEFAULT GETDATE(),
     name NVARCHAR(150) NOT NULL,             -- ValueBankAccountName
     number NVARCHAR(30) NOT NULL UNIQUE,     -- ValueBankAccountNumber
-    type INT NOT NULL,                       -- BankAccountType (Enum)
+    type NVARCHAR(30) NOT NULL,                       -- BankAccountType (Enum)
     contact_name NVARCHAR(150) NULL,
     contact_phone NVARCHAR(20) NULL,
     is_active BIT NOT NULL DEFAULT 1
